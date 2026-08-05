@@ -26,3 +26,9 @@ wp-content/backup-db/
 wp-content/updraft/
 *.zip.tmp
 *.tmp
+
+# Third-party premium plugins
+/wp-content/plugins/advanced-custom-fields-pro/
+
+# WordPress uploads (media) — not tracked in git
+/wp-content/uploads/
