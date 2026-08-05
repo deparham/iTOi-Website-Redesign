@@ -1,0 +1,1351 @@
+{
+    "key": "group_f0b5edf92aed",
+    "title": "Product Page Content",
+    "fields": [
+        {
+            "key": "field_42812cc6dd84",
+            "label": "Page Sections",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_page_sections_fc",
+            "label": "Page sections",
+            "name": "page_sections",
+            "aria-label": "",
+            "type": "flexible_content",
+            "instructions": "Add, remove, and reorder sections to build this product's page. Each section type has its own fields (photos/videos, copy, table rows, etc.). The homepage turnstile card (below, separate tab) is independent of this — it's a short summary shown on the homepage, not one of these sections.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_hero": {
+                    "key": "layout_hero",
+                    "name": "hero",
+                    "label": "Hero",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_9d4ef90f7d4a",
+                            "label": "Eyebrow",
+                            "name": "hero_eyebrow",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Introducing Aurora",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_389bbd7a516a",
+                            "label": "Headline — emphasis (bold)",
+                            "name": "hero_headline_emphasis",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "The sensor behind every insight.",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_7fbeff97a187",
+                            "label": "Headline — muted (soft weight)",
+                            "name": "hero_headline_muted",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Second sentence of the H1, rendered in a visually softer/muted weight for emphasis contrast.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Built to see depth, not faces.",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6415ff34c4ef",
+                            "label": "Lede",
+                            "name": "hero_lede",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 3,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_5754ab79fa95",
+                            "label": "Primary CTA label",
+                            "name": "hero_cta_primary_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Scrolls to the comparison section (#comparison) if one exists on this page.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "See how it compares",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_bc130244e150",
+                            "label": "Secondary CTA label",
+                            "name": "hero_cta_secondary_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Scrolls to the specifications section (#specs) if one exists on this page.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "View specifications",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_ebac13ae49f0",
+                            "label": "Device-stage photo",
+                            "name": "hero_device_photo",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Leave empty to show the honest TODO(photo) placeholder below instead of a stand-in stock photo.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min_width": 0,
+                            "min_height": 0,
+                            "min_size": 0,
+                            "max_width": 0,
+                            "max_height": 0,
+                            "max_size": 0,
+                            "mime_types": ""
+                        },
+                        {
+                            "key": "field_4ab3a1e81e54",
+                            "label": "Device-stage video",
+                            "name": "hero_device_video",
+                            "aria-label": "",
+                            "type": "file",
+                            "instructions": "Optional, takes priority over the photo above.",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_size": 0,
+                            "max_size": 0,
+                            "mime_types": "mp4,webm,mov"
+                        },
+                        {
+                            "key": "field_2b0482f3ba00",
+                            "label": "Device-stage placeholder caption",
+                            "name": "hero_device_placeholder_caption",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "Shown only when neither the photo nor video above is set.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 3,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_stat_strip": {
+                    "key": "layout_stat_strip",
+                    "name": "stat_strip",
+                    "label": "Stat Strip",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_df4065b80d0a",
+                            "label": "Stat items",
+                            "name": "stat_items",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Border-divided row, 2-4 items work best.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 1,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_40eb685acd87",
+                            "sub_fields": [
+                                {
+                                    "key": "field_40eb685acd87",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_df4065b80d0a"
+                                },
+                                {
+                                    "key": "field_038e0db339ab",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "rows": 2,
+                                    "default_value": "",
+                                    "new_lines": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "parent_repeater": "field_df4065b80d0a"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_how_it_works": {
+                    "key": "layout_how_it_works",
+                    "name": "how_it_works",
+                    "label": "How It Works",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_bb270751dcb8",
+                            "label": "Eyebrow",
+                            "name": "how_it_works_eyebrow",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "How it works",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_99b6122ee5a2",
+                            "label": "Headline",
+                            "name": "how_it_works_headline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "From real depth to a ready dashboard.",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_61a5524f0bac",
+                            "label": "Steps",
+                            "name": "how_it_works_steps",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Numbered step cards, in order.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 1,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_8a98b6025274",
+                            "sub_fields": [
+                                {
+                                    "key": "field_8a98b6025274",
+                                    "label": "Step name",
+                                    "name": "step_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                },
+                                {
+                                    "key": "field_3f7d82ae054d",
+                                    "label": "Step description",
+                                    "name": "step_description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "rows": 3,
+                                    "default_value": "",
+                                    "new_lines": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                },
+                                {
+                                    "key": "field_c323831ba15e",
+                                    "label": "Visual type",
+                                    "name": "step_visual_type",
+                                    "aria-label": "",
+                                    "type": "select",
+                                    "instructions": "Controls only the TODO(...) label shown when no real photo/video is uploaded below.",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": {
+                                        "photo": "Photo",
+                                        "illustration": "Illustration"
+                                    },
+                                    "default_value": "photo",
+                                    "return_format": "value",
+                                    "multiple": 0,
+                                    "allow_null": 0,
+                                    "ui": 0,
+                                    "ajax": 0,
+                                    "placeholder": "",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                },
+                                {
+                                    "key": "field_9d319ee4d218",
+                                    "label": "Step visual — photo",
+                                    "name": "step_visual_photo",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "Leave empty to show the honest TODO placeholder.",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "id",
+                                    "preview_size": "medium",
+                                    "library": "all",
+                                    "min_width": 0,
+                                    "min_height": 0,
+                                    "min_size": 0,
+                                    "max_width": 0,
+                                    "max_height": 0,
+                                    "max_size": 0,
+                                    "mime_types": "",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                },
+                                {
+                                    "key": "field_08e0398da40a",
+                                    "label": "Step visual — video",
+                                    "name": "step_visual_video",
+                                    "aria-label": "",
+                                    "type": "file",
+                                    "instructions": "Optional, takes priority over the photo above.",
+                                    "required": 0,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "min_size": 0,
+                                    "max_size": 0,
+                                    "mime_types": "mp4,webm,mov",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                },
+                                {
+                                    "key": "field_9afef761c50b",
+                                    "label": "Step visual placeholder caption",
+                                    "name": "step_visual_placeholder_caption",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "Shown only when neither the photo nor video above is set.",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "rows": 3,
+                                    "default_value": "",
+                                    "new_lines": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "parent_repeater": "field_61a5524f0bac"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_comparison": {
+                    "key": "layout_comparison",
+                    "name": "comparison",
+                    "label": "Comparison Table",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_cd3657db075e",
+                            "label": "Eyebrow",
+                            "name": "comparison_eyebrow",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "See the difference",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_1ecc6c79e76e",
+                            "label": "Headline",
+                            "name": "comparison_headline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Trust the data.",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_912c73ac0c59",
+                            "label": "Intro",
+                            "name": "comparison_intro",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 2,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_a2d3f6ea1152",
+                            "label": "Column A label",
+                            "name": "comparison_column_a_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Left comparison column header, e.g. the legacy/competing approach.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "2D Camera",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_f68fe6be65cb",
+                            "label": "Column B label",
+                            "name": "comparison_column_b_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Right comparison column header, e.g. this product's name — leave blank to default to the product's title.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_d47dfb9add49",
+                            "label": "Rows",
+                            "name": "comparison_rows",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 1,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_fba5e48c4b88",
+                            "sub_fields": [
+                                {
+                                    "key": "field_fba5e48c4b88",
+                                    "label": "Row label",
+                                    "name": "row_label",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_d47dfb9add49"
+                                },
+                                {
+                                    "key": "field_0ec016e7982c",
+                                    "label": "Column A — headline",
+                                    "name": "column_a_headline",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_d47dfb9add49"
+                                },
+                                {
+                                    "key": "field_32646936775c",
+                                    "label": "Column A — description",
+                                    "name": "column_a_description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "rows": 2,
+                                    "default_value": "",
+                                    "new_lines": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "parent_repeater": "field_d47dfb9add49"
+                                },
+                                {
+                                    "key": "field_caaad22671c7",
+                                    "label": "Column B — headline",
+                                    "name": "column_b_headline",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_d47dfb9add49"
+                                },
+                                {
+                                    "key": "field_0ad7d4b53bf2",
+                                    "label": "Column B — description",
+                                    "name": "column_b_description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "rows": 2,
+                                    "default_value": "",
+                                    "new_lines": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "parent_repeater": "field_d47dfb9add49"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_e04adfcab373",
+                            "label": "Compliance/trust callout",
+                            "name": "comparison_callout",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "Optional. Rendered with a “Read our Privacy Policy” link appended (links to /privacy/).",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 3,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_specifications": {
+                    "key": "layout_specifications",
+                    "name": "specifications",
+                    "label": "Specifications",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_464f5e25e4e8",
+                            "label": "Eyebrow",
+                            "name": "specs_eyebrow",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "What's inside",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_cfbd15e279e6",
+                            "label": "Headline",
+                            "name": "specs_headline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Specifications",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_705c377ac294",
+                            "label": "Pending-confirmation note",
+                            "name": "specs_pending_note",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Optional. When set, rendered as a visible on-page flag above the spec grid — must stay honest, not just an admin note.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_c407bc91976b",
+                            "label": "Spec cells",
+                            "name": "specs",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 1,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_00d0b39c6d37",
+                            "sub_fields": [
+                                {
+                                    "key": "field_00d0b39c6d37",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_c407bc91976b"
+                                },
+                                {
+                                    "key": "field_113c561b1a41",
+                                    "label": "Value",
+                                    "name": "value",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_c407bc91976b"
+                                },
+                                {
+                                    "key": "field_c9c9cb11008b",
+                                    "label": "Draft (unconfirmed)",
+                                    "name": "is_draft",
+                                    "aria-label": "",
+                                    "type": "true_false",
+                                    "instructions": "Shows a “(draft)” tag next to the value when checked.",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "message": "",
+                                    "default_value": 0,
+                                    "ui": 1,
+                                    "ui_on_text": "",
+                                    "ui_off_text": "",
+                                    "parent_repeater": "field_c407bc91976b"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_use_cases": {
+                    "key": "layout_use_cases",
+                    "name": "use_cases",
+                    "label": "Use Cases",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_16a634c33ab0",
+                            "label": "Heading",
+                            "name": "use_cases_heading",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "One sensor, every space",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_ef2bd2cc6cbc",
+                            "label": "Intro",
+                            "name": "use_cases_intro",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 2,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_cc039cfc06ea",
+                            "label": "Chips",
+                            "name": "use_case_chips",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Short use-case labels, rendered as a chip strip.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 1,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_9692e4eb2b30",
+                            "sub_fields": [
+                                {
+                                    "key": "field_9692e4eb2b30",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_cc039cfc06ea"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_f3957852d8a1",
+                            "label": "Capabilities line label",
+                            "name": "use_cases_capabilities_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "e.g. “One sensor, three capabilities:” — leave blank to hide the whole capabilities line.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_905ed63ec21a",
+                            "label": "Capabilities",
+                            "name": "use_cases_capabilities",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "button_label": "Add row",
+                            "min": 0,
+                            "max": 0,
+                            "rows_per_page": 20,
+                            "collapsed": "field_ae00e973de76",
+                            "sub_fields": [
+                                {
+                                    "key": "field_ae00e973de76",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": false,
+                                    "conditional_logic": false,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_905ed63ec21a"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_final_cta": {
+                    "key": "layout_final_cta",
+                    "name": "final_cta",
+                    "label": "Final CTA",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_98d4ebf6d5cc",
+                            "label": "Headline",
+                            "name": "final_cta_headline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "See it on your own floor plan.",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_3707c6975413",
+                            "label": "Text",
+                            "name": "final_cta_text",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "rows": 2,
+                            "default_value": "",
+                            "new_lines": "",
+                            "maxlength": "",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_fb2ba76ca8a6",
+                            "label": "Button label",
+                            "name": "final_cta_button_label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Links to /contact/.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Get demo",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add section",
+            "min": "",
+            "max": ""
+        },
+        {
+            "key": "field_a92fc464f1c0",
+            "label": "Homepage Turnstile Card",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_fe2cad583061",
+            "label": "Eyebrow",
+            "name": "teaser_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Introducing Aurora",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_76be923a247f",
+            "label": "Headline (shortened)",
+            "name": "teaser_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "The sensor behind every insight.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7cf632322df3",
+            "label": "Supporting line",
+            "name": "teaser_supporting_line",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_d056c9dfcd0b",
+            "label": "Teaser photo",
+            "name": "teaser_photo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Leave empty to show the honest TODO(photo) placeholder.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_7d910ef734c8",
+            "label": "Teaser video",
+            "name": "teaser_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Optional, takes priority over the photo above.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0,
+            "mime_types": "mp4,webm,mov"
+        },
+        {
+            "key": "field_b53b34266618",
+            "label": "Teaser placeholder caption",
+            "name": "teaser_placeholder_caption",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Product photo — pending",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_905837494c18",
+            "label": "Link label",
+            "name": "teaser_link_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The whole turnstile card links to this product's page regardless — this is just the visible link text.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "See more",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Restructured 2026-07-31 (see NOTES.md, \"Products turnstile + per-product pages\") from a fixed 7-tab layout into a Flexible Content field (“Page sections”) with 7 reusable section types (Hero, Stat Strip, How It Works, Comparison Table, Specifications, Use Cases, Final CTA) so editors can add/remove/reorder a product's page sections in wp-admin. Rendered by single-product.php (/products/{slug}/). The separate “Homepage Turnstile Card” tab (7 fields, unchanged keys from the field group's original 2026-07-30 version) feeds the homepage's “Meet our products” turnstile card for this product — independent of the page sections above.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1785456017
+}

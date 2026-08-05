@@ -1,0 +1,986 @@
+{
+    "key": "group_cb9a360b89a5",
+    "title": "Industry — Long-form Page",
+    "fields": [
+        {
+            "key": "field_fcbe812a0f6c",
+            "label": "Enable long-form page",
+            "name": "longform_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Master toggle for the full below-the-fold long-form structure (sub-nav, Overview, Use Cases, Why ITOI, Solutions, Customers). Off by default — built and tested on Retail only; see NOTES.md before enabling on another industry. When on, this industry's generic “Trusted by” and “Solutions for X” sections are suppressed in favour of the new Solutions\/Customers sections below.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6d14ed11cbb100",
+            "label": "Overview",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6080ce190f3d",
+            "label": "Overview headline",
+            "name": "overview_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Section 1a H2.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Security meets AI-powered intelligence for retail",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_2ec09d9e90f5",
+            "label": "Overview sub-headline",
+            "name": "overview_subheadline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "One line, muted text, under the headline.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Reduce shrink, optimize store performance, and help staff feel safer.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_269b5056b5b7",
+            "label": "Overview visual",
+            "name": "overview_visual",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "TODO(photo): real ITOI product photography or a custom illustration is the long-term goal. TEMPORARY: currently holds a free-licensed generic stock photo from the 2026-07-24 site-wide stock-sourcing follow-up pass (see NOTES.md) — deliberately not a fake product screenshot, since that would misrepresent functionality. Check the attachment's caption in Media Library for source + license, and replace with real ITOI photography/illustration before launch. 16:9.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_da27ba4da68d",
+            "label": "Overview visual caption",
+            "name": "overview_visual_caption",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Illustration — AI detection overlay on retail floor.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_1f7a4d3b8c92",
+            "label": "Overview video",
+            "name": "overview_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Optional. Takes priority over Overview visual above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Overview visual shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0,
+            "mime_types": "mp4,webm,mov"
+        },
+        {
+            "key": "field_9a1c4e6f2b90",
+            "label": "Process diagram steps",
+            "name": "overview_process_diagram_steps",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Optional. 0-4 steps render as an icon-strip diagram below the Overview body text. Leave empty to omit the diagram entirely. See the Style field below for the two available visual treatments.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add step",
+            "min": 0,
+            "max": 4,
+            "rows_per_page": 20,
+            "collapsed": "field_9a1c4e6f2b91",
+            "sub_fields": [
+                {
+                    "key": "field_9a1c4e6f2b91",
+                    "label": "Label (e.g. CAPTURE)",
+                    "name": "step_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9a1c4e6f2b90"
+                },
+                {
+                    "key": "field_9a1c4e6f2b92",
+                    "label": "Caption line",
+                    "name": "step_caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_9a1c4e6f2b90"
+                },
+                {
+                    "key": "field_9a1c4e6f2b93",
+                    "label": "Icon",
+                    "name": "step_icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Fixed set of hand-authored outline icons — same \"stroke=currentColor, no icon library\" convention as the solution-builder\/carousel icons elsewhere on this site, kept consistent rather than an arbitrary upload.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "camera-pos": "Camera + POS",
+                        "processor-node": "Processor \/ node",
+                        "dashboard-arrow": "Dashboard + trend arrow",
+                        "shield": "Shield",
+                        "database": "Database",
+                        "network": "Network",
+                        "floor-plan-nodes": "Floor plan + connection nodes",
+                        "switch-poe": "Network switch + PoE",
+                        "lifecycle-shield": "Lifecycle refresh + shield",
+                        "headset-clock": "Support headset + clock"
+                    },
+                    "default_value": "camera-pos",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_9a1c4e6f2b90"
+                },
+                {
+                    "key": "field_9a1c4e6f2b94",
+                    "label": "Teal accent (terminal step)",
+                    "name": "step_accent",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Check for the final\/outcome step only (e.g. ACT) to show it in the brand teal accent instead of plain ink. Only used in the \"Line connectors\" style below — ignored in \"Dot connectors\" style, which keeps every icon the same color.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_9a1c4e6f2b90"
+                }
+            ]
+        },
+        {
+            "key": "field_3d5f7b9c2e06",
+            "label": "Process diagram style",
+            "name": "overview_process_diagram_style",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Visual treatment for the icon strip above.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "lines": "Line connectors, bold labels (default)",
+                "dots": "Dot connectors, regular-weight labels, larger icons"
+            },
+            "default_value": "lines",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6d14ed11cbb4",
+            "label": "Feature rows",
+            "name": "overview_feature_rows",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Alternating two-column rows. Row 1 and 3 render text-left\/visual-right, row 2 renders visual-left\/text-right (computed from position, not stored). 3 rows for Retail.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add feature row",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_19cd96437dda",
+            "sub_fields": [
+                {
+                    "key": "field_19cd96437dda",
+                    "label": "Headline",
+                    "name": "headline",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                },
+                {
+                    "key": "field_6cc35e580f4c",
+                    "label": "Body — paragraph 1",
+                    "name": "body_paragraph_1",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                },
+                {
+                    "key": "field_a9844c40b91a",
+                    "label": "Body — paragraph 2",
+                    "name": "body_paragraph_2",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Leave blank for a single-paragraph row.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                },
+                {
+                    "key": "field_b968bed64f7f",
+                    "label": "Visual",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "TODO(photo): a real screenshot or illustration of this specific capability is the long-term goal. TEMPORARY: currently holds a free-licensed generic stock photo from the 2026-07-24 site-wide stock-sourcing follow-up pass (see NOTES.md) — deliberately a plain real-world photo, not a fabricated UI screenshot, since a fake screenshot would misrepresent an actual product feature. Check the attachment's caption in Media Library for source + license, and replace with a real screenshot/illustration before launch.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                },
+                {
+                    "key": "field_4a8c6e2d9f05",
+                    "label": "Video",
+                    "name": "video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Optional. Takes priority over the Visual image above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (the Visual image shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted.",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": 0,
+                    "max_size": 0,
+                    "mime_types": "mp4,webm,mov",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                },
+                {
+                    "key": "field_385ad9d71de3",
+                    "label": "Visual caption",
+                    "name": "image_caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6d14ed11cbb4"
+                }
+            ]
+        },
+        {
+            "key": "field_5aa1170d270200",
+            "label": "Use Cases",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_85ae363a9563",
+            "label": "Use cases heading",
+            "name": "use_cases_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Just this section's heading text. The actual use-case cards shown below it are managed centrally under Use Cases in the admin sidebar (their own post type, each linked to this industry via its own Industry field) — not edited on this page anymore.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Use cases.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_c2fa8b90b57c00",
+            "label": "Why ITOI",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_c2fa8b90b57c",
+            "label": "Why ITOI heading",
+            "name": "why_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Why ITOI.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_969300d97ca5",
+            "label": "Why ITOI items",
+            "name": "why_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "6 items, ITOI's own differentiators — do not reuse a competitor's specific benefit claims verbatim\/near-verbatim.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add item",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_e2b724ebcf6d",
+            "sub_fields": [
+                {
+                    "key": "field_fadd51be0aeb",
+                    "label": "Icon",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "handshake": "Handshake \/ people",
+                        "shield": "Shield \/ lock",
+                        "viewfinder": "Camera \/ viewfinder",
+                        "headset": "Headset \/ clock",
+                        "plug": "Plug \/ cable",
+                        "layers": "Grid \/ layers"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_969300d97ca5",
+                    "create_options": 0,
+                    "save_options": 0
+                },
+                {
+                    "key": "field_e2b724ebcf6d",
+                    "label": "Headline",
+                    "name": "headline",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_969300d97ca5"
+                },
+                {
+                    "key": "field_365135ee3036",
+                    "label": "Body",
+                    "name": "body",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_969300d97ca5"
+                }
+            ]
+        },
+        {
+            "key": "field_fbea01414600",
+            "label": "Solutions",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_fbea014146b7",
+            "label": "Solutions heading",
+            "name": "solutions_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Explore the solutions behind this",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_e8c870d41cc2",
+            "label": "Solutions (max 4)",
+            "name": "longform_solutions",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "The 3–4 solutions most relevant to this industry. Separate from the base “Related solutions” field so the old generic “Solutions for X” block (suppressed when the long-form page is enabled) never needs to match this curated subset.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "solution"
+            ],
+            "return_format": "id",
+            "taxonomy": [],
+            "min": 0,
+            "max": 4,
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "elements": [],
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_bcfb9467500",
+            "label": "Customers",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_bcfb94675a47",
+            "label": "Customers heading",
+            "name": "customers_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Customers.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_969de5a9676c",
+            "label": "Spotlight client",
+            "name": "spotlight_client",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Drives the case-study spotlight card (5a). Its linked case_study relationship supplies the headline\/permalink\/narrative excerpt.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "client"
+            ],
+            "taxonomy": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "return_format": "id",
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_435cf7ec8105",
+            "label": "Spotlight photo",
+            "name": "spotlight_photo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "TODO(photo): a real photo of this client's site is the long-term goal. TEMPORARY: currently holds a generic, industry-representative stock photo (the same photo used on this client's case-study hero, reused deliberately for consistency) from the 2026-07-24 site-wide stock-sourcing follow-up pass (see NOTES.md) — check \"Spotlight photo is stock\" below whenever this is a stand-in, since this names a specific real client and needs the same on-page disclaimer as the case-study hero. Check the attachment's caption in Media Library for source + license. Play-button overlay is intentionally not part of this build; add only once a real video asset exists (see NOTES.md).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_6f9b3d5e2a17",
+            "label": "Spotlight video",
+            "name": "spotlight_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Optional. Takes priority over Spotlight photo above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Spotlight photo shows instead). The stock-photo disclaimer below only ever applies to the photo, not to an uploaded video. Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. This is the real-video follow-up the Spotlight photo field's own instructions anticipated.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0,
+            "mime_types": "mp4,webm,mov"
+        },
+        {
+            "key": "field_a8d3f0c1e502",
+            "label": "Spotlight photo is stock/representative (not the real client site)",
+            "name": "spotlight_photo_is_stock",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "TEMPORARY: check this while spotlight_photo is a generic stock photo standing in for a real photo of this client's site. When checked, the Customers spotlight card shows a visible \"Representative image\" disclaimer over the photo — same pattern as the Case Study field group's hero_image_is_stock. Uncheck once spotlight_photo is replaced with a real photo of this client.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_9c1e5f2a0001",
+            "label": "Empty-state message (no spotlight, no logo rows)",
+            "name": "customers_empty_message",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Only used when this industry has neither a spotlight client nor any logo-strip rows with real content (e.g. an industry with zero confirmed clients yet) — renders as a plain heading + message + \"Get in touch\" CTA instead of the section silently rendering empty. Leave blank to omit the whole Customers section (and its sub-nav link) for this industry instead.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_7c2a9e14b301",
+            "label": "Logo strip rows (rolling marquees or static badge rows)",
+            "name": "logo_strip_groups",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "One row per client group in Section 5b. Set EITHER \"Category\" (pulls live from that client_category taxonomy term — the right choice when the term's own membership is accurate for this industry, e.g. Retail's Shopping Centres\/Retail Brands) OR \"Clients (manual picks)\" (direct hand-picked clients — the right choice when the only matching taxonomy term also contains unrelated names, e.g. Financial Institutions holding both Macquarie Bank and Armaguard, or when a confirmed client isn't tagged with any term at all, e.g. BP). If Category is set it takes precedence. The template auto-renders a row as a rolling marquee when it resolves to more than 5 names, or a plain static badge row when 5 or fewer (a 1-2 name \"marquee\" loops pointlessly) — no separate field needed for that choice.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add client group",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_7c2a9e14b303",
+            "sub_fields": [
+                {
+                    "key": "field_7c2a9e14b302",
+                    "label": "Category (live taxonomy pull)",
+                    "name": "category",
+                    "aria-label": "",
+                    "type": "taxonomy",
+                    "instructions": "Which client_category term's published clients feed this row. Leave blank and use \"Clients (manual picks)\" below instead if this term's membership doesn't cleanly match this industry.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "taxonomy": "client_category",
+                    "field_type": "select",
+                    "add_term": 0,
+                    "save_terms": 0,
+                    "load_terms": 0,
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "parent_repeater": "field_7c2a9e14b301",
+                    "bidirectional_target": []
+                },
+                {
+                    "key": "field_9c1e5f2a0002",
+                    "label": "Clients (manual picks)",
+                    "name": "clients",
+                    "aria-label": "",
+                    "type": "relationship",
+                    "instructions": "Direct client picks for this row — used only when Category above is left blank. For confirmed real clients whose only shared taxonomy term also includes unrelated names, or clients not tagged with any client_category term at all (PROJECT.md §6).",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "client"
+                    ],
+                    "return_format": "id",
+                    "taxonomy": [],
+                    "min": 0,
+                    "max": 0,
+                    "filters": [
+                        "search"
+                    ],
+                    "elements": [],
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_7c2a9e14b301"
+                },
+                {
+                    "key": "field_7c2a9e14b303",
+                    "label": "Display label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Shown above this marquee row. Independent of the taxonomy term's own name (e.g. term “Shopping Centres”, label “Shopping Centres & Malls”).",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_7c2a9e14b301"
+                },
+                {
+                    "key": "field_7c2a9e14b304",
+                    "label": "Scroll direction",
+                    "name": "direction",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "left": "Left",
+                        "right": "Right"
+                    },
+                    "default_value": "left",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_7c2a9e14b301",
+                    "create_options": 0,
+                    "save_options": 0
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "industry"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "New field group for the below-the-fold long-form page structure (sub-nav + Overview\/Use Cases\/Why ITOI\/Solutions\/Customers). Added 2026-07-21, built and enabled on Retail only — see NOTES.md. Structurally available on every industry (same precedent as the Hero Interaction group) so no code change is needed to extend it later.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1785476544
+}

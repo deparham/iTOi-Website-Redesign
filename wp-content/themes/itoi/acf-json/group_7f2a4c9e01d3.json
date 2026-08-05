@@ -1,0 +1,171 @@
+{
+    "key": "group_7f2a4c9e01d3",
+    "title": "Partners, Not Vendors",
+    "fields": [
+        {
+            "key": "field_5b9e21af7c04",
+            "label": "Section headline",
+            "name": "partners_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Partners, not vendors.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6c1f34bd8e15",
+            "label": "Section intro copy",
+            "name": "partners_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "Our leadership team brings 30+ years of retail operations experience — built on the store floor and in the boardroom. We understand what retailers actually need to maintain transparency over performance and make effective strategic decisions. As system integrators, we have deep working knowledge of all major hardware platforms and data collection methodologies — from video sensors and mobile device detection to RFID, proximity and behavioural analytics. We bring the intelligent solution, not a preferred one.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_2a7f91cd3b58",
+            "label": "Homepage teaser line",
+            "name": "partners_teaser_line",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "One condensed sentence for the short homepage teaser (front-page.php, next to “Why Choose ITOI”) — NOT the full section intro above, which stays on the About page only. Keep this to a single line.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Our leadership team brings 30+ years of retail operations experience, and we work as hardware-agnostic system integrators — not a preferred vendor.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7d2a45ce9f26",
+            "label": "Cards",
+            "name": "partners_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Exactly 4 flip-cards, About page “Partners, not vendors” trust section. Content from the client's capability deck (see NOTES.md).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add card",
+            "min": 4,
+            "max": 4,
+            "default_value": [
+                {
+                    "field_8e3b56df0a37": "30+ Years Retail Expertise",
+                    "field_9f4c67e01b48": "Leadership built from the store floor up into the boardroom — understanding the realities your teams face."
+                },
+                {
+                    "field_8e3b56df0a37": "Hardware Agnostic",
+                    "field_9f4c67e01b48": "System integrators across every technology layer — retail platforms, workforce, stock warehouses and beyond. True end-to-end."
+                },
+                {
+                    "field_8e3b56df0a37": "Dedicated Account Manager",
+                    "field_9f4c67e01b48": "An account manager from day one through the life of the partnership — invested in your outcomes."
+                },
+                {
+                    "field_8e3b56df0a37": "Always-On Support",
+                    "field_9f4c67e01b48": "Always-on helpdesk, proactive monitoring, firmware lifecycle management and field teams ready to deploy."
+                }
+            ],
+            "rows_per_page": 20,
+            "collapsed": "field_8e3b56df0a37",
+            "sub_fields": [
+                {
+                    "key": "field_8e3b56df0a37",
+                    "label": "Front title",
+                    "name": "front_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Flip-card front face.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_7d2a45ce9f26"
+                },
+                {
+                    "key": "field_9f4c67e01b48",
+                    "label": "Back description",
+                    "name": "back_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Flip-card back face (dark background).",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_7d2a45ce9f26"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "partners-not-vendors-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "About page “Partners, not vendors” trust section (flip-card grid), plus the short homepage teaser (front-page.php, next to “Why Choose ITOI”) which reuses this group's headline field and adds one condensed teaser-line field of its own. Content from the client's capability deck (see NOTES.md).",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1784774637
+}

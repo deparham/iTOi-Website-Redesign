@@ -1,0 +1,205 @@
+<?php
+/**
+ * Custom JSON-LD not covered by Yoast SEO's built-in schema graph
+ * (PROJECT.md §8): LocalBusiness site-wide, and Service on solutions —
+ * Yoast core has no built-in "Service" page type (that's a Premium/
+ * add-on feature), so it's emitted directly here instead. Organization
+ * and Article (case studies/insights) are handled by Yoast itself via
+ * its own settings (see NOTES.md) — not duplicated here, to avoid two
+ * competing schema graphs on the same page.
+ *
+ * Article on case_study/insight is also handled here, not by Yoast:
+ * Yoast free's Article schema generator hard-checks
+ * `$context->indexable->object_type === 'post'` (see
+ * wp-content/plugins/wordpress-seo/src/generators/schema/article.php)
+ * and never fires for any custom post type, regardless of the
+ * per-post-type "Article" setting in Search Appearance — confirmed by
+ * reading that file directly rather than assuming the settings UI
+ * option actually does anything for a CPT.
+ *
+ * Every value below is sourced from the Site Settings options page or
+ * a post's own ACF/standard fields — nothing here is invented copy.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+function itoi_local_business_schema() {
+	$address = get_field( 'company_address', 'option' );
+	if ( ! $address ) {
+		return;
+	}
+
+	$phone = get_field( 'manager_1_phone', 'option' ) ?: get_field( 'support_phone', 'option' );
+
+	$schema = array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'LocalBusiness',
+		'@id'      => home_url( '/#localbusiness' ),
+		'name'     => 'ITOI Solutions',
+		'url'      => home_url( '/' ),
+		'address'  => array(
+			'@type'          => 'PostalAddress',
+			'streetAddress'  => $address,
+			'addressCountry' => 'AU',
+		),
+	);
+
+	if ( $phone ) {
+		$schema['telephone'] = $phone;
+	}
+
+	$office_hours = get_field( 'office_hours', 'option' );
+	if ( $office_hours ) {
+		$schema['openingHours'] = $office_hours;
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_local_business_schema' );
+
+function itoi_service_schema() {
+	if ( ! is_singular( 'solution' ) ) {
+		return;
+	}
+
+	$headline = get_field( 'headline' ) ?: get_the_title();
+	$dek      = get_field( 'dek' );
+
+	$schema = array(
+		'@context'    => 'https://schema.org',
+		'@type'       => 'Service',
+		'@id'         => get_permalink() . '#service',
+		'name'        => $headline,
+		'url'         => get_permalink(),
+		'provider'    => array(
+			'@type' => 'Organization',
+			'name'  => 'ITOI Solutions',
+			'url'   => home_url( '/' ),
+		),
+	);
+
+	if ( $dek ) {
+		$schema['description'] = $dek;
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_service_schema' );
+
+function itoi_article_schema() {
+	if ( ! is_singular( array( 'case_study', 'insight' ) ) ) {
+		return;
+	}
+
+	$post_id = get_the_ID();
+
+	$schema = array(
+		'@context'      => 'https://schema.org',
+		'@type'         => 'Article',
+		'@id'           => get_permalink() . '#article',
+		'headline'      => get_the_title(),
+		'url'           => get_permalink(),
+		'datePublished' => get_the_date( 'c', $post_id ),
+		'dateModified'  => get_the_modified_date( 'c', $post_id ),
+		'publisher'     => array(
+			'@type' => 'Organization',
+			'name'  => 'ITOI Solutions',
+			'url'   => home_url( '/' ),
+		),
+	);
+
+	if ( 'case_study' === get_post_type( $post_id ) ) {
+		$dek_source = get_field( 'headline', $post_id );
+		$image_id   = get_field( 'hero_image', $post_id );
+	} else {
+		$dek_source = get_field( 'dek', $post_id );
+		$image_id   = get_post_thumbnail_id( $post_id );
+
+		$author_ids = get_field( 'author', $post_id );
+		$author_id  = ! empty( $author_ids ) ? $author_ids[0] : null;
+		if ( $author_id ) {
+			$schema['author'] = array(
+				'@type' => 'Person',
+				'name'  => get_field( 'name', $author_id ) ?: get_the_title( $author_id ),
+			);
+		}
+	}
+
+	if ( $dek_source ) {
+		$schema['description'] = $dek_source;
+	}
+
+	if ( ! empty( $image_id ) ) {
+		$image_url = wp_get_attachment_image_url( $image_id, 'large' );
+		if ( $image_url ) {
+			$schema['image'] = $image_url;
+		}
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_article_schema' );
+
+/**
+ * BlogPosting for the Education Hub's `guide` CPT (PROJECT.md §8: "Article
+ * or BlogPosting, with author reference"). Not folded into
+ * itoi_article_schema() above — guide's field names (dek/body/
+ * published_date) don't match case_study/insight's. Guide has no
+ * ACF author field and every existing guide's post_author is 0 (no real
+ * WP user attached) — inventing a byline would violate the do-not-invent
+ * rule (PROJECT.md §6), so ITOI Solutions (Organization) is used as the
+ * author, same entity as the publisher, which is a valid schema.org
+ * Article.author value and the honest one given the actual data.
+ */
+function itoi_guide_schema() {
+	if ( ! is_singular( 'guide' ) ) {
+		return;
+	}
+
+	$post_id        = get_the_ID();
+	$dek            = get_field( 'dek', $post_id );
+	$published_date = get_field( 'published_date', $post_id ); // ACF date_picker, return_format "Ymd" — not a MySQL date string.
+	$image_id       = get_post_thumbnail_id( $post_id );
+
+	$date_published = get_the_date( 'c', $post_id );
+	if ( $published_date ) {
+		$parsed = DateTime::createFromFormat( 'Ymd', $published_date );
+		if ( $parsed ) {
+			$date_published = $parsed->format( 'c' );
+		}
+	}
+
+	$organization = array(
+		'@type' => 'Organization',
+		'name'  => 'ITOI Solutions',
+		'url'   => home_url( '/' ),
+	);
+
+	$schema = array(
+		'@context'      => 'https://schema.org',
+		'@type'         => 'BlogPosting',
+		'@id'           => get_permalink() . '#article',
+		'headline'      => get_the_title(),
+		'url'           => get_permalink(),
+		'datePublished' => $date_published,
+		'dateModified'  => get_the_modified_date( 'c', $post_id ),
+		'author'        => $organization,
+		'publisher'     => $organization,
+	);
+
+	if ( $dek ) {
+		$schema['description'] = $dek;
+	}
+
+	if ( ! empty( $image_id ) ) {
+		$image_url = wp_get_attachment_image_url( $image_id, 'large' );
+		if ( $image_url ) {
+			$schema['image'] = $image_url;
+		}
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_guide_schema' );

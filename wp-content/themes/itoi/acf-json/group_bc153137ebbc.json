@@ -1,0 +1,54 @@
+{
+	"key": "group_bc153137ebbc",
+	"title": "Find Your Fit Settings",
+	"fields": [
+		{
+			"key": "field_135a84d73e6b",
+			"label": "Eyebrow",
+			"name": "fyf_eyebrow",
+			"type": "text",
+			"default_value": "Solution Builder"
+		},
+		{
+			"key": "field_f28283de8ef5",
+			"label": "Heading",
+			"name": "fyf_heading",
+			"type": "text",
+			"default_value": "Answer 7 quick questions, get your recommendation"
+		},
+		{
+			"key": "field_905aec05d794",
+			"label": "Subheading",
+			"name": "fyf_subheading",
+			"type": "textarea",
+			"rows": 2,
+			"default_value": "We'll recommend the right ITOI solutions for your business, with an ROI estimate and implementation timeline."
+		},
+		{
+			"key": "field_f09231d380e9",
+			"label": "Floating trigger button label",
+			"name": "fyf_trigger_label",
+			"type": "text",
+			"default_value": "Build your solution",
+			"instructions": "Text on the floating bottom-right button that reopens the popup."
+		}
+	],
+	"location": [
+		[
+			{
+				"param": "options_page",
+				"operator": "==",
+				"value": "find-your-fit-settings"
+			}
+		]
+	],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"hide_on_screen": "",
+	"active": true,
+	"description": "Superseded 2026-07-24 (see NOTES.md, \"Solution Builder popup replaces Find Your Fit\" entry): the old 3-question flow (Step 1/2/3 tabs) and its case-study/solution routing repeaters have been removed entirely, not left dormant. This options page now controls only the popup's modal shell copy (eyebrow/heading/subheading/trigger label) — the popup shell itself, open/close mechanics, auto-open timing, and progress-dot styling are unchanged. The 7 questions it now asks (footer.php) come directly from inc/solution-builder.php's option-list functions, the same single source of truth the dedicated /solution-builder/ page uses, not from ACF — so there's no separate question content to edit here.",
+	"show_in_rest": 0
+}

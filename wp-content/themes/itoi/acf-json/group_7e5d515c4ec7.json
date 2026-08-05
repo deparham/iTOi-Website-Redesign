@@ -1,0 +1,18 @@
+{
+	"key": "group_7e5d515c4ec7",
+	"title": "Glossary Term",
+	"fields": [
+		{ "key": "field_003ca16b75c6", "label": "Term", "name": "term", "type": "text", "instructions": "Falls back to the post title if left blank." },
+		{ "key": "field_5a57844b3ce6", "label": "Definition", "name": "definition", "type": "textarea", "rows": 3, "instructions": "Plain language, 2-4 sentences." },
+		{ "key": "field_40b5bf8a9b72", "label": "Related guides", "name": "related_guides", "type": "relationship", "post_type": [ "guide" ], "return_format": "id", "instructions": "Optional — cross-links this term to any Guide(s) that explain it in depth." }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "glossary_term" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md Education Hub §0. Not publicly routed (same pure-data pattern as `client`/`team_member`) — displayed on the single /education/glossary/ listing page.",
+	"show_in_rest": 0
+}

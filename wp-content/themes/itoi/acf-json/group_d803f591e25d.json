@@ -1,0 +1,17 @@
+{
+	"key": "group_d803f591e25d",
+	"title": "Client",
+	"fields": [
+		{ "key": "field_0cd5f3df1933", "label": "Logo", "name": "logo", "type": "image", "return_format": "id", "instructions": "Optional. Leave empty to render the client's name as a styled wordmark tile — real logo assets are not yet available for most entries, and no third-party logo is scraped/hotlinked from the live site (same rights caution as solution/industry hero images). Add real client logo when provided — currently showing text wordmark fallback everywhere this field is read (Customers page, homepage Our Clients row)." },
+		{ "key": "field_ff585e846687", "label": "Case study", "name": "case_study", "type": "post_object", "post_type": [ "case_study" ], "return_format": "id", "allow_null": 1, "ui": 1, "instructions": "Only set for a client with a real, published case study. Leave empty for every logo/name-only client — do not fabricate a link." }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "client" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md §4 CPT-adjacent — new `client` CPT for the Customers page/homepage section (added outside the original §4 list; see PROJECT.md §6 amendment note). Name = post_title. Category = `client_category` taxonomy (registered in inc/post-types.php), not a relationship to the `industry` CPT — the live portfolio page's own 6 groupings don't map onto the locked 7 industry slugs.",
+	"show_in_rest": 0
+}

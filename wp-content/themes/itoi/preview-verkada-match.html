@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITOI Solutions — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FCFCFB; --hero-bg:#F2F4F3; --ink:#0E1116; --line:#E6E9EE;
+    --text:#0E1116; --text-muted:#616B78;
+    --cta:#000000; --cta-hover:#1F2328;
+    --teal-900:#0B3A44; --teal-800:#0F4A57; --teal-700:#13606F;
+    --signature:#FF8A1E;
+    --font:"Manrope",-apple-system,sans-serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:var(--font); font-size:15.5px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  .container{ max-width:1280px; margin:0 auto; padding:0 32px; }
+  :focus-visible{ outline:2px solid var(--signature); outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+  h1,h2,h3{ letter-spacing:-0.02em; line-height:1.08; margin:0 0 0.4em; font-weight:800; }
+  p{ color:var(--text-muted); margin:0 0 1em; }
+  button{ font-family:inherit; }
+
+  /* Rotating ticker */
+  .promo{ background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; gap:14px; font-size:13.5px; padding:9px 16px; font-weight:500; overflow:hidden; height:38px; }
+  .promo-track{ height:20px; overflow:hidden; position:relative; }
+  .promo-line{ position:absolute; transition:transform .5s cubic-bezier(0.4,0,0.2,1); white-space:nowrap; }
+  .promo .pill{ background:#fff; color:var(--ink); font-weight:700; font-size:12.5px; padding:5px 14px; border-radius:20px; white-space:nowrap; }
+
+  /* Header — matches real structure: outline "Log in" pill, solid BLACK "Get demo" pill */
+  header{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:1px solid var(--line); }
+  header .container{ display:flex; align-items:center; height:72px; gap:8px; }
+  .brand{ font-weight:800; font-size:19px; letter-spacing:-0.02em; display:flex; align-items:center; gap:8px; margin-right:28px; }
+  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--signature); }
+  nav.main{ display:flex; gap:2px; flex:1; }
+  nav.main button.navlink{ background:none; border:none; font-size:14.5px; font-weight:600; color:var(--text); padding:12px 14px; cursor:pointer; display:flex; align-items:center; gap:5px; border-radius:6px; }
+  nav.main button.navlink:hover{ background:var(--hero-bg); }
+  nav.main .caret{ font-size:9px; opacity:0.5; }
+  .item{ position:relative; }
+  .dropdown{ position:absolute; top:100%; left:0; margin-top:6px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px; min-width:250px; box-shadow:0 24px 48px -20px rgba(14,17,22,0.18); opacity:0; visibility:hidden; transform:translateY(6px); transition:all .16s ease; }
+  .item:hover .dropdown{ opacity:1; visibility:visible; transform:none; }
+  .dropdown a{ display:block; padding:9px 12px; border-radius:6px; font-size:14px; font-weight:500; }
+  .dropdown a:hover{ background:var(--hero-bg); }
+  .head-right{ display:flex; align-items:center; gap:10px; }
+  .btn-outline{ font-weight:700; font-size:14px; padding:10px 20px; border-radius:24px; border:1.5px solid var(--ink); background:#fff; cursor:pointer; }
+  .btn-outline:hover{ background:var(--hero-bg); }
+  .btn-black{ font-weight:700; font-size:14px; padding:11px 22px; border-radius:24px; border:none; background:var(--cta); color:#fff; cursor:pointer; transition:background .15s; }
+  .btn-black:hover{ background:var(--cta-hover); }
+  .menu-btn{ display:none; background:none; border:1px solid var(--line); border-radius:7px; width:40px; height:40px; cursor:pointer; margin-left:auto; }
+
+  /* Hero — light neutral bg, LEFT-aligned bold headline (not centered) */
+  /* FULL-BLEED HERO — matches the real video-hero pattern you shared:
+     full-viewport background, dark blur scrim, split headline/CTA content,
+     vertical progress-dot nav on the right edge. ITOI's amber Live Detection
+     visualization fills the background in place of a real video. */
+  .mega-hero{
+    position:relative; overflow:hidden;
+    height:calc(78vh - 72px);
+    min-height:520px;
+  }
+  @media (min-width:640px){ .mega-hero{ height:calc(100vh - 72px); min-height:640px; } }
+  .mega-hero .bg{ position:absolute; inset:0; background:linear-gradient(160deg,#0a1720,#122b38 55%,#1b3a48); }
+  .mega-hero .scrim{ position:absolute; inset:0; background:rgba(21,36,45,0.35); backdrop-filter:blur(6px); }
+  .mega-hero .content{ position:relative; z-index:2; height:100%; display:flex; align-items:center; }
+  .mega-hero .content-inner{ margin:0 auto; width:100%; max-width:76rem; padding:0 20px; display:flex; flex-direction:column; gap:32px; }
+  @media (min-width:768px){ .mega-hero .content-inner{ flex-direction:row; justify-content:space-between; gap:80px; align-items:center; } }
+  .mega-hero h1{ color:#fff; font-size:clamp(30px,5.5vw,58px); max-width:14ch; line-height:1.05; margin:0; }
+  .mega-hero .right-col{ display:flex; flex-direction:column; gap:18px; max-width:460px; }
+  .mega-hero .right-col p{ color:rgba(255,255,255,0.88); font-size:15px; margin:0; }
+  @media (min-width:1024px){ .mega-hero .right-col p{ font-size:16.5px; } }
+  .mega-hero .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn{ font-size:14.5px; font-weight:600; padding:13px 26px; border-radius:30px; cursor:pointer; transition:opacity .2s, background .2s, color .2s; white-space:nowrap; }
+  .hero-btn-solid{ background:#fff; color:var(--ink); border:none; }
+  .hero-btn-solid:hover{ opacity:0.85; }
+  .hero-btn-outline{ background:transparent; color:#fff; border:1.5px solid #fff; }
+  .hero-btn-outline:hover{ background:#fff; color:var(--ink); }
+
+  /* Detection viz filling the hero background */
+  .hero-det{ position:absolute; border:1.5px solid var(--signature); border-radius:3px; transition:all 2s cubic-bezier(0.4,0,0.2,1); z-index:1; }
+  .hero-det .tag{ position:absolute; top:-18px; left:-1px; background:var(--signature); color:#122b38; font-size:9.5px; font-weight:800; padding:2px 6px; border-radius:2px; white-space:nowrap; }
+  .hero-rec{ position:absolute; top:20px; left:20px; z-index:2; display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:#fff; letter-spacing:0.06em; }
+  .hero-rec .rd{ width:7px; height:7px; border-radius:50%; background:var(--signature); animation:pulse 1.4s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  /* Vertical progress-dot nav (right edge) */
+  .dot-nav{ position:absolute; z-index:3; display:flex; gap:8px; bottom:16px; left:16px; }
+  @media (min-width:640px){ .dot-nav{ flex-direction:column; bottom:auto; left:auto; right:16px; top:50%; transform:translateY(-50%); } }
+  .dot-btn{ width:30px; height:30px; border-radius:50%; background:none; border:none; cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; }
+  .dot-btn::before{ content:""; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); transition:background .3s, transform .3s; }
+  .dot-btn.active::before{ background:#fff; transform:scale(1.3); }
+  .dot-btn svg{ position:absolute; inset:0; }
+  .dot-btn circle.ring{ fill:none; stroke:#fff; stroke-width:2; stroke-opacity:0.9; stroke-dasharray:94.2; stroke-dashoffset:94.2; transform:rotate(-90deg); transform-origin:50% 50%; }
+  .dot-btn.active circle.ring{ animation:ringfill 5s linear forwards; }
+  @keyframes ringfill{ from{stroke-dashoffset:94.2;} to{stroke-dashoffset:0;} }
+
+  /* Find Your Fit — now a modal popup, not an inline section */
+  .finder-overlay{
+    position:fixed; inset:0; z-index:100; background:rgba(14,17,22,0.6); backdrop-filter:blur(3px);
+    display:flex; align-items:center; justify-content:center; padding:20px;
+    opacity:0; visibility:hidden; transition:opacity .25s ease, visibility .25s ease;
+  }
+  .finder-overlay.open{ opacity:1; visibility:visible; }
+  .finder-card{ position:relative; width:100%; max-width:760px; max-height:88vh; overflow-y:auto; background:#fff; border:1px solid var(--line); border-radius:20px; padding:40px; box-shadow:0 40px 80px -30px rgba(14,17,22,0.4); transform:translateY(14px) scale(0.98); transition:transform .25s ease; }
+  .finder-overlay.open .finder-card{ transform:none; }
+  .finder-close{ position:absolute; top:18px; right:18px; width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:16px; color:var(--text-muted); display:flex; align-items:center; justify-content:center; }
+  .finder-close:hover{ background:var(--hero-bg); color:var(--ink); }
+  .finder-head{ text-align:center; margin-bottom:28px; }
+  .finder-head .eyebrow{ font-size:12.5px; font-weight:700; color:var(--teal-800); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .finder-head h2{ font-size:clamp(20px,2.4vw,26px); margin-bottom:6px; }
+  .finder-head p{ font-size:14px; margin:0; }
+  .finder-progress{ display:flex; gap:6px; justify-content:center; margin-bottom:30px; }
+  .finder-dot{ width:26px; height:4px; border-radius:2px; background:var(--line); transition:background .2s; }
+  .finder-dot.done{ background:var(--signature); }
+  .finder-dot.current{ background:var(--ink); }
+  .finder-step{ display:none; }
+  .finder-step.active{ display:block; animation:fadeIn .3s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+  .finder-q{ font-size:17px; font-weight:700; text-align:center; margin-bottom:20px; }
+  .finder-options{ display:grid; gap:10px; }
+  .finder-options.cols-2{ grid-template-columns:1fr 1fr; }
+  .finder-opt{ border:1.5px solid var(--line); border-radius:12px; padding:14px 18px; font-size:14.5px; font-weight:600; text-align:left; cursor:pointer; background:#fff; transition:border-color .15s, background .15s; }
+  .finder-opt:hover{ border-color:var(--ink); }
+  .finder-opt.selected{ border-color:var(--signature); background:#FFF7ED; color:#9A3412; }
+  .finder-nav{ display:flex; justify-content:space-between; align-items:center; margin-top:28px; }
+  .finder-back{ font-size:13.5px; font-weight:700; color:var(--text-muted); cursor:pointer; background:none; border:none; }
+  .finder-back:hover{ color:var(--ink); }
+  .finder-back:disabled{ opacity:0; pointer-events:none; }
+  .finder-next{ font-size:14px; font-weight:700; padding:11px 24px; border-radius:24px; border:none; background:var(--cta); color:#fff; cursor:pointer; transition:background .15s, opacity .15s; }
+  .finder-next:hover{ background:var(--cta-hover); }
+  .finder-next:disabled{ opacity:0.35; cursor:not-allowed; }
+
+  /* Results state */
+  .finder-result{ text-align:center; }
+  .finder-result-tag{ display:inline-block; font-size:11.5px; font-weight:700; color:var(--teal-800); background:var(--hero-bg); padding:5px 14px; border-radius:20px; margin-bottom:16px; text-transform:uppercase; letter-spacing:0.04em; }
+  .finder-result-card{ border:1px solid var(--line); border-radius:16px; overflow:hidden; text-align:left; margin:0 auto 20px; max-width:520px; }
+  .finder-result-photo{ aspect-ratio:16/9; background:linear-gradient(135deg,#e2e7ee,#cfd7e0); display:flex; align-items:center; justify-content:center; color:#8f99a6; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .finder-result-body{ padding:20px 22px; }
+  .finder-result-body h3{ font-size:18px; margin-bottom:6px; }
+  .finder-result-body p{ font-size:13.5px; margin-bottom:0; }
+  .finder-restart{ font-size:13px; font-weight:700; color:var(--text-muted); }
+  .finder-restart:hover{ color:var(--ink); }
+
+  /* Floating trigger button — reopens the popup any time */
+  .finder-trigger{
+    position:fixed; right:22px; bottom:22px; z-index:80;
+    display:flex; align-items:center; gap:10px;
+    background:var(--ink); color:#fff; font-size:14px; font-weight:700;
+    padding:14px 20px; border-radius:30px; border:none; cursor:pointer;
+    box-shadow:0 14px 30px -10px rgba(14,17,22,0.5);
+    transition:transform .2s, background .2s, opacity .3s;
+    opacity:0; transform:translateY(12px); pointer-events:none;
+  }
+  .finder-trigger.visible{ opacity:1; transform:none; pointer-events:auto; }
+  .finder-trigger:hover{ background:var(--cta-hover); transform:translateY(-2px); }
+  .finder-trigger .dot{ width:8px; height:8px; border-radius:50%; background:var(--signature); flex:0 0 8px; }
+  @media (max-width:640px){ .finder-trigger span.txt{ display:none; } .finder-trigger{ padding:14px; } }
+
+  /* Use Cases — placeholder section at the top, right after the hero */
+  .usecases{ padding:44px 0 56px; border-bottom:1px solid var(--line); }
+  .usecases-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:22px; flex-wrap:wrap; gap:10px; }
+  .usecases-head h2{ font-size:20px; margin:0; }
+  .usecases-head .hint{ font-size:12.5px; color:var(--text-muted); }
+  .uc-row{ display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+  .uc-row::-webkit-scrollbar{ display:none; }
+  .uc-pill{ flex:0 0 auto; display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:12px; padding:14px 18px; white-space:nowrap; font-size:13.5px; font-weight:700; transition:border-color .15s, transform .15s; background:#fff; }
+  .uc-pill:hover{ border-color:var(--ink); transform:translateY(-2px); }
+  .uc-pill .uc-icon{ width:26px; height:26px; border-radius:7px; background:var(--hero-bg); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--teal-800); flex:0 0 26px; }
+  .command{ padding:70px 0 90px; text-align:center; background:var(--hero-bg); border-top:1px solid var(--line); }
+  .command h2{ font-size:clamp(24px,2.8vw,34px); max-width:18ch; margin:0 auto 12px; }
+  .command p{ max-width:46ch; margin:0 auto 22px; }
+
+  /* Why choose — dark teal section, pill tabs, split-panel card */
+  .why{ background:var(--teal-900); padding:80px 0; }
+  .why h2{ color:#fff; text-align:center; font-size:clamp(26px,3vw,38px); margin-bottom:32px; }
+  .pill-tabs{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+  .pill-tab{ font-size:13.5px; font-weight:700; padding:11px 22px; border-radius:24px; border:1.5px solid rgba(255,255,255,0.25); background:transparent; color:rgba(255,255,255,0.7); cursor:pointer; transition:all .15s; }
+  .pill-tab:hover{ border-color:rgba(255,255,255,0.5); color:#fff; }
+  .pill-tab.active{ background:#fff; color:var(--teal-900); border-color:#fff; }
+  .why-card{ display:grid; grid-template-columns:1fr 1fr; border-radius:20px; overflow:hidden; min-height:420px; }
+  .why-panel-left{ background:var(--teal-700); color:#fff; padding:48px; display:flex; flex-direction:column; justify-content:center; }
+  .why-panel-left h3{ color:#fff; font-size:clamp(22px,2.4vw,28px); }
+  .why-panel-left p{ color:rgba(255,255,255,0.8); }
+  .check-list{ list-style:none; padding:0; margin:16px 0 26px; display:grid; gap:10px; }
+  .check-list li{ display:flex; align-items:flex-start; gap:10px; font-size:14px; color:rgba(255,255,255,0.9); }
+  .check-list li::before{ content:"✓"; flex:0 0 20px; height:20px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .why-panel-right{ background:var(--hero-bg); display:flex; align-items:center; justify-content:center; color:#8b95a2; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; text-align:center; padding:24px; }
+  @media (max-width:900px){ .why-card{ grid-template-columns:1fr; } .why-panel-right{ min-height:220px; } }
+
+  /* Trust + marquee */
+  .trust{ border-bottom:1px solid var(--line); padding:52px 0; overflow:hidden; }
+  .trust-head{ text-align:center; margin-bottom:30px; }
+  .trust-head h3{ font-size:19px; }
+  .marquee{ display:flex; gap:60px; width:max-content; animation:scroll 22s linear infinite; }
+  .marquee span{ font-weight:800; font-size:17px; color:#c3cad2; white-space:nowrap; }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* Review badge — reserved, no fabricated score */
+  .review{ padding:50px 0; border-bottom:1px solid var(--line); }
+  .review-inner{ display:flex; align-items:center; gap:36px; flex-wrap:wrap; justify-content:center; background:var(--hero-bg); border:1px dashed var(--line); border-radius:14px; padding:26px 34px; }
+  .review-badge{ font-size:13px; color:var(--text-muted); text-align:center; max-width:520px; }
+  .review-badge b{ display:block; color:var(--text); font-size:15px; margin-bottom:4px; }
+
+  /* Industries — arrow-nav carousel, varied-width photo tiles, floating pill button */
+  .industries{ padding:90px 0; }
+  .ind-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:34px; }
+  .ind-head h2{ font-size:clamp(26px,3vw,38px); max-width:12ch; }
+  .ind-nav{ display:flex; gap:8px; }
+  .ind-nav button{ width:44px; height:44px; border-radius:50%; border:1.5px solid var(--ink); background:#fff; cursor:pointer; font-size:16px; }
+  .ind-nav button:hover{ background:var(--hero-bg); }
+  .ind-carousel{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:36px; scrollbar-width:none; }
+  .ind-carousel::-webkit-scrollbar{ display:none; }
+  .ind-tile{ position:relative; flex:0 0 340px; scroll-snap-align:start; aspect-ratio:4/5; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#e2e7ee,#cfd7e0); }
+  .ind-tile:nth-child(2n){ flex-basis:400px; }
+  .ind-tile .ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#8f99a6; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; text-align:center; padding:16px; }
+  .ind-tile::after{ content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(14,17,22,0.65), rgba(14,17,22,0) 50%); }
+  .ind-label{ position:absolute; left:20px; bottom:52px; z-index:2; color:#fff; font-size:19px; font-weight:800; }
+  .ind-btn{ position:absolute; left:20px; bottom:-18px; z-index:3; background:#fff; border-radius:24px; padding:10px 18px; font-size:13px; font-weight:700; display:inline-flex; align-items:center; gap:8px; box-shadow:0 10px 24px -10px rgba(0,0,0,0.3); }
+  .ind-tile-wrap{ position:relative; padding-bottom:18px; }
+
+  /* Products row */
+  .products{ padding:80px 0; border-top:1px solid var(--line); }
+  .prod-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .prod-tile{ border:1px solid var(--line); border-radius:12px; padding:22px 16px; text-align:center; transition:border-color .15s, transform .15s; }
+  .prod-tile:hover{ border-color:var(--ink); transform:translateY(-3px); }
+  .prod-icon{ width:40px; height:40px; margin:0 auto 14px; border-radius:9px; background:var(--hero-bg); display:flex; align-items:center; justify-content:center; color:var(--teal-800); font-weight:800; font-size:14px; }
+  .prod-tile .name{ font-size:13.5px; font-weight:700; margin-bottom:4px; }
+  .prod-tile a{ font-size:12px; font-weight:700; text-decoration:underline; }
+
+  /* Bottom CTA — black, matching real "Try Verkada for free" band */
+  .final-cta{ margin:0 32px 90px; background:var(--ink); border-radius:20px; padding:60px; display:flex; justify-content:space-between; align-items:center; gap:36px; flex-wrap:wrap; color:#fff; }
+  .final-cta h2{ color:#fff; font-size:clamp(22px,2.6vw,32px); max-width:16ch; margin-bottom:8px; }
+  .final-cta p{ color:rgba(255,255,255,0.6); margin:0; max-width:34ch; }
+
+  footer{ padding:56px 0 30px; border-top:1px solid var(--line); }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr repeat(4,1fr); gap:32px; margin-bottom:44px; }
+  .foot-col h4{ font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-muted); margin:0 0 16px; }
+  .foot-col a,.foot-col p{ display:block; font-size:13.5px; color:var(--text-muted); margin:0 0 10px; }
+  .foot-col a:hover{ color:var(--ink); }
+  .foot-brand{ font-weight:800; font-size:18px; display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+  .foot-brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--signature); }
+  .foot-bottom{ border-top:1px solid var(--line); padding-top:20px; font-size:12.5px; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  .note{ background:#FFF7ED; border:1px solid #FED7AA; color:#9A3412; font-size:12.5px; padding:9px 16px; border-radius:8px; text-align:center; margin:16px auto; max-width:960px; }
+
+  @media (max-width:980px){
+    nav.main{ display:none; }
+    .menu-btn{ display:block; }
+    .btn-outline{ display:none; }
+    .prod-grid{ grid-template-columns:repeat(3,1fr); }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+    .final-cta{ margin:0 16px 60px; padding:36px 24px; }
+    .ind-head{ flex-direction:column; align-items:flex-start; gap:16px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="promo">
+    <div class="promo-track" id="promoTrack">
+      <div class="promo-line">Live foot-traffic detection now ships on every ITOI camera.</div>
+      <div class="promo-line">ITOI now integrates directly with Xero and MYOB for POS matching.</div>
+      <div class="promo-line">New: autonomous cleaning fleet now available for warehouse sites.</div>
+    </div>
+    <span class="pill">Learn more</span>
+  </div>
+
+  <header>
+    <div class="container">
+      <div class="brand"><span class="dot"></span>ITOI</div>
+      <nav class="main">
+        <div class="item"><button class="navlink">Solutions <span class="caret">▾</span></button>
+          <div class="dropdown">
+            <a href="#">Retail &amp; Venue Analytics</a><a href="#">Facial Recognition</a>
+            <a href="#">Customer Engagement</a><a href="#">Smart Security</a>
+            <a href="#">Security Robot</a><a href="#">Cleaning Robots</a>
+          </div>
+        </div>
+        <div class="item"><button class="navlink">Use Cases <span class="caret">▾</span></button>
+          <div class="dropdown" id="useCaseDropdown">
+            <a href="#">Use case placeholder 1</a><a href="#">Use case placeholder 2</a>
+            <a href="#">Use case placeholder 3</a>
+          </div>
+        </div>
+        <div class="item"><button class="navlink">Industries <span class="caret">▾</span></button>
+          <div class="dropdown"><a href="#">Retail</a><a href="#">Hospitality</a><a href="#">Banking &amp; Finance</a><a href="#">Government &amp; Councils</a></div>
+        </div>
+        <div class="item"><button class="navlink">Customers</button></div>
+        <div class="item"><button class="navlink">Resources <span class="caret">▾</span></button>
+          <div class="dropdown"><a href="#">Insights</a><a href="#">About Us</a><a href="#">Team</a></div>
+        </div>
+      </nav>
+      <div class="head-right">
+        <a href="#" class="btn-outline">Log in</a>
+        <a href="#" class="btn-black">Get demo</a>
+      </div>
+      <button class="menu-btn" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <div class="note">Preview mockup — matched to real screenshots &amp; markup you shared · placeholder imagery &amp; illustrative data</div>
+
+  <!-- FULL-BLEED HERO -->
+  <section class="mega-hero" id="megaHero">
+    <div class="bg" id="heroBg"></div>
+    <div class="scrim"></div>
+    <div class="hero-rec"><span class="rd"></span>LIVE</div>
+    <div class="content">
+      <div class="content-inner">
+        <h1 id="heroHeadline">Proactive retail &amp; security intelligence, powered by AI</h1>
+        <div class="right-col">
+          <p id="heroSub">Trusted by leading Australian retailers and venues, ITOI builds computer-vision systems that integrate seamlessly behind a single cloud-based platform.</p>
+          <div class="cta-row">
+            <a href="#" class="hero-btn hero-btn-solid">Get demo →</a>
+            <a href="#" class="hero-btn hero-btn-outline">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dot-nav" id="dotNav"></div>
+  </section>
+
+  <!-- FIND YOUR FIT — now a popup modal, auto-opens once then reopenable via floating button -->
+  <div class="finder-overlay" id="finderOverlay">
+    <div class="finder-card">
+      <button class="finder-close" id="finderClose" aria-label="Close">✕</button>
+      <div class="finder-head">
+        <div class="eyebrow">Find your fit</div>
+        <h2>Three quick questions, one relevant example</h2>
+        <p>We'll point you to the case study or solution closest to what you're trying to do.</p>
+      </div>
+      <div class="finder-progress" id="finderProgress"></div>
+
+      <!-- Step 1 -->
+      <div class="finder-step active" data-step="0">
+        <div class="finder-q">How familiar are you with computer-vision / security tech?</div>
+        <div class="finder-options" data-group="familiarity">
+          <button class="finder-opt" data-value="new">New to this — just exploring options</button>
+          <button class="finder-opt" data-value="some">Somewhat familiar — comparing vendors</button>
+          <button class="finder-opt" data-value="expert">Very familiar — know exactly what I need</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="finder-step" data-step="1">
+        <div class="finder-q">What are you mainly trying to solve?</div>
+        <div class="finder-options" data-group="need">
+          <button class="finder-opt" data-value="analytics">Understand foot traffic &amp; conversion</button>
+          <button class="finder-opt" data-value="security">Reduce theft, loss or security risk</button>
+          <button class="finder-opt" data-value="access">Control access / recognise staff or visitors</button>
+          <button class="finder-opt" data-value="facilities">Cut facilities or cleaning cost</button>
+          <button class="finder-opt" data-value="engagement">Improve customer engagement &amp; loyalty</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="finder-step" data-step="2">
+        <div class="finder-q">Which industry best describes your site?</div>
+        <div class="finder-options cols-2" data-group="industry">
+          <button class="finder-opt" data-value="retail">Retail</button>
+          <button class="finder-opt" data-value="hospitality">Hospitality</button>
+          <button class="finder-opt" data-value="banking">Banking &amp; Finance</button>
+          <button class="finder-opt" data-value="government">Government &amp; Councils</button>
+          <button class="finder-opt" data-value="logistics">Logistics &amp; Warehousing</button>
+          <button class="finder-opt" data-value="stadiums">Stadiums &amp; Events</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="finder-step" data-step="3">
+        <div class="finder-result">
+          <div class="finder-result-tag" id="finderResultTag">Recommended for you</div>
+          <div class="finder-result-card">
+            <div class="finder-result-photo" id="finderResultPhoto">Photo — pending</div>
+            <div class="finder-result-body">
+              <h3 id="finderResultTitle">—</h3>
+              <p id="finderResultDesc">—</p>
+            </div>
+          </div>
+          <a href="#" class="finder-next" id="finderResultCta" style="display:inline-block; margin-bottom:16px;">View this →</a>
+          <div><button class="finder-restart" id="finderRestart">Start over</button></div>
+        </div>
+      </div>
+
+      <div class="finder-nav" id="finderNav">
+        <button class="finder-back" id="finderBack" disabled>← Back</button>
+        <button class="finder-next" id="finderNext" disabled>Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating trigger — reopens the popup any time after the first auto-open -->
+  <button class="finder-trigger" id="finderTrigger">
+    <span class="dot"></span><span class="txt">Find your fit</span>
+  </button>
+
+  <!-- USE CASES — placeholder, real content to be swapped in from the live site -->
+  <section class="usecases">
+    <div class="container">
+      <div class="usecases-head">
+        <h2>Explore by use case</h2>
+        <span class="hint">Placeholder — real use cases to be added from the live site</span>
+      </div>
+      <div class="uc-row" id="useCaseRow">
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 1</div>
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 2</div>
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 3</div>
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 4</div>
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 5</div>
+        <div class="uc-pill"><span class="uc-icon">◻</span>Use case placeholder 6</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="command">
+    <div class="container">
+      <h2>One integrated platform</h2>
+      <p>Control analytics, access control and patrol from a single cloud-based console.</p>
+      <a href="#" class="btn-black" style="display:inline-block;">Learn more</a>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE — dark teal, pill tabs, split-panel card -->
+  <section class="why">
+    <div class="container">
+      <h2>Why teams choose ITOI</h2>
+      <div class="pill-tabs" id="pillTabs">
+        <button class="pill-tab active" data-tab="0">Plug-and-play setup</button>
+        <button class="pill-tab" data-tab="1">Scalability</button>
+        <button class="pill-tab" data-tab="2">Integrations</button>
+        <button class="pill-tab" data-tab="3">Security &amp; privacy</button>
+        <button class="pill-tab" data-tab="4">24/7 support</button>
+      </div>
+      <div class="why-card">
+        <div class="why-panel-left" id="whyLeft">
+          <h3>Plug-and-play setup</h3>
+          <p>Works with cameras you already have — no forklift upgrade required.</p>
+          <ul class="check-list">
+            <li>Bridges to existing CCTV, alarms and door hardware</li>
+            <li>Cloud + on-device storage</li>
+            <li>Automatic updates, no on-site maintenance visits</li>
+          </ul>
+          <a href="#" class="btn-outline" style="background:#fff; border-color:#fff; width:fit-content;">Learn more</a>
+        </div>
+        <div class="why-panel-right" id="whyRight">Photo — camera install</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="container">
+      <div class="trust-head"><h3>Trusted by leading retail, venue &amp; government clients across Australia</h3></div>
+    </div>
+    <div class="marquee">
+      <span>Sony</span><span>Samsung</span><span>Coca-Cola</span><span>Nike</span><span>Macquarie Bank</span><span>Mirvac</span><span>KFC</span><span>BP</span><span>Drakes Supermarkets</span><span>Brisbane City Council</span>
+      <span>Sony</span><span>Samsung</span><span>Coca-Cola</span><span>Nike</span><span>Macquarie Bank</span><span>Mirvac</span><span>KFC</span><span>BP</span><span>Drakes Supermarkets</span><span>Brisbane City Council</span>
+    </div>
+  </section>
+
+  <section class="review">
+    <div class="container">
+      <div class="review-inner">
+        <div class="review-badge"><b>Third-party review badge slot</b>Reserved for a real G2/Capterra widget if ITOI has a listing — intentionally left empty rather than showing an invented score.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES — arrow-nav carousel, varied width, floating pill button -->
+  <section class="industries">
+    <div class="container">
+      <div class="ind-head">
+        <h2>Modern protection for any space</h2>
+        <div class="ind-nav"><button id="indPrev">←</button><button id="indNext">→</button></div>
+      </div>
+      <div class="ind-carousel" id="indCarousel">
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — retail store floor</div><div class="ind-label">Retail</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — warehouse/logistics</div><div class="ind-label">Logistics</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — hospitality venue</div><div class="ind-label">Hospitality</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — bank branch</div><div class="ind-label">Banking &amp; Finance</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — council public space</div><div class="ind-label">Government</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+        <div class="ind-tile-wrap"><div class="ind-tile"><div class="ph">Photo — stadium concourse</div><div class="ind-label">Stadiums &amp; Events</div></div><a href="#" class="ind-btn">Learn more →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products">
+    <div class="container">
+      <h2 style="font-size:24px; margin-bottom:28px;">Explore our solutions</h2>
+      <div class="prod-grid">
+        <div class="prod-tile"><div class="prod-icon">RA</div><div class="name">Retail Analytics</div><a href="#">Learn more</a></div>
+        <div class="prod-tile"><div class="prod-icon">FR</div><div class="name">Facial Recognition</div><a href="#">Learn more</a></div>
+        <div class="prod-tile"><div class="prod-icon">CE</div><div class="name">Engagement</div><a href="#">Learn more</a></div>
+        <div class="prod-tile"><div class="prod-icon">SS</div><div class="name">Smart Security</div><a href="#">Learn more</a></div>
+        <div class="prod-tile"><div class="prod-icon">SR</div><div class="name">Security Robot</div><a href="#">Learn more</a></div>
+        <div class="prod-tile"><div class="prod-icon">CR</div><div class="name">Cleaning Robots</div><a href="#">Learn more</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="final-cta">
+    <div>
+      <h2>Try ITOI on your first site, free</h2>
+      <p>Our pilot program includes one site, full dashboard access, and a dedicated specialist.</p>
+    </div>
+    <a href="#" class="btn-black" style="background:#fff; color:var(--ink);">Contact us</a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-col">
+          <div class="foot-brand"><span class="dot"></span>ITOI Solutions</div>
+          <p>Image to intelligence — vision systems for retail, venues and security across Australia.</p>
+        </div>
+        <div class="foot-col"><h4>Solutions</h4>
+          <a href="#">Retail Analytics</a><a href="#">Facial Recognition</a><a href="#">Smart Security</a><a href="#">Security Robot</a>
+        </div>
+        <div class="foot-col"><h4>Company</h4>
+          <a href="#">About</a><a href="#">Case Studies</a><a href="#">Careers</a><a href="#">Contact</a>
+        </div>
+        <div class="foot-col"><h4>Support</h4>
+          <a href="#">Contact Support</a><a href="#">Find an Installer</a><a href="#">Product Updates</a>
+        </div>
+        <div class="foot-col"><h4>Head Office</h4>
+          <p>206/1&ndash;3 Burbank Place<br>Baulkham Hills, Sydney<br>NSW 2153</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 ITOI Solutions. All rights reserved.</span>
+        <span>Sydney, Australia · 24/7 support</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Ticker
+  const tickerLines = document.querySelectorAll('.promo-line');
+  let tickerIdx = 0;
+  tickerLines.forEach((l,i)=>{ l.style.top=(i*20)+'px'; });
+  setInterval(()=>{
+    tickerIdx = (tickerIdx+1) % tickerLines.length;
+    tickerLines.forEach(l=>{ l.style.transform = 'translateY(' + (-tickerIdx*20) + 'px)'; });
+  }, 4000);
+
+  // Hero: detection boxes drifting across the full-bleed background
+  const heroBg = document.getElementById('heroBg');
+  const heroBoxes = [];
+  for(let i=0;i<5;i++){
+    const d = document.createElement('div');
+    d.className = 'hero-det';
+    const w = 60+Math.random()*60, h = 90+Math.random()*70;
+    d.style.width = w+'px'; d.style.height = h+'px';
+    d.innerHTML = '<span class="tag">PERSON '+(90+Math.random()*9).toFixed(1)+'%</span>';
+    heroBg.appendChild(d); heroBoxes.push(d);
+  }
+  function placeHeroBox(d){
+    const vw = heroBg.clientWidth, vh = heroBg.clientHeight;
+    d.style.left = (40+Math.random()*(vw-160))+'px';
+    d.style.top = (60+Math.random()*(vh-220))+'px';
+  }
+  heroBoxes.forEach(placeHeroBox);
+  setInterval(()=>heroBoxes.forEach(d=>{ if(Math.random()>0.45) placeHeroBox(d); }), 2200);
+
+  // Hero slideshow — headline/sub rotate, synced to dot-nav with fill-ring progress
+  const heroSlides = [
+    { h:'Proactive retail &amp; security intelligence, powered by AI', p:'Trusted by leading Australian retailers and venues, ITOI builds computer-vision systems that integrate seamlessly behind a single cloud-based platform.' },
+    { h:'Know what happened, the moment it happens', p:'Real-time detection across every zone, with alerts routed straight to the right person.' },
+    { h:'One platform for cameras, access and analytics', p:'Retail analytics, facial recognition and smart security, unified in a single dashboard.' },
+    { h:'Built for Australian retail, venues and government', p:'From single stores to council-wide deployments, backed by 24/7 local support.' }
+  ];
+  const dotNav = document.getElementById('dotNav');
+  const heroHeadline = document.getElementById('heroHeadline');
+  const heroSub = document.getElementById('heroSub');
+  let heroIdx = 0;
+  let heroTimer;
+  heroSlides.forEach((s,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'dot-btn' + (i===0?' active':'');
+    btn.innerHTML = '<svg viewBox="0 0 30 30" width="30" height="30"><circle class="ring" cx="15" cy="15" r="15"></circle></svg>';
+    btn.addEventListener('click', ()=> goToHeroSlide(i));
+    dotNav.appendChild(btn);
+  });
+  const dotBtns = document.querySelectorAll('.dot-btn');
+  function goToHeroSlide(i){
+    heroIdx = i;
+    dotBtns.forEach((b,bi)=>b.classList.toggle('active', bi===i));
+    heroHeadline.innerHTML = heroSlides[i].h;
+    heroSub.textContent = heroSlides[i].p;
+    clearInterval(heroTimer);
+    heroTimer = setInterval(()=> goToHeroSlide((heroIdx+1)%heroSlides.length), 5000);
+  }
+  goToHeroSlide(0);
+
+  // FIND YOUR FIT — modal open/close + step navigation, selection, and honest routing
+  (function(){
+    const overlay = document.getElementById('finderOverlay');
+    const trigger = document.getElementById('finderTrigger');
+    const closeBtn = document.getElementById('finderClose');
+    const steps = document.querySelectorAll('.finder-step');
+    const progressWrap = document.getElementById('finderProgress');
+    const backBtn = document.getElementById('finderBack');
+    const nextBtn = document.getElementById('finderNext');
+    const nav = document.getElementById('finderNav');
+    const answers = {};
+    let current = 0;
+    const totalQuestionSteps = 3;
+
+    // --- Modal open/close ---
+    function openModal(){
+      overlay.classList.add('open');
+      trigger.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      trigger.classList.add('visible'); // stays available to reopen
+    }
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+    // Auto-open once per session, then leave the floating trigger for later
+    if(!sessionStorage.getItem('finderAutoShown')){
+      setTimeout(()=>{
+        openModal();
+        sessionStorage.setItem('finderAutoShown', '1');
+      }, 3500);
+    } else {
+      trigger.classList.add('visible');
+    }
+
+    // --- Step logic (unchanged from the inline version) ---
+    for(let i=0;i<totalQuestionSteps;i++){
+      const d = document.createElement('div');
+      d.className = 'finder-dot';
+      progressWrap.appendChild(d);
+    }
+    const dots = document.querySelectorAll('.finder-dot');
+
+    function renderProgress(){
+      dots.forEach((d,i)=>{
+        d.classList.toggle('done', i < current);
+        d.classList.toggle('current', i === current);
+      });
+    }
+
+    function showStep(i){
+      steps.forEach(s => s.classList.toggle('active', +s.dataset.step === i));
+      current = i;
+      renderProgress();
+      backBtn.disabled = (i === 0);
+      nav.style.display = (i === totalQuestionSteps) ? 'none' : 'flex';
+      updateNextState();
+    }
+
+    function updateNextState(){
+      const stepEl = document.querySelector('.finder-step[data-step="'+current+'"]');
+      const group = stepEl.querySelector('.finder-options');
+      if(!group){ nextBtn.disabled = false; return; }
+      const groupName = group.dataset.group;
+      nextBtn.disabled = !answers[groupName];
+    }
+
+    document.querySelectorAll('.finder-opt').forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        const group = opt.closest('.finder-options');
+        const groupName = group.dataset.group;
+        group.querySelectorAll('.finder-opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[groupName] = opt.dataset.value;
+        updateNextState();
+      });
+    });
+
+    backBtn.addEventListener('click', ()=>{ if(current>0) showStep(current-1); });
+    nextBtn.addEventListener('click', ()=>{
+      if(current < totalQuestionSteps - 1){ showStep(current+1); }
+      else { showResult(); showStep(totalQuestionSteps); }
+    });
+
+    document.getElementById('finderRestart').addEventListener('click', ()=>{
+      document.querySelectorAll('.finder-opt.selected').forEach(o=>o.classList.remove('selected'));
+      Object.keys(answers).forEach(k=>delete answers[k]);
+      showStep(0);
+    });
+
+    // Honest routing: only 3 real case studies exist. Industries without one
+    // fall back to the closest matching solution, with copy that says so —
+    // never a fabricated case study for an industry we don't have one for.
+    const caseStudyByIndustry = {
+      retail:     { href:'case-study-drakes.html', title:'Drakes Supermarkets', photo:'Photo — Drakes Supermarkets store', desc:'How a national grocery chain uses foot-traffic data to plan staffing.', tag:'Matching case study' },
+      government: { href:'#', title:'Brisbane City Council', photo:'Photo — council public space', desc:'How a council deployed venue analytics across public spaces.', tag:'Matching case study' },
+      banking:    { href:'#', title:'Macquarie Bank', photo:'Photo — bank branch', desc:'How a bank integrated smart security across its branch network.', tag:'Matching case study' }
+    };
+    const solutionByNeed = {
+      analytics:   { href:'solutions-index.html', title:'Retail & Venue Analytics', photo:'Photo — retail floor with traffic overlay', desc:'Foot traffic and POS data fused into real-time conversion insight.' },
+      security:    { href:'solutions-index.html', title:'Smart Security', photo:'Photo — CCTV control room', desc:'CCTV, access control and number-plate recognition, unified.' },
+      access:      { href:'solutions-index.html', title:'Facial Recognition', photo:'Photo — facial recognition access point', desc:'Sub-100ms recognition at 99.87% accuracy, on cameras you already own.' },
+      facilities:  { href:'solutions-index.html', title:'Cleaning Robots', photo:'Photo — floor-cleaning robot fleet', desc:'Autonomous floor-care fleets that cut labour cost.' },
+      engagement:  { href:'solutions-index.html', title:'Customer Engagement', photo:'Photo — guest Wi-Fi login screen', desc:'Guest Wi-Fi and micro-surveys that turn footfall into loyalty.' }
+    };
+
+    function showResult(){
+      const match = caseStudyByIndustry[answers.industry];
+      const tagEl = document.getElementById('finderResultTag');
+      const photoEl = document.getElementById('finderResultPhoto');
+      const titleEl = document.getElementById('finderResultTitle');
+      const descEl = document.getElementById('finderResultDesc');
+      const ctaEl = document.getElementById('finderResultCta');
+
+      if(match){
+        tagEl.textContent = match.tag;
+        photoEl.textContent = match.photo;
+        titleEl.textContent = match.title;
+        descEl.textContent = match.desc;
+        ctaEl.textContent = 'View case study →';
+        ctaEl.href = match.href;
+      } else {
+        const fallback = solutionByNeed[answers.need] || solutionByNeed.analytics;
+        tagEl.textContent = "We don't have a case study in your industry yet — here's the closest fit";
+        photoEl.textContent = fallback.photo;
+        titleEl.textContent = fallback.title;
+        descEl.textContent = fallback.desc;
+        ctaEl.textContent = 'View solution →';
+        ctaEl.href = fallback.href;
+      }
+    }
+  })();
+
+  // Industries carousel arrows
+  const indCarousel = document.getElementById('indCarousel');
+  const indCardW = () => indCarousel.querySelector('.ind-tile-wrap').offsetWidth + 16;
+  document.getElementById('indNext').addEventListener('click', ()=> indCarousel.scrollBy({left:indCardW(), behavior:'smooth'}));
+  document.getElementById('indPrev').addEventListener('click', ()=> indCarousel.scrollBy({left:-indCardW(), behavior:'smooth'}));
+
+  // Why-choose pill tabs
+  const whyData = [
+    { title:'Plug-and-play setup', desc:'Works with cameras you already have — no forklift upgrade required.',
+      bullets:['Bridges to existing CCTV, alarms and door hardware','Cloud + on-device storage','Automatic updates, no on-site maintenance visits'], photo:'Photo — camera install' },
+    { title:'Scales with every new site', desc:'Add a store or a stadium without adding a new system to manage.',
+      bullets:['One dashboard across every location','No per-site licensing headaches','Roll out in days, not months'], photo:'Photo — multi-site dashboard' },
+    { title:'Integrates with what you run today', desc:'POS, staffing, and access systems connect without custom dev work.',
+      bullets:['Open API and FTP upload for POS data','SSO / SAML for staff access','Works alongside existing alarm panels'], photo:'Photo — integrations diagram' },
+    { title:'Built with privacy in mind', desc:'Data handling designed around the Australian Privacy Act and the APPs.',
+      bullets:['Data stored in Australia','Role-based access controls','Clear retention and deletion policies'], photo:'Photo — data centre / compliance' },
+    { title:'24/7 specialist support', desc:'A real person, day or night, when something needs attention.',
+      bullets:['In-house support, not outsourced','Responses in minutes, not days','Dedicated account specialist per client'], photo:'Photo — support team' }
+  ];
+  const pillTabs = document.querySelectorAll('.pill-tab');
+  const whyLeft = document.getElementById('whyLeft');
+  const whyRight = document.getElementById('whyRight');
+  pillTabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      pillTabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const d = whyData[+tab.dataset.tab];
+      whyLeft.innerHTML = '<h3>'+d.title+'</h3><p>'+d.desc+'</p><ul class="check-list">'+
+        d.bullets.map(b=>'<li>'+b+'</li>').join('') +
+        '</ul><a href="#" class="btn-outline" style="background:#fff; border-color:#fff; width:fit-content;">Learn more</a>';
+      whyRight.textContent = d.photo;
+    });
+  });
+</script>
+</body>
+</html>

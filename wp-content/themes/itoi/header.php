@@ -1,0 +1,209 @@
+<?php
+/**
+ * Header: rotating ticker banner + sticky nav with dropdowns.
+ * Ground truth: preview-verkada-match.html (.promo, header, nav.main).
+ *
+ * Phase 2 scope: static structure/first-state only, matched pixel-for-pixel
+ * to the mockup. Ticker rotation, dropdown-on-hover already works via CSS,
+ * but the JS-driven pieces (ticker auto-advance) are wired up in Phase 3
+ * per PROJECT.md §10 — this renders the ticker's first message only.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+
+<?php
+/**
+ * Top-level Primary menu items + their children, used by BOTH the flat
+ * desktop nav (hover dropdowns, below) and the mobile full-screen overlay
+ * further down — computed once, up here, so neither has to duplicate the
+ * "Resources"-style dead-link fallback or the Use Cases special-case.
+ */
+$itoi_mega_locations = get_nav_menu_locations();
+$itoi_mega_items     = array();
+if ( ! empty( $itoi_mega_locations['primary'] ) ) {
+	$itoi_mega_menu_obj = wp_get_nav_menu_object( $itoi_mega_locations['primary'] );
+	if ( $itoi_mega_menu_obj ) {
+		$itoi_all_items = wp_get_nav_menu_items( $itoi_mega_menu_obj->term_id );
+		if ( $itoi_all_items ) {
+			foreach ( $itoi_all_items as $itoi_item ) {
+				if ( 0 == $itoi_item->menu_item_parent ) {
+					$itoi_url = $itoi_item->url;
+					// A parent used only to group children (e.g. "Resources")
+					// has no real destination of its own — send it to its
+					// first child instead of a dead "#" link.
+					if ( ! $itoi_url || '#' === $itoi_url ) {
+						foreach ( $itoi_all_items as $itoi_child ) {
+							if ( $itoi_child->menu_item_parent == $itoi_item->ID ) {
+								$itoi_url = $itoi_child->url;
+								break;
+							}
+						}
+					}
+					// "Use Cases" is special-cased: its real WP menu children
+					// still point at old placeholder URLs from before the
+					// 2026-07-23 use-cases consolidation (see NOTES.md,
+					// inc/use-cases.php) — the real 42 use cases live as
+					// their own `use_case` CPT posts (migrated 2026-07-30,
+					// see NOTES.md). Rather than edit the real WP Menu
+					// (Appearance -> Menus) to match, the dropdown is populated
+					// dynamically here from the same featured_in_nav-curated
+					// set the homepage teaser uses, plus a "View all" link.
+					if ( 'Use Cases' === trim( $itoi_item->title ) ) {
+						$itoi_children = itoi_get_nav_use_case_children();
+					} else {
+						$itoi_children = array();
+						foreach ( $itoi_all_items as $itoi_child ) {
+							if ( $itoi_child->menu_item_parent == $itoi_item->ID ) {
+								$itoi_children[] = array(
+									'title' => $itoi_child->title,
+									'url'   => $itoi_child->url,
+								);
+							}
+						}
+					}
+					$itoi_mega_items[] = array(
+						'title'    => $itoi_item->title,
+						'url'      => $itoi_url,
+						'children' => $itoi_children,
+					);
+				}
+			}
+		}
+	}
+}
+$itoi_mega_previews = get_field( 'mega_menu_previews', 'option' ) ?: array();
+
+/**
+ * Every page: the ticker+nav block "combines" with whatever section sits
+ * at the top of that page — fixed overlay instead of normal sticky flow,
+ * so that section's own background shows through around and behind it.
+ * Each template gives its own first section matching top padding (168px
+ * mobile / 206px desktop) so CONTENT still clears the fixed nav while the
+ * section's BACKGROUND runs full-height underneath, same mechanism
+ * megaHero in front-page.php originated. Generalized 2026-08-03 (see
+ * NOTES.md) — previously this was homepage-only and every other page used
+ * a plain sticky nav sitting in normal flow above its hero, leaving a gap.
+ *
+ * Ticker translucency still varies: pages whose top section is a dark/
+ * photo hero (home, the Use Cases hub, a product page) use the same
+ * translucent bg-black/20 the homepage always has, so that dark background
+ * shows through. Every other page's top section is light (bg-hero-bg or
+ * the page's own base background), so the ticker stays solid --ink —
+ * white ticker text over a translucent black/20 on a light background
+ * would fail WCAG contrast.
+ */
+$itoi_dark_hero        = is_front_page() || is_page( 'use-cases' ) || is_singular( 'product' );
+$itoi_header_wrap_cls  = 'fixed inset-x-0 top-0 z-[60]';
+$itoi_ticker_cls       = $itoi_dark_hero ? 'bg-black/20 backdrop-blur-sm' : 'bg-ink';
+$itoi_header_cls       = 'mt-3 min-[640px]:mt-4';
+?>
+<div id="siteHeaderFixed" class="<?php echo esc_attr( $itoi_header_wrap_cls ); ?>">
+	<div class="flex h-[38px] items-center justify-center gap-3.5 overflow-hidden px-4 text-[13.5px] font-medium text-white <?php echo esc_attr( $itoi_ticker_cls ); ?>" role="region" aria-label="Announcements">
+		<div class="relative h-5 overflow-hidden" id="promoTrack">
+			<div class="promo-line absolute whitespace-nowrap transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style="top:0px">Live foot-traffic detection now ships on every ITOI camera.</div>
+			<div class="promo-line absolute whitespace-nowrap transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style="top:20px">ITOI now integrates directly with Xero and MYOB for POS matching.</div>
+			<div class="promo-line absolute whitespace-nowrap transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style="top:40px">New: autonomous cleaning fleet now available for warehouse sites.</div>
+		</div>
+	</div>
+
+<header class="<?php echo esc_attr( $itoi_header_cls ); ?> px-3 min-[640px]:px-6 min-[980px]:px-8">
+	<div class="nav-glass mx-auto flex h-[72px] max-w-[1280px] items-center gap-6 rounded-full px-6 min-[640px]:px-8">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex shrink-0 items-center" aria-label="<?php bloginfo( 'name' ); ?>">
+			<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'h-9 w-auto', 'alt' => get_bloginfo( 'name' ) ) ); ?>
+		</a>
+
+		<?php // 1180px, not the sitewide 980px breakpoint — 8 top-level items (vs. the reference's 6) need more room before the flat bar fits without wrapping/overflow; below this the "Menu" trigger + full-screen overlay (unchanged) takes over. ?>
+		<nav class="hidden min-[1180px]:flex min-[1180px]:flex-1 min-[1180px]:items-center min-[1180px]:gap-0.5" aria-label="Primary">
+			<?php foreach ( $itoi_mega_items as $itoi_flat_item ) : ?>
+				<?php if ( ! empty( $itoi_flat_item['children'] ) ) : ?>
+					<div class="group relative">
+						<a href="<?php echo esc_url( $itoi_flat_item['url'] ); ?>" class="flex items-center whitespace-nowrap rounded-full px-3 py-2.5 text-[14px] font-semibold text-ink transition-colors hover:bg-hero-bg">
+							<?php echo esc_html( $itoi_flat_item['title'] ); ?>
+						</a>
+						<div class="invisible absolute left-1/2 top-full z-10 w-60 -translate-x-1/2 translate-y-1 rounded-2xl border border-line bg-white p-2 opacity-0 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.18)] transition-all duration-150 group-hover:visible group-hover:translate-y-2 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-2 group-focus-within:opacity-100">
+							<ul class="flex flex-col">
+								<?php foreach ( $itoi_flat_item['children'] as $itoi_flat_child ) : ?>
+									<li><a href="<?php echo esc_url( $itoi_flat_child['url'] ); ?>" class="block rounded-lg px-3.5 py-2.5 text-[13.5px] font-semibold text-ink transition-colors hover:bg-hero-bg"><?php echo esc_html( $itoi_flat_child['title'] ); ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
+					</div>
+				<?php else : ?>
+					<a href="<?php echo esc_url( $itoi_flat_item['url'] ); ?>" class="whitespace-nowrap rounded-full px-3 py-2.5 text-[14px] font-semibold text-ink transition-colors hover:bg-hero-bg"><?php echo esc_html( $itoi_flat_item['title'] ); ?></a>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</nav>
+
+		<div class="ml-auto flex shrink-0 items-center gap-2.5">
+			<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="hidden rounded-full bg-cta px-[22px] py-[11px] text-sm font-bold text-white transition-colors hover:bg-cta-hover min-[1180px]:inline-block">Contact</a>
+			<button type="button" id="menuTrigger" class="menu-trigger flex items-center gap-2.5 rounded-full border border-line px-4 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-hero-bg min-[1180px]:hidden" aria-expanded="false" aria-controls="megaMenu">
+				<span class="menu-trigger-bars" aria-hidden="true"></span>
+				Menu
+			</button>
+		</div>
+	</div>
+</header>
+</div>
+
+<div class="mega-menu aurora-bg" id="megaMenu" role="dialog" aria-modal="true" aria-label="Site menu">
+	<div class="mx-auto max-w-[1280px] px-8 py-10 min-[980px]:py-16">
+		<div class="mb-10 flex items-center justify-between min-[980px]:mb-16">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center gap-2 text-[19px] font-extrabold tracking-[-0.02em] text-white">
+				<span class="h-[9px] w-[9px] rounded-full bg-signature-bright"></span>Image to Intelligence
+			</a>
+			<button type="button" id="megaMenuClose" class="mega-menu-close flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white" aria-label="Close menu">
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 1L15 15M15 1L1 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+			</button>
+		</div>
+
+		<div class="grid grid-cols-1 gap-10 min-[980px]:grid-cols-[1.1fr_1fr] min-[980px]:gap-16">
+			<nav aria-label="Site menu">
+				<ul class="flex flex-col gap-5 min-[980px]:gap-7">
+					<?php foreach ( $itoi_mega_items as $itoi_index => $itoi_nav_item ) :
+						$itoi_preview = $itoi_mega_previews[ $itoi_index ] ?? array();
+						?>
+						<li>
+							<a
+								href="<?php echo esc_url( $itoi_nav_item['url'] ); ?>"
+								class="mega-menu-item text-[22px] font-extrabold min-[980px]:text-[28px]"
+								data-eyebrow="<?php echo esc_attr( $itoi_preview['eyebrow'] ?? '' ); ?>"
+								data-headline="<?php echo esc_attr( $itoi_preview['headline'] ?? '' ); ?>"
+								data-desc="<?php echo esc_attr( $itoi_preview['description'] ?? '' ); ?>"
+							>
+								<span class="mega-menu-item-index"><?php echo esc_html( sprintf( '%02d', $itoi_index + 1 ) ); ?></span>
+								<?php echo esc_html( $itoi_nav_item['title'] ); ?>
+							</a>
+							<?php if ( ! empty( $itoi_nav_item['children'] ) ) : ?>
+								<ul class="mt-3 flex flex-col gap-2 pl-1 min-[980px]:mt-4 min-[980px]:gap-2.5">
+									<?php foreach ( $itoi_nav_item['children'] as $itoi_child_item ) : ?>
+										<li><a href="<?php echo esc_url( $itoi_child_item['url'] ); ?>" class="text-[14px] font-semibold text-white/60 transition-colors hover:text-white min-[980px]:text-[15px]"><?php echo esc_html( $itoi_child_item['title'] ); ?></a></li>
+									<?php endforeach; ?>
+								</ul>
+							<?php endif; ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</nav>
+
+			<div class="mega-menu-preview mega-menu-preview-glass hidden self-start min-[980px]:block" id="megaMenuPreview">
+				<div class="mb-3 text-[13px] font-bold uppercase tracking-wide text-signature-bright" id="megaMenuEyebrow"></div>
+				<h2 class="mb-4 max-w-[16ch] text-[clamp(24px,2.6vw,34px)] text-white" id="megaMenuHeadline"></h2>
+				<p class="max-w-[38ch] text-white/70" id="megaMenuDesc"></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<main>
