@@ -1,7 +1,5 @@
 # Ignore general WordPress files
 wp-config.php
-/wp-content/plugins/
-/wp-content/uploads/
 wp-content/cache/
 wp-content/upgrade/
 wp-content/backup-db/

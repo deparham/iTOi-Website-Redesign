@@ -16,7 +16,6 @@
 		initLazyMediaVideos();
 		initTicker();
 		initHero();
-		initSolutionsCarousel();
 		initProductsCarousel();
 		initTrafficWidget();
 		initWhyChooseTabs();
@@ -393,165 +392,6 @@
 		}
 	}
 
-
-	// "Explore our solutions" homepage carousel (front-page.php,
-	// id="exploreSolutions") — replaced 2026-07-30 (see NOTES.md) a broken
-	// .flip-card grid. Needs a responsive N-visible (1/2/3 at mobile/
-	// tablet/desktop) track that shifts by exactly 1 slide — a real
-	// translateX slide, not a 3-fixed-slot swap. Breakpoints/visible-count
-	// live only in CSS (--sc-visible custom property, src/tailwind.css) —
-	// this function measures rendered slide width via
-	// getBoundingClientRect(), never hardcodes a pixel breakpoint, so the
-	// two stay impossible to drift apart.
-	function initSolutionsCarousel() {
-		var wrap = document.getElementById( 'solutionsCarousel' );
-		var viewport = document.getElementById( 'solutionsCarouselViewport' );
-		var track = document.getElementById( 'solutionsCarouselTrack' );
-		if ( ! wrap || ! viewport || ! track ) {
-			return;
-		}
-		var slides = Array.prototype.slice.call( track.children );
-		var total = slides.length;
-		if ( ! total ) {
-			return;
-		}
-
-		// prefers-reduced-motion: never add .is-active at all — the CSS
-		// default state (no class) IS the static wrapped grid showing all
-		// 8 cards, so returning here satisfies "show the static grid
-		// instead" exactly, with no separate code path to maintain.
-		if ( reduceMotion ) {
-			return;
-		}
-		wrap.classList.add( 'is-active' );
-
-		var dots = Array.prototype.slice.call( wrap.querySelectorAll( '.solutions-carousel-dot' ) );
-		var prevBtn = document.getElementById( 'solCarouselPrev' );
-		var nextBtn = document.getElementById( 'solCarouselNext' );
-		var playPauseBtn = document.getElementById( 'solCarouselPlayPause' );
-		var pauseIcon = document.getElementById( 'solCarouselPauseIcon' );
-		var playIcon = document.getElementById( 'solCarouselPlayIcon' );
-
-		var AUTO_MS = 3000;
-		var index = 0;
-		var timer = null;
-		var userPaused = false;
-		var hoverPaused = false;
-		var visibleCount = 1;
-		var maxIndex = 0;
-
-		function measure() {
-			visibleCount = parseInt( getComputedStyle( track ).getPropertyValue( '--sc-visible' ), 10 ) || 1;
-			maxIndex = Math.max( 0, total - visibleCount );
-			index = Math.min( index, maxIndex );
-		}
-
-		function render() {
-			var first = slides[ 0 ].getBoundingClientRect();
-			var second = total > 1 ? slides[ 1 ].getBoundingClientRect() : first;
-			var step = second.left - first.left;
-			track.style.transform = 'translateX(-' + ( index * step ) + 'px)';
-			// Range check, not exact-index equality: with 8 dots and a
-			// clamped maxIndex (fewer than 8 when more than 1 card is
-			// visible), an exact match would leave the last few dots never
-			// showing as current even though clicking them does bring
-			// those cards into view. This makes every dot reachable as
-			// "current" for some scroll position.
-			dots.forEach( function ( dot, i ) {
-				dot.classList.toggle( 'is-current', i >= index && i < index + visibleCount );
-			} );
-		}
-
-		function stopTimer() {
-			if ( timer ) {
-				clearInterval( timer );
-				timer = null;
-			}
-		}
-
-		function startTimer() {
-			stopTimer();
-			if ( userPaused || hoverPaused ) {
-				return;
-			}
-			timer = setInterval( function () {
-				index = index >= maxIndex ? 0 : index + 1;
-				render();
-			}, AUTO_MS );
-		}
-
-		function goTo( i ) {
-			measure();
-			index = Math.min( Math.max( i, 0 ), maxIndex );
-			render();
-			startTimer();
-		}
-
-		dots.forEach( function ( dot, i ) {
-			dot.addEventListener( 'click', function () {
-				goTo( i );
-			} );
-		} );
-		if ( prevBtn ) {
-			prevBtn.addEventListener( 'click', function () {
-				goTo( index - 1 );
-			} );
-		}
-		if ( nextBtn ) {
-			nextBtn.addEventListener( 'click', function () {
-				goTo( index + 1 );
-			} );
-		}
-
-		if ( playPauseBtn ) {
-			playPauseBtn.addEventListener( 'click', function () {
-				userPaused = ! userPaused;
-				playPauseBtn.setAttribute( 'aria-pressed', String( userPaused ) );
-				playPauseBtn.setAttribute( 'aria-label', userPaused ? 'Resume auto-advance' : 'Pause auto-advance' );
-				pauseIcon.classList.toggle( 'hidden', userPaused );
-				playIcon.classList.toggle( 'hidden', ! userPaused );
-				if ( userPaused ) {
-					stopTimer();
-				} else {
-					startTimer();
-				}
-			} );
-		}
-
-		// Hover pause / immediate resume on mouse-leave — no resume delay
-		// needed here. Keyboard focus pauses/resumes the same way.
-		wrap.addEventListener( 'mouseenter', function () {
-			hoverPaused = true;
-			stopTimer();
-		} );
-		wrap.addEventListener( 'mouseleave', function () {
-			hoverPaused = false;
-			startTimer();
-		} );
-		wrap.addEventListener( 'focusin', function () {
-			hoverPaused = true;
-			stopTimer();
-		} );
-		wrap.addEventListener( 'focusout', function ( e ) {
-			if ( ! wrap.contains( e.relatedTarget ) ) {
-				hoverPaused = false;
-				startTimer();
-			}
-		} );
-
-		var resizeTimer = null;
-		window.addEventListener( 'resize', function () {
-			clearTimeout( resizeTimer );
-			resizeTimer = setTimeout( function () {
-				measure();
-				render();
-			}, 150 );
-		} );
-
-		measure();
-		render();
-		startTimer();
-	}
 
 	// "Meet our products" homepage section (front-page.php) — rebuilt
 	// 2026-07-31, same day, as a compact single-card-visible carousel:
@@ -2499,8 +2339,18 @@
 			} );
 		}
 
-		// Fallback-card CTA ("Explore our solutions →") — smooth-scrolls to
-		// the (already reordered) grid instead of a plain anchor jump.
+		// Fallback-card CTA ("Explore our solutions →") — originally
+		// smooth-scrolled to an in-page solutions carousel (id=
+		// "exploreSolutions"). That section is gone (Step 3, replaced by
+		// the problem-first section — see front-page.php) and the CTA's
+		// href now points at the real /solutions/ archive instead, so this
+		// intentionally becomes a no-op: getElementById returns null,
+		// preventDefault() never fires, and the anchor's own href takes
+		// over as a plain page navigation. Left in place rather than
+		// deleted since it costs nothing and degrades correctly on its own
+		// — if a future id="exploreSolutions" target is ever reintroduced
+		// elsewhere on this page, the smooth-scroll behavior comes back
+		// automatically with no code change needed here.
 		section.addEventListener( 'click', function ( e ) {
 			var cta = e.target.closest( '.industry-fallback-cta' );
 			if ( ! cta ) {
