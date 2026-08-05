@@ -1224,7 +1224,7 @@
             "name": "trust_section_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Homepage \"Trust & credibility\" section, directly below the mega-hero (front-page.php, id=\"trustCredibility\") — the four large metric cards + placeholder logo row. Separate from proof_stats above (that section sits lower on the page, dark-glass tiles) and from trusted_by_heading below (real client-name logo band, also lower on the page).",
+            "instructions": "Homepage \"Trust & credibility\" section, directly below the mega-hero (front-page.php, id=\"trustCredibility\") — the four large metric cards + real client-logo marquee. Separate from proof_stats above (that section sits lower on the page, dark-glass tiles).",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1232,7 +1232,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Trusted by organisations that cannot afford security failures.",
+            "default_value": "Trusted by retailers who measure performance, not guesswork.",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1244,7 +1244,7 @@
             "name": "trust_metrics",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Exactly 4 metric cards by design (min/max both set to 4) — the section's grid assumes exactly four; adding/removing requires a template/CSS change, not just content edits. Each stat_value's leading number is what animates (counts up) when the card scrolls into view — see initTrustMetricsCounters() in assets/js/main.js.",
+            "instructions": "Exactly 4 metric cards by design (min/max both set to 4) — the section's grid assumes exactly four; adding/removing requires a template/CSS change, not just content edits. If a stat_value starts with a digit, its leading number animates (counts up) when the card scrolls into view — see initTrustMetricsCounters() in assets/js/main.js. Non-numeric values (e.g. \"Millions\", \"Real-time\") render as-is, no count-up, same card design either way.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1258,20 +1258,20 @@
             "max": 4,
             "default_value": [
                 {
-                    "field_2a5d73f9e4c6": "100+",
-                    "field_3b6e84a0f5d7": "Sites supported"
+                    "field_2a5d73f9e4c6": "Millions",
+                    "field_3b6e84a0f5d7": "of visitors analysed"
                 },
                 {
-                    "field_2a5d73f9e4c6": "24/7",
-                    "field_3b6e84a0f5d7": "Monitoring capability"
+                    "field_2a5d73f9e4c6": "Real-time",
+                    "field_3b6e84a0f5d7": "analytics"
                 },
                 {
-                    "field_2a5d73f9e4c6": "99.9%",
-                    "field_3b6e84a0f5d7": "System uptime target"
+                    "field_2a5d73f9e4c6": "Multi-site",
+                    "field_3b6e84a0f5d7": "deployments"
                 },
                 {
-                    "field_2a5d73f9e4c6": "2 hour",
-                    "field_3b6e84a0f5d7": "Average response target"
+                    "field_2a5d73f9e4c6": "Enterprise",
+                    "field_3b6e84a0f5d7": "reporting"
                 }
             ],
             "rows_per_page": 20,
@@ -1283,7 +1283,7 @@
                     "name": "stat_value",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "e.g. \"100+\", \"24/7\", \"99.9%\", \"2 hour\". The leading number (or number pair, e.g. the 24 in 24/7) animates on scroll-in; any trailing text (+, %, /7, \" hour\") stays static and is appended after the count finishes.",
+                    "instructions": "e.g. \"100+\", \"Millions\", \"Real-time\". If this starts with a digit, the leading number animates (counts up) on scroll-in and any trailing text (+, %, /7, \" hour\") is appended after the count finishes; non-numeric values just render as-is with no count-up.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -1343,5 +1343,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1785889914
+    "modified": 1785892771
 }

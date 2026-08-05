@@ -170,25 +170,31 @@ if ( empty( $itoi_hero_trust_metrics ) ) {
      originally shipped with (trust_placeholder_logos) is gone too — real
      logos now render here directly, no separate "placeholder vs real"
      split to maintain.
-     Counters: each card's big number animates from 0 up to its
-     stat_value's leading numeric portion on scroll-in
+     Counters: when a card's stat_value starts with a digit, its leading
+     numeric portion animates from 0 up on scroll-in
      (initTrustMetricsCounters(), assets/js/main.js) — any trailing
      non-numeric text (+, %, /7, " hour") is static, appended after the
-     count finishes. Deliberately no --signature-navy anywhere in this
+     count finishes. A non-numeric stat_value (e.g. "Millions",
+     "Real-time" — 2026-08-05 content edit) has nothing to count from, so
+     it just renders as its real text with no animation; same card markup/
+     styling either way, only the PHP-side is-it-numeric check (below)
+     decides whether the initial server-rendered content is "0" (about to
+     count up) or the real value (nothing to animate). Deliberately no
+     --signature-navy anywhere in this
      section (checked against itoi_reveal_markup()'s "metric cards" use
      case, which would normally fit here — skipped specifically because it
      draws in signature-blue brackets/tag, which conflicts with the
      brief's explicit "monochrome" requirement; only the plain
      itoi_reveal_class() fade is used, on the heading only). -->
 <?php
-$itoi_trust_heading = get_field( 'trust_section_heading', 'option' ) ?: 'Trusted by organisations that cannot afford security failures.';
+$itoi_trust_heading = get_field( 'trust_section_heading', 'option' ) ?: 'Trusted by retailers who measure performance, not guesswork.';
 $itoi_trust_metrics  = get_field( 'trust_metrics', 'option' );
 if ( empty( $itoi_trust_metrics ) ) {
 	$itoi_trust_metrics = array(
-		array( 'stat_value' => '100+', 'stat_label' => 'Sites supported' ),
-		array( 'stat_value' => '24/7', 'stat_label' => 'Monitoring capability' ),
-		array( 'stat_value' => '99.9%', 'stat_label' => 'System uptime target' ),
-		array( 'stat_value' => '2 hour', 'stat_label' => 'Average response target' ),
+		array( 'stat_value' => 'Millions', 'stat_label' => 'of visitors analysed' ),
+		array( 'stat_value' => 'Real-time', 'stat_label' => 'analytics' ),
+		array( 'stat_value' => 'Multi-site', 'stat_label' => 'deployments' ),
+		array( 'stat_value' => 'Enterprise', 'stat_label' => 'reporting' ),
 	);
 }
 ?>
@@ -200,10 +206,21 @@ if ( empty( $itoi_trust_metrics ) ) {
 
 		<?php if ( ! empty( $itoi_trust_metrics ) ) : ?>
 			<div class="mb-14 grid grid-cols-2 gap-4 min-[640px]:gap-6 min-[980px]:grid-cols-4 min-[980px]:gap-7" id="trustMetricsGrid">
-				<?php foreach ( $itoi_trust_metrics as $itoi_tm_row ) : ?>
-					<?php if ( empty( $itoi_tm_row['stat_value'] ) ) { continue; } ?>
-					<div class="flex flex-col items-start gap-2.5 rounded-2xl border border-line bg-white p-6 shadow-[0_4px_24px_-8px_rgba(14,17,22,0.08)] min-[640px]:p-8">
-						<div class="text-[36px] font-extrabold leading-none tracking-[-0.01em] text-ink min-[640px]:text-[44px]" data-trust-counter data-target="<?php echo esc_attr( $itoi_tm_row['stat_value'] ); ?>">0</div>
+				<?php foreach ( $itoi_trust_metrics as $itoi_tm_row ) :
+					if ( empty( $itoi_tm_row['stat_value'] ) ) {
+						continue;
+					}
+					// Only a leading-digit value actually counts up
+					// (initTrustMetricsCounters(), main.js) — render its
+					// real starting point as "0" so the count-up reads
+					// naturally. A non-numeric value (e.g. "Millions",
+					// "Real-time") has nothing to count from, so it's
+					// rendered as its real final text straight away — no
+					// "0" flash before JS/scroll ever touches it.
+					$itoi_tm_is_numeric = (bool) preg_match( '/^\d/', $itoi_tm_row['stat_value'] );
+					?>
+					<div class="group flex flex-col items-start gap-2.5 rounded-2xl border border-line bg-white p-6 shadow-[0_4px_24px_-8px_rgba(14,17,22,0.08)] transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:border-ink hover:shadow-[0_12px_32px_-12px_rgba(14,17,22,0.14)] min-[640px]:p-8">
+						<div class="text-[36px] font-extrabold leading-none tracking-[-0.01em] text-ink min-[640px]:text-[44px]" data-trust-counter data-target="<?php echo esc_attr( $itoi_tm_row['stat_value'] ); ?>"><?php echo $itoi_tm_is_numeric ? '0' : esc_html( $itoi_tm_row['stat_value'] ); ?></div>
 						<div class="text-[13px] font-semibold text-text-muted"><?php echo esc_html( $itoi_tm_row['stat_label'] ?? '' ); ?></div>
 					</div>
 				<?php endforeach; ?>
