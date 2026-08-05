@@ -1,0 +1,157 @@
+{
+	"key": "group_e887925f09b1",
+	"title": "Solution Builder Lead",
+	"fields": [
+		{
+			"key": "field_9c92ed4ddad7",
+			"label": "Contact",
+			"name": "",
+			"type": "tab",
+			"placement": "top"
+		},
+		{
+			"key": "field_838cdcf35a27",
+			"label": "Name",
+			"name": "sb_name",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_ef0f176b8078",
+			"label": "Email",
+			"name": "sb_email",
+			"type": "email",
+			"readonly": 1
+		},
+		{
+			"key": "field_33617137d660",
+			"label": "Company",
+			"name": "sb_company",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_5d241f474810",
+			"label": "Phone",
+			"name": "sb_phone",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_39c6235472ad",
+			"label": "Submitted at",
+			"name": "sb_submitted_at",
+			"type": "date_time_picker",
+			"display_format": "d/m/Y g:i a",
+			"return_format": "Y-m-d H:i:s",
+			"readonly": 1
+		},
+		{
+			"key": "field_0d6187f2d912",
+			"label": "Form Answers",
+			"name": "",
+			"type": "tab",
+			"placement": "top"
+		},
+		{
+			"key": "field_2efdc58ef83e",
+			"label": "Business type",
+			"name": "sb_business_type",
+			"type": "text",
+			"instructions": "Industry slug selected in Step 1.",
+			"readonly": 1
+		},
+		{
+			"key": "field_b2291be73f5a",
+			"label": "Number of employees",
+			"name": "sb_employees",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_28604bef810e",
+			"label": "Number of sites",
+			"name": "sb_sites",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_d973bc53da42",
+			"label": "Existing CCTV?",
+			"name": "sb_existing_cctv",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_85b9004d026a",
+			"label": "Existing POS system?",
+			"name": "sb_existing_pos",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_1aa31acd7222",
+			"label": "Cloud-based operations?",
+			"name": "sb_cloud_based",
+			"type": "text",
+			"readonly": 1
+		},
+		{
+			"key": "field_b9ed3cb3f9d1",
+			"label": "Current challenges",
+			"name": "sb_challenges",
+			"type": "textarea",
+			"rows": 2,
+			"instructions": "Comma-separated list of selected challenges, as submitted.",
+			"readonly": 1
+		},
+		{
+			"key": "field_c72eea2e1210",
+			"label": "Calculated Output",
+			"name": "",
+			"type": "tab",
+			"placement": "top"
+		},
+		{
+			"key": "field_d93d56177b1d",
+			"label": "Recommended solutions",
+			"name": "sb_recommended_solutions",
+			"type": "textarea",
+			"rows": 2,
+			"instructions": "Top solution categories, highest score first, exactly as shown to the visitor — recalculated server-side from the answers above, not client-supplied.",
+			"readonly": 1
+		},
+		{
+			"key": "field_5a22a94116c5",
+			"label": "Estimated annual value (AUD)",
+			"name": "sb_roi_total",
+			"type": "number",
+			"readonly": 1
+		},
+		{
+			"key": "field_7bbfc734c395",
+			"label": "Implementation timeline",
+			"name": "sb_timeline",
+			"type": "text",
+			"readonly": 1
+		}
+	],
+	"location": [
+		[
+			{
+				"param": "post_type",
+				"operator": "==",
+				"value": "sb_lead"
+			}
+		]
+	],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"hide_on_screen": "",
+	"active": true,
+	"description": "Read-only record of a Solution Builder submission (/solution-builder/). Written entirely by inc/solution-builder.php's AJAX lead handler — every field here is server-calculated or visitor-submitted, never editor-entered.",
+	"show_in_rest": 0
+}

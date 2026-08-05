@@ -1,0 +1,16 @@
+/*
+Theme Name: ITOI
+Theme URI: https://itoisolutions.com.au
+Author: ITOI Solutions
+Description: Custom WordPress theme for the ITOI Solutions rebuild — clean, modern, conversion-focused enterprise SaaS design with the "Live Detection" signature layer. See PROJECT.md and CLAUDE.md in this theme's root for the full spec.
+Version: 0.1.0
+Requires at least: 6.0
+Requires PHP: 8.1
+Tested up to: 6.2
+License: Proprietary
+Text Domain: itoi
+
+This file is required by WordPress to identify the theme. Actual styles are
+compiled from Tailwind (src/tailwind.css -> assets/css/style.css) and enqueued
+via inc/enqueue.php — do not add rules here.
+*/

@@ -1,0 +1,14 @@
+# Node toolchain — production runs on the compiled CSS in assets/, no Node process.
+node_modules/
+
+# Screenshot loop output — cleared each session per CLAUDE.md, not committed.
+temporary-screenshots/
+
+# Local-only debug output.
+npm-debug.log*
+
+# Stale Lighthouse audit report scratch output (not referenced by any code).
+temporary-lighthouse/
+
+# Local IDE/editor state and pasted chat images — not project source.
+.claude/

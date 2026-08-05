@@ -1,0 +1,30 @@
+# Ignore general WordPress files
+wp-config.php
+/wp-content/plugins/
+/wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup-db/
+/.htaccess
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
+*.sql
+*.log
+
+# Ignore specific WordPress directories
+/wp-admin/
+/wp-includes/
+
+# Ignore development files
+/node_modules/
+/package-lock.json
+/yarn.lock
+/gruntfile.js
+/gulpfile.js
+/.babelrc
+/.eslintrc
+wp-content/updraft/
+*.zip.tmp
+*.tmp

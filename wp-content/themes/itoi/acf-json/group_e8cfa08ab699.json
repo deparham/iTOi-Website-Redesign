@@ -1,0 +1,23 @@
+{
+	"key": "group_e8cfa08ab699",
+	"title": "Team Member",
+	"fields": [
+		{ "key": "field_5450388d2af9", "label": "Name", "name": "name", "type": "text", "instructions": "Real people only (PROJECT.md §4/§6)." },
+		{ "key": "field_2e921e8c9052", "label": "Role", "name": "role", "type": "text" },
+		{ "key": "field_8d24f6a1c930", "label": "Department", "name": "department", "type": "text", "instructions": "Groups this person into a section on the Team page (e.g. Management, IT, Marketing). Free text — any value creates its own section, no developer needed to add a new one." },
+		{ "key": "field_6ac477b0dfa3", "label": "Bio", "name": "bio", "type": "textarea", "rows": 4, "instructions": "Placeholder until a real bio is provided." },
+		{ "key": "field_1b70668763fa", "label": "Photo", "name": "photo", "type": "image", "return_format": "id", "instructions": "Placeholder until a real photo is provided." },
+		{ "key": "field_2c8e4a6f9d31", "label": "Video", "name": "video", "type": "file", "return_format": "array", "required": 0, "mime_types": "mp4,webm,mov", "instructions": "Optional short intro clip. Takes priority over the photo above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (the photo shows instead, including as this video's poster). Keep it small — a few seconds looping cleanly, no audio track needed since it's always muted." },
+		{ "key": "field_53c51ff81d04", "label": "Email", "name": "email", "type": "email" },
+		{ "key": "field_6c6d820f1fe5", "label": "LinkedIn URL", "name": "linkedin_url", "type": "url", "required": 0 }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "team_member" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md §4 CPT `team_member` (2 confirmed: Sean Kiely, Michael Stark).",
+	"show_in_rest": 0
+}

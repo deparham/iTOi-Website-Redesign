@@ -1,0 +1,98 @@
+0000.000 (0) Opened log file at time: Tue, 19 Sep 2023 00:26:00 +0000 on https://itoisolutions.com.au
+0000.005 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.23.10 WP: 6.2.2 PHP: 8.1.2-1ubuntu2.14 (apache2handler, Linux itoi-website-machine1 5.15.0-78-generic #85-Ubuntu SMP Fri Jul 7 15:25:09 UTC 2023 x86_64) MySQL: 8.0.34-0ubuntu0.22.04.1 (max packet size=67108864) WPLANG: en_US Server: Apache/2.4.52 (Ubuntu) safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 5.2M | 6M) multisite: N openssl: OpenSSL 3.0.2 15 Mar 2022 mcrypt: N LANG: C ZipArchive::addFile: N
+0000.036 (0) Free space on disk containing Updraft's temporary directory: 20265.9 MB
+0000.044 (0) Tasks: Backup files: 1 (schedule: manual) Backup DB: 1 (schedule: manual)
+0000.048 (0) Semaphore (fd, i2iweb_options) being initialised
+0000.069 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
+0000.083 (0) Set semaphore last lock (fd) time to 2023-09-19 00:26:00
+0000.088 (0) Semaphore lock (fd) complete
+0000.103 (0) Backup run: resumption=0, nonce=38525aeae0ab, file_nonce=38525aeae0ab begun at=1695083160 (0s ago), job type=backup
+0000.129 (0) Scheduling a resumption (1) after 300 seconds (1695083460) in case this run gets aborted
+0000.189 (0) Checking if we have a zip executable available
+0000.204 (0) Zip engine: ZipArchive (a.k.a. php-zip) is not available or is disabled (will use PclZip (much slower) if needed)
+0000.211 (0) Creation of backups of directories: beginning
+0000.233 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0000.562 (0) Total entities for the zip file: 822 directories, 4853 files (0 skipped as non-modified), 73.6 MB
+0000.568 (0) Only one archive required (UpdraftPlus_PclZip) - will attempt to do in single operation (data: 75353 KB, split: 409600 KB)
+0000.574 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 100 files added (on-disk size: 0 KB)
+0000.597 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 200 files added (on-disk size: 0 KB)
+0000.607 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 300 files added (on-disk size: 0 KB)
+0000.611 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 400 files added (on-disk size: 0 KB)
+0000.617 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 500 files added (on-disk size: 0 KB)
+0000.623 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 600 files added (on-disk size: 0 KB)
+0000.630 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 700 files added (on-disk size: 0 KB)
+0000.635 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 800 files added (on-disk size: 0 KB)
+0000.642 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 900 files added (on-disk size: 0 KB)
+0000.648 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0000.665 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1100 files added (on-disk size: 0 KB)
+0000.672 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1200 files added (on-disk size: 0 KB)
+0000.700 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1300 files added (on-disk size: 0 KB)
+0000.706 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1400 files added (on-disk size: 0 KB)
+0000.718 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1500 files added (on-disk size: 0 KB)
+0000.725 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1600 files added (on-disk size: 0 KB)
+0000.733 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1700 files added (on-disk size: 0 KB)
+0000.740 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1800 files added (on-disk size: 0 KB)
+0000.744 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 1900 files added (on-disk size: 0 KB)
+0000.752 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2000 files added (on-disk size: 0 KB)
+0000.761 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2100 files added (on-disk size: 0 KB)
+0000.784 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2200 files added (on-disk size: 0 KB)
+0000.796 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2300 files added (on-disk size: 0 KB)
+0000.804 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2400 files added (on-disk size: 0 KB)
+0000.815 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2500 files added (on-disk size: 0 KB)
+0000.824 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2600 files added (on-disk size: 0 KB)
+0000.831 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2700 files added (on-disk size: 0 KB)
+0000.839 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2800 files added (on-disk size: 0 KB)
+0000.854 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 2900 files added (on-disk size: 0 KB)
+0000.861 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3000 files added (on-disk size: 0 KB)
+0000.869 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3100 files added (on-disk size: 0 KB)
+0000.878 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3200 files added (on-disk size: 0 KB)
+0000.889 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3300 files added (on-disk size: 0 KB)
+0000.896 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3400 files added (on-disk size: 0 KB)
+0000.907 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3500 files added (on-disk size: 0 KB)
+0000.916 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3600 files added (on-disk size: 0 KB)
+0000.924 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3700 files added (on-disk size: 0 KB)
+0000.931 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3800 files added (on-disk size: 0 KB)
+0000.942 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 3900 files added (on-disk size: 0 KB)
+0000.954 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4000 files added (on-disk size: 0 KB)
+0000.960 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4100 files added (on-disk size: 0 KB)
+0000.969 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4200 files added (on-disk size: 0 KB)
+0000.976 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4300 files added (on-disk size: 0 KB)
+0000.983 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4400 files added (on-disk size: 0 KB)
+0000.992 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4500 files added (on-disk size: 0 KB)
+0000.998 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4600 files added (on-disk size: 0 KB)
+0001.005 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4700 files added (on-disk size: 0 KB)
+0001.046 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.tmp: 4800 files added (on-disk size: 0 KB)
+0047.695 (0) Creating zip file manifest (backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.list-temp.tmp)
+0047.719 (0) Successfully created zip file manifest (size: 431440)
+0048.018 (0) Created plugins zip (0) - 24452.2 KB in 47.8 s (511.9 KB/s) (sha1: a02a86ae908d5abf923d0b19de8c8a31abc73078, sha256: 74605385a92ec8a9a3063cd0ed1534e46c12d2b0103413ce3fd6cda8b176ff76)
+0048.041 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0048.046 (0) No remote despatch: user chose no remote backup service
+0048.052 (0) Recording as successfully uploaded: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip
+0048.067 (0) Deleting zip manifest (backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-plugins.zip.list.tmp)
+0048.079 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0048.087 (0) Number of backup sets in history: 0; groups (db): 1
+0048.093 (0) Number of backup sets in history: 0; groups (files): 1
+0048.099 (0) Retain: saving new backup history (sets now: 0) and finishing retain operation
+0048.132 (0) Beginning creation of dump of themes (split every: 400 MB)
+0048.303 (0) Total entities for the zip file: 399 directories, 1116 files (0 skipped as non-modified), 196.8 MB
+0048.314 (0) Only one archive required (UpdraftPlus_PclZip) - will attempt to do in single operation (data: 201561.9 KB, split: 409600 KB)
+0048.323 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0048.331 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0048.338 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 300 files added (on-disk size: 0 KB)
+0048.345 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 400 files added (on-disk size: 0 KB)
+0048.352 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 500 files added (on-disk size: 0 KB)
+0048.360 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 600 files added (on-disk size: 0 KB)
+0048.368 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 700 files added (on-disk size: 0 KB)
+0048.374 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 800 files added (on-disk size: 0 KB)
+0048.380 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 900 files added (on-disk size: 0 KB)
+0048.388 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0048.397 (0) Zip: backup_2023-09-19-0026_I_TO_I_Web_38525aeae0ab-themes.zip.tmp: 1100 files added (on-disk size: 0 KB)
+0393.020 (0) The time we have been running (393) is approaching the resumption interval (300) - increasing resumption interval to 423
+0393.037 (0) User request for abort: backup job will be immediately halted
+0393.050 (0) Decremented the semaphore (fd) by 1
+0393.063 (0) Semaphore (fd) unlocked
+0393.070 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0393.096 (0) Fetching RSS news feed
+0393.185 (0) Fetched RSS news feed; result is a: WP_Error
+0393.210 (0) Sending email ('The backup was aborted by the user') report (attachments: 0, size: 0 KB) to: sean....
+0396.934 (0) The backup was aborted by the user

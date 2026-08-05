@@ -1,0 +1,17 @@
+{
+	"key": "group_e46fe029130b",
+	"title": "Insight",
+	"fields": [
+		{ "key": "field_fc2f1dbbee05", "label": "Dek", "name": "dek", "type": "textarea", "rows": 2, "instructions": "One-sentence summary — used on the /insights/ archive." },
+		{ "key": "field_4dd1fad7101c", "label": "Author", "name": "author", "type": "relationship", "post_type": [ "team_member" ], "return_format": "id", "min": 0, "max": 1, "instructions": "Select one." }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "insight" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md §4 CPT `insight`. Standard post fields (title/editor/thumbnail/excerpt) + this field group. 3 drafted articles exist from the Astro prototype — publish only when reviewed.",
+	"show_in_rest": 0
+}

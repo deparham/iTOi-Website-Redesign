@@ -1,0 +1,20 @@
+{
+	"key": "group_34d1b14d47e5",
+	"title": "Use Case",
+	"fields": [
+		{ "key": "field_7d4a9c2e5b16", "label": "Photo", "name": "photo", "type": "image", "return_format": "id", "instructions": "16:10. Leave empty to show a placeholder box on the front end." },
+		{ "key": "field_8e5b0d3f6c27", "label": "Video", "name": "video", "type": "file", "return_format": "array", "required": 0, "mime_types": "mp4,webm,mov", "instructions": "Optional. Takes priority over the photo above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (the photo shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted." },
+		{ "key": "field_9f6c1e4a7d38", "label": "Industry", "name": "industry", "type": "post_object", "post_type": [ "industry" ], "return_format": "id", "ui": 1, "required": 1, "instructions": "Which industry this use case belongs to." },
+		{ "key": "field_a07d2f5b8e49", "label": "Links to solution", "name": "solution", "type": "post_object", "post_type": [ "solution" ], "return_format": "id", "ui": 1, "required": 1, "instructions": "The use-case card links straight to this solution's page." },
+		{ "key": "field_b18e3a6c9f50", "label": "Featured in nav dropdown", "name": "featured_in_nav", "type": "true_false", "ui": 1, "instructions": "Curates the mega menu's \"Use Cases\" dropdown and the homepage teaser row — one per industry is the usual pattern, not every use case." }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "use_case" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md §4 CPT `use_case`. Migrated 2026-07-30 from the `industry` CPT's own use_cases repeater (see NOTES.md) to give this content a real, central admin list instead of editing it 7 posts at a time — post_title is the use-case label (e.g. \"Loss Prevention\"), no separate Name field needed since the CPT already supports Title.",
+	"show_in_rest": 0
+}

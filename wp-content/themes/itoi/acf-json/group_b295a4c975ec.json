@@ -1,0 +1,22 @@
+{
+	"key": "group_b295a4c975ec",
+	"title": "Guide",
+	"fields": [
+		{ "key": "field_f93d2a304842", "label": "Title", "name": "title", "type": "text", "instructions": "Falls back to the post title if left blank — mirrors the Industry CPT's own name/post_title pattern." },
+		{ "key": "field_fb508cbdeba8", "label": "Industry", "name": "industry", "type": "post_object", "post_type": [ "industry" ], "return_format": "id", "allow_null": 1, "ui": 1, "instructions": "Leave empty for a general, cross-industry guide (shown as \"General\" and included in every industry filter)." },
+		{ "key": "field_fd3efaf45ce5", "label": "Dek", "name": "dek", "type": "textarea", "rows": 2, "instructions": "One-sentence summary — used on the Guides index tiles." },
+		{ "key": "field_91db6cb052f0", "label": "Body", "name": "body", "type": "wysiwyg", "tabs": "visual", "media_upload": 0 },
+		{ "key": "field_6143a09a9f4c", "label": "Related solution", "name": "related_solution", "type": "post_object", "post_type": [ "solution" ], "return_format": "id", "allow_null": 1, "ui": 1 },
+		{ "key": "field_e9f8ae9dd981", "label": "Read time (minutes)", "name": "read_time_minutes", "type": "number", "min": 1, "instructions": "Auto-estimated from word count at publish time (~200wpm); editable by staff afterward." },
+		{ "key": "field_a64386a636a5", "label": "Published date", "name": "published_date", "type": "date_picker", "display_format": "j F Y", "return_format": "Ymd" }
+	],
+	"location": [ [ { "param": "post_type", "operator": "==", "value": "guide" } ] ],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"active": true,
+	"description": "PROJECT.md Education Hub §0. Do not remove TODO(...) markers unless substituting the real asset/value.",
+	"show_in_rest": 0
+}
