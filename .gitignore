@@ -32,3 +32,15 @@ wp-content/updraft/
 
 # WordPress uploads (media) — not tracked in git
 /wp-content/uploads/
+
+# All third-party plugin source — none of this is ITOI-owned code, and
+# committing it (especially anything with embedded credentials/license
+# keys, see NOTES.md 2026-08-05) is not this repo's job. Managed via a
+# documented per-plugin install/update process instead.
+/wp-content/plugins/
+
+# Security-plugin backup output — can contain a full wp-config.php
+# snapshot (real DB credentials + WordPress secret salts), confirmed via
+# a real exposed instance found in this repo's own history (see
+# NOTES.md 2026-08-05).
+/wp-content/aiowps_backups/
