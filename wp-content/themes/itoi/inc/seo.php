@@ -310,3 +310,151 @@ function itoi_seo_output_robots_no_yoast() {
 	echo '<meta name="robots" content="noindex,follow">' . "\n";
 }
 add_action( 'wp_head', 'itoi_seo_output_robots_no_yoast', 1 );
+
+// ---------------------------------------------------------------
+// CPT archive title/description fallbacks
+// ---------------------------------------------------------------
+
+/**
+ * Fallback title/description per CPT archive — only used when Yoast
+ * hasn't already been configured with something real for that archive.
+ *
+ * Checking whether the wpseo_title/wpseo_metadesc *filter's own output*
+ * is empty (the task's own suggested approach) doesn't actually work
+ * here: Yoast auto-populates every unconfigured CPT archive title with
+ * its own generic template ('%%pt_plural%% Archive %%page%% %%sep%%
+ * %%sitename%%', confirmed by reading Yoast_Option_Titles's own
+ * $enriched_defaults in wp-content/plugins/wordpress-seo/inc/options/
+ * class-wpseo-option-titles.php) — so the rendered title is never
+ * actually an empty string to detect. Checked live before writing this
+ * (2026-08-06): solution/industry/case_study/guide archives already have
+ * a real custom title AND metadesc configured in the raw wpseo_titles
+ * option; product/insight only had Yoast's own generic template (title)
+ * and a genuinely empty string (metadesc). itoi_seo_archive_is_configured()
+ * below reads that raw option directly instead of trusting the filtered
+ * output, so the fallback only replaces an archive that's truly never
+ * been set up, not one Yoast has merely rendered its own default for.
+ *
+ * Titles match the exact copy this fix's own spec named; descriptions
+ * are new, kept purely to "what this page lists" — no performance/
+ * capability claims invented for a page that's just a listing
+ * (PROJECT.md §6).
+ */
+function itoi_seo_archive_fallbacks() {
+	return array(
+		'solution'   => array(
+			'title'       => 'ITOI Solutions — Vision Systems for Retail, Venues & Security',
+			'description' => "Explore ITOI's vision, security and analytics solutions for retail, hospitality, banking, government and more.",
+		),
+		'product'    => array(
+			'title'       => 'ITOI Products — Sensors, Hardware & Devices',
+			'description' => "Browse ITOI's hardware — cameras, sensors and edge devices — that power the ITOI platform.",
+		),
+		'industry'   => array(
+			'title'       => 'ITOI Industries — Sector-Specific Solutions',
+			'description' => "See how ITOI's platform adapts to retail, hospitality, banking, government and other industries.",
+		),
+		'case_study' => array(
+			'title'       => 'ITOI Case Studies — Customer Success Stories',
+			'description' => 'Real ITOI deployments across retail, government and banking — see how customers use the platform.',
+		),
+		'insight'    => array(
+			'title'       => 'ITOI Insights — Articles & Industry Analysis',
+			'description' => 'Articles and analysis on vision systems, security and operations from the ITOI team.',
+		),
+		'guide'      => array(
+			'title'       => 'ITOI Guides — Education Hub',
+			'description' => "Plain-language guides to ITOI's platform and the technology behind it, from the Education Hub.",
+		),
+	);
+}
+
+/**
+ * The current request's archive fallback row, or null if this isn't one
+ * of the 6 public CPT archives this covers.
+ */
+function itoi_seo_current_archive_fallback() {
+	if ( ! is_post_type_archive() ) {
+		return null;
+	}
+	$post_type = get_query_var( 'post_type' );
+	if ( is_array( $post_type ) ) {
+		return null;
+	}
+	$fallbacks = itoi_seo_archive_fallbacks();
+	return isset( $fallbacks[ $post_type ] ) ? array( $post_type, $fallbacks[ $post_type ] ) : null;
+}
+
+/**
+ * True only when Yoast's raw wpseo_titles option has a real, explicitly-
+ * saved value for this archive's title — not Yoast's own auto-populated
+ * generic placeholder (see the doc comment above). `%%` is the marker:
+ * Yoast's un-replaced replace-var tokens (%%pt_plural%%, %%sitename%%,
+ * etc.) only ever appear in its own unconfigured defaults; nobody hand-
+ * types that syntax into a real custom title.
+ */
+function itoi_seo_archive_title_is_configured( $post_type ) {
+	$titles_option = get_option( 'wpseo_titles' );
+	$value         = isset( $titles_option[ 'title-ptarchive-' . $post_type ] ) ? $titles_option[ 'title-ptarchive-' . $post_type ] : '';
+	return '' !== $value && false === strpos( $value, '%%' );
+}
+
+/** Same check for the metadesc side — Yoast's default there is genuinely an empty string, so this one IS a plain emptiness check. */
+function itoi_seo_archive_metadesc_is_configured( $post_type ) {
+	$titles_option = get_option( 'wpseo_titles' );
+	$value         = isset( $titles_option[ 'metadesc-ptarchive-' . $post_type ] ) ? $titles_option[ 'metadesc-ptarchive-' . $post_type ] : '';
+	return '' !== $value;
+}
+
+function itoi_seo_archive_title_fallback( $title ) {
+	$current = itoi_seo_current_archive_fallback();
+	if ( ! $current ) {
+		return $title;
+	}
+	list( $post_type, $fallback ) = $current;
+	if ( ! defined( 'WPSEO_VERSION' ) || ! itoi_seo_archive_title_is_configured( $post_type ) ) {
+		return $fallback['title'];
+	}
+	return $title;
+}
+if ( defined( 'WPSEO_VERSION' ) ) {
+	add_filter( 'wpseo_title', 'itoi_seo_archive_title_fallback' );
+} else {
+	// document_title_parts (WP 4.4+) — the modern replacement for the
+	// old wp_title filter, which core itself has deprecated in favour of
+	// this since WordPress no longer calls wp_title() in its own
+	// wp_head output.
+	add_filter(
+		'document_title_parts',
+		function ( $parts ) {
+			$parts['title'] = itoi_seo_archive_title_fallback( $parts['title'] ?? '' );
+			return $parts;
+		}
+	);
+}
+
+function itoi_seo_archive_metadesc_fallback( $metadesc ) {
+	$current = itoi_seo_current_archive_fallback();
+	if ( ! $current ) {
+		return $metadesc;
+	}
+	list( $post_type, $fallback ) = $current;
+	if ( ! defined( 'WPSEO_VERSION' ) || ! itoi_seo_archive_metadesc_is_configured( $post_type ) ) {
+		return $fallback['description'];
+	}
+	return $metadesc;
+}
+if ( defined( 'WPSEO_VERSION' ) ) {
+	add_filter( 'wpseo_metadesc', 'itoi_seo_archive_metadesc_fallback' );
+} else {
+	add_action(
+		'wp_head',
+		function () {
+			$current = itoi_seo_current_archive_fallback();
+			if ( $current ) {
+				echo '<meta name="description" content="' . esc_attr( $current[1]['description'] ) . '">' . "\n";
+			}
+		},
+		20
+	);
+}
