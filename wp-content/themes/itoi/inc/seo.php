@@ -125,3 +125,77 @@ function itoi_seo_output_metadesc_no_yoast() {
 	}
 }
 add_action( 'wp_head', 'itoi_seo_output_metadesc_no_yoast', 20 );
+
+// ---------------------------------------------------------------
+// Open Graph / Twitter share-image fallback
+// ---------------------------------------------------------------
+
+/**
+ * Resolves a fallback share-image attachment ID for the current singular
+ * post from ACF fields — never invents an image. Priority: hero_image
+ * (the real hero-photo field on case_study/industry/etc.) -> hero_photo
+ * (reserved; no CPT uses this field name today, kept as a real forward-
+ * compatible check, same convention as inc/schema.php's dek/
+ * product_price checks). The site-wide tier — Site Settings' own default
+ * image, used when a post has neither a featured image nor either ACF
+ * field — is Yoast's own `og_default_image_id` option, which Yoast
+ * already applies automatically once nothing else is found (see
+ * Open_Graph_Image_Generator::add_from_default() in the plugin itself);
+ * not reimplemented here to avoid a second, competing fallback path.
+ */
+function itoi_seo_resolve_share_image_id( $post_id ) {
+	$hero_image_id = get_field( 'hero_image', $post_id );
+	if ( $hero_image_id ) {
+		return (int) $hero_image_id;
+	}
+
+	$hero_photo_id = get_field( 'hero_photo', $post_id );
+	if ( $hero_photo_id ) {
+		return (int) $hero_photo_id;
+	}
+
+	return 0;
+}
+
+/**
+ * Adds an ACF-sourced image to Yoast's Open Graph image container — only
+ * when the post has no WP featured image of its own. `wpseo_add_
+ * opengraph_images` fires before Yoast's own indexable-based detection,
+ * which unconditionally adds the featured image if one exists regardless
+ * of what's already in the container — the has_post_thumbnail() guard is
+ * what stops that step from then adding a second, competing image on top
+ * of this one.
+ *
+ * No separate Twitter-image fallback: Yoast's own generate_twitter_image()
+ * deliberately returns an empty string whenever Open Graph is enabled and
+ * has at least one image, explicitly "letting the Open Graph tags handle
+ * the rest of the fallback hierarchy" (its own source comment) — Twitter
+ * reads og:image itself when twitter:image is absent, so fixing the
+ * og:image gap here already fixes Twitter Card sharing too, with no
+ * separate wpseo_twitter_image hook needed.
+ *
+ * Both wpseo_opengraph_image and wpseo_twitter_image (the filters the
+ * task named) were tried first and found unusable for this: Yoast only
+ * calls either filter once per image already present in its own image
+ * list — with zero images found, the filter never fires at all, so it
+ * can modify an existing choice but can't add one from nothing. Confirmed
+ * by reading wp-content/plugins/wordpress-seo/src/presenters/open-graph/
+ * image-presenter.php directly rather than assuming the filter name in
+ * the task description was the right integration point.
+ */
+function itoi_seo_add_opengraph_image_fallback( $image_container ) {
+	if ( ! is_singular() ) {
+		return;
+	}
+	$post_id = get_the_ID();
+	if ( ! $post_id || has_post_thumbnail( $post_id ) ) {
+		return;
+	}
+	$image_id = itoi_seo_resolve_share_image_id( $post_id );
+	if ( $image_id ) {
+		$image_container->add_image_by_id( $image_id );
+	}
+}
+if ( defined( 'WPSEO_VERSION' ) ) {
+	add_action( 'wpseo_add_opengraph_images', 'itoi_seo_add_opengraph_image_fallback' );
+}
