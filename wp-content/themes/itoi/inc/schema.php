@@ -143,6 +143,64 @@ function itoi_article_schema() {
 add_action( 'wp_head', 'itoi_article_schema' );
 
 /**
+ * Product schema for the `product` CPT (2026-08-06 SEO pass — see NOTES.md).
+ * Neither `dek` nor `product_price` exist as real ACF fields on `product`
+ * today (confirmed: only one field group — "Product Page Content", with
+ * teaser_* fields and a page_sections flexible-content block — targets
+ * this CPT), so both checks below are honestly empty for the 2 real
+ * products (Aurora, PC2SE Outdoor) right now; kept as real, forward-
+ * compatible checks (same `if ( $value )` pattern as every other function
+ * in this file) rather than removed, so a future `dek`/`product_price`
+ * field starts emitting description/offers automatically with no code
+ * change — never inventing a description or price that isn't actually in
+ * a field.
+ */
+function itoi_product_schema() {
+	if ( ! is_singular( 'product' ) ) {
+		return;
+	}
+
+	$post_id     = get_the_ID();
+	$description = get_field( 'dek', $post_id );
+
+	$schema = array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'Product',
+		'@id'      => get_permalink() . '#product',
+		'name'     => get_the_title(),
+		'url'      => get_permalink(),
+		'brand'    => array(
+			'@type' => 'Organization',
+			'name'  => 'ITOI Solutions',
+		),
+	);
+
+	if ( $description ) {
+		$schema['description'] = $description;
+	}
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		$image_url = get_the_post_thumbnail_url( $post_id, 'large' );
+		if ( $image_url ) {
+			$schema['image'] = $image_url;
+		}
+	}
+
+	$price = get_field( 'product_price', $post_id );
+	if ( ! empty( $price ) ) {
+		$schema['offers'] = array(
+			'@type'         => 'Offer',
+			'price'         => $price,
+			'priceCurrency' => 'AUD',
+			'availability'  => 'https://schema.org/InStock',
+		);
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_product_schema' );
+
+/**
  * BlogPosting for the Education Hub's `guide` CPT (PROJECT.md §8: "Article
  * or BlogPosting, with author reference"). Not folded into
  * itoi_article_schema() above — guide's field names (dek/body/
