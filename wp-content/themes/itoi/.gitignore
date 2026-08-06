@@ -1,6 +1,10 @@
 # Node toolchain — production runs on the compiled CSS in assets/, no Node process.
 node_modules/
 
+# PHP dev tooling (phpcs/WPCS, see composer.json) — CI installs from
+# composer.lock, not part of the production runtime.
+vendor/
+
 # Screenshot loop output — cleared each session per CLAUDE.md, not committed.
 temporary-screenshots/
 

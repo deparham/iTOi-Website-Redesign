@@ -33,7 +33,7 @@ class Itoi_Nav_Walker extends Walker_Nav_Menu {
 					. esc_html( $item->title ) . '</a>';
 			}
 		} else {
-			$output .= '<a href="' . esc_url( $item->url ) . '" class="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-hero-bg">'
+			$output .= '<a href="' . esc_url( $item->url ) . '" class="block rounded-md px-3 py-2.5 text-sm font-semibold hover:bg-hero-bg">'
 				. esc_html( $item->title ) . '</a>';
 		}
 	}

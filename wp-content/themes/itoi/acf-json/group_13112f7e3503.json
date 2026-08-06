@@ -48,7 +48,7 @@
             "name": "delivery_model_steps",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Homepage \"Delivery Model\" step rail (front-page.php, between \"Explore by use case\" and \"One integrated platform\" — see NOTES.md for placement rationale). Exactly 6 rows, source: client capability deck.",
+            "instructions": "Homepage \"Delivery Model\" step rail (front-page.php). 2026-08-05 (\"10/10\" pass, see NOTES.md): consolidated from 6 rows to 4 — \"visitors absorb four stages more easily than six\" — by merging adjacent real steps (Supply+Stage, Install+Integrate) rather than replacing them with a generic invented framework; every word of the merged descriptions is still the original client capability deck copy, just combined. Support and Optimize are unchanged. Source: client capability deck.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -58,36 +58,26 @@
             },
             "layout": "block",
             "button_label": "Add step",
-            "min": 6,
-            "max": 6,
+            "min": 4,
+            "max": 4,
             "default_value": [
                 {
                     "field_e69e3bb3f0cb": "01",
-                    "field_fffdd985fe96": "Supply",
-                    "field_9a0b4a98fd60": "Hardware-agnostic procurement across our certified global vendor network."
+                    "field_fffdd985fe96": "Supply & Stage",
+                    "field_9a0b4a98fd60": "Hardware-agnostic procurement across our certified global vendor network, pre-configured and tested off-site before it reaches your floor."
                 },
                 {
                     "field_e69e3bb3f0cb": "02",
-                    "field_fffdd985fe96": "Stage",
-                    "field_9a0b4a98fd60": "Pre-configured and tested off-site before it reaches your floor."
+                    "field_fffdd985fe96": "Install & Integrate",
+                    "field_9a0b4a98fd60": "Certified on-site deployment of cameras, sensors and network infrastructure — wired into your existing POS, cameras and systems, no rip-and-replace."
                 },
                 {
                     "field_e69e3bb3f0cb": "03",
-                    "field_fffdd985fe96": "Install",
-                    "field_9a0b4a98fd60": "Certified on-site deployment of cameras, sensors and network infrastructure."
-                },
-                {
-                    "field_e69e3bb3f0cb": "04",
-                    "field_fffdd985fe96": "Integrate",
-                    "field_9a0b4a98fd60": "Wired into your existing POS, cameras, and systems — no rip-and-replace."
-                },
-                {
-                    "field_e69e3bb3f0cb": "05",
                     "field_fffdd985fe96": "Support",
                     "field_9a0b4a98fd60": "24/7 remote helpdesk, monitoring and proactive maintenance."
                 },
                 {
-                    "field_e69e3bb3f0cb": "06",
+                    "field_e69e3bb3f0cb": "04",
                     "field_fffdd985fe96": "Optimize",
                     "field_9a0b4a98fd60": "Ongoing analytics and tuning to keep every system performing."
                 }

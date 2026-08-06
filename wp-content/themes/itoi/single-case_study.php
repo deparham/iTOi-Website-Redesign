@@ -162,7 +162,7 @@ while ( have_posts() ) :
 						$itoi_img_alt = get_post_meta( $itoi_img_id, '_wp_attachment_image_alt', true ) ?: ( $itoi_title . ' — gallery photo ' . $itoi_gallery_index );
 						?>
 						<div class="aspect-[4/3] overflow-hidden rounded-xl">
-							<img src="<?php echo esc_url( $itoi_img_url ); ?>" alt="<?php echo esc_attr( $itoi_img_alt ); ?>" class="h-full w-full object-cover">
+							<?php echo wp_get_attachment_image( $itoi_img_id, 'large', false, array( 'class' => 'h-full w-full object-cover', 'alt' => $itoi_img_alt ) ); ?>
 						</div>
 					<?php endforeach; ?>
 				</div>

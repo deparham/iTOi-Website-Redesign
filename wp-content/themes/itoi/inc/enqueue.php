@@ -7,6 +7,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * wp_enqueue_script(), version-busted by the file's own mtime (same pattern
+ * every script handle here already used individually before 2026-08-06's JS
+ * bundle split multiplied the number of handles from 2 to 6) — factored out
+ * once repeating it inline for each bundle stopped being the shorter option.
+ */
+function itoi_enqueue_versioned_script( $handle, $rel_path, $deps ) {
+	$path = ITOI_THEME_DIR . '/' . $rel_path;
+	$ver  = file_exists( $path ) ? filemtime( $path ) : ITOI_THEME_VERSION;
+	wp_enqueue_script( $handle, ITOI_THEME_URI . '/' . $rel_path, $deps, $ver, true );
+}
+
 function itoi_enqueue_assets() {
 	$style_path = ITOI_THEME_DIR . '/assets/css/style.css';
 	$style_ver  = file_exists( $style_path ) ? filemtime( $style_path ) : ITOI_THEME_VERSION;
@@ -18,33 +30,47 @@ function itoi_enqueue_assets() {
 		$style_ver
 	);
 
-	$script_path = ITOI_THEME_DIR . '/assets/js/main.js';
-	$script_ver  = file_exists( $script_path ) ? filemtime( $script_path ) : ITOI_THEME_VERSION;
+	// 2026-08-06 (JS bundle split, see NOTES.md/docs/deferred-followups.md):
+	// the single assets/js/main.js (100.7KB raw / 29.2KB gzipped by the time
+	// of the split) shipped every page's interactivity to every visitor,
+	// even though most of it only ever runs on one template. Replaced with
+	// 4 smaller bundles, each enqueued only where its markup actually
+	// exists — same functions, same behavior, just not downloaded/parsed
+	// on pages that never use them. `itoi-core` is the one sitewide bundle
+	// (nav, the Finder popup, flip-cards, scroll-reveal, lazy media) and is
+	// always registered as a dependency of the other 3, so load order
+	// matches the old single-file version exactly.
+	itoi_enqueue_versioned_script( 'itoi-core', 'assets/js/core.js', array() );
 
-	wp_enqueue_script(
-		'itoi-main',
-		ITOI_THEME_URI . '/assets/js/main.js',
-		array(),
-		$script_ver,
-		true
-	);
-
-	// Solution Builder popup handoff (footer.php + initFinder() in main.js) —
-	// sitewide, since the popup itself is sitewide. Superseded 2026-07-24:
-	// this used to localize itoiFinderData (resolved case-study/solution
-	// routing for the old inline-results Find Your Fit flow); that routing
-	// no longer exists (inc/finder.php deleted, see NOTES.md) — the popup
-	// now just needs the destination URL to redirect to after step 7.
-	wp_localize_script( 'itoi-main', 'itoiSolutionBuilderConfig', array( 'url' => home_url( '/solution-builder/' ) ) );
+	// Solution Builder popup handoff (footer.php + initFinder(), now in
+	// core.js) — sitewide, since the popup itself is sitewide. Superseded
+	// 2026-07-24: this used to localize itoiFinderData (resolved
+	// case-study/solution routing for the old inline-results Find Your Fit
+	// flow); that routing no longer exists (inc/finder.php deleted, see
+	// NOTES.md) — the popup now just needs the destination URL to redirect
+	// to after step 7.
+	wp_localize_script( 'itoi-core', 'itoiSolutionBuilderConfig', array( 'url' => home_url( '/solution-builder/' ) ) );
 
 	// Mega-hero dot-nav slideshow (PROJECT.md §3 mechanic #2). 2026-07-23:
 	// restored after an earlier session incorrectly removed the multi-slide
 	// behaviour entirely — this time actually wired to the front end via
 	// localize (the field existed before but no template ever read it; see
-	// NOTES.md). initHeroSlideshow() in main.js falls back to a small
-	// hardcoded array if this is empty, same defensive pattern as the rest
-	// of this file, so the hero never renders broken if the options page
-	// hasn't been saved yet.
+	// NOTES.md). initHeroSlideshow() (now assets/js/homepage.js) falls back
+	// to a small hardcoded array if this is empty, same defensive pattern as
+	// the rest of this file, so the hero never renders broken if the
+	// options page hasn't been saved yet.
+	//
+	// 2026-08-05 (external improvement plan Phase 6.3): both this block and
+	// the why_choose_photos block below used to run unconditionally on
+	// every page — the hero and "Why choose ITOI" markup only exist on
+	// front-page.php. 2026-08-06: superseded by the bundle split itself —
+	// homepage.js (which reads both) is now only enqueued on the front
+	// page at all, so this is_front_page() guard is what makes localizing
+	// onto 'itoi-homepage' safe rather than fatal (wp_localize_script on a
+	// handle that was never registered silently no-ops, but there'd be
+	// nothing to no-op onto correctly without this).
+	if ( is_front_page() ) :
+	itoi_enqueue_versioned_script( 'itoi-homepage', 'assets/js/homepage.js', array( 'itoi-core' ) );
 	$itoi_hero_slides = array();
 	if ( function_exists( 'get_field' ) ) {
 		$itoi_hero_rows = get_field( 'hero_slides', 'option' );
@@ -70,7 +96,7 @@ function itoi_enqueue_assets() {
 			}
 		}
 	}
-	wp_localize_script( 'itoi-main', 'itoiHeroSlides', $itoi_hero_slides );
+	wp_localize_script( 'itoi-homepage', 'itoiHeroSlides', $itoi_hero_slides );
 
 	// "Why choose ITOI" split-panel (PROJECT.md §3 mechanic #6) — one row per
 	// pill tab, same order as front-page.php's #pillTabs. Fully ACF-driven as
@@ -107,25 +133,37 @@ function itoi_enqueue_assets() {
 			}
 		}
 	}
-	wp_localize_script( 'itoi-main', 'itoiWhyTabs', $itoi_why_tabs );
+	wp_localize_script( 'itoi-homepage', 'itoiWhyTabs', $itoi_why_tabs );
+	endif; // is_front_page()
+
+	// The 7 per-industry interactive mechanics + long-form sub-nav —
+	// single-industry.php only. is_singular('industry') rather than a
+	// template-file check for the same reason as the solution-builder
+	// slug match below: this CPT's single template comes from the
+	// single-{post_type}.php hierarchy fallback, not a user-assigned
+	// template with its own meta value.
+	if ( is_singular( 'industry' ) ) {
+		itoi_enqueue_versioned_script( 'itoi-industry-simulators', 'assets/js/industry-simulators.js', array( 'itoi-core' ) );
+	}
+
+	// Listing-page filter pills — page-customers.php, archive-guide.php,
+	// page-use-cases.php, and the 3 Education Hub pages (Glossary/FAQ/hub
+	// landing). One shared bundle (listing-filters.js) since each page's
+	// filter function guards on its own element IDs and only one ever
+	// matches per page — see that file's own header comment.
+	if ( is_page( array( 'customers', 'use-cases', 'glossary', 'education', 'faq' ) ) || is_post_type_archive( 'guide' ) ) {
+		itoi_enqueue_versioned_script( 'itoi-listing-filters', 'assets/js/listing-filters.js', array( 'itoi-core' ) );
+	}
 
 	// Solution Builder (/solution-builder/) — its own script, only loaded on
-	// that page rather than folded into main.js, since the multi-step
-	// engine/print-proposal logic is sizeable and page-specific. Matched by
-	// slug, not is_page_template(): that page's template comes from the
-	// page-{slug}.php hierarchy fallback with no _wp_page_template meta set,
-	// which is_page_template() can't see (it only reads that meta value).
+	// that page rather than folded into a shared bundle, since the
+	// multi-step engine/print-proposal logic is sizeable and page-specific.
+	// Matched by slug, not is_page_template(): that page's template comes
+	// from the page-{slug}.php hierarchy fallback with no _wp_page_template
+	// meta set, which is_page_template() can't see (it only reads that meta
+	// value).
 	if ( is_page( 'solution-builder' ) ) {
-		$sb_script_path = ITOI_THEME_DIR . '/assets/js/solution-builder.js';
-		$sb_script_ver  = file_exists( $sb_script_path ) ? filemtime( $sb_script_path ) : ITOI_THEME_VERSION;
-
-		wp_enqueue_script(
-			'itoi-solution-builder',
-			ITOI_THEME_URI . '/assets/js/solution-builder.js',
-			array(),
-			$sb_script_ver,
-			true
-		);
+		itoi_enqueue_versioned_script( 'itoi-solution-builder', 'assets/js/solution-builder.js', array() );
 
 		wp_localize_script(
 			'itoi-solution-builder',
@@ -156,3 +194,24 @@ function itoi_preload_fonts() {
 	}
 }
 add_action( 'wp_head', 'itoi_preload_fonts', 1 );
+
+/**
+ * Sitewide default loading="lazy" for wp_get_attachment_image() output
+ * (2026-08-05 performance pass, see NOTES.md — move 2 of "close the
+ * Lighthouse gap") — explicit and deterministic, rather than relying on
+ * core's own first-N-images heuristic (wp_get_loading_optimization_attributes()),
+ * whose counter resets per request and doesn't reliably know which
+ * wp_get_attachment_image() call is "above the fold" across this theme's
+ * varied templates. Only sets it when nothing already specified `loading`
+ * — the one call site that needs eager loading (the mega-hero's LCP photo,
+ * front-page.php) passes loading="eager" explicitly in its own $attr
+ * array, which is already merged into $attr by the time this filter runs,
+ * so the `empty()` check correctly leaves it alone.
+ */
+function itoi_default_lazy_loading_attr( $attr ) {
+	if ( empty( $attr['loading'] ) ) {
+		$attr['loading'] = 'lazy';
+	}
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'itoi_default_lazy_loading_attr' );

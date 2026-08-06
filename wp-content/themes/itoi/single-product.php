@@ -95,7 +95,7 @@ while ( have_posts() ) :
 							</div>
 							<h1 class="mb-5 text-[clamp(30px,5.2vw,52px)] leading-[1.1] text-white">
 								<?php echo esc_html( $itoi_emphasis ); ?>
-								<?php if ( $itoi_muted ) : ?><span class="font-medium text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
+								<?php if ( $itoi_muted ) : ?><span class="font-semibold text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
 							</h1>
 							<?php if ( $itoi_lede ) : ?>
 								<p class="mx-auto mb-8 max-w-[58ch] text-[15.5px] text-white/80 min-[1024px]:text-[16.5px]"><?php echo esc_html( $itoi_lede ); ?></p>
@@ -214,9 +214,9 @@ while ( have_posts() ) :
 								<table class="w-full min-w-[560px] border-collapse text-left">
 									<thead>
 										<tr class="border-b border-[var(--glass-border-on-light)]">
-											<th class="w-[22%] px-5 py-4 text-[12.5px] font-bold uppercase tracking-wide text-text-muted min-[640px]:px-7"><span class="sr-only">Category</span></th>
-											<th class="px-5 py-4 text-[13.5px] font-bold text-text-muted min-[640px]:px-7"><?php echo esc_html( $itoi_col_a ); ?></th>
-											<th class="px-5 py-4 text-[13.5px] font-extrabold text-ink min-[640px]:px-7"><?php echo esc_html( $itoi_col_b ); ?></th>
+											<th scope="col" class="w-[22%] px-5 py-4 text-[12.5px] font-bold uppercase tracking-wide text-text-muted min-[640px]:px-7"><span class="sr-only">Category</span></th>
+											<th scope="col" class="px-5 py-4 text-[13.5px] font-bold text-text-muted min-[640px]:px-7"><?php echo esc_html( $itoi_col_a ); ?></th>
+											<th scope="col" class="px-5 py-4 text-[13.5px] font-extrabold text-ink min-[640px]:px-7"><?php echo esc_html( $itoi_col_b ); ?></th>
 										</tr>
 									</thead>
 									<tbody>

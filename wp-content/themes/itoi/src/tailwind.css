@@ -4,7 +4,26 @@
 
 /* Self-hosted Inter — no Google Fonts CDN. Files in assets/fonts/, copied from
    @fontsource/inter (see package.json devDependencies). Paths are relative to
-   the compiled output at assets/css/style.css. */
+   the compiled output at assets/css/style.css.
+   2026-08-05 (external improvement plan Phase 6.6): dropped the .woff
+   fallback from each src list (was 2nd in a woff2-first list, so browsers
+   without woff2 support would have used it — confirmed via a Lighthouse
+   network trace that real traffic never actually requests it, since woff2
+   has had universal modern-browser support for years; this was dead
+   weight in the repo, not bytes any real visitor was downloading). The
+   .woff files themselves were removed from assets/fonts/ in the same
+   commit — if genuine legacy-browser support ever becomes a real
+   requirement again, restore from git history rather than re-adding
+   speculatively.
+   2026-08-05, same pass: also dropped weight 500 — usage audit found only
+   3 real `font-medium` instances sitewide (header.php's ticker, one label
+   in single-product.php, one in the unused inc/nav-walker.php), all
+   consolidated to font-semibold (600, already loaded). Weight 700
+   (`font-bold`) was explicitly NOT touched despite being requested for
+   consolidation too — it has 218 real usages sitewide (buttons, CTAs, nav,
+   headings); dropping it would be a genuine visual redesign of the whole
+   site's typographic weight, not a safe mechanical font-file cleanup, and
+   wasn't done without that being a deliberate, explicit call. */
 /* font-display: optional (not swap) — a font swap after first paint was
    reflowing full-page layouts (measured CLS 0.41 on /use-cases/, Lighthouse
    perf 0.80) because the fallback and Inter glyph metrics differ. `optional`
@@ -16,17 +35,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('../fonts/inter-latin-400-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-400-normal.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: optional;
-  src: url('../fonts/inter-latin-500-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-500-normal.woff') format('woff');
+  src: url('../fonts/inter-latin-400-normal.woff2') format('woff2');
 }
 
 @font-face {
@@ -34,8 +43,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: optional;
-  src: url('../fonts/inter-latin-600-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-600-normal.woff') format('woff');
+  src: url('../fonts/inter-latin-600-normal.woff2') format('woff2');
 }
 
 @font-face {
@@ -43,8 +51,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: optional;
-  src: url('../fonts/inter-latin-700-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-700-normal.woff') format('woff');
+  src: url('../fonts/inter-latin-700-normal.woff2') format('woff2');
 }
 
 @font-face {
@@ -52,8 +59,7 @@
   font-style: normal;
   font-weight: 800;
   font-display: optional;
-  src: url('../fonts/inter-latin-800-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-800-normal.woff') format('woff');
+  src: url('../fonts/inter-latin-800-normal.woff2') format('woff2');
 }
 
 /* Design tokens — PROJECT.md §3. Base + signature, both required in Phase 1. */
@@ -234,6 +240,30 @@
   :focus-visible {
     outline: 2px solid var(--signature);
     outline-offset: 3px;
+  }
+  /* 2026-08-05 (external improvement plan Phase 5.1) — first focusable
+     element on every page (header.php, right after wp_body_open()), jumps
+     a keyboard user straight to <main id="main-content">, skipping the
+     ticker + nav on every single page load/navigation. Off-screen by
+     default via transform (not display:none/visibility:hidden, which
+     would make it unfocusable), slides into view on focus. */
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    transform: translateY(-200%);
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
   }
   .mega-menu :focus-visible,
   #megaHero :focus-visible,
@@ -565,6 +595,16 @@
     }
   }
 
+  /* 2026-08-05 (Phase 4.5 pause controls, assets/js/main.js
+     initHeroSlideshow()) — dims the pause/play icon when the slideshow
+     has stopped for a reason other than the visitor's own click (tab
+     hidden, hero scrolled offscreen, dot-nav hovered/focused), so "stalled
+     for now" reads differently from "you explicitly paused this." Opacity
+     only, no layout/transform change. */
+  .hero-pause-btn.is-actually-paused {
+    opacity: 0.55;
+  }
+
   /* ===========================================================
      Liquid glass — wave 4, 2026-07-24. Aurora background recipe (shared,
      ONE reusable class) + glass cards in the 3 sections that now have it.
@@ -869,6 +909,24 @@
     .aurora-bg-light::before {
       animation: none;
     }
+  }
+
+  /* Off-screen aurora pause, 2026-08-05 performance pass (see NOTES.md,
+     move 1 of the "close the Lighthouse gap" session) — single-industry.php
+     stacks 9 concurrent .aurora-bg/.aurora-bg-light instances; only the
+     ones near the viewport need to actually animate. Toggled by
+     initAuroraPause() (assets/js/main.js) via IntersectionObserver.
+     Deviation from the prompt's literal ".aurora-paused { animation-
+     play-state: paused }": the animation itself lives on the ::before
+     pseudo-element (see .aurora-bg::before / .aurora-bg-light::before
+     above), not on the host element, so a rule that doesn't target
+     ::before would silently do nothing. Written as one rule (a selector
+     list, not two separate rules) with both host classes named
+     explicitly for guaranteed cascade priority over the base ::before
+     rules regardless of source order. */
+  .aurora-bg.aurora-paused::before,
+  .aurora-bg-light.aurora-paused::before {
+    animation-play-state: paused;
   }
 
   /* ===========================================================

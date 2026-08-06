@@ -74,7 +74,6 @@ while ( have_posts() ) :
 						$itoi_client_terms_obj = get_the_terms( get_the_ID(), 'client_category' );
 						$itoi_client_cat   = ( $itoi_client_terms_obj && ! is_wp_error( $itoi_client_terms_obj ) ) ? $itoi_client_terms_obj[0] : null;
 						$itoi_logo_id      = get_field( 'logo' );
-						$itoi_logo_url     = $itoi_logo_id ? wp_get_attachment_image_url( $itoi_logo_id, 'medium' ) : '';
 						$itoi_case_study_id = get_field( 'case_study' );
 						$itoi_case_study_url = ( $itoi_case_study_id && get_post_status( $itoi_case_study_id ) === 'publish' ) ? get_permalink( $itoi_case_study_id ) : '';
 						?>
@@ -82,8 +81,8 @@ while ( have_posts() ) :
 							class="client-card group relative flex flex-col items-center justify-center gap-2 rounded-xl border border-line bg-white px-4 py-7 text-center transition-all hover:-translate-y-[3px] hover:border-ink focus-within:-translate-y-[3px] focus-within:border-ink"
 							data-category="<?php echo $itoi_client_cat ? esc_attr( $itoi_client_cat->slug ) : ''; ?>"
 						>
-							<?php if ( $itoi_logo_url ) : ?>
-								<img src="<?php echo esc_url( $itoi_logo_url ); ?>" alt="<?php echo esc_attr( $itoi_client_name ); ?>" class="mb-1 h-8 max-w-full object-contain">
+							<?php if ( $itoi_logo_id ) : ?>
+								<?php echo wp_get_attachment_image( $itoi_logo_id, 'medium', false, array( 'class' => 'mb-1 h-8 max-w-full object-contain', 'alt' => $itoi_client_name ) ); ?>
 							<?php else : ?>
 								<div class="text-[14.5px] font-extrabold leading-snug"><?php echo esc_html( $itoi_client_name ); ?></div>
 							<?php endif; ?>

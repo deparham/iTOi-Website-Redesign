@@ -836,7 +836,16 @@ while ( have_posts() ) :
 						<?php
 						foreach ( $itoi_lf_use_cases as $itoi_uc ) :
 							$itoi_uc_image_url = $itoi_uc['image_id'] ? wp_get_attachment_image_url( $itoi_uc['image_id'], 'medium_large' ) : '';
-							$itoi_uc_media     = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], $itoi_uc['label'], 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+							// 2026-08-05 (external improvement plan Phase 5.7, axe
+							// image-redundant-alt): this card's own visible label
+							// (rendered just below, same $itoi_uc['label']) already
+							// says exactly what the alt text was repeating — empty
+							// alt marks the image decorative here instead, so a
+							// screen reader doesn't announce the same short phrase
+							// twice per card. Only this call site changed; other
+							// itoi_media_cover() callers keep real alt text where the
+							// image is the only source of that information.
+							$itoi_uc_media     = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], '', 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 							?>
 							<a href="<?php echo esc_url( $itoi_uc['solution_url'] ); ?>" class="use-case-card glass-element-light group block overflow-hidden rounded-2xl transition-all hover:-translate-y-[3px]">
 								<div class="relative aspect-[16/10] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
