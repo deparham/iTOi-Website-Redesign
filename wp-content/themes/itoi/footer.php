@@ -22,7 +22,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-xs uppercase tracking-wider text-text-muted">Solutions</h3>
+				<?php
+				/**
+				 * 2026-08-05 (external improvement plan Phase 5.7): this
+				 * column label and the 3 below it were <h3> — real document
+				 * headings with no consistent H1/H2 lead-in of their own,
+				 * since whatever heading a given page happens to end its
+				 * main content on (which varies per template) sits directly
+				 * above them. axe's heading-order rule flagged this on
+				 * /solution-builder/ specifically (its own last content
+				 * heading is an h3, so footer's h3 followed it with no
+				 * step back down) — passed by coincidence on other pages
+				 * only where their own last heading happened to be h2.
+				 * <footer> is already a real landmark a screen reader user
+				 * can jump to directly; these labels are visual link-group
+				 * headers within it, not page-content headings, so <p> is
+				 * the more accurate tag — same classes, zero visual change.
+				 */
+				?>
+				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Solutions</p>
 				<?php
 				$itoi_footer_solutions = new WP_Query( array(
 					'post_type'      => 'solution',
@@ -42,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-xs uppercase tracking-wider text-text-muted">Company</h3>
+				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Company</p>
 				<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">About</a>
 				<a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Case Studies</a>
 				<?php // 2026-08-06: no dedicated Careers page exists yet — routes to Contact rather than a dead href="#" link. Update to a real Careers page once one exists. ?>
@@ -51,15 +69,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-xs uppercase tracking-wider text-text-muted">Support</h3>
+				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Support</p>
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Contact Support</a>
 				<?php // 2026-08-06: no dedicated Installer/Product Updates pages exist yet — both route to Contact rather than a dead href="#" link. Update to real pages once they exist. ?>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Find an Installer</a>
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Product Updates</a>
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-xs uppercase tracking-wider text-text-muted">Head Office</h3>
+				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Head Office</p>
 				<?php $itoi_footer_address = get_field( 'company_address', 'option' ); ?>
 				<?php if ( $itoi_footer_address ) : ?>
 					<p class="mb-2.5 text-[13.5px] text-text-muted"><?php echo esc_html( $itoi_footer_address ); ?></p>
@@ -109,7 +126,12 @@ $fyf_challenge_options = itoi_solution_builder_challenge_options();
 if ( ! is_page( 'solution-builder' ) ) :
 	?>
 <!-- ============ SOLUTION BUILDER POPUP — markup (shared, every page except /solution-builder/ itself) ============ -->
-<div class="finder-overlay" id="finderOverlay">
+<!-- role="dialog"/aria-modal/aria-hidden added 2026-08-05 (Phase 5) — see
+     #megaMenu's identical fix above for the reasoning (a closed overlay's
+     heading otherwise still sits in the accessible tree). initFinder()
+     (assets/js/main.js) toggles aria-hidden and now also traps focus
+     while open. -->
+<div class="finder-overlay" id="finderOverlay" role="dialog" aria-modal="true" aria-label="Solution builder" aria-hidden="true">
 	<div class="finder-card p-10 max-[640px]:p-6">
 		<button type="button" class="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center rounded-full border border-line bg-white text-base text-text-muted hover:bg-hero-bg hover:text-ink" id="finderClose" aria-label="Close">&times;</button>
 
