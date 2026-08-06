@@ -7,9 +7,17 @@
 // style (tabs, single quotes already used consistently — not re-litigated
 // here as lint rules, to avoid a mass reformat with no functional value).
 module.exports = [
+	// Global ignore (an object with only an `ignores` key, per ESLint 9
+	// flat-config rules) — excludes these even if passed explicitly on the
+	// CLI, not just from directory discovery. *.min.js is generated build
+	// output (scripts/build-js.js via `npm run build:js`, added
+	// 2026-08-06) — lint the source bundles, not their minified/mangled
+	// output.
+	{
+		ignores: [ 'node_modules/**', 'vendor/**', 'assets/js/**/*.min.js' ],
+	},
 	{
 		files: [ 'assets/js/**/*.js' ],
-		ignores: [ 'node_modules/**', 'vendor/**' ],
 		languageOptions: {
 			ecmaVersion: 2019,
 			sourceType: 'script',

@@ -30,6 +30,12 @@ jobs:
       - name: Check compiled CSS is up to date
         run: git diff --exit-code -- assets/css/style.css
 
+      - name: Build JS
+        run: npm run build:js
+
+      - name: Check minified JS is up to date
+        run: git diff --exit-code -- assets/js/*.min.js
+
       - name: Lint JavaScript
         run: npm run lint:js
 
