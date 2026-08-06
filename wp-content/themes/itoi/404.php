@@ -19,7 +19,6 @@ get_header();
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="rounded-full bg-cta px-[22px] py-[11px] text-sm font-bold text-white transition-colors hover:bg-cta-hover">Back to home</a>
 			<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full border-[1.5px] border-ink bg-white px-[22px] py-[11px] text-sm font-bold hover:bg-hero-bg">Contact us</a>
 		</div>
-		<h2 class="sr-only">Try one of these instead</h2>
 	</div>
 </section>
 
