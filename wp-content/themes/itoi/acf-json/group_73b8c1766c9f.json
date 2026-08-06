@@ -225,6 +225,26 @@
             "mime_types": ""
         },
         {
+            "key": "field_c4a9e17b2f63",
+            "label": "Default meta description",
+            "name": "default_meta_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Sitewide fallback meta description, used only when a page has no description of its own (no Yoast meta description set, and no ACF dek\/headline field either). Keep under ~155 characters.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 160,
+            "rows": 2,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
             "key": "field_ed38066fdd49",
             "label": "Site tagline",
             "name": "site_tagline",
