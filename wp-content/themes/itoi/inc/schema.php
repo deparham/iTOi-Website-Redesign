@@ -261,3 +261,76 @@ function itoi_guide_schema() {
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
 }
 add_action( 'wp_head', 'itoi_guide_schema' );
+
+/**
+ * BreadcrumbList for every singular post (any CPT) and WP Page — not the
+ * front page (a breadcrumb trail of just "Home" is meaningless there), not
+ * archives/search/404 (is_singular() is already false for all of those).
+ * Yoast free's own breadcrumb *feature* is opt-in shortcode/template-tag
+ * output, not schema it emits automatically — this fills the structured-
+ * data gap without needing that feature turned on.
+ */
+function itoi_breadcrumb_schema() {
+	if ( is_front_page() || ! is_singular() ) {
+		return;
+	}
+
+	$post_id = get_the_ID();
+	if ( ! $post_id ) {
+		return;
+	}
+
+	$items = array(
+		array(
+			'@type'    => 'ListItem',
+			'position' => 1,
+			'name'     => 'Home',
+			'item'     => home_url( '/' ),
+		),
+	);
+
+	if ( 'page' === get_post_type( $post_id ) ) {
+		// Parent pages, root-first — get_post_ancestors() returns nearest-first.
+		$ancestor_ids = array_reverse( get_post_ancestors( $post_id ) );
+		foreach ( $ancestor_ids as $ancestor_id ) {
+			$items[] = array(
+				'@type'    => 'ListItem',
+				'position' => count( $items ) + 1,
+				'name'     => get_the_title( $ancestor_id ),
+				'item'     => get_permalink( $ancestor_id ),
+			);
+		}
+	} else {
+		// CPT archive step — get_post_type_archive_link() is already false
+		// for a CPT with no public archive (public/has_archive => false),
+		// so that case correctly skips straight to the current page below
+		// with no extra check needed.
+		$post_type      = get_post_type( $post_id );
+		$archive_link   = get_post_type_archive_link( $post_type );
+		$post_type_obj  = get_post_type_object( $post_type );
+		if ( $archive_link && $post_type_obj && ! empty( $post_type_obj->labels->name ) ) {
+			$items[] = array(
+				'@type'    => 'ListItem',
+				'position' => count( $items ) + 1,
+				'name'     => $post_type_obj->labels->name,
+				'item'     => $archive_link,
+			);
+		}
+	}
+
+	$items[] = array(
+		'@type'    => 'ListItem',
+		'position' => count( $items ) + 1,
+		'name'     => get_the_title( $post_id ),
+		'item'     => get_permalink( $post_id ),
+	);
+
+	$schema = array(
+		'@context'        => 'https://schema.org',
+		'@type'           => 'BreadcrumbList',
+		'itemListElement' => $items,
+	);
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_breadcrumb_schema' );
