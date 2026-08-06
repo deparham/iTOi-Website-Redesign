@@ -334,3 +334,49 @@ function itoi_breadcrumb_schema() {
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
 }
 add_action( 'wp_head', 'itoi_breadcrumb_schema' );
+
+/**
+ * FAQPage schema for /education/faq/ (page-faq.php) — reads the same
+ * source the template itself renders from: itoi_edu_get_all_faqs()
+ * (inc/education.php), which aggregates the real `faqs` ACF repeater
+ * (`q`/`a` sub-fields) across every `solution` post, grouped by
+ * originating solution. No separate/duplicated field read — this can't
+ * silently drift out of sync with what the page actually shows. Only
+ * emitted once at least one real, non-empty question/answer pair exists
+ * across every group.
+ */
+function itoi_faq_page_schema() {
+	if ( ! is_page( 'faq' ) || ! function_exists( 'itoi_edu_get_all_faqs' ) ) {
+		return;
+	}
+
+	$questions = array();
+	foreach ( itoi_edu_get_all_faqs() as $group ) {
+		foreach ( $group['faqs'] as $faq ) {
+			if ( empty( $faq['q'] ) || empty( $faq['a'] ) ) {
+				continue;
+			}
+			$questions[] = array(
+				'@type'          => 'Question',
+				'name'           => $faq['q'],
+				'acceptedAnswer' => array(
+					'@type' => 'Answer',
+					'text'  => $faq['a'],
+				),
+			);
+		}
+	}
+
+	if ( empty( $questions ) ) {
+		return;
+	}
+
+	$schema = array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => $questions,
+	);
+
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'itoi_faq_page_schema' );
