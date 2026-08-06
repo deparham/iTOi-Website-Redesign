@@ -15,45 +15,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 // ---------------------------------------------------------------------
 // 4a. Remove dashboard widgets that don't apply to this site.
 // ---------------------------------------------------------------------
-add_action( 'wp_dashboard_setup', function () {
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' ); // "WordPress Events and News"
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' ); // "Quick Draft" — this site's content lives on CPTs, not Posts
-	// "At a Glance" (dashboard_right_now) and "Activity" (dashboard_activity)
-	// are left in place, per the instruction — At a Glance is customized
-	// below (4b) rather than removed.
-}, 20 ); // after 20 so this runs after wp_add_dashboard_widgets (priority 10) has added them.
+add_action(
+	'wp_dashboard_setup',
+	function () {
+		remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' ); // "WordPress Events and News"
+		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' ); // "Quick Draft" — this site's content lives on CPTs, not Posts
+		// "At a Glance" (dashboard_right_now) and "Activity" (dashboard_activity)
+		// are left in place, per the instruction — At a Glance is customized
+		// below (4b) rather than removed.
+	},
+	20
+); // after 20 so this runs after wp_add_dashboard_widgets (priority 10) has added them.
 
 // ---------------------------------------------------------------------
 // 4b. "At a Glance" — add a count + link for every CPT this theme
 // registers, not just WP's own Posts/Pages/Comments.
 // ---------------------------------------------------------------------
-add_filter( 'dashboard_glance_items', function ( $items ) {
-	$post_types = array(
-		'solution'   => 'Solutions',
-		'product'    => 'Products',
-		'industry'   => 'Industries',
-		'case_study' => 'Case Studies',
-		'use_case'   => 'Use Cases',
-		'insight'    => 'Insights',
-		'guide'      => 'Guides',
-		'sb_lead'    => 'Solution Builder Leads',
-	);
-	foreach ( $post_types as $post_type => $plural_label ) {
-		$post_type_object = get_post_type_object( $post_type );
-		if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->edit_posts ) ) {
-			continue;
-		}
-		$count = (int) ( wp_count_posts( $post_type )->publish ?? 0 );
-		$label = 1 === $count ? $post_type_object->labels->singular_name : $plural_label;
-		$items[] = sprintf(
-			'<a href="%s">%s %s</a>',
-			esc_url( admin_url( 'edit.php?post_type=' . $post_type ) ),
-			esc_html( number_format_i18n( $count ) ),
-			esc_html( $label )
+add_filter(
+	'dashboard_glance_items',
+	function ( $items ) {
+		$post_types = array(
+			'solution'   => 'Solutions',
+			'product'    => 'Products',
+			'industry'   => 'Industries',
+			'case_study' => 'Case Studies',
+			'use_case'   => 'Use Cases',
+			'insight'    => 'Insights',
+			'guide'      => 'Guides',
+			'sb_lead'    => 'Solution Builder Leads',
 		);
+		foreach ( $post_types as $post_type => $plural_label ) {
+			$post_type_object = get_post_type_object( $post_type );
+			if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->edit_posts ) ) {
+				continue;
+			}
+			$count   = (int) ( wp_count_posts( $post_type )->publish ?? 0 );
+			$label   = 1 === $count ? $post_type_object->labels->singular_name : $plural_label;
+			$items[] = sprintf(
+				'<a href="%s">%s %s</a>',
+				esc_url( admin_url( 'edit.php?post_type=' . $post_type ) ),
+				esc_html( number_format_i18n( $count ) ),
+				esc_html( $label )
+			);
+		}
+		return $items;
 	}
-	return $items;
-} );
+);
 
 // ---------------------------------------------------------------------
 // 4c. Custom welcome panel — replaces core's default (which links to
@@ -64,10 +71,13 @@ add_filter( 'dashboard_glance_items', function ( $items ) {
 // load hook) so it runs after core has already registered its callback on
 // the 'welcome_panel' action — removing it any earlier would no-op.
 // ---------------------------------------------------------------------
-add_action( 'load-index.php', function () {
-	remove_action( 'welcome_panel', 'wp_welcome_panel' );
-	add_action( 'welcome_panel', 'itoi_welcome_panel' );
-} );
+add_action(
+	'load-index.php',
+	function () {
+		remove_action( 'welcome_panel', 'wp_welcome_panel' );
+		add_action( 'welcome_panel', 'itoi_welcome_panel' );
+	}
+);
 
 function itoi_welcome_panel() {
 	// TODO(content): no dedicated "welcome panel message" ACF field exists
@@ -111,14 +121,17 @@ function itoi_welcome_panel() {
 // ---------------------------------------------------------------------
 // 4d. Admin footer text.
 // ---------------------------------------------------------------------
-add_filter( 'admin_footer_text', function ( $text ) {
-	$phone = get_field( 'support_phone', 'option' ) ?: '+61 468 765 815';
-	return sprintf(
-		'%s &mdash; for support contact %s',
-		esc_html( get_field( 'company_name', 'option' ) ?: 'ITOI Solutions' ),
-		esc_html( $phone )
-	);
-} );
+add_filter(
+	'admin_footer_text',
+	function ( $text ) {
+		$phone = get_field( 'support_phone', 'option' ) ?: '+61 468 765 815';
+		return sprintf(
+			'%s &mdash; for support contact %s',
+			esc_html( get_field( 'company_name', 'option' ) ?: 'ITOI Solutions' ),
+			esc_html( $phone )
+		);
+	}
+);
 
 // ---------------------------------------------------------------------
 // 4e. Admin menu order — most-used CPTs first. Any top-level item this
@@ -128,24 +141,27 @@ add_filter( 'admin_footer_text', function ( $text ) {
 // them — nothing is hidden or removed, only reordered.
 // ---------------------------------------------------------------------
 add_filter( 'custom_menu_order', '__return_true' );
-add_filter( 'menu_order', function ( $menu_order ) {
-	if ( empty( $menu_order ) ) {
-		return $menu_order;
+add_filter(
+	'menu_order',
+	function ( $menu_order ) {
+		if ( empty( $menu_order ) ) {
+			return $menu_order;
+		}
+		$preferred = array(
+			'index.php', // Dashboard
+			'edit.php?post_type=solution',
+			'edit.php?post_type=product',
+			'edit.php?post_type=industry',
+			'edit.php?post_type=case_study',
+			'edit.php?post_type=use_case',
+			'edit.php?post_type=insight',
+			'edit.php?post_type=guide',
+			'edit.php?post_type=sb_lead',
+			'admin.php?page=site-settings',
+			'admin.php?page=find-your-fit-settings', // Solution Builder Settings — see inc/acf.php for why the slug still says find-your-fit
+		);
+		$ordered   = array_values( array_intersect( $preferred, $menu_order ) );
+		$rest      = array_values( array_diff( $menu_order, $preferred ) );
+		return array_merge( $ordered, $rest );
 	}
-	$preferred = array(
-		'index.php', // Dashboard
-		'edit.php?post_type=solution',
-		'edit.php?post_type=product',
-		'edit.php?post_type=industry',
-		'edit.php?post_type=case_study',
-		'edit.php?post_type=use_case',
-		'edit.php?post_type=insight',
-		'edit.php?post_type=guide',
-		'edit.php?post_type=sb_lead',
-		'admin.php?page=site-settings',
-		'admin.php?page=find-your-fit-settings', // Solution Builder Settings — see inc/acf.php for why the slug still says find-your-fit
-	);
-	$ordered = array_values( array_intersect( $preferred, $menu_order ) );
-	$rest    = array_values( array_diff( $menu_order, $preferred ) );
-	return array_merge( $ordered, $rest );
-} );
+);

@@ -144,16 +144,15 @@ add_action( 'wp_head', 'itoi_article_schema' );
 
 /**
  * Product schema for the `product` CPT (2026-08-06 SEO pass — see NOTES.md).
- * Neither `dek` nor `product_price` exist as real ACF fields on `product`
- * today (confirmed: only one field group — "Product Page Content", with
- * teaser_* fields and a page_sections flexible-content block — targets
- * this CPT), so both checks below are honestly empty for the 2 real
- * products (Aurora, PC2SE Outdoor) right now; kept as real, forward-
- * compatible checks (same `if ( $value )` pattern as every other function
- * in this file) rather than removed, so a future `dek`/`product_price`
- * field starts emitting description/offers automatically with no code
- * change — never inventing a description or price that isn't actually in
- * a field.
+ * `dek` and `product_price` were added as real ACF fields on "Product Page
+ * Content" (acf-json/group_f0b5edf92aed.json) in the 2026-08-06 wp-admin
+ * content audit — this function's get_field() calls predated the fields
+ * themselves (found via php scripts/check-acf-fields.php, which flags any
+ * get_field() call with no matching field anywhere in acf-json/) and were
+ * honestly empty for both real products (Aurora, PC2SE Outdoor) until now.
+ * Both checks below stay `if ( $value )`-guarded the same as every other
+ * function in this file — empty is fine, still never inventing a
+ * description or price that isn't actually in a field.
  */
 function itoi_product_schema() {
 	if ( ! is_singular( 'product' ) ) {

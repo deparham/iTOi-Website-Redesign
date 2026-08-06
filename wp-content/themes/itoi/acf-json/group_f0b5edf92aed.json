@@ -1324,6 +1324,46 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_14a579aa50654",
+            "label": "SEO description (dek)",
+            "name": "dek",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "2026-08-06 (wp-admin content audit): added to close the gap inc/schema.php's itoi_product_schema() flagged in its own comment — that function has always called get_field('dek', ...) for this product's structured-data description, but no field named `dek` existed on this CPT until now, so every product's schema.org markup was silently missing a description. Short (1-2 sentence) plain-text summary; not shown anywhere on the page itself, only in the JSON-LD <script> tag search engines read.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_8c45bf0d120a6",
+            "label": "Price (AUD, for SEO schema only)",
+            "name": "product_price",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Same gap as the SEO description field above — inc/schema.php's Offer schema has always checked for this field but it never existed. Numeric only (e.g. \"1499\"), no currency symbol or text — schema.org's price property expects a plain number; priceCurrency (AUD) is already hardcoded in inc/schema.php. Leave empty if this product isn't sold at a fixed public price (e.g. quote-only) — the Offer block simply won't be added to this product's schema, exactly like today.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [

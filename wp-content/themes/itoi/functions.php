@@ -35,3 +35,4 @@ require ITOI_THEME_DIR . '/inc/home-icons.php';
 require ITOI_THEME_DIR . '/inc/security.php';
 require ITOI_THEME_DIR . '/inc/admin-columns.php';
 require ITOI_THEME_DIR . '/inc/admin-dashboard.php';
+require ITOI_THEME_DIR . '/inc/seo.php';
