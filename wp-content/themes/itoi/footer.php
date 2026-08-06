@@ -63,15 +63,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Company</p>
 				<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">About</a>
 				<a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Case Studies</a>
-				<a href="#" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Careers</a>
+				<?php // 2026-08-06: no dedicated Careers page exists yet — routes to Contact rather than a dead href="#" link. Update to a real Careers page once one exists. ?>
+				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Careers</a>
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Contact</a>
 			</div>
 
 			<div>
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Support</p>
 				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Contact Support</a>
-				<a href="#" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Find an Installer</a>
-				<a href="#" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Product Updates</a>
+				<?php // 2026-08-06: no dedicated Installer/Product Updates pages exist yet — both route to Contact rather than a dead href="#" link. Update to real pages once they exist. ?>
+				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Find an Installer</a>
+				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Product Updates</a>
 			</div>
 
 			<div>

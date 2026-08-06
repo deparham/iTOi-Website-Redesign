@@ -236,10 +236,17 @@
      site-wide for accessibility, confirmed with the project owner rather
      than assumed. Default is the light-background token; the two permanent
      dark-background containers (full-screen mega menu, mega-hero) override
-     to the bright variant just below so the ring doesn't go dark-on-dark. */
+     to the bright variant just below so the ring doesn't go dark-on-dark.
+     2026-08-06: outline-offset 3px -> 2px to match the standard spec this
+     theme now documents (docs/ — a11y fix pass). :focus-visible only, never
+     :focus, so this never shows for a mouse click, only real keyboard nav.
+     No outline:none/outline-0 anywhere in this file (checked) to fight
+     with. Elements with rounded corners (buttons, pills, cards) don't need
+     a separate rule — every evergreen browser already renders `outline`
+     following the element's own border-radius. */
   :focus-visible {
     outline: 2px solid var(--signature);
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
   /* 2026-08-05 (external improvement plan Phase 5.1) — first focusable
      element on every page (header.php, right after wp_body_open()), jumps

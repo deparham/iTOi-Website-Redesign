@@ -112,7 +112,11 @@ function itoi_register_post_types() {
 			'has_archive'         => false,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'show_in_rest'        => true,
+			// Internal-only PII/staff data — never publicly queryable via the
+			// REST API (2026-08-06 security fix, see NOTES.md). show_ui/
+			// show_in_menu above are untouched, so the wp-admin list/edit
+			// screens keep working exactly as before.
+			'show_in_rest'        => false,
 			'menu_icon'           => 'dashicons-groups',
 			'supports'            => array( 'title', 'thumbnail' ),
 			'rewrite'             => false,
@@ -137,7 +141,9 @@ function itoi_register_post_types() {
 			'has_archive'         => false,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'show_in_rest'        => true,
+			// Internal-only client business data — never publicly queryable
+			// via the REST API (2026-08-06 security fix, see NOTES.md).
+			'show_in_rest'        => false,
 			'menu_icon'           => 'dashicons-store',
 			'supports'            => array( 'title' ),
 			'rewrite'             => false,
@@ -213,7 +219,11 @@ function itoi_register_post_types() {
 			'has_archive'         => false,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'show_in_rest'        => true,
+			// Visitor-submitted PII (name/email/phone/business type/7-question
+			// answers) — never publicly queryable via the REST API, with no
+			// authentication, which is exactly what `show_in_rest => true`
+			// did before this fix (2026-08-06 security fix, see NOTES.md).
+			'show_in_rest'        => false,
 			'menu_icon'           => 'dashicons-clipboard',
 			'supports'            => array( 'title' ),
 			'capabilities'        => array(
