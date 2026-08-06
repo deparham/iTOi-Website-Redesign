@@ -16,9 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="mb-11 grid grid-cols-1 gap-8 max-[980px]:grid-cols-2 min-[981px]:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
 			<div>
 				<div class="mb-3 flex items-center gap-2 text-lg font-extrabold text-ink">
-					<span class="h-2 w-2 rounded-full bg-signature"></span>ITOI Solutions
+					<?php
+					/**
+					 * 2026-08-06 (wp-admin content audit): brand name was
+					 * hardcoded here — considered reading it from Settings
+					 * -> General -> Site Title (get_bloginfo('name'))
+					 * instead of adding a new field, but this install's
+					 * Site Title is "I TO I Web", not "ITOI Solutions" —
+					 * using it would have silently changed what visitors
+					 * see. Uses a dedicated Site Settings field instead, so
+					 * the two names can differ (admin-facing Site Title vs.
+					 * public-facing brand name) without one overwriting the
+					 * other. Same company_tagline field as before for the
+					 * line underneath.
+					 */
+					?>
+					<span class="h-2 w-2 rounded-full bg-signature"></span><?php echo esc_html( get_field( 'company_name', 'option' ) ?: 'ITOI Solutions' ); ?>
 				</div>
-				<p class="mb-2.5 text-[13.5px] text-text-muted">Image to intelligence — vision systems for retail, venues and security across Australia.</p>
+				<p class="mb-2.5 text-[13.5px] text-text-muted"><?php echo esc_html( get_field( 'company_tagline', 'option' ) ?: 'Image to intelligence — vision systems for retail, venues and security across Australia.' ); ?></p>
 			</div>
 
 			<div>
@@ -109,8 +124,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="flex flex-wrap justify-between gap-2.5 border-t border-line pt-5 text-[12.5px] text-text-muted">
-			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> ITOI Solutions. All rights reserved.</span>
-			<span>Sydney, Australia &middot; 24/7 support</span>
+			<?php // 2026-08-06 (wp-admin content audit): reuses the same company_name field as the brand name above, so there's still only one place to change it, not two. ?>
+			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( get_field( 'company_name', 'option' ) ?: 'ITOI Solutions' ); ?>. All rights reserved.</span>
+			<span><?php echo esc_html( get_field( 'footer_location_line', 'option' ) ?: 'Sydney, Australia · 24/7 support' ); ?></span>
 		</div>
 	</div>
 </footer>
@@ -140,6 +156,19 @@ $fyf_industries        = itoi_solution_builder_industries();
 $fyf_employee_options  = itoi_solution_builder_employee_options();
 $fyf_site_options      = itoi_solution_builder_site_options();
 $fyf_challenge_options = itoi_solution_builder_challenge_options();
+
+// 2026-08-06 (wp-admin content audit): the 7 question prompts + the
+// Question 7 hint were hardcoded here AND in page-solution-builder.php —
+// now both read from the same Solution Builder Settings fields, with the
+// exact previous copy as fallback, so they can't drift out of sync again.
+$fyf_q1_text = get_field( 'sb_q1_text', 'option' ) ?: 'What type of business are you?';
+$fyf_q2_text = get_field( 'sb_q2_text', 'option' ) ?: 'How many employees do you have?';
+$fyf_q3_text = get_field( 'sb_q3_text', 'option' ) ?: 'How many sites do you operate?';
+$fyf_q4_text = get_field( 'sb_q4_text', 'option' ) ?: 'Do you have existing CCTV?';
+$fyf_q5_text = get_field( 'sb_q5_text', 'option' ) ?: 'Do you have an existing POS system?';
+$fyf_q6_text = get_field( 'sb_q6_text', 'option' ) ?: 'Are your operations cloud-based?';
+$fyf_q7_text = get_field( 'sb_q7_text', 'option' ) ?: 'What challenges are you currently facing?';
+$fyf_q7_hint = get_field( 'sb_q7_hint', 'option' ) ?: 'Choose any that apply.';
 ?>
 <?php
 // 2026-07-27 (whole-site visual consistency audit, see NOTES.md): suppressed
@@ -169,7 +198,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 1 — Business type -->
 		<div class="finder-step active" data-step="0">
-			<div class="mb-5 text-center text-[17px] font-bold">What type of business are you?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q1_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="business_type" data-select="single">
 				<?php foreach ( $fyf_industries as $fyf_industry ) : ?>
 					<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="<?php echo esc_attr( $fyf_industry['slug'] ); ?>"><?php echo esc_html( $fyf_industry['title'] ); ?></button>
@@ -179,7 +208,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 2 — Employees -->
 		<div class="finder-step" data-step="1">
-			<div class="mb-5 text-center text-[17px] font-bold">How many employees do you have?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q2_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="employees" data-select="single">
 				<?php foreach ( $fyf_employee_options as $fyf_value => $fyf_opt ) : ?>
 					<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="<?php echo esc_attr( $fyf_value ); ?>"><?php echo esc_html( $fyf_opt['label'] ); ?></button>
@@ -189,7 +218,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 3 — Sites -->
 		<div class="finder-step" data-step="2">
-			<div class="mb-5 text-center text-[17px] font-bold">How many sites do you operate?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q3_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="sites" data-select="single">
 				<?php foreach ( $fyf_site_options as $fyf_value => $fyf_opt ) : ?>
 					<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="<?php echo esc_attr( $fyf_value ); ?>"><?php echo esc_html( $fyf_opt['label'] ); ?></button>
@@ -199,7 +228,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 4 — Existing CCTV -->
 		<div class="finder-step" data-step="3">
-			<div class="mb-5 text-center text-[17px] font-bold">Do you have existing CCTV?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q4_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="existing_cctv" data-select="single">
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="yes">Yes</button>
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="no">No</button>
@@ -208,7 +237,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 5 — Existing POS -->
 		<div class="finder-step" data-step="4">
-			<div class="mb-5 text-center text-[17px] font-bold">Do you have an existing POS system?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q5_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="existing_pos" data-select="single">
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="yes">Yes</button>
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="no">No</button>
@@ -217,7 +246,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 6 — Cloud-based -->
 		<div class="finder-step" data-step="5">
-			<div class="mb-5 text-center text-[17px] font-bold">Are your operations cloud-based?</div>
+			<div class="mb-5 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q6_text ); ?></div>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="cloud_based" data-select="single">
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="yes">Yes</button>
 				<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="no">No</button>
@@ -226,8 +255,8 @@ if ( ! is_page( 'solution-builder' ) ) :
 
 		<!-- Step 7 — Challenges (multi-select) -->
 		<div class="finder-step" data-step="6">
-			<div class="mb-1 text-center text-[17px] font-bold">What challenges are you currently facing?</div>
-			<p class="mb-5 text-center text-[13px] text-text-muted">Choose any that apply.</p>
+			<div class="mb-1 text-center text-[17px] font-bold"><?php echo esc_html( $fyf_q7_text ); ?></div>
+			<p class="mb-5 text-center text-[13px] text-text-muted"><?php echo esc_html( $fyf_q7_hint ); ?></p>
 			<div class="finder-options grid grid-cols-2 gap-2.5" data-group="challenges" data-select="multi">
 				<?php foreach ( $fyf_challenge_options as $fyf_value => $fyf_opt ) : ?>
 					<button type="button" class="finder-opt rounded-xl border-[1.5px] border-line bg-white px-[18px] py-3.5 text-left text-[14.5px] font-semibold transition-colors hover:border-ink" data-value="<?php echo esc_attr( $fyf_value ); ?>"><?php echo esc_html( $fyf_opt['label'] ); ?></button>

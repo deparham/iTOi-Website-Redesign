@@ -15,6 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Formats an ROI multiplier for the disclaimer sentence — "2" not "2.00",
+ * "2.5" not "2.50", but keeps a real decimal (e.g. "2.5") if staff enter
+ * one in wp-admin. Only used for the two per-hour multipliers, which read
+ * naturally as small numbers; the per-site dollar figure uses
+ * number_format() directly instead, both here and in the exact same spot.
+ */
+function itoi_solution_builder_trim_number( $number ) {
+	return rtrim( rtrim( number_format( (float) $number, 2, '.', '' ), '0' ), '.' );
+}
+
+/**
  * The 8 solution categories — CPT `solution` slugs (PROJECT.md §4), in a
  * fixed order so score initialization/tie-breaking is stable.
  */
@@ -234,18 +245,29 @@ function itoi_solution_builder_calculate( $answers ) {
 		$recommended = array_slice( $recommended, 0, 4 );
 	}
 
-	// --- ROI ESTIMATE (Part 5, exact formula) ---
+	// --- ROI ESTIMATE (Part 5, formula — multipliers editable in wp-admin) ---
 	$employee_options   = itoi_solution_builder_employee_options();
 	$site_options       = itoi_solution_builder_site_options();
 	$employees_midpoint = $employee_options[ $answers['employees'] ?? '' ]['midpoint'] ?? 0;
 	$sites_midpoint     = $site_options[ $answers['sites'] ?? '' ]['midpoint'] ?? 0;
 
-	$efficiency_saving = $employees_midpoint * 2 * 35 * 52;
+	// 2026-08-06 (wp-admin content audit): these 4 multipliers were
+	// hardcoded (2 * 35 * 52, and a flat 8000) — moved to Solution Builder
+	// Settings (options page, still menu_slug 'find-your-fit-settings' —
+	// see inc/acf.php) so staff can tune the ROI estimate without a code
+	// change. Fallbacks are the exact previous hardcoded values, so an
+	// unpopulated field changes nothing.
+	$sb_hours_per_week = (float) ( get_field( 'sb_efficiency_hours_saved_per_employee_per_week', 'option' ) ?: 2 );
+	$sb_hourly_rate     = (float) ( get_field( 'sb_efficiency_hourly_rate', 'option' ) ?: 35 );
+	$sb_weeks_per_year  = (float) ( get_field( 'sb_efficiency_weeks_per_year', 'option' ) ?: 52 );
+	$sb_loss_per_site   = (float) ( get_field( 'sb_loss_reduction_per_site', 'option' ) ?: 8000 );
+
+	$efficiency_saving = $employees_midpoint * $sb_hours_per_week * $sb_hourly_rate * $sb_weeks_per_year;
 
 	$loss_reduction_value = 0;
 	$theft_selected        = in_array( 'theft', $challenges, true );
 	if ( $theft_selected ) {
-		$loss_reduction_value = $sites_midpoint * 8000;
+		$loss_reduction_value = $sites_midpoint * $sb_loss_per_site;
 	}
 
 	$roi_total = $efficiency_saving + $loss_reduction_value;
@@ -267,7 +289,16 @@ function itoi_solution_builder_calculate( $answers ) {
 			'loss_reduction_value'  => $loss_reduction_value,
 			'theft_selected'        => $theft_selected,
 			'total'                 => $roi_total,
-			'disclaimer'            => 'Illustrative estimate only, based on general assumptions (2 hours/week saved per employee at $35/hour; $8,000/year loss-reduction per site where theft/shrinkage was selected). Actual results vary by site, industry, and implementation. Not a guaranteed outcome.',
+			// Built from the same 4 fields the formula above uses, rather
+			// than a second hardcoded copy of "2 hours/week... $35/hour...
+			// $8,000/year..." — so this disclaimer can never drift out of
+			// sync with whatever staff have set in wp-admin.
+			'disclaimer'            => sprintf(
+				'Illustrative estimate only, based on general assumptions (%s hours/week saved per employee at $%s/hour; $%s/year loss-reduction per site where theft/shrinkage was selected). Actual results vary by site, industry, and implementation. Not a guaranteed outcome.',
+				itoi_solution_builder_trim_number( $sb_hours_per_week ),
+				itoi_solution_builder_trim_number( $sb_hourly_rate ),
+				number_format( $sb_loss_per_site )
+			),
 		),
 		'timeline'              => array(
 			'range'   => $timeline_range,

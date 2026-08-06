@@ -245,12 +245,32 @@
             "append": ""
         },
         {
+            "key": "field_2b6f4a08e913",
+            "label": "Hero eyebrow",
+            "name": "hero_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Static single line above the mega-hero headline (front-page.php #megaHero) — states ITOI's category before the rotating headline below gets specific. Does not rotate with hero_slides. Added 2026-08-05, homepage positioning pass — see NOTES.md.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Physical intelligence for multi-site operations",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_d8306bab8278",
             "label": "Hero slides",
             "name": "hero_slides",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Mega-hero dot-nav slideshow (PROJECT.md §3 mechanic #2). 2026-07-23 correction: an earlier session incorrectly collapsed this to a single fixed headline\/subcopy (fields hero_headline\/hero_subcopy) — that removal was never requested and has been reverted; the auto-advancing multi-slide dot-nav is restored. This time the repeater is actually wired to the front end (inc\/enqueue.php localizes it as itoiHeroSlides for assets\/js\/main.js) — the old pre-2026-07-23 version of this field existed but was never read by any template, see NOTES.md. Slide 5 (RetailNext) uses the partnership sub-fields below instead of a plain headline.",
+            "instructions": "Mega-hero dot-nav slideshow (PROJECT.md §3 mechanic #2). 2026-08-05 (\"10/10\" pass, see NOTES.md): trimmed from 5 slides to exactly 2, per explicit instruction — row 1 is the site's single definitive positioning message, row 2 is the RetailNext co-branding partnership slide (uses the partnership sub-fields below instead of a plain headline). Max is 2 by design; do not add more rows without a content-owner decision to reintroduce a rotating hero, which this pass deliberately moved away from.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -262,29 +282,8 @@
             "button_label": "Add slide",
             "default_value": [
                 {
-                    "field_a18ebd116097": "Enterprise security systems that eliminate operational blind spots.",
-                    "field_2457b8ae6410": "Integrated facial recognition, ANPR, access control, and intelligent surveillance for schools, healthcare facilities, logistics sites, and commercial property across Australia.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "Know what happened, the moment it happens",
-                    "field_2457b8ae6410": "Real-time detection across every zone, with alerts routed straight to the right person.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "One platform for cameras, access and analytics",
-                    "field_2457b8ae6410": "Retail analytics, facial recognition and smart security, unified in a single dashboard.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "Built for Australian retail, venues and government",
-                    "field_2457b8ae6410": "From single stores to council-wide deployments, backed by 24\/7 local support.",
+                    "field_a18ebd116097": "Turn what happens across your sites into decisions you can act on.",
+                    "field_2457b8ae6410": "Connect cameras, sensors and operational systems in one intelligent platform for security, analytics and automation.",
                     "field_a517ac4e9cdd": "0",
                     "field_1ed67b0df23d": "",
                     "field_b35c03f09ed3": ""
@@ -298,7 +297,7 @@
                 }
             ],
             "min": 0,
-            "max": 0,
+            "max": 2,
             "rows_per_page": 20,
             "collapsed": "field_a18ebd116097",
             "sub_fields": [
@@ -308,8 +307,8 @@
                     "name": "headline",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Plain-text headline. For the RetailNext-style partnership slide, still fill this in as a plain-text equivalent (used as a fallback\/aria-label) even though the on-screen treatment uses the co-branding lockup below instead.",
-                    "required": false,
+                    "instructions": "Plain-text headline. For the RetailNext-style partnership slide, still fill this in as a plain-text equivalent (used as a fallback\/aria-label) even though the on-screen treatment uses the co-branding lockup below instead. Kept under 140 characters — itoi_hero_headline_size_class() (front-page.php) shrinks the font as length grows through 4 tiers, but there's no tier past 110 chars; a much longer headline will wrap awkwardly and blow out the hero's height rather than degrade gracefully.",
+                    "required": true,
                     "conditional_logic": false,
                     "wrapper": {
                         "width": "",
@@ -317,7 +316,7 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "maxlength": "",
+                    "maxlength": 140,
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -434,7 +433,7 @@
                     "name": "photo",
                     "aria-label": "",
                     "type": "image",
-                    "instructions": "Optional, per slide. Shown as this slide's background while it's active, behind the Live Detection markers (which keep drawing on top regardless — CLAUDE.md's signature-layer rule). Leave empty to keep the plain dark-gradient look for this slide. Also used as the background video's poster frame and as the still fallback when a visitor has \"reduce motion\" turned on, if a background video is set below. TEMPORARY: may currently hold a free-licensed stock photo\/video-poster frame from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check the attachment's caption in Media Library for source + license, and replace before launch.",
+                    "instructions": "Optional, per slide. Shown as this slide's background while it's active, behind the Live Detection markers (which keep drawing on top regardless — CLAUDE.md's signature-layer rule). Leave empty to keep the plain dark-gradient look for this slide. Also used as the background video's poster frame and as the still fallback when a visitor has \"reduce motion\" turned on, if a background video is set below. TEMPORARY: may currently hold a free-licensed stock photo\/video-poster frame from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check the attachment's caption in Media Library for source + license, and replace before launch. Minimum 1600x900 (2026-08-05, \"10/10\" pass) — this fills the full-bleed hero background up to desktop widths; a smaller image would visibly upscale/blur. Only enforced on new uploads, doesn't affect an already-selected image.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -445,8 +444,8 @@
                     "return_format": "id",
                     "preview_size": "medium",
                     "library": "all",
-                    "min_width": 0,
-                    "min_height": 0,
+                    "min_width": 1600,
+                    "min_height": 900,
                     "min_size": 0,
                     "max_width": 0,
                     "max_height": 0,
@@ -460,7 +459,7 @@
                     "name": "video",
                     "aria-label": "",
                     "type": "file",
-                    "instructions": "Optional, per slide. Takes priority over the photo above if both are set — muted, autoplay, loops while this slide is active. Never plays for a visitor with \"reduce motion\" turned on (the photo above, or the plain gradient if no photo is set, shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. TEMPORARY: may currently hold a free-licensed stock video from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check NOTES.md for the source\/license, and replace before launch.",
+                    "instructions": "Optional, per slide. Takes priority over the photo above if both are set — muted, autoplay, loops while this slide is active. Never plays for a visitor with \"reduce motion\" turned on (the photo above, or the plain gradient if no photo is set, shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. TEMPORARY: may currently hold a free-licensed stock video from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check NOTES.md for the source\/license, and replace before launch. Max 25MB (2026-08-05, \"10/10\" pass) — generous headroom above the largest real hero video currently in use (~16.5MB, see docs\/performance-baseline.md), but still a real guardrail against an accidentally-uncompressed upload. Only enforced on new uploads.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -471,7 +470,7 @@
                     "return_format": "array",
                     "library": "all",
                     "min_size": 0,
-                    "max_size": 0,
+                    "max_size": 25,
                     "mime_types": "mp4,webm,mov",
                     "parent_repeater": "field_d8306bab8278"
                 }
@@ -503,8 +502,8 @@
             "name": "hero_cta_primary_url",
             "aria-label": "",
             "type": "text",
-            "instructions": "Relative path preferred, rendered via esc_url() directly (same convention as why_choose_photos' cta_url, field_7b9d1f3a5c68) — not wrapped in home_url().",
-            "required": false,
+            "instructions": "Relative path preferred, rendered via esc_url() directly (same convention as why_choose_photos' cta_url, field_7b9d1f3a5c68) — not wrapped in home_url(). Required (2026-08-05, \"10/10\" pass): the site's primary CTA should never point nowhere; a real default is already pre-filled below if this is ever accidentally cleared.",
+            "required": true,
             "conditional_logic": false,
             "wrapper": {
                 "width": "",
@@ -531,7 +530,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "View case studies",
+            "default_value": "See customer results",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -543,8 +542,8 @@
             "name": "hero_cta_secondary_url",
             "aria-label": "",
             "type": "text",
-            "instructions": "Relative path, esc_url()'d directly, same convention as the primary CTA URL above.",
-            "required": false,
+            "instructions": "Relative path, esc_url()'d directly, same convention as the primary CTA URL above. Required (2026-08-05, \"10/10\" pass) for the same reason.",
+            "required": true,
             "conditional_logic": false,
             "wrapper": {
                 "width": "",
@@ -577,7 +576,7 @@
             "max": 3,
             "default_value": [
                 {
-                    "field_8d2b47f6ebc9": "Under 2 hour response time"
+                    "field_8d2b47f6ebc9": "Rapid incident response"
                 },
                 {
                     "field_8d2b47f6ebc9": "Australia wide coverage"
@@ -976,7 +975,7 @@
             "name": "mega_menu_previews",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Right-column preview content for the full-screen mega menu (header.php), one row per top-level Primary menu item, in the same order as Appearance → Menus → Primary. Shown when that item is hovered\/focused on the left.",
+            "instructions": "Right-column preview content for the full-screen mega menu (header.php), one row per top-level Primary menu item, in the same order as Appearance → Menus → Primary. Shown when that item is hovered\/focused on the left. Row count must match the Primary menu's actual top-level item count exactly — front-page.php's rendering is index-matched (row 1 = menu item 1, etc.), not matched by label. min\/max relaxed 2026-08-05 (was a hard 5,5) after PROJECT.md's own \"Products admin\" addendum flagged that the Primary menu grew past 5 items without this field ever being widened, silently misaligning every preview after the insertion point. Add\/remove rows here to match Appearance → Menus → Primary whenever a top-level item is added, removed or reordered — there is no automatic sync between the two.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -986,20 +985,20 @@
             },
             "layout": "table",
             "button_label": "Add category preview",
-            "min": 5,
-            "max": 5,
+            "min": 0,
+            "max": 8,
             "default_value": [
                 {
                     "field_6d2f9a1a0001": "Solutions",
                     "field_6d2f9a1a0002": "Solutions",
-                    "field_6d2f9a1a0003": "One platform, seven ways to see more",
-                    "field_6d2f9a1a0004": "Retail analytics, facial recognition, smart security and more — all unified behind a single ITOI dashboard."
+                    "field_6d2f9a1a0003": "One platform, eight ways to see more",
+                    "field_6d2f9a1a0004": "Video & loss prevention, access control, analytics and more — all unified behind a single ITOI dashboard."
                 },
                 {
-                    "field_6d2f9a1a0001": "Use Cases",
-                    "field_6d2f9a1a0002": "Use Cases",
-                    "field_6d2f9a1a0003": "Built around the problem, not the product",
-                    "field_6d2f9a1a0004": "Placeholder — real use cases to be added from the live site."
+                    "field_6d2f9a1a0001": "Platform",
+                    "field_6d2f9a1a0002": "Platform",
+                    "field_6d2f9a1a0003": "One platform, every source of intelligence",
+                    "field_6d2f9a1a0004": "See how it works, then explore Aurora and PC2SE Outdoor — the sensor hardware behind it."
                 },
                 {
                     "field_6d2f9a1a0001": "Industries",
@@ -1011,13 +1010,19 @@
                     "field_6d2f9a1a0001": "Customers",
                     "field_6d2f9a1a0002": "Customers",
                     "field_6d2f9a1a0003": "Real deployments, real results",
-                    "field_6d2f9a1a0004": "See who trusts ITOI across retail, government, banking and more."
+                    "field_6d2f9a1a0004": "See who trusts ITOI, and read the case studies, across retail, government, banking and more."
                 },
                 {
                     "field_6d2f9a1a0001": "Resources",
                     "field_6d2f9a1a0002": "Resources",
-                    "field_6d2f9a1a0003": "Learn more about ITOI",
-                    "field_6d2f9a1a0004": "Insights, company info and the people behind the platform."
+                    "field_6d2f9a1a0003": "Insights, guides and answers",
+                    "field_6d2f9a1a0004": "Company insights, the Education Hub and answers to frequently asked questions."
+                },
+                {
+                    "field_6d2f9a1a0001": "Company",
+                    "field_6d2f9a1a0002": "Company",
+                    "field_6d2f9a1a0003": "The team behind ITOI",
+                    "field_6d2f9a1a0004": "Learn about ITOI and meet the team delivering every engagement."
                 }
             ],
             "rows_per_page": 20,
@@ -1136,12 +1141,32 @@
             "mime_types": ""
         },
         {
+            "key": "field_7c4e2a9f0d15",
+            "label": "Show traffic-demo widget on homepage",
+            "name": "show_traffic_demo",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Homepage \"See simulated foot-traffic by time of day\" section (front-page.php, #trafficSlider — illustrative Live Detection widget, PROJECT.md §3 signature layer). Added 2026-08-05 (\"10/10\" pass, see NOTES.md) so this can be turned off/on without a code change — off by default per explicit instruction to remove it from the homepage for now.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_1a3c5e7f9b02",
             "label": "Proof stats",
             "name": "proof_stats",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Homepage \"proof\" stat tiles — replaced the old client-logo scroller (2026-07-30, see NOTES.md — numbers read as stronger credibility signals than logos). \"Facial recognition accuracy\" and \"Detection speed\" below are already-confirmed real figures (PROJECT.md §6). \"Sites protected\" and \"Real-time monitoring\" are placeholder values — replace with real figures once available, same TODO(metric) convention used elsewhere on this site for unconfirmed numbers.",
+            "instructions": "Homepage \"proof\" stat tiles — replaced the old client-logo scroller (2026-07-30, see NOTES.md — numbers read as stronger credibility signals than logos). \"Facial recognition accuracy\" and \"Detection speed\" below are already-confirmed real figures (PROJECT.md §6). The 3rd row was 'Sites protected' with an unconfirmed '500+' figure, published with no visible TODO(metric) marker despite this note already flagging it as placeholder — replaced 2026-08-05 with a precise capability statement ('Multi-site protection & reporting') instead. Same rule applies to any future edit here: a real, sourced number is fine, an invented one is not — use a capability statement instead if no real figure exists yet.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1163,8 +1188,8 @@
                     "field_1a3c5e7f9b04": "Detection speed"
                 },
                 {
-                    "field_1a3c5e7f9b03": "500+",
-                    "field_1a3c5e7f9b04": "Sites protected"
+                    "field_1a3c5e7f9b03": "Multi-site",
+                    "field_1a3c5e7f9b04": "protection & reporting"
                 },
                 {
                     "field_1a3c5e7f9b03": "24/7",
@@ -1232,7 +1257,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Trusted by retailers who measure performance, not guesswork.",
+            "default_value": "Trusted by teams who measure performance, not guesswork.",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1244,7 +1269,7 @@
             "name": "trust_metrics",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Exactly 4 metric cards by design (min/max both set to 4) — the section's grid assumes exactly four; adding/removing requires a template/CSS change, not just content edits. If a stat_value starts with a digit, its leading number animates (counts up) when the card scrolls into view — see initTrustMetricsCounters() in assets/js/main.js. Non-numeric values (e.g. \"Millions\", \"Real-time\") render as-is, no count-up, same card design either way.",
+            "instructions": "Exactly 4 metric cards by design (min/max both set to 4) — the section's grid assumes exactly four; adding/removing requires a template/CSS change, not just content edits. If a stat_value starts with a digit, its leading number animates (counts up) when the card scrolls into view — see initTrustMetricsCounters() in assets/js/main.js (note: as of 2026-08-05 this always renders the final value immediately with no count-up animation, external improvement plan Phase 3.4 — the digit-detection logic itself is unchanged, just no longer animated). The 4 defaults below are 2 real confirmed figures (PROJECT.md §6: facial recognition accuracy, detection speed) plus 2 capability statements — the separate \"PROOF\" stat-tiles section that used to hold those 2 real figures lower on the page was cut 2026-08-05 (see NOTES.md) and its real numbers moved up here so this is the single proof section carrying both, not two sections repeating similar content.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1258,20 +1283,20 @@
             "max": 4,
             "default_value": [
                 {
-                    "field_2a5d73f9e4c6": "Millions",
-                    "field_3b6e84a0f5d7": "of visitors analysed"
+                    "field_2a5d73f9e4c6": "99.87%",
+                    "field_3b6e84a0f5d7": "facial recognition accuracy"
                 },
                 {
-                    "field_2a5d73f9e4c6": "Real-time",
-                    "field_3b6e84a0f5d7": "analytics"
+                    "field_2a5d73f9e4c6": "<100ms",
+                    "field_3b6e84a0f5d7": "detection speed"
                 },
                 {
                     "field_2a5d73f9e4c6": "Multi-site",
-                    "field_3b6e84a0f5d7": "deployments"
+                    "field_3b6e84a0f5d7": "reporting across every location"
                 },
                 {
-                    "field_2a5d73f9e4c6": "Enterprise",
-                    "field_3b6e84a0f5d7": "reporting"
+                    "field_2a5d73f9e4c6": "Australian",
+                    "field_3b6e84a0f5d7": "deployment & support"
                 }
             ],
             "rows_per_page": 20,
@@ -1318,8 +1343,250 @@
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_1f4c62e8d3b5"
+                },
+                {
+                    "key": "field_9b3f6c1e8a24",
+                    "label": "This is a real, verified figure",
+                    "name": "is_verified_stat",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Added 2026-08-05 (\"10/10\" pass, see NOTES.md) as a real editorial checkpoint, not a display toggle — CMS-only, doesn't change anything on the front end. Check this only for a genuine, sourced number (PROJECT.md §6's do-not-invent list, or a figure a content owner has independently confirmed). Leave unchecked for a capability statement (e.g. \"Multi-site reporting\") that isn't really a statistic — those don't need verifying, they're not claiming a number. A reviewer should treat an unchecked box on a numeric-looking Value as a reason to double-check before publishing, not as a hard rule enforced by code.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_1f4c62e8d3b5"
                 }
             ]
+        },
+        {
+            "key": "field_797fe0cd86f01",
+            "label": "Footer & brand",
+            "name": "footer_brand_tab",
+            "type": "tab",
+            "instructions": "2026-08-06 (wp-admin content audit): the site tagline and the location/support line in the footer (footer.php) were hardcoded — moved here so staff can edit them without a code change. The brand name itself (\"ITOI Solutions\") is not a field here — footer.php reads it from Settings → General → Site Title (get_bloginfo('name')) instead of a second, separate copy of the same text."
+        },
+        {
+            "key": "field_05e3791552eb5",
+            "label": "Company name",
+            "name": "company_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The public-facing brand name shown in the footer (logo lockup and copyright line). Deliberately separate from Settings → General → Site Title, which is a different, admin-facing value on this install.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ITOI Solutions",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_825565c21bd8b",
+            "label": "Company tagline",
+            "name": "company_tagline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown under the brand name in the footer's first column.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Image to intelligence — vision systems for retail, venues and security across Australia.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_da12932ef48bd",
+            "label": "Footer location line",
+            "name": "footer_location_line",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown bottom-right of the footer, next to the copyright line.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Sydney, Australia · 24/7 support",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_797fe0cd86f02",
+            "label": "One integrated platform (homepage)",
+            "name": "integrated_platform_tab",
+            "type": "tab",
+            "instructions": "2026-08-06 (wp-admin content audit): homepage section directly below the mega-hero's teaser image (template-parts/home/integrated-platform.php) — headline\/body\/CTA label were hardcoded, moved here. The teaser image itself already had its own field (Platform demo teaser media, above)."
+        },
+        {
+            "key": "field_3a87f5cf5af13",
+            "label": "Headline",
+            "name": "integrated_platform_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "One integrated platform",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_358aeb90524c4",
+            "label": "Body",
+            "name": "integrated_platform_body",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Control analytics, access control and patrol from a single cloud-based console.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_a627786ea34f7",
+            "label": "\"Learn more\" button label",
+            "name": "integrated_platform_cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Opens the platform demo modal (template-parts/platform-demo-modal.php) — not a link, so there's no URL field here.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Learn more",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_797fe0cd86f03",
+            "label": "404 page",
+            "name": "error_404_tab",
+            "type": "tab",
+            "instructions": "2026-08-06 (wp-admin content audit): 404.php's heading, description and 2 button labels were hardcoded, moved here. The 2 buttons' destinations (home \/ contact) are structural navigation, not copy, and stay in the template."
+        },
+        {
+            "key": "field_797fe0cd86f5b",
+            "label": "Heading",
+            "name": "error_404_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Page not found",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_f872c00421e82",
+            "label": "Description",
+            "name": "error_404_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "The page you're looking for doesn't exist or may have moved.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_049bc8a5c2436",
+            "label": "Primary button label",
+            "name": "error_404_button_primary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Links to the homepage.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Back to home",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_f9c31cef9f749",
+            "label": "Secondary button label",
+            "name": "error_404_button_secondary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Links to \/contact\/.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Contact us",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -1343,5 +1610,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1785892771
+    "modified": 1785975573
 }

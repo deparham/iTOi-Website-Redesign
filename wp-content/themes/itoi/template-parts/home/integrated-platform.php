@@ -10,11 +10,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// 2026-08-06 (wp-admin content audit): headline/body/CTA label were
+// hardcoded — now Site Settings fields, with the exact previous copy as
+// fallback.
+$itoi_ip_headline   = get_field( 'integrated_platform_headline', 'option' ) ?: 'One integrated platform';
+$itoi_ip_body        = get_field( 'integrated_platform_body', 'option' ) ?: 'Control analytics, access control and patrol from a single cloud-based console.';
+$itoi_ip_cta_label   = get_field( 'integrated_platform_cta_label', 'option' ) ?: 'Learn more';
 ?>
 <section class="border-t border-line bg-hero-bg px-8 py-section-lg text-center" id="integratedPlatform">
 	<div class="mx-auto max-w-[1280px] <?php echo esc_attr( itoi_reveal_class() ); ?>">
-		<h2 class="mx-auto mb-3 max-w-[18ch]">One integrated platform</h2>
-		<p class="mx-auto mb-[22px] max-w-[46ch]">Control analytics, access control and patrol from a single cloud-based console.</p>
+		<h2 class="mx-auto mb-3 max-w-[18ch]"><?php echo esc_html( $itoi_ip_headline ); ?></h2>
+		<p class="mx-auto mb-[22px] max-w-[46ch]"><?php echo esc_html( $itoi_ip_body ); ?></p>
 	</div>
 
 	<div class="no-detect-reveal mx-auto max-w-[1280px]">
@@ -35,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<button type="button" class="pd-play-btn absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-[rgba(14,17,22,0.75)]" id="platformDemoPlayBtn" aria-label="Play &mdash; open the ITOI platform demo"></button>
 			</div>
 		</div>
-		<button type="button" class="inline-block rounded-full bg-cta px-[22px] py-[11px] text-sm font-bold text-white transition-colors hover:bg-cta-hover" id="platformDemoLearnMoreBtn">Learn more</button>
+		<button type="button" class="inline-block rounded-full bg-cta px-[22px] py-[11px] text-sm font-bold text-white transition-colors hover:bg-cta-hover" id="platformDemoLearnMoreBtn"><?php echo esc_html( $itoi_ip_cta_label ); ?></button>
 	</div>
 </section>
 
