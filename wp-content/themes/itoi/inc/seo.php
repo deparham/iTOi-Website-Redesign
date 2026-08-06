@@ -259,3 +259,54 @@ function itoi_seo_output_canonical_no_yoast() {
 	}
 }
 add_action( 'wp_head', 'itoi_seo_output_canonical_no_yoast', 5 );
+
+// ---------------------------------------------------------------
+// Robots meta — noindex for Solution Builder, 404, and search
+// ---------------------------------------------------------------
+
+/**
+ * Every public CPT archive/single and standard WP Page is deliberately
+ * NOT in this list — only these 3 genuinely shouldn't be indexed: the
+ * Solution Builder quiz/tool (not content that should rank on its own),
+ * 404s, and internal search results.
+ */
+function itoi_seo_should_noindex() {
+	return is_404() || is_search() || is_page( 'solution-builder' );
+}
+
+/**
+ * Yoast robots filter — `wpseo_robots` receives and expects back a
+ * formatted string like "index, follow, max-snippet:-1, ..." (confirmed
+ * by reading Indexable_Presentation::filter_robots() in the plugin
+ * itself), not an array. Swaps the leading `index` token for `noindex`;
+ * leaves `follow` (and everything else Yoast already computed) alone —
+ * noindex,follow is the correct combination for all 3 pages here (a
+ * quiz tool, a 404, a search results page can all still have real
+ * navigation links worth letting search engines follow; only the page
+ * itself shouldn't rank), not just the Solution Builder case the task
+ * specifically named "noindex,follow" for.
+ */
+function itoi_seo_robots_noindex_filter( $robots ) {
+	if ( ! itoi_seo_should_noindex() ) {
+		return $robots;
+	}
+	$parts = array_filter(
+		array_map( 'trim', explode( ',', $robots ) ),
+		function ( $part ) {
+			return 'index' !== $part;
+		}
+	);
+	array_unshift( $parts, 'noindex' );
+	return implode( ', ', $parts );
+}
+if ( defined( 'WPSEO_VERSION' ) ) {
+	add_filter( 'wpseo_robots', 'itoi_seo_robots_noindex_filter' );
+}
+
+function itoi_seo_output_robots_no_yoast() {
+	if ( defined( 'WPSEO_VERSION' ) || ! itoi_seo_should_noindex() ) {
+		return;
+	}
+	echo '<meta name="robots" content="noindex,follow">' . "\n";
+}
+add_action( 'wp_head', 'itoi_seo_output_robots_no_yoast', 1 );
