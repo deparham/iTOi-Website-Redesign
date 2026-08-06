@@ -458,3 +458,46 @@ if ( defined( 'WPSEO_VERSION' ) ) {
 		20
 	);
 }
+
+// ---------------------------------------------------------------
+// rel="prev"/rel="next" for paginated CPT archives
+// ---------------------------------------------------------------
+
+/**
+ * Checked live before writing any code here (2026-08-06): Yoast free
+ * already outputs correct rel="prev"/rel="next" link tags for CPT
+ * archive pagination on its own (its Rel_Next_Presenter/
+ * Rel_Prev_Presenter classes aren't post-type-specific) —
+ * /education/guides/ (15 real guides, default 10/page) already carries
+ * rel="next" to /education/guides/page/2/, and page 2 carries rel="prev"
+ * back to page 1 with no rel="next" (correctly the last page), with zero
+ * theme code. wpseo_next_rel_link/wpseo_prev_rel_link (the filters this
+ * fix named) exist and could adjust that output, but there's nothing
+ * wrong with it to adjust — this theme's own CPT archive templates all
+ * query posts_per_page => -1, so the only page that ever has this
+ * situation at all is the one Fix 5's canonical already resolves as a
+ * duplicate-content concern; the prev/next relationship itself is
+ * already correctly described without any theme code.
+ *
+ * Only a no-Yoast fallback is added here, for the same defensive
+ * "shouldn't emit broken/duplicate markup if Yoast is ever absent"
+ * reason every other no-Yoast path in this file exists — this
+ * unconditionally does nothing while Yoast remains active, which is
+ * correct, not a placeholder waiting to be finished.
+ */
+function itoi_seo_output_prev_next_no_yoast() {
+	if ( defined( 'WPSEO_VERSION' ) || ! is_post_type_archive() ) {
+		return;
+	}
+
+	global $wp_query;
+	$paged = max( 1, (int) get_query_var( 'paged' ) );
+
+	if ( $paged > 1 ) {
+		echo '<link rel="prev" href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '">' . "\n";
+	}
+	if ( $wp_query->max_num_pages > $paged ) {
+		echo '<link rel="next" href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '">' . "\n";
+	}
+}
+add_action( 'wp_head', 'itoi_seo_output_prev_next_no_yoast', 5 );
