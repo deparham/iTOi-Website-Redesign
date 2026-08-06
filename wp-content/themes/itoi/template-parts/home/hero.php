@@ -41,7 +41,13 @@ $itoi_hero_subcopy = $itoi_hero_slide0['subcopy'] ?? 'Connect cameras, sensors a
 // (CLAUDE.md's hard rule).
 $itoi_slide0_photo_id  = $itoi_hero_slide0['photo'] ?? 0;
 $itoi_slide0_photo_url = $itoi_slide0_photo_id ? wp_get_attachment_image_url( $itoi_slide0_photo_id, 'large' ) : '';
-$itoi_slide0_photo_alt = $itoi_slide0_photo_id ? ( get_post_meta( $itoi_slide0_photo_id, '_wp_attachment_image_alt', true ) ?: '' ) : '';
+// Alt text fallback chain (2026-08-06 SEO pass, see NOTES.md): the
+// attachment's own media-library alt text first, then this slide's real
+// headline (already resolved above), then a last-resort description —
+// never an empty alt on what's this page's single largest, most visible
+// photo. Dormant today (no photo is currently attached to hero slide 0 —
+// confirmed live), but real and correct once one is.
+$itoi_slide0_photo_alt = $itoi_slide0_photo_id ? ( get_post_meta( $itoi_slide0_photo_id, '_wp_attachment_image_alt', true ) ?: $itoi_hero_headline ?: 'ITOI Solutions' ) : '';
 $itoi_slide0_video     = $itoi_hero_slide0['video'] ?? null;
 $itoi_slide0_video_url = ! empty( $itoi_slide0_video['url'] ) ? $itoi_slide0_video['url'] : '';
 $itoi_hero_has_media   = $itoi_slide0_photo_url || $itoi_slide0_video_url;
