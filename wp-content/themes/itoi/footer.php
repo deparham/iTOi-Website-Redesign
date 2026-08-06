@@ -61,18 +61,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div>
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Company</p>
-				<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">About</a>
-				<a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Case Studies</a>
-				<?php // 2026-08-06: no dedicated Careers page exists yet — routes to Contact rather than a dead href="#" link. Update to a real Careers page once one exists. ?>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Careers</a>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Contact</a>
+				<?php
+				/**
+				 * 2026-08-06 (wp-admin content audit): was 4 hardcoded <a>
+				 * tags (Careers routed to /contact/ — no dedicated Careers
+				 * page exists yet). Now a real WP menu (Appearance -> Menus
+				 * -> assign to "Footer — Company column"), rendered with
+				 * Itoi_Footer_Nav_Walker (inc/nav-walker.php) to keep the
+				 * exact same flat <a> markup with no <ul>/<li> wrapper.
+				 * fallback_cb reproduces the old hardcoded links verbatim,
+				 * so the column isn't empty before a menu is assigned.
+				 */
+				wp_nav_menu( array(
+					'theme_location' => 'footer-company',
+					'container'       => false,
+					'items_wrap'      => '%3$s',
+					'depth'           => 1,
+					'walker'          => new Itoi_Footer_Nav_Walker(),
+					'fallback_cb'     => 'itoi_footer_company_fallback_menu',
+				) );
+				?>
 			</div>
 
 			<div>
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Support</p>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Contact Support</a>
-				<?php // 2026-08-06: no dedicated Installer/Product Updates pages exist yet — both route to Contact rather than a dead href="#" link. Update to real pages once they exist. ?>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink">Product Updates</a>
+				<?php
+				// 2026-08-06 (wp-admin content audit): see the Company column
+				// comment above — same mechanism, "Footer — Support column" location.
+				wp_nav_menu( array(
+					'theme_location' => 'footer-support',
+					'container'       => false,
+					'items_wrap'      => '%3$s',
+					'depth'           => 1,
+					'walker'          => new Itoi_Footer_Nav_Walker(),
+					'fallback_cb'     => 'itoi_footer_support_fallback_menu',
+				) );
+				?>
 			</div>
 
 			<div>

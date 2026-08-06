@@ -23,10 +23,21 @@ function itoi_theme_setup() {
 		'flex-width'  => true,
 	) );
 
+	// 2026-08-06 (wp-admin content audit): 'footer' was registered but never
+	// actually used by footer.php — its Company/Support columns were
+	// hardcoded <a> tags instead. Rather than force those two columns into
+	// one shared 'footer' menu (which would need menu-item-parent grouping
+	// logic to know which items belong under which heading), each column
+	// gets its own location so staff can manage them as two independent,
+	// flat menus in Appearance -> Menus. 'footer' itself is left registered
+	// unused rather than removed — deregistering it would silently unassign
+	// any menu a site editor may have already attached to it.
 	register_nav_menus(
 		array(
-			'primary' => __( 'Primary Navigation', 'itoi' ),
-			'footer'  => __( 'Footer Navigation', 'itoi' ),
+			'primary'        => __( 'Primary Navigation', 'itoi' ),
+			'footer'         => __( 'Footer Navigation', 'itoi' ),
+			'footer-company' => __( 'Footer — Company column', 'itoi' ),
+			'footer-support' => __( 'Footer — Support column', 'itoi' ),
 		)
 	);
 
