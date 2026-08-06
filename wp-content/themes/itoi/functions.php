@@ -30,4 +30,7 @@ require ITOI_THEME_DIR . '/inc/highlight-panel.php';
 require ITOI_THEME_DIR . '/inc/media.php';
 require ITOI_THEME_DIR . '/inc/customers-section.php';
 require ITOI_THEME_DIR . '/inc/process-diagram.php';
+require ITOI_THEME_DIR . '/inc/template-helpers.php';
+require ITOI_THEME_DIR . '/inc/home-icons.php';
 require ITOI_THEME_DIR . '/inc/security.php';
+require ITOI_THEME_DIR . '/inc/admin-columns.php';
