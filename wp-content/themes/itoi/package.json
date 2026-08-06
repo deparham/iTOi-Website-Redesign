@@ -4,13 +4,19 @@
   "private": true,
   "description": "Build tooling for the ITOI WordPress theme (Tailwind CSS + screenshot loop). Not part of the PHP runtime.",
   "scripts": {
-    "build": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.css --minify",
+    "build": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.css --minify && npm run build:js",
+    "build:js": "node scripts/build-js.js",
     "watch": "tailwindcss -i ./src/tailwind.css -o ./assets/css/style.css --watch",
-    "screenshot": "node scripts/screenshot.js"
+    "screenshot": "node scripts/screenshot.js",
+    "lint:js": "eslint assets/js",
+    "test:a11y": "node scripts/a11y-check.js"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.0.0",
+    "axe-core": "^4.13.0",
+    "eslint": "^9.0.0",
     "puppeteer": "^23.0.0",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "terser": "^5.49.2"
   }
 }
