@@ -708,3 +708,57 @@ function itoi_seo_output_fallback_sitemap() {
 
 	exit;
 }
+
+// ---------------------------------------------------------------
+// robots.txt
+// ---------------------------------------------------------------
+
+/**
+ * Customizes WordPress core's own virtual /robots.txt (the `robots_txt`
+ * filter core already provides). Every public CPT archive/single page is
+ * left fully crawlable — only /wp-admin/ (with its own admin-ajax.php
+ * carve-out, since that endpoint is used by public-facing AJAX too, not
+ * just wp-admin itself) and /solution-builder/ (noindexed by Fix 6/14)
+ * are disallowed.
+ *
+ * $public is core's own second argument to this filter (do_robots(),
+ * wp-includes/functions.php) — true unless "Discourage search engines
+ * from indexing this site" (Settings > Reading > blog_public) is
+ * checked. Read and honored here rather than ignored: an earlier version
+ * of this function only declared `( $output )`, silently discarding that
+ * flag and returning the same permissive rules regardless — caught via
+ * phpcs's own "$output is never used" warning while double-checking this
+ * file, which led to actually reading what core passes to this filter
+ * and finding the real, if currently dormant, gap (blog_public is 1 on
+ * this site today, confirmed live, so this branch has never fired here
+ * — but it's real, correct behavior for the day someone does check that
+ * box, not dead code).
+ *
+ * No 'Sitemap:' line added here when Yoast is active: checked live
+ * before finalizing this — Yoast registers its own `robots_txt` filter
+ * that runs after this one and *appends* its own "# START YOAST BLOCK"
+ * section (with its own Sitemap: line) to whatever this function
+ * returns, rather than replacing it. Adding a Sitemap: line here too
+ * when Yoast is active would just duplicate the exact same line Yoast's
+ * own block already adds a few lines below it.
+ */
+function itoi_seo_robots_txt( $output, $public ) {
+	if ( ! $public ) {
+		return "User-agent: *\nDisallow: /\n";
+	}
+
+	$lines = array(
+		'User-agent: *',
+		'Disallow: /wp-admin/',
+		'Allow: /wp-admin/admin-ajax.php',
+		'Disallow: /solution-builder/',
+		'',
+	);
+
+	if ( ! defined( 'WPSEO_VERSION' ) && function_exists( 'itoi_seo_output_fallback_sitemap' ) ) {
+		$lines[] = 'Sitemap: ' . home_url( '/sitemap.xml' );
+	}
+
+	return implode( "\n", $lines ) . "\n";
+}
+add_filter( 'robots_txt', 'itoi_seo_robots_txt', 10, 2 );
