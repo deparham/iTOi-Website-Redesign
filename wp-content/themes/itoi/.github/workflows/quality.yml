@@ -55,14 +55,16 @@ jobs:
         run: |
           git ls-files '*.php' | xargs -n1 -P4 php -l
 
-  # Accessibility/visual/Lighthouse checks need a reachable staging URL —
-  # not runnable against a real environment from this workflow alone, so
-  # they're a separate, manually-triggered job rather than blocking every
-  # PR on infrastructure this repo doesn't control. See docs/deployment.md
-  # once that documents the staging URL this should point at.
+  # Accessibility checks need a reachable staging URL, supplied via the
+  # A11Y_BASE_URL repository secret (Settings > Secrets and variables >
+  # Actions). That secret must be set for this job to succeed — if it's
+  # missing, scripts/a11y-check.js will fail to reach a real site and the
+  # job fails rather than silently skipping, which is deliberate: it forces
+  # the secret to be configured before accessibility checks can pass,
+  # rather than quietly never running at all.
   accessibility:
     runs-on: ubuntu-latest
-    if: false # flip on once A11Y_BASE_URL / a real staging URL exists as a repo/environment secret
+    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
