@@ -558,3 +558,153 @@ function itoi_seo_output_prev_next_no_yoast() {
 	}
 }
 add_action( 'wp_head', 'itoi_seo_output_prev_next_no_yoast', 5 );
+
+// ---------------------------------------------------------------
+// XML sitemap
+// ---------------------------------------------------------------
+
+/**
+ * Verified live before writing this (2026-08-06): Yoast's own sitemap
+ * (/sitemap_index.xml) already covers everything this fix asks for, no
+ * theme code needed for the sitemap itself — solution/product/industry/
+ * case_study/guide/page sitemaps all present and correct; the 5
+ * internal-only CPTs (sb_lead, use_case, team_member, client,
+ * glossary_term — all public => false) correctly have no sitemap at all
+ * (/team_member-sitemap.xml etc. all 404).
+ *
+ * One real gap found in that same check: /solution-builder/ (noindexed
+ * by Fix 6's wpseo_robots filter) was still listed in page-sitemap.xml.
+ * Fix 6's filter only affects the live frontend robots meta tag — Yoast's
+ * sitemap inclusion is decided separately, from the indexable's own
+ * stored `is_robots_noindex` state, which normally comes from the real
+ * per-post Yoast meta-box "noindex" toggle (_yoast_wpseo_meta-robots-
+ * noindex postmeta), not a runtime filter. This sets that same real
+ * per-post setting for the Solution Builder page specifically —
+ * WPSEO_Meta::set_value() is Yoast's own API for it (fires the same
+ * update_post_meta() a real save through the meta box would, which
+ * triggers Yoast's own indexable-rebuild hooks), so this is the exact
+ * same "editor pressed noindex" mechanism, not a workaround.
+ */
+function itoi_seo_ensure_solution_builder_noindexed() {
+	if ( ! defined( 'WPSEO_VERSION' ) || ! class_exists( 'WPSEO_Meta' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'solution-builder', OBJECT, 'page' );
+	if ( ! $page ) {
+		return;
+	}
+	if ( '1' === WPSEO_Meta::get_value( 'meta-robots-noindex', $page->ID ) ) {
+		return;
+	}
+	WPSEO_Meta::set_value( 'meta-robots-noindex', 1, $page->ID );
+}
+add_action( 'init', 'itoi_seo_ensure_solution_builder_noindexed', 20 );
+
+/**
+ * Basic fallback sitemap generator — only ever registers/runs if Yoast is
+ * genuinely absent (confirmed active on this site throughout this whole
+ * pass, so this path has not run and could not be verified live the same
+ * way every other function in this file was — written carefully against
+ * documented WordPress rewrite-API behavior, but flagged here honestly
+ * as the one function in this file that's unverified-live rather than
+ * claiming otherwise).
+ *
+ * Covers: homepage, every public CPT's singles + archive
+ * (solution/product/industry/case_study/insight/guide), every published
+ * WP Page. Excludes: the 5 internal-only CPTs (all public => false
+ * already, so they're simply never queried), and /solution-builder/
+ * (noindexed by Fix 6).
+ */
+function itoi_seo_register_fallback_sitemap() {
+	if ( defined( 'WPSEO_VERSION' ) ) {
+		return;
+	}
+
+	add_rewrite_rule( '^sitemap\.xml$', 'index.php?itoi_sitemap=1', 'top' );
+	add_filter(
+		'query_vars',
+		function ( $vars ) {
+			$vars[] = 'itoi_sitemap';
+			return $vars;
+		}
+	);
+	add_action( 'template_redirect', 'itoi_seo_output_fallback_sitemap' );
+}
+add_action( 'init', 'itoi_seo_register_fallback_sitemap' );
+
+function itoi_seo_output_fallback_sitemap() {
+	if ( defined( 'WPSEO_VERSION' ) || ! get_query_var( 'itoi_sitemap' ) ) {
+		return;
+	}
+
+	header( 'Content-Type: application/xml; charset=UTF-8' );
+
+	$urls = array();
+
+	$urls[] = array(
+		'loc'     => home_url( '/' ),
+		'lastmod' => get_lastpostmodified( 'gmt' ),
+	);
+
+	$public_post_types = array( 'solution', 'product', 'industry', 'case_study', 'insight', 'guide' );
+
+	foreach ( $public_post_types as $post_type ) {
+		$archive_link = get_post_type_archive_link( $post_type );
+		if ( $archive_link ) {
+			$urls[] = array(
+				'loc'     => $archive_link,
+				'lastmod' => get_lastpostmodified( 'gmt', $post_type ),
+			);
+		}
+
+		$query = new WP_Query(
+			array(
+				'post_type'      => $post_type,
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'no_found_rows'  => true,
+			)
+		);
+		foreach ( $query->posts as $post ) {
+			$urls[] = array(
+				'loc'     => get_permalink( $post ),
+				'lastmod' => get_the_modified_date( 'c', $post ),
+			);
+		}
+	}
+
+	$pages = get_posts(
+		array(
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'no_found_rows'  => true,
+		)
+	);
+	foreach ( $pages as $page ) {
+		// solution-builder is deliberately noindex (Fix 6) — excluded from
+		// the sitemap for the same reason, not listed as content that
+		// should rank.
+		if ( 'solution-builder' === $page->post_name ) {
+			continue;
+		}
+		$urls[] = array(
+			'loc'     => get_permalink( $page ),
+			'lastmod' => get_the_modified_date( 'c', $page ),
+		);
+	}
+
+	echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+	foreach ( $urls as $url ) {
+		echo "\t<url>\n";
+		echo "\t\t<loc>" . esc_url( $url['loc'] ) . "</loc>\n";
+		if ( ! empty( $url['lastmod'] ) ) {
+			echo "\t\t<lastmod>" . esc_html( $url['lastmod'] ) . "</lastmod>\n";
+		}
+		echo "\t</url>\n";
+	}
+	echo '</urlset>';
+
+	exit;
+}
