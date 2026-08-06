@@ -199,3 +199,63 @@ function itoi_seo_add_opengraph_image_fallback( $image_container ) {
 if ( defined( 'WPSEO_VERSION' ) ) {
 	add_action( 'wpseo_add_opengraph_images', 'itoi_seo_add_opengraph_image_fallback' );
 }
+
+// ---------------------------------------------------------------
+// Canonical URL — paginated CPT archives
+// ---------------------------------------------------------------
+
+/**
+ * Every CPT archive template in this theme (archive-solution.php,
+ * archive-product.php, archive-industry.php, archive-case_study.php,
+ * archive-insight.php, archive-guide.php) runs its own
+ * `posts_per_page => -1` query, ignoring WordPress's own pagination
+ * entirely — every item always renders on the first page. The *main*
+ * query (which is what actually governs is_paged()/max_num_pages/whether
+ * /page/2/ 404s) still uses the site's default posts_per_page (10) —
+ * confirmed live: a CPT with more than 10 items gets a real, 200-
+ * responding /page/2/ that renders the exact same full list as page 1
+ * (`/education/guides/page/2/`, 15 real guides, same 15 on both URLs) —
+ * genuine duplicate content, not a hypothetical one. Canonicalizing every
+ * paginated CPT-archive request back to its clean, unpaginated URL closes
+ * that gap without touching the archive templates' own querying (out of
+ * scope for a canonical tag to fix, and there's a real reason each one
+ * intentionally shows everything on one page — see NOTES.md).
+ *
+ * The client-side listing-page filters (listing-filters.js, on
+ * page-customers.php/page-use-cases.php/page-faq.php/page-glossary.php/
+ * page-education.php) don't create a second URL at all — the filtering
+ * never changes the URL, so there's no separate address for a search
+ * engine to index in the first place; nothing to canonicalize there.
+ */
+function itoi_seo_canonical_paginated_archive( $canonical ) {
+	if ( ! is_post_type_archive() || ! is_paged() ) {
+		return $canonical;
+	}
+	$post_type    = get_query_var( 'post_type' );
+	$archive_link = is_array( $post_type ) ? '' : get_post_type_archive_link( $post_type );
+	return $archive_link ? $archive_link : $canonical;
+}
+if ( defined( 'WPSEO_VERSION' ) ) {
+	add_filter( 'wpseo_canonical', 'itoi_seo_canonical_paginated_archive' );
+}
+
+/**
+ * No-Yoast direct canonical output for CPT archives — WP core's own
+ * rel_canonical() (wp-includes/link-template.php, on wp_head by default)
+ * only fires for is_singular(), never for archives, with or without
+ * Yoast, so this doesn't duplicate anything core already outputs. Covers
+ * every archive page, not just paginated ones — page 1 canonicalizing to
+ * itself is harmless and correct, and it means this doesn't need its own
+ * separate is_paged() branch.
+ */
+function itoi_seo_output_canonical_no_yoast() {
+	if ( defined( 'WPSEO_VERSION' ) || ! is_post_type_archive() ) {
+		return;
+	}
+	$post_type    = get_query_var( 'post_type' );
+	$archive_link = is_array( $post_type ) ? '' : get_post_type_archive_link( $post_type );
+	if ( $archive_link ) {
+		echo '<link rel="canonical" href="' . esc_url( $archive_link ) . '">' . "\n";
+	}
+}
+add_action( 'wp_head', 'itoi_seo_output_canonical_no_yoast', 5 );
