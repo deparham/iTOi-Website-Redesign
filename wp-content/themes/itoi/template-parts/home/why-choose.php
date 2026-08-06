@@ -76,7 +76,7 @@ if ( empty( $itoi_why_rows ) ) {
 	);
 }
 $itoi_why_headline = get_field( 'why_choose_headline', 'option' ) ?: 'Why teams choose ITOI';
-$itoi_why_first     = $itoi_why_rows[0] ?? array();
+$itoi_why_first    = $itoi_why_rows[0] ?? array();
 ?>
 <section class="bg-teal-900 px-8 py-section-lg">
 	<div class="mx-auto max-w-[1280px]">
@@ -98,7 +98,10 @@ $itoi_why_first     = $itoi_why_rows[0] ?? array();
 				<?php if ( ! empty( $itoi_why_first_bullets ) ) : ?>
 					<ul class="my-4 grid list-none gap-2.5 p-0">
 						<?php foreach ( $itoi_why_first_bullets as $itoi_why_bullet ) : ?>
-							<?php if ( empty( $itoi_why_bullet['text'] ) ) { continue; } ?>
+							<?php
+							if ( empty( $itoi_why_bullet['text'] ) ) {
+								continue; }
+							?>
 							<li class="flex items-start gap-2.5 text-sm text-white/90">
 								<span class="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-white/15 text-[11px]">&#10003;</span>
 								<?php echo esc_html( $itoi_why_bullet['text'] ); ?>
@@ -120,8 +123,8 @@ $itoi_why_first     = $itoi_why_rows[0] ?? array();
 				?>
 				<?php if ( $itoi_why_first_video_url ) : ?>
 					<!-- autoplay attribute is paused by JS on load for a reduce-motion
-					     visitor (initWhyChooseTabs() in main.js), same convention as
-					     #heroBgVideo — the poster (or a static frame) shows instead. -->
+						visitor (initWhyChooseTabs() in main.js), same convention as
+						#heroBgVideo — the poster (or a static frame) shows instead. -->
 					<video id="whyRightImg" class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline <?php echo $itoi_why_first_url ? 'poster="' . esc_url( $itoi_why_first_url ) . '"' : ''; ?>>
 						<source src="<?php echo esc_url( $itoi_why_first_video_url ); ?>">
 					</video>

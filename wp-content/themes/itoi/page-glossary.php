@@ -49,7 +49,8 @@ while ( have_posts() ) :
 
 			<?php if ( ! empty( $itoi_terms ) ) : ?>
 				<div class="flex flex-col gap-4">
-					<?php foreach ( $itoi_terms as $itoi_term_post ) :
+					<?php
+					foreach ( $itoi_terms as $itoi_term_post ) :
 						$itoi_term_name  = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
 						$itoi_definition = get_field( 'definition', $itoi_term_post->ID );
 						$itoi_related    = get_field( 'related_guides', $itoi_term_post->ID );
@@ -68,7 +69,8 @@ while ( have_posts() ) :
 							<?php if ( ! empty( $itoi_related ) ) : ?>
 								<div class="mt-2.5 flex flex-wrap items-center gap-2 text-[13px]">
 									<span class="font-bold text-ink">See also:</span>
-									<?php foreach ( $itoi_related as $itoi_guide_id ) :
+									<?php
+									foreach ( $itoi_related as $itoi_guide_id ) :
 										if ( 'publish' !== get_post_status( $itoi_guide_id ) ) {
 											continue;
 										}
@@ -95,7 +97,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/education/guides/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Browse guides</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

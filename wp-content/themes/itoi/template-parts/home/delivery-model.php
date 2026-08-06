@@ -30,7 +30,8 @@ if ( 0 === $itoi_dm_count ) {
 		<h2 class="mb-10 max-w-[20ch] text-[clamp(26px,3vw,38px)] text-white"><?php echo esc_html( $itoi_dm_headline ); ?></h2>
 
 		<ol class="delivery-rail grid grid-cols-1 gap-x-6 md:grid-cols-4">
-			<?php foreach ( $itoi_dm_steps as $itoi_dm_i => $itoi_dm_step ) :
+			<?php
+			foreach ( $itoi_dm_steps as $itoi_dm_i => $itoi_dm_step ) :
 				$itoi_dm_number = $itoi_dm_step['number'] ?? sprintf( '%02d', $itoi_dm_i + 1 );
 				$itoi_dm_name   = $itoi_dm_step['step_name'] ?? '';
 				$itoi_dm_active = 0 === $itoi_dm_i;

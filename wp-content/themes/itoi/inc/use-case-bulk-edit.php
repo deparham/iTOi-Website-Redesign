@@ -98,8 +98,8 @@ function itoi_use_case_bulk_edit_save() {
 	wp_safe_redirect(
 		add_query_arg(
 			array(
-				'post_type' => 'use_case',
-				'page'      => 'itoi-use-case-bulk-edit',
+				'post_type'  => 'use_case',
+				'page'       => 'itoi-use-case-bulk-edit',
 				'itoi_saved' => 1,
 			),
 			admin_url( 'edit.php' )

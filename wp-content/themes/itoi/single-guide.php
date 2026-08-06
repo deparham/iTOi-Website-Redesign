@@ -76,7 +76,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/education/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Education Hub</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

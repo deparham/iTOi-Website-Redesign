@@ -66,7 +66,7 @@ $itoi_pr_count = $itoi_pr_query->post_count;
 					</div>
 				</a>
 				<?php
-				$itoi_pr_i++;
+				++$itoi_pr_i;
 			endwhile;
 			wp_reset_postdata();
 			?>

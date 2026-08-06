@@ -24,7 +24,10 @@ function itoi_register_post_types() {
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-shield',
 			'supports'     => array( 'title', 'thumbnail' ),
-			'rewrite'      => array( 'slug' => 'solutions', 'with_front' => false ),
+			'rewrite'      => array(
+				'slug'       => 'solutions',
+				'with_front' => false,
+			),
 		)
 	);
 
@@ -73,7 +76,10 @@ function itoi_register_post_types() {
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-chart-line',
 			'supports'     => array( 'title', 'thumbnail' ),
-			'rewrite'      => array( 'slug' => 'case-studies', 'with_front' => false ),
+			'rewrite'      => array(
+				'slug'       => 'case-studies',
+				'with_front' => false,
+			),
 		)
 	);
 
@@ -91,7 +97,10 @@ function itoi_register_post_types() {
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-building',
 			'supports'     => array( 'title', 'thumbnail' ),
-			'rewrite'      => array( 'slug' => 'industries', 'with_front' => false ),
+			'rewrite'      => array(
+				'slug'       => 'industries',
+				'with_front' => false,
+			),
 		)
 	);
 
@@ -168,7 +177,10 @@ function itoi_register_post_types() {
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-book-alt',
 			'supports'     => array( 'title', 'thumbnail' ),
-			'rewrite'      => array( 'slug' => 'education/guides', 'with_front' => false ),
+			'rewrite'      => array(
+				'slug'       => 'education/guides',
+				'with_front' => false,
+			),
 		)
 	);
 
@@ -249,20 +261,23 @@ function itoi_register_post_types() {
 	register_post_type(
 		'product',
 		array(
-			'labels'              => array(
+			'labels'       => array(
 				'name'          => __( 'Products', 'itoi' ),
 				'singular_name' => __( 'Product', 'itoi' ),
 				'add_new_item'  => __( 'Add New Product', 'itoi' ),
 				'edit_item'     => __( 'Edit Product', 'itoi' ),
 			),
-			'public'              => true,
-			'has_archive'         => 'products',
-			'show_ui'             => true,
-			'show_in_menu'        => true,
-			'show_in_rest'        => true,
-			'menu_icon'           => 'dashicons-camera',
-			'supports'            => array( 'title', 'thumbnail' ),
-			'rewrite'             => array( 'slug' => 'products', 'with_front' => false ),
+			'public'       => true,
+			'has_archive'  => 'products',
+			'show_ui'      => true,
+			'show_in_menu' => true,
+			'show_in_rest' => true,
+			'menu_icon'    => 'dashicons-camera',
+			'supports'     => array( 'title', 'thumbnail' ),
+			'rewrite'      => array(
+				'slug'       => 'products',
+				'with_front' => false,
+			),
 		)
 	);
 
@@ -280,7 +295,10 @@ function itoi_register_post_types() {
 			'show_in_rest' => true,
 			'menu_icon'    => 'dashicons-admin-post',
 			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
-			'rewrite'      => array( 'slug' => 'insights', 'with_front' => false ),
+			'rewrite'      => array(
+				'slug'       => 'insights',
+				'with_front' => false,
+			),
 		)
 	);
 }

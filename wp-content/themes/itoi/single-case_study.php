@@ -21,29 +21,29 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$itoi_client       = get_field( 'client_name' );
-	$itoi_headline     = get_field( 'headline' ) ?: get_the_title();
-	$itoi_title        = $itoi_client ?: $itoi_headline;
-	$itoi_narrative    = get_field( 'narrative' );
-	$itoi_metrics_raw  = get_field( 'metrics' );
-	$itoi_pull_quote   = get_field( 'pull_quote' );
-	$itoi_attribution  = get_field( 'quote_attribution' );
-	$itoi_hero_id      = get_field( 'hero_image' );
-	$itoi_hero         = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
-	$itoi_hero_video   = get_field( 'hero_video' );
+	$itoi_client         = get_field( 'client_name' );
+	$itoi_headline       = get_field( 'headline' ) ?: get_the_title();
+	$itoi_title          = $itoi_client ?: $itoi_headline;
+	$itoi_narrative      = get_field( 'narrative' );
+	$itoi_metrics_raw    = get_field( 'metrics' );
+	$itoi_pull_quote     = get_field( 'pull_quote' );
+	$itoi_attribution    = get_field( 'quote_attribution' );
+	$itoi_hero_id        = get_field( 'hero_image' );
+	$itoi_hero           = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
+	$itoi_hero_video     = get_field( 'hero_video' );
 	$itoi_hero_video_url = ! empty( $itoi_hero_video['url'] ) ? $itoi_hero_video['url'] : '';
 	// Prefer real Media Library alt text; fall back to a descriptive phrase
 	// rather than repeating the H1 (which is just $itoi_title) verbatim.
-	$itoi_hero_alt     = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_title . ' case study photo' ) : '';
+	$itoi_hero_alt = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_title . ' case study photo' ) : '';
 	// TEMPORARY: while hero_image is a stock stand-in (site-wide stock
 	// sourcing pass, see NOTES.md), the page must visibly disclose that —
 	// not just via an admin-only note — so nobody mistakes it for a real
 	// photo of this client's site. Editors uncheck the field once
 	// hero_image is swapped for real photography, and this disappears.
 	$itoi_hero_is_stock = (bool) get_field( 'hero_image_is_stock' );
-	$itoi_gallery_ids  = get_field( 'gallery' );
-	$itoi_industry_ids = get_field( 'industry' );
-	$itoi_solution_ids = get_field( 'related_solution' );
+	$itoi_gallery_ids   = get_field( 'gallery' );
+	$itoi_industry_ids  = get_field( 'industry' );
+	$itoi_solution_ids  = get_field( 'related_solution' );
 
 	$itoi_industry_id = ! empty( $itoi_industry_ids ) ? $itoi_industry_ids[0] : null;
 	$itoi_solution_id = ! empty( $itoi_solution_ids ) ? $itoi_solution_ids[0] : null;
@@ -86,13 +86,13 @@ while ( have_posts() ) :
 					<?php // Stock-photo disclaimer only applies to the placeholder photo, never to an uploaded video. ?>
 					<?php if ( $itoi_hero_is_stock && ! $itoi_hero_video_url ) : ?>
 						<!-- Mandatory honesty safeguard (PROJECT.md) — glass treatment
-						     must not reduce legibility vs. the plain bg-black/70 bar it
-						     replaces. Kept full-width (an already-established "unobtrusive"
-						     caption placement, per the wave-3 brief's own "or similar"
-						     allowance) rather than shrunk to a small corner pill, so
-						     coverage/visibility isn't traded away for the glass look —
-						     the icon + bold weight + defined top border add distinctness
-						     on top of that, not instead of it. See NOTES.md. -->
+							must not reduce legibility vs. the plain bg-black/70 bar it
+							replaces. Kept full-width (an already-established "unobtrusive"
+							caption placement, per the wave-3 brief's own "or similar"
+							allowance) rather than shrunk to a small corner pill, so
+							coverage/visibility isn't traded away for the glass look —
+							the icon + bold weight + defined top border add distinctness
+							on top of that, not instead of it. See NOTES.md. -->
 						<div class="disclaimer-glass absolute inset-x-0 bottom-0 z-[2] flex items-center justify-center gap-2 px-4 py-3 text-center text-[12.5px] font-bold leading-snug">
 							<svg class="h-4 w-4 flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
 							<span>Representative image &mdash; not an actual photo of <?php echo esc_html( $itoi_title ); ?>&rsquo;s site</span>
@@ -155,14 +155,24 @@ while ( have_posts() ) :
 						if ( ! $itoi_img_url ) {
 							continue;
 						}
-						$itoi_gallery_index++;
+						++$itoi_gallery_index;
 						// Prefer real Media Library alt text per photo; fall back to a
 						// numbered, non-duplicate description rather than repeating the
 						// same title on every gallery image.
 						$itoi_img_alt = get_post_meta( $itoi_img_id, '_wp_attachment_image_alt', true ) ?: ( $itoi_title . ' — gallery photo ' . $itoi_gallery_index );
 						?>
 						<div class="aspect-[4/3] overflow-hidden rounded-xl">
-							<?php echo wp_get_attachment_image( $itoi_img_id, 'large', false, array( 'class' => 'h-full w-full object-cover', 'alt' => $itoi_img_alt ) ); ?>
+							<?php
+							echo wp_get_attachment_image(
+								$itoi_img_id,
+								'large',
+								false,
+								array(
+									'class' => 'h-full w-full object-cover',
+									'alt'   => $itoi_img_alt,
+								)
+							);
+							?>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -187,7 +197,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Contact us</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

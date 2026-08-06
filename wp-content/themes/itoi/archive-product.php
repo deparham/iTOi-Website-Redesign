@@ -41,15 +41,15 @@ $itoi_products_query = new WP_Query(
 				$itoi_tile_index = 0;
 				while ( $itoi_products_query->have_posts() ) :
 					$itoi_products_query->the_post();
-					$itoi_id           = get_the_ID();
-					$itoi_eyebrow      = get_field( 'teaser_eyebrow', $itoi_id );
-					$itoi_headline     = get_field( 'teaser_headline', $itoi_id ) ?: get_the_title();
-					$itoi_dek          = get_field( 'teaser_supporting_line', $itoi_id );
-					$itoi_photo_id     = get_field( 'teaser_photo', $itoi_id );
-					$itoi_photo_url    = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'medium_large' ) : '';
-					$itoi_video        = get_field( 'teaser_video', $itoi_id );
-					$itoi_placeholder  = get_field( 'teaser_placeholder_caption', $itoi_id ) ?: ( get_the_title() . ' product photo — pending' );
-					$itoi_tile_index++;
+					$itoi_id          = get_the_ID();
+					$itoi_eyebrow     = get_field( 'teaser_eyebrow', $itoi_id );
+					$itoi_headline    = get_field( 'teaser_headline', $itoi_id ) ?: get_the_title();
+					$itoi_dek         = get_field( 'teaser_supporting_line', $itoi_id );
+					$itoi_photo_id    = get_field( 'teaser_photo', $itoi_id );
+					$itoi_photo_url   = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'medium_large' ) : '';
+					$itoi_video       = get_field( 'teaser_video', $itoi_id );
+					$itoi_placeholder = get_field( 'teaser_placeholder_caption', $itoi_id ) ?: ( get_the_title() . ' product photo — pending' );
+					++$itoi_tile_index;
 					?>
 					<a href="<?php the_permalink(); ?>" class="group glass-element-light block overflow-hidden rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>

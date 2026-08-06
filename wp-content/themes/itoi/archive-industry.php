@@ -56,7 +56,7 @@ $itoi_industries_query = new WP_Query(
 					// industry name — see single-industry.php for the same fix.
 					$itoi_hero_alt   = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_name ) : $itoi_name;
 					$itoi_hero_video = get_field( 'hero_video' );
-					$itoi_tile_index++;
+					++$itoi_tile_index;
 					?>
 					<a href="<?php the_permalink(); ?>" class="group glass-element-light block rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>

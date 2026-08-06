@@ -20,12 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $itoi_pd_tabs = array(
-	'operations'  => 'Operations',
-	'traffic'     => 'Traffic',
-	'performance' => 'Performance',
+	'operations'   => 'Operations',
+	'traffic'      => 'Traffic',
+	'performance'  => 'Performance',
 	'optimization' => 'Optimization',
-	'asset'       => 'Asset Protection',
-	'benchmarks'  => 'Benchmarks',
+	'asset'        => 'Asset Protection',
+	'benchmarks'   => 'Benchmarks',
 );
 ?>
 
@@ -214,9 +214,9 @@ $itoi_pd_tabs = array(
 				<div class="mb-3 grid grid-cols-3 gap-3 max-[800px]:grid-cols-1">
 					<?php
 					$itoi_pd_shrink = array(
-						'Post Void'       => array( '2', '$146', '$73' ),
-						'Line Item Void'  => array( '1', '$52', '$52' ),
-						'Cash Refund'     => array( '4', '$310', '$78' ),
+						'Post Void'      => array( '2', '$146', '$73' ),
+						'Line Item Void' => array( '1', '$52', '$52' ),
+						'Cash Refund'    => array( '4', '$310', '$78' ),
 					);
 					foreach ( $itoi_pd_shrink as $itoi_pd_title => $itoi_pd_row ) :
 						?>

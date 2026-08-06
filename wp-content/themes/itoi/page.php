@@ -52,7 +52,7 @@ while ( have_posts() ) :
 		</div>
 	</section>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

@@ -85,7 +85,10 @@ if ( empty( $itoi_hero_trust_metrics ) ) {
 <section class="relative overflow-hidden px-5 pb-16 pt-[168px] min-h-[560px] min-[640px]:px-8 min-[640px]:pb-24 min-[640px]:pt-[206px] min-[640px]:min-h-[640px]" id="megaHero">
 	<div class="absolute inset-0 <?php echo $itoi_hero_has_media ? 'bg-[#0a1720]' : 'bg-[linear-gradient(160deg,#0a1720,#122b38_55%,#1b3a48)]'; ?>" id="heroBg">
 		<video class="absolute inset-0 h-full w-full object-cover <?php echo $itoi_slide0_video_url ? '' : 'hidden'; ?>" id="heroBgVideo" autoplay muted loop playsinline <?php echo $itoi_slide0_photo_url ? 'poster="' . esc_url( $itoi_slide0_photo_url ) . '"' : ''; ?>>
-			<?php if ( $itoi_slide0_video_url ) : ?><source src="<?php echo esc_url( $itoi_slide0_video_url ); ?>"><?php endif; ?>
+			<?php
+			if ( $itoi_slide0_video_url ) :
+				?>
+				<source src="<?php echo esc_url( $itoi_slide0_video_url ); ?>"><?php endif; ?>
 		</video>
 		<img class="absolute inset-0 h-full w-full object-cover <?php echo ( $itoi_slide0_photo_url && ! $itoi_slide0_video_url ) ? '' : 'hidden'; ?>" id="heroBgPhoto" src="<?php echo esc_url( $itoi_slide0_photo_url ); ?>" alt="<?php echo esc_attr( $itoi_slide0_photo_alt ); ?>">
 	</div>
@@ -125,7 +128,10 @@ if ( empty( $itoi_hero_trust_metrics ) ) {
 		<?php if ( ! empty( $itoi_hero_trust_metrics ) ) : ?>
 			<ul class="mt-1 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 p-0 list-none">
 				<?php foreach ( $itoi_hero_trust_metrics as $itoi_trust_item ) : ?>
-					<?php if ( empty( $itoi_trust_item['text'] ) ) { continue; } ?>
+					<?php
+					if ( empty( $itoi_trust_item['text'] ) ) {
+						continue; }
+					?>
 					<li class="flex items-center gap-2 text-[12.5px] font-semibold text-white/80">
 						<span class="flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-white/15 text-[9.5px]" aria-hidden="true">&#10003;</span>
 						<?php echo esc_html( $itoi_trust_item['text'] ); ?>

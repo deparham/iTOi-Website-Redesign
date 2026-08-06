@@ -67,9 +67,9 @@ function itoi_render_process_diagram( $steps, $style = 'lines' ) {
 	if ( empty( $steps ) ) {
 		return;
 	}
-	$itoi_pd_is_dots = 'dots' === $style;
+	$itoi_pd_is_dots      = 'dots' === $style;
 	$itoi_pd_icon_classes = $itoi_pd_is_dots ? 'h-12 w-12' : 'h-9 w-9';
-	$itoi_pd_top_margin = $itoi_pd_is_dots ? 'mt-10 min-[980px]:mt-10' : 'mt-12 min-[980px]:mt-16';
+	$itoi_pd_top_margin   = $itoi_pd_is_dots ? 'mt-10 min-[980px]:mt-10' : 'mt-12 min-[980px]:mt-16';
 	?>
 	<div class="mx-auto <?php echo esc_attr( $itoi_pd_top_margin ); ?> flex max-w-[700px] items-start justify-center">
 		<?php foreach ( $steps as $itoi_pd_i => $itoi_pd_step ) : ?>

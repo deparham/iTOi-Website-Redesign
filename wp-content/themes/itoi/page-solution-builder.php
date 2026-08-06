@@ -123,14 +123,14 @@ $itoi_sb_total_steps = 7;
 
 <!-- ================= RESULTS ================= -->
 <!-- Liquid glass, wave 5 (see NOTES.md): was plain --bg white; converted
-     to the same dark-teal-900 + aurora-bg base wave 4 established for
-     Delivery Model/Partners/Why ITOI. Own <section>, separate from the
-     input-form steps above (#sbForm, still on plain white) — the two
-     never render at once (solution-builder.js hides one before showing
-     the other), so there's no moment where the form sits on this dark
-     background. #sbResults IS the aurora element (JS toggles `hidden` on
-     it directly, unchanged), so its own direct child picks up
-     `.aurora-bg > *`'s position/z-index automatically. -->
+	to the same dark-teal-900 + aurora-bg base wave 4 established for
+	Delivery Model/Partners/Why ITOI. Own <section>, separate from the
+	input-form steps above (#sbForm, still on plain white) — the two
+	never render at once (solution-builder.js hides one before showing
+	the other), so there's no moment where the form sits on this dark
+	background. #sbResults IS the aurora element (JS toggles `hidden` on
+	it directly, unchanged), so its own direct child picks up
+	`.aurora-bg > *`'s position/z-index automatically. -->
 <section id="sbResults" class="aurora-bg border-b border-line bg-teal-900 px-8 py-section-md" hidden>
 	<div class="mx-auto max-w-[720px]">
 
@@ -138,32 +138,32 @@ $itoi_sb_total_steps = 7;
 		<h2 class="mb-8 max-w-[24ch] text-white">Recommended solutions for your business</h2>
 
 		<!-- Recommended-solution cards stay on their current solid styling
-		     (no glass, per the brief) — now with an explicit bg-white
-		     (solution-builder.js) since the section behind them is no
-		     longer implicitly white. -->
+			(no glass, per the brief) — now with an explicit bg-white
+			(solution-builder.js) since the section behind them is no
+			longer implicitly white. -->
 		<div id="sbRecommendedCards" class="mb-14 grid grid-cols-1 gap-5 min-[640px]:grid-cols-2"></div>
 
 		<!-- Architecture visual — container is `.sb-flow`, rendered by
-		     renderArchitecture() in solution-builder.js; now glass
-		     (src/tailwind.css). -->
+			renderArchitecture() in solution-builder.js; now glass
+			(src/tailwind.css). -->
 		<div class="mb-14">
 			<h3 class="mb-5 text-lg text-white">How it fits together</h3>
 			<div id="sbArchitecture" class="sb-architecture" aria-label="Solution architecture diagram"></div>
 		</div>
 
 		<!-- ROI estimate — light glass (.sb-roi-glass, rgba(255,255,255,0.75)),
-		     "the payoff moment," stays highly legible. Card headline/figure
-		     colors unchanged (text-ink). The mandatory disclaimer
-		     (#sbRoiDisclaimer) deliberately switched from text-text-muted
-		     to text-ink: worked the contrast math for the worst case
-		     (0.75-opacity white glass over this section's aurora backdrop,
-		     reverse-derived from wave 4's own documented blend) and
-		     text-muted (#616B78) landed close to/under the 4.5:1 AA floor
-		     for 14px text — text-ink clears it with a large margin
-		     (~12:1). Same "most conservative option for the one
-		     non-negotiable disclaimer" precedent as wave 3's case-study
-		     disclaimer. Weight/size/placement otherwise unchanged —
-		     still font-semibold, directly under the figure. -->
+			"the payoff moment," stays highly legible. Card headline/figure
+			colors unchanged (text-ink). The mandatory disclaimer
+			(#sbRoiDisclaimer) deliberately switched from text-text-muted
+			to text-ink: worked the contrast math for the worst case
+			(0.75-opacity white glass over this section's aurora backdrop,
+			reverse-derived from wave 4's own documented blend) and
+			text-muted (#616B78) landed close to/under the 4.5:1 AA floor
+			for 14px text — text-ink clears it with a large margin
+			(~12:1). Same "most conservative option for the one
+			non-negotiable disclaimer" precedent as wave 3's case-study
+			disclaimer. Weight/size/placement otherwise unchanged —
+			still font-semibold, directly under the figure. -->
 		<div class="sb-roi-glass mb-14 rounded-2xl p-7 min-[640px]:p-9">
 			<h3 class="mb-1 text-lg">Estimated Annual Value</h3>
 			<div class="text-[clamp(34px,5vw,48px)] font-extrabold text-ink" id="sbRoiTotal">&mdash;</div>
@@ -171,10 +171,10 @@ $itoi_sb_total_steps = 7;
 		</div>
 
 		<!-- Timeline — no card existed before this wave; added one
-		     (.sb-timeline-glass) since "convert the timeline card to
-		     glass" needs an actual card. Dark aurora default variant, text
-		     recolored for it (was text-ink/text-muted, calibrated for the
-		     old plain white section). -->
+			(.sb-timeline-glass) since "convert the timeline card to
+			glass" needs an actual card. Dark aurora default variant, text
+			recolored for it (was text-ink/text-muted, calibrated for the
+			old plain white section). -->
 		<div class="sb-timeline-glass mb-14 rounded-2xl p-7 min-[640px]:p-9">
 			<h3 class="mb-1 text-lg text-white">Implementation Timeline</h3>
 			<div class="text-2xl font-extrabold text-white" id="sbTimelineRange">&mdash;</div>
@@ -182,9 +182,9 @@ $itoi_sb_total_steps = 7;
 		</div>
 
 		<!-- Lead capture — untouched, no glass (form fields/download button
-		     explicitly excluded). Stays its own solid bg-white card, which
-		     reads fine as a light "ghost" card against the dark aurora
-		     backdrop — same precedent as wave 4's turnstile-compact cards. -->
+			explicitly excluded). Stays its own solid bg-white card, which
+			reads fine as a light "ghost" card against the dark aurora
+			backdrop — same precedent as wave 4's turnstile-compact cards. -->
 		<div class="rounded-2xl border border-line bg-white p-6 min-[640px]:p-9" id="sbLeadCard">
 			<h3 class="mb-1 text-lg">Get your full proposal</h3>
 			<p class="mb-6 max-w-[54ch] text-[14.5px] text-text-muted">Enter your details and we'll send a copy your way &mdash; you can also download it now.</p>
@@ -224,10 +224,10 @@ $itoi_sb_total_steps = 7;
 
 <!-- ================= PRINT-ONLY PROPOSAL ================= -->
 <!-- Populated by JS only after a successful lead submit; invisible on
-     screen (.sb-print-only), shown only inside @media print (src/tailwind.css)
-     which also hides the header/ticker/nav/mega-menu/form chrome so
-     window.print() produces a clean proposal document, not a screenshot
-     of the whole page. -->
+	screen (.sb-print-only), shown only inside @media print (src/tailwind.css)
+	which also hides the header/ticker/nav/mega-menu/form chrome so
+	window.print() produces a clean proposal document, not a screenshot
+	of the whole page. -->
 <div id="sbProposalPrint" class="sb-print-only"></div>
 
 <?php

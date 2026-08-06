@@ -15,31 +15,31 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$itoi_id           = get_the_ID();
-	$itoi_eyebrow       = get_field( 'eyebrow' );
-	$itoi_headline      = get_field( 'headline' ) ?: get_the_title();
-	$itoi_dek           = get_field( 'dek' );
-	$itoi_tagline       = get_field( 'tagline' );
-	$itoi_hero_id       = get_field( 'hero_image' );
-	$itoi_hero          = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
-	$itoi_hero_video    = get_field( 'hero_video' );
-	$itoi_highlight_photo_id = get_field( 'highlight_photo' );
-	$itoi_highlight_photo    = $itoi_highlight_photo_id ? wp_get_attachment_image_url( $itoi_highlight_photo_id, 'large' ) : '';
-	$itoi_highlight_video    = get_field( 'highlight_video' );
-	$itoi_intro_paragraph = get_field( 'intro_paragraph' );
-	$itoi_spec_stat_number = get_field( 'spec_strip_stat_number' );
-	$itoi_spec_stat_label  = get_field( 'spec_strip_stat_label' );
-	$itoi_spec_items       = get_field( 'spec_strip_items' );
-	$itoi_narrative     = get_field( 'narrative' );
+	$itoi_id                    = get_the_ID();
+	$itoi_eyebrow               = get_field( 'eyebrow' );
+	$itoi_headline              = get_field( 'headline' ) ?: get_the_title();
+	$itoi_dek                   = get_field( 'dek' );
+	$itoi_tagline               = get_field( 'tagline' );
+	$itoi_hero_id               = get_field( 'hero_image' );
+	$itoi_hero                  = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
+	$itoi_hero_video            = get_field( 'hero_video' );
+	$itoi_highlight_photo_id    = get_field( 'highlight_photo' );
+	$itoi_highlight_photo       = $itoi_highlight_photo_id ? wp_get_attachment_image_url( $itoi_highlight_photo_id, 'large' ) : '';
+	$itoi_highlight_video       = get_field( 'highlight_video' );
+	$itoi_intro_paragraph       = get_field( 'intro_paragraph' );
+	$itoi_spec_stat_number      = get_field( 'spec_strip_stat_number' );
+	$itoi_spec_stat_label       = get_field( 'spec_strip_stat_label' );
+	$itoi_spec_items            = get_field( 'spec_strip_items' );
+	$itoi_narrative             = get_field( 'narrative' );
 	$itoi_process_diagram_steps = get_field( 'process_diagram_steps' );
 	$itoi_process_diagram_style = get_field( 'process_diagram_style' ) ?: 'lines';
-	$itoi_capability_cards = get_field( 'capability_cards' );
-	$itoi_specs         = get_field( 'specs' );
-	$itoi_integrations  = get_field( 'integrations' );
-	$itoi_faqs          = get_field( 'faqs' );
-	$itoi_rel_industries = get_field( 'related_industries' );
-	$itoi_rel_use_cases  = get_field( 'related_use_cases' );
-	$itoi_rel_cases      = get_field( 'related_case_studies' );
+	$itoi_capability_cards      = get_field( 'capability_cards' );
+	$itoi_specs                 = get_field( 'specs' );
+	$itoi_integrations          = get_field( 'integrations' );
+	$itoi_faqs                  = get_field( 'faqs' );
+	$itoi_rel_industries        = get_field( 'related_industries' );
+	$itoi_rel_use_cases         = get_field( 'related_use_cases' );
+	$itoi_rel_cases             = get_field( 'related_case_studies' );
 	?>
 
 	<section class="border-b border-line bg-hero-bg px-8 pt-[168px] pb-section-md min-[640px]:pt-[206px]">
@@ -121,72 +121,150 @@ while ( have_posts() ) :
 	 */
 	$itoi_hl_slug   = get_post_field( 'post_name', $itoi_id );
 	$itoi_hl_config = array(
-		'security-access-inventory'  => array(
+		'security-access-inventory'   => array(
 			'headline' => "Verify who's on site. Control what they reach. Know what's on the shelf.",
 			'source'   => 'specs',
 			'items'    => array(
-				array( 'match' => 'Accuracy', 'style' => 'stat' ),
-				array( 'match' => 'Recognition speed', 'style' => 'stat' ),
-				array( 'match' => 'False Non-Match Rate', 'style' => 'stat' ),
-				array( 'match' => 'Encryption', 'style' => 'stat' ),
+				array(
+					'match' => 'Accuracy',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Recognition speed',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'False Non-Match Rate',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Encryption',
+					'style' => 'stat',
+				),
 			),
 		),
-		'workforce-ops-robotics'     => array(
+		'workforce-ops-robotics'      => array(
 			'headline' => 'One connected operations layer — robots and rostered teams, working together.',
 			'source'   => 'specs',
 			'items'    => array(
-				array( 'match' => 'Sensors', 'style' => 'stat' ),
-				array( 'match' => 'Scrubber 75', 'style' => 'label' ),
-				array( 'match' => 'Phantas', 'style' => 'label' ),
-				array( 'match' => '40 Sprayer', 'style' => 'label' ),
+				array(
+					'match' => 'Sensors',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Scrubber 75',
+					'style' => 'label',
+				),
+				array(
+					'match' => 'Phantas',
+					'style' => 'label',
+				),
+				array(
+					'match' => '40 Sprayer',
+					'style' => 'label',
+				),
 			),
 		),
-		'back-of-house-integration'  => array(
+		'back-of-house-integration'   => array(
 			'headline' => 'Every system behind the counter, working as one.',
 			'source'   => 'specs',
 			'items'    => array(
-				array( 'match' => 'Spirits/wine brands controlled', 'style' => 'stat' ),
-				array( 'match' => 'Free-pour spout capacity', 'style' => 'stat' ),
-				array( 'match' => 'Wireless communication', 'style' => 'stat' ),
-				array( 'match' => 'Reporting', 'style' => 'label' ),
+				array(
+					'match' => 'Spirits/wine brands controlled',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Free-pour spout capacity',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Wireless communication',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Reporting',
+					'style' => 'label',
+				),
 			),
 		),
-		'intelligence-analytics'     => array(
+		'intelligence-analytics'      => array(
 			'headline' => 'Real traffic data. Real decisions. One dashboard.',
 			'source'   => 'specs',
 			'items'    => array(
-				array( 'match' => 'Accuracy', 'style' => 'stat' ),
-				array( 'match' => 'Dashboard modules', 'style' => 'label' ),
+				array(
+					'match' => 'Accuracy',
+					'style' => 'stat',
+				),
+				array(
+					'match' => 'Dashboard modules',
+					'style' => 'label',
+				),
 			),
 		),
-		'cctv-video-loss-prevention' => array(
+		'cctv-video-loss-prevention'  => array(
 			'headline' => 'AI-driven theft detection — automated, exception-based, camera to case.',
 			'source'   => 'capabilities',
 			'items'    => array(
-				array( 'match' => 'AI Threat Detection', 'style' => 'name' ),
-				array( 'match' => 'POS-Linked Video', 'style' => 'name' ),
-				array( 'match' => 'Exception-Based Reporting', 'style' => 'name' ),
-				array( 'match' => 'Theft Pattern Detection', 'style' => 'name' ),
+				array(
+					'match' => 'AI Threat Detection',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'POS-Linked Video',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Exception-Based Reporting',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Theft Pattern Detection',
+					'style' => 'name',
+				),
 			),
 		),
 		'customer-engagement-signage' => array(
 			'headline' => 'One platform. Every guest touchpoint.',
 			'source'   => 'capabilities',
 			'items'    => array(
-				array( 'match' => 'Commercial Displays & E-Ink', 'style' => 'name' ),
-				array( 'match' => 'Real-Time Content Triggers', 'style' => 'name' ),
-				array( 'match' => 'Lift-and-Learn & QR Journeys', 'style' => 'name' ),
-				array( 'match' => 'Guest Wi-Fi & Occupancy', 'style' => 'name' ),
+				array(
+					'match' => 'Commercial Displays & E-Ink',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Real-Time Content Triggers',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Lift-and-Learn & QR Journeys',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Guest Wi-Fi & Occupancy',
+					'style' => 'name',
+				),
 			),
 		),
 		'sensory-intelligence'        => array(
 			'headline' => 'The store that feels everything.',
 			'source'   => 'capabilities',
 			'items'    => array(
-				array( 'match' => 'Smart Visual Displays', 'style' => 'name' ),
-				array( 'match' => 'Signature Brand Scent', 'style' => 'name' ),
-				array( 'match' => 'Real-Time Audio Environment', 'style' => 'name' ),
-				array( 'match' => 'Proximity & Beacon', 'style' => 'name' ),
+				array(
+					'match' => 'Smart Visual Displays',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Signature Brand Scent',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Real-Time Audio Environment',
+					'style' => 'name',
+				),
+				array(
+					'match' => 'Proximity & Beacon',
+					'style' => 'name',
+				),
 			),
 		),
 	);
@@ -307,27 +385,28 @@ while ( have_posts() ) :
 			<div class="mx-auto max-w-[1280px]">
 				<h2 class="mb-8 text-2xl">Capabilities</h2>
 				<div class="grid grid-cols-1 gap-5 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3">
-					<?php foreach ( $itoi_capability_cards as $itoi_cc ) :
-						$itoi_cc_photo_id  = $itoi_cc['photo'];
-						$itoi_cc_photo_url = $itoi_cc_photo_id ? wp_get_attachment_image_url( $itoi_cc_photo_id, 'medium_large' ) : '';
+					<?php
+					foreach ( $itoi_capability_cards as $itoi_cc ) :
+						$itoi_cc_photo_id    = $itoi_cc['photo'];
+						$itoi_cc_photo_url   = $itoi_cc_photo_id ? wp_get_attachment_image_url( $itoi_cc_photo_id, 'medium_large' ) : '';
 						$itoi_cc_placeholder = trim( (string) $itoi_cc['photo_placeholder_alt'] );
-						$itoi_cc_alt       = $itoi_cc_photo_id ? ( get_post_meta( $itoi_cc_photo_id, '_wp_attachment_image_alt', true ) ?: $itoi_cc_placeholder ) : $itoi_cc_placeholder;
-						$itoi_cc_media     = itoi_media_cover( $itoi_cc_photo_url, $itoi_cc['video'] ?? null, $itoi_cc_alt, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+						$itoi_cc_alt         = $itoi_cc_photo_id ? ( get_post_meta( $itoi_cc_photo_id, '_wp_attachment_image_alt', true ) ?: $itoi_cc_placeholder ) : $itoi_cc_placeholder;
+						$itoi_cc_media       = itoi_media_cover( $itoi_cc_photo_url, $itoi_cc['video'] ?? null, $itoi_cc_alt, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 						?>
 						<div class="flip-card capability-flip-card aspect-[4/5]">
 							<div class="flip-card-inner">
 								<div class="flip-card-front flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
 									<!-- Liquid glass, wave 3 Part 2 (see NOTES.md): the capability
-									     name moved from a separate white strip below the photo onto
-									     the photo itself, bottom-left, as a glass badge — the
-									     pattern this exact task described, matching how the same
-									     "name over photo" treatment already works elsewhere in this
-									     theme (archive-solution.php, single-industry.php Solutions
-									     grid). The after: gradient is the same dark bottom-fade
-									     those other tiles already use — added here specifically so
-									     the light glass badge (--glass-bg-on-dark, white text) stays
-									     legible regardless of how bright an individual capability
-									     photo is, not just on the darker ones. -->
+										name moved from a separate white strip below the photo onto
+										the photo itself, bottom-left, as a glass badge — the
+										pattern this exact task described, matching how the same
+										"name over photo" treatment already works elsewhere in this
+										theme (archive-solution.php, single-industry.php Solutions
+										grid). The after: gradient is the same dark bottom-fade
+										those other tiles already use — added here specifically so
+										the light glass badge (--glass-bg-on-dark, white text) stays
+										legible regardless of how bright an individual capability
+										photo is, not just on the darker ones. -->
 									<div class="relative aspect-[4/3] w-full flex-none overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,rgba(14,17,22,0.6)_0%,rgba(14,17,22,0)_45%)]">
 										<?php if ( $itoi_cc_media ) : ?>
 											<?php echo $itoi_cc_media; ?>
@@ -403,17 +482,32 @@ while ( have_posts() ) :
 	// Related industries / use cases / case studies — filtered to published only,
 	// since a real visitor should never land on a draft they can't view.
 	$itoi_related_sections = array(
-		array( 'label' => 'Related industries', 'ids' => $itoi_rel_industries, 'base' => '/industries/' ),
-		array( 'label' => 'Related use cases', 'ids' => $itoi_rel_use_cases, 'base' => '/use-cases/' ),
-		array( 'label' => 'Related case studies', 'ids' => $itoi_rel_cases, 'base' => '/case-studies/' ),
+		array(
+			'label' => 'Related industries',
+			'ids'   => $itoi_rel_industries,
+			'base'  => '/industries/',
+		),
+		array(
+			'label' => 'Related use cases',
+			'ids'   => $itoi_rel_use_cases,
+			'base'  => '/use-cases/',
+		),
+		array(
+			'label' => 'Related case studies',
+			'ids'   => $itoi_rel_cases,
+			'base'  => '/case-studies/',
+		),
 	);
 	foreach ( $itoi_related_sections as $itoi_section ) :
 		if ( empty( $itoi_section['ids'] ) ) {
 			continue;
 		}
-		$itoi_published = array_filter( $itoi_section['ids'], function ( $itoi_pid ) {
-			return 'publish' === get_post_status( $itoi_pid );
-		} );
+		$itoi_published = array_filter(
+			$itoi_section['ids'],
+			function ( $itoi_pid ) {
+				return 'publish' === get_post_status( $itoi_pid );
+			}
+		);
 		if ( empty( $itoi_published ) ) {
 			continue;
 		}
@@ -432,7 +526,7 @@ while ( have_posts() ) :
 	endforeach;
 	?>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

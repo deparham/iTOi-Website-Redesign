@@ -96,8 +96,8 @@ function itoi_get_industry_use_cases( $args = array() ) {
  * @return array[] Each row: title, url.
  */
 function itoi_get_nav_use_case_children() {
-	$itoi_featured  = itoi_get_industry_use_cases( array( 'featured_only' => true ) );
-	$itoi_children  = array();
+	$itoi_featured = itoi_get_industry_use_cases( array( 'featured_only' => true ) );
+	$itoi_children = array();
 
 	foreach ( $itoi_featured as $itoi_uc ) {
 		$itoi_children[] = array(

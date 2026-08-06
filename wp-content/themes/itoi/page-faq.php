@@ -75,7 +75,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Contact us</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

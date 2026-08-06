@@ -51,7 +51,7 @@ foreach ( $itoi_all_use_cases as $itoi_uc ) {
 			'count' => 0,
 		);
 	}
-	$itoi_industry_counts[ $itoi_key ]['count']++;
+	++$itoi_industry_counts[ $itoi_key ]['count'];
 }
 uasort(
 	$itoi_industry_counts,
@@ -70,11 +70,11 @@ uasort(
  * arbitrarily over-represent one of the 7 industries this page aggregates
  * across).
  */
-$itoi_hl_total      = count( $itoi_all_use_cases );
+$itoi_hl_total       = count( $itoi_all_use_cases );
 $itoi_hl_industries  = count( $itoi_industry_counts );
 $itoi_hl_by_solution = array();
 foreach ( $itoi_all_use_cases as $itoi_hl_uc ) {
-	$itoi_hl_key = $itoi_hl_uc['solution_title'];
+	$itoi_hl_key                         = $itoi_hl_uc['solution_title'];
 	$itoi_hl_by_solution[ $itoi_hl_key ] = ( $itoi_hl_by_solution[ $itoi_hl_key ] ?? 0 ) + 1;
 }
 arsort( $itoi_hl_by_solution );
@@ -85,7 +85,7 @@ while ( have_posts() ) :
 	the_post();
 	?>
 
-<?php if ( $itoi_hl_total > 0 ) : ?>
+	<?php if ( $itoi_hl_total > 0 ) : ?>
 	<section class="bg-ink relative overflow-hidden px-8 pt-[168px] pb-section-md min-[640px]:pt-[206px] <?php echo esc_attr( itoi_reveal_class() ); ?>">
 		<div class="relative z-[1] mx-auto max-w-[1280px]">
 			<h2 class="max-w-[30ch] text-[clamp(24px,3vw,34px)] text-white"><?php echo (int) $itoi_hl_total; ?> real use cases. <?php echo (int) $itoi_hl_industries; ?> industries. One platform.</h2>
@@ -107,7 +107,7 @@ while ( have_posts() ) :
 			</div>
 		</div>
 	</section>
-<?php endif; ?>
+	<?php endif; ?>
 
 <section class="aurora-bg-light border-b border-line bg-hero-bg px-8 py-16 min-[980px]:py-[70px]">
 	<div class="mx-auto max-w-[840px] <?php echo esc_attr( itoi_reveal_class() ); ?>">
@@ -132,7 +132,8 @@ while ( have_posts() ) :
 			</div>
 
 			<div class="grid grid-cols-1 gap-6 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3" id="useCaseGrid">
-				<?php foreach ( $itoi_all_use_cases as $itoi_uc ) :
+				<?php
+				foreach ( $itoi_all_use_cases as $itoi_uc ) :
 					$itoi_image_url = $itoi_uc['image_id'] ? wp_get_attachment_image_url( $itoi_uc['image_id'], 'medium_large' ) : '';
 					$itoi_uc_media  = itoi_media_cover( $itoi_image_url, $itoi_uc['video'], $itoi_uc['label'], 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 					?>
@@ -169,7 +170,7 @@ while ( have_posts() ) :
 	<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Get demo</a>
 </div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

@@ -54,30 +54,30 @@ function itoi_old_url_redirects() {
 	$map = array(
 		// Solutions restructure, 2026-07-23 — old /solutions/{slug}/ URLs
 		// (live until this restructure) -> new category.
-		'solutions/retail-analytics'                           => '/solutions/intelligence-analytics/',
-		'solutions/customer-engagement'                        => '/solutions/customer-engagement-signage/',
-		'solutions/security-robot'                             => '/solutions/workforce-ops-robotics/',
-		'solutions/cleaning-robots'                             => '/solutions/workforce-ops-robotics/',
-		'solutions/smart-security'                             => '/solutions/security-access-inventory/',
-		'solutions/facial-recognition'                         => '/solutions/security-access-inventory/',
-		'solutions/liquor-management'                          => '/solutions/back-of-house-integration/',
+		'solutions/retail-analytics'      => '/solutions/intelligence-analytics/',
+		'solutions/customer-engagement'   => '/solutions/customer-engagement-signage/',
+		'solutions/security-robot'        => '/solutions/workforce-ops-robotics/',
+		'solutions/cleaning-robots'       => '/solutions/workforce-ops-robotics/',
+		'solutions/smart-security'        => '/solutions/security-access-inventory/',
+		'solutions/facial-recognition'    => '/solutions/security-access-inventory/',
+		'solutions/liquor-management'     => '/solutions/back-of-house-integration/',
 		// Bare pre-launch legacy URLs (pre-dating the /solutions/ prefix
 		// entirely) — updated to point straight at the final new category
 		// rather than the now-defunct intermediate /solutions/{old-slug}/.
-		'smart-security'                                       => '/solutions/security-access-inventory/',
-		'liquor-management'                                    => '/solutions/back-of-house-integration/',
-		'security-robot'                                       => '/solutions/workforce-ops-robotics/',
-		'cleaning-robots'                                      => '/solutions/workforce-ops-robotics/',
-		'customer-engagement'                                  => '/solutions/customer-engagement-signage/',
-		'retail-and-venue-analytics'                           => '/solutions/intelligence-analytics/',
-		'facial-recognition-demographics'                      => '/solutions/security-access-inventory/',
-		'about-us'                                              => '/about/',
-		'contact-us'                                            => '/contact/',
+		'smart-security'                  => '/solutions/security-access-inventory/',
+		'liquor-management'               => '/solutions/back-of-house-integration/',
+		'security-robot'                  => '/solutions/workforce-ops-robotics/',
+		'cleaning-robots'                 => '/solutions/workforce-ops-robotics/',
+		'customer-engagement'             => '/solutions/customer-engagement-signage/',
+		'retail-and-venue-analytics'      => '/solutions/intelligence-analytics/',
+		'facial-recognition-demographics' => '/solutions/security-access-inventory/',
+		'about-us'                        => '/about/',
+		'contact-us'                      => '/contact/',
 		// SEO audit, 2026-07-23 — resolved now that /customers/ exists.
-		'our-portfolio'                                        => '/customers/',
+		'our-portfolio'                   => '/customers/',
 		// Products restructure, 2026-07-31 (see NOTES.md) — Aurora moved off
 		// its one-off WP Page onto the now-public `product` CPT's own routing.
-		'aurora'                                                => '/products/aurora/',
+		'aurora'                          => '/products/aurora/',
 	);
 
 	$path = trim( parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ) ?? '', '/' );

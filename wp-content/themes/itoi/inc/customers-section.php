@@ -116,19 +116,19 @@ function itoi_get_customers_section_data( $args ) {
 	}
 
 	return array(
-		'heading'              => $args['heading'] ?? '',
-		'spotlight_client_id'  => $itoi_spotlight_client_id,
-		'spotlight_photo_id'   => $args['spotlight_photo_id'] ?? 0,
-		'spotlight_video'      => $args['spotlight_video'] ?? null,
-		'spotlight_is_stock'   => ! empty( $args['spotlight_is_stock'] ),
-		'resolved_logo_rows'   => $itoi_resolved_logo_rows,
-		'empty_message'        => $itoi_empty_message,
-		'show'                 => (bool) ( $itoi_spotlight_client_id || ! empty( $itoi_resolved_logo_rows ) || $itoi_empty_message ),
-		'case_ok'              => $itoi_spotlight_case_ok,
-		'case_pending'         => $itoi_case_pending,
-		'case_headline'        => $itoi_case_headline,
-		'case_permalink'       => $itoi_case_permalink,
-		'case_narrative'       => $itoi_case_narrative,
+		'heading'             => $args['heading'] ?? '',
+		'spotlight_client_id' => $itoi_spotlight_client_id,
+		'spotlight_photo_id'  => $args['spotlight_photo_id'] ?? 0,
+		'spotlight_video'     => $args['spotlight_video'] ?? null,
+		'spotlight_is_stock'  => ! empty( $args['spotlight_is_stock'] ),
+		'resolved_logo_rows'  => $itoi_resolved_logo_rows,
+		'empty_message'       => $itoi_empty_message,
+		'show'                => (bool) ( $itoi_spotlight_client_id || ! empty( $itoi_resolved_logo_rows ) || $itoi_empty_message ),
+		'case_ok'             => $itoi_spotlight_case_ok,
+		'case_pending'        => $itoi_case_pending,
+		'case_headline'       => $itoi_case_headline,
+		'case_permalink'      => $itoi_case_permalink,
+		'case_narrative'      => $itoi_case_narrative,
 	);
 }
 
@@ -144,10 +144,10 @@ function itoi_render_customers_section_data( $data ) {
 
 			<?php if ( $data['spotlight_client_id'] ) : ?>
 				<?php
-				$itoi_spotlight_photo_url  = $data['spotlight_photo_id'] ? wp_get_attachment_image_url( $data['spotlight_photo_id'], 'large' ) : '';
+				$itoi_spotlight_photo_url   = $data['spotlight_photo_id'] ? wp_get_attachment_image_url( $data['spotlight_photo_id'], 'large' ) : '';
 				$itoi_spotlight_client_name = get_the_title( $data['spotlight_client_id'] );
-				$itoi_spotlight_video_url  = ! empty( $data['spotlight_video']['url'] ) ? $data['spotlight_video']['url'] : '';
-				$itoi_spotlight_media      = itoi_media_cover( $itoi_spotlight_photo_url, $data['spotlight_video'], $itoi_spotlight_client_name . ' store', 'absolute inset-0 h-full w-full object-cover' );
+				$itoi_spotlight_video_url   = ! empty( $data['spotlight_video']['url'] ) ? $data['spotlight_video']['url'] : '';
+				$itoi_spotlight_media       = itoi_media_cover( $itoi_spotlight_photo_url, $data['spotlight_video'], $itoi_spotlight_client_name . ' store', 'absolute inset-0 h-full w-full object-cover' );
 				?>
 				<div class="glass-element-light mb-14 grid grid-cols-1 overflow-hidden rounded-2xl min-[900px]:grid-cols-2">
 					<div class="relative aspect-[4/3] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] min-[900px]:aspect-auto">
@@ -180,7 +180,8 @@ function itoi_render_customers_section_data( $data ) {
 
 			<?php if ( ! empty( $data['resolved_logo_rows'] ) ) : ?>
 				<div class="flex flex-col gap-10">
-					<?php foreach ( $data['resolved_logo_rows'] as $itoi_lg_row ) :
+					<?php
+					foreach ( $data['resolved_logo_rows'] as $itoi_lg_row ) :
 						$itoi_lg_names      = $itoi_lg_row['names'];
 						$itoi_lg_is_scroll  = count( $itoi_lg_names ) > 5;
 						$itoi_lg_anim_class = 'right' === $itoi_lg_row['direction'] ? 'animate-itoi-marquee-reverse' : 'animate-itoi-marquee';
@@ -198,7 +199,8 @@ function itoi_render_customers_section_data( $data ) {
 								foreach ( $itoi_lg_names as $itoi_lg_name ) :
 									?>
 									<span class="glass-element-light inline-block whitespace-nowrap rounded-full px-5 py-2.5 text-[13.5px] font-bold"><?php echo esc_html( $itoi_lg_name ); ?></span>
-								<?php endforeach;
+									<?php
+								endforeach;
 								$itoi_lg_pills_html = ob_get_clean();
 								?>
 								<div class="longform-marquee-viewport overflow-hidden">
@@ -209,7 +211,7 @@ function itoi_render_customers_section_data( $data ) {
 								</div>
 							<?php else : ?>
 								<!-- Too few names to scroll sensibly — plain static
-								     row instead of a marquee. -->
+									row instead of a marquee. -->
 								<div class="flex flex-wrap gap-3">
 									<?php foreach ( $itoi_lg_names as $itoi_lg_name ) : ?>
 										<span class="glass-element-light inline-block whitespace-nowrap rounded-full px-5 py-2.5 text-[13.5px] font-bold"><?php echo esc_html( $itoi_lg_name ); ?></span>
@@ -297,7 +299,8 @@ function itoi_render_client_logo_row() {
 		foreach ( $itoi_names as $itoi_name ) :
 			?>
 			<span class="inline-block whitespace-nowrap rounded-full border border-line bg-white px-5 py-2.5 text-[13.5px] font-bold text-ink shadow-sm"><?php echo esc_html( $itoi_name ); ?></span>
-		<?php endforeach;
+			<?php
+		endforeach;
 		$itoi_pills_html = ob_get_clean();
 		?>
 		<div class="longform-marquee-viewport overflow-hidden">
@@ -312,5 +315,6 @@ function itoi_render_client_logo_row() {
 				<span class="inline-block whitespace-nowrap rounded-full border border-line bg-white px-5 py-2.5 text-[13.5px] font-bold text-ink shadow-sm"><?php echo esc_html( $itoi_name ); ?></span>
 			<?php endforeach; ?>
 		</div>
-	<?php endif;
+		<?php
+	endif;
 }

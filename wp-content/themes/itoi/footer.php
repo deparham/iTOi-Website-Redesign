@@ -42,13 +42,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Solutions</p>
 				<?php
-				$itoi_footer_solutions = new WP_Query( array(
-					'post_type'      => 'solution',
-					'post_status'    => 'publish',
-					'posts_per_page' => -1,
-					'orderby'        => 'title',
-					'order'          => 'ASC',
-				) );
+				$itoi_footer_solutions = new WP_Query(
+					array(
+						'post_type'      => 'solution',
+						'post_status'    => 'publish',
+						'posts_per_page' => -1,
+						'orderby'        => 'title',
+						'order'          => 'ASC',
+					)
+				);
 				while ( $itoi_footer_solutions->have_posts() ) :
 					$itoi_footer_solutions->the_post();
 					?>
@@ -128,10 +130,10 @@ if ( ! is_page( 'solution-builder' ) ) :
 	?>
 <!-- ============ SOLUTION BUILDER POPUP — markup (shared, every page except /solution-builder/ itself) ============ -->
 <!-- role="dialog"/aria-modal/aria-hidden added 2026-08-05 (Phase 5) — see
-     #megaMenu's identical fix above for the reasoning (a closed overlay's
-     heading otherwise still sits in the accessible tree). initFinder()
-     (assets/js/main.js) toggles aria-hidden and now also traps focus
-     while open. -->
+	#megaMenu's identical fix above for the reasoning (a closed overlay's
+	heading otherwise still sits in the accessible tree). initFinder()
+	(assets/js/main.js) toggles aria-hidden and now also traps focus
+	while open. -->
 <div class="finder-overlay" id="finderOverlay" role="dialog" aria-modal="true" aria-label="Solution builder" aria-hidden="true">
 	<div class="finder-card p-10 max-[640px]:p-6">
 		<button type="button" class="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center rounded-full border border-line bg-white text-base text-text-muted hover:bg-hero-bg hover:text-ink" id="finderClose" aria-label="Close">&times;</button>

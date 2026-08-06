@@ -23,13 +23,13 @@ $itoi_guides_query = new WP_Query(
 		'order'          => 'ASC',
 	)
 );
-$itoi_guide_count = $itoi_guides_query->found_posts;
+$itoi_guide_count  = $itoi_guides_query->found_posts;
 
 $itoi_glossary_terms = itoi_edu_get_glossary_terms();
 $itoi_glossary_count = count( $itoi_glossary_terms );
 
 $itoi_faq_groups = itoi_edu_get_all_faqs();
-$itoi_faq_count   = 0;
+$itoi_faq_count  = 0;
 foreach ( $itoi_faq_groups as $itoi_group ) {
 	$itoi_faq_count += count( $itoi_group['faqs'] );
 }
@@ -64,7 +64,7 @@ while ( have_posts() ) :
 					wp_reset_postdata();
 
 					foreach ( $itoi_glossary_terms as $itoi_term_post ) :
-						$itoi_term_name = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
+						$itoi_term_name     = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
 						$itoi_quick_items[] = array(
 							'label' => $itoi_term_name . ' — Glossary',
 							'url'   => home_url( '/education/glossary/#term-' . sanitize_title( $itoi_term_name ) ),
@@ -146,7 +146,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Get demo</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

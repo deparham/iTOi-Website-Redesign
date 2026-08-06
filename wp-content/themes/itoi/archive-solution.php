@@ -46,13 +46,13 @@ $itoi_solutions_query = new WP_Query(
 				$itoi_tile_index = 0;
 				while ( $itoi_solutions_query->have_posts() ) :
 					$itoi_solutions_query->the_post();
-					$itoi_eyebrow  = get_field( 'eyebrow' );
-					$itoi_headline = get_field( 'headline' ) ?: get_the_title();
-					$itoi_dek      = get_field( 'dek' );
+					$itoi_eyebrow    = get_field( 'eyebrow' );
+					$itoi_headline   = get_field( 'headline' ) ?: get_the_title();
+					$itoi_dek        = get_field( 'dek' );
 					$itoi_tile_id    = get_field( 'tile_image' );
 					$itoi_tile_img   = $itoi_tile_id ? wp_get_attachment_image_url( $itoi_tile_id, 'medium_large' ) : '';
 					$itoi_tile_video = get_field( 'tile_video' );
-					$itoi_tile_index++;
+					++$itoi_tile_index;
 					?>
 					<a href="<?php the_permalink(); ?>" class="group glass-element-light block rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>

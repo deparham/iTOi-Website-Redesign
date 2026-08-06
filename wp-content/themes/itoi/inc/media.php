@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @param string $photo_url  Already-sized image URL, or '' if none.
+ * @param string     $photo_url  Already-sized image URL, or '' if none.
  * @param array|null $video_field Raw ACF file-field value (array with 'url'), or null/[]/'' if none.
- * @param string $alt        Alt text (video ignores this — it's decorative/muted, no captions).
- * @param string $classes    Space-separated class list applied to whichever tag renders.
- * @param string $img_attrs  Extra raw attributes (e.g. loading="lazy") applied only to the <img> branch.
+ * @param string     $alt        Alt text (video ignores this — it's decorative/muted, no captions).
+ * @param string     $classes    Space-separated class list applied to whichever tag renders.
+ * @param string     $img_attrs  Extra raw attributes (e.g. loading="lazy") applied only to the <img> branch.
  * @return string Markup for the <video>/<img>, or '' if neither photo nor video is set — callers keep
  *                their own placeholder markup for that empty-state branch.
  */

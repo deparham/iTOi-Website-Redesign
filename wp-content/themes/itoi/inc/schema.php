@@ -68,12 +68,12 @@ function itoi_service_schema() {
 	$dek      = get_field( 'dek' );
 
 	$schema = array(
-		'@context'    => 'https://schema.org',
-		'@type'       => 'Service',
-		'@id'         => get_permalink() . '#service',
-		'name'        => $headline,
-		'url'         => get_permalink(),
-		'provider'    => array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'Service',
+		'@id'      => get_permalink() . '#service',
+		'name'     => $headline,
+		'url'      => get_permalink(),
+		'provider' => array(
 			'@type' => 'Organization',
 			'name'  => 'ITOI Solutions',
 			'url'   => home_url( '/' ),
@@ -305,9 +305,9 @@ function itoi_breadcrumb_schema() {
 		// for a CPT with no public archive (public/has_archive => false),
 		// so that case correctly skips straight to the current page below
 		// with no extra check needed.
-		$post_type      = get_post_type( $post_id );
-		$archive_link   = get_post_type_archive_link( $post_type );
-		$post_type_obj  = get_post_type_object( $post_type );
+		$post_type     = get_post_type( $post_id );
+		$archive_link  = get_post_type_archive_link( $post_type );
+		$post_type_obj = get_post_type_object( $post_type );
 		if ( $archive_link && $post_type_obj && ! empty( $post_type_obj->labels->name ) ) {
 			$items[] = array(
 				'@type'    => 'ListItem',
