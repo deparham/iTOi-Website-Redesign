@@ -33,12 +33,12 @@ $itoi_pr_count = $itoi_pr_query->post_count;
 				$itoi_pr_query->the_post();
 				$itoi_pr_id        = get_the_ID();
 				$itoi_pr_eyebrow   = get_field( 'teaser_eyebrow', $itoi_pr_id );
-				$itoi_pr_headline  = get_field( 'teaser_headline', $itoi_pr_id ) ?: get_the_title();
+				$itoi_pr_headline  = itoi_or( get_field( 'teaser_headline', $itoi_pr_id ), get_the_title() );
 				$itoi_pr_line      = get_field( 'teaser_supporting_line', $itoi_pr_id );
-				$itoi_pr_link      = get_field( 'teaser_link_label', $itoi_pr_id ) ?: 'See product';
+				$itoi_pr_link      = itoi_or( get_field( 'teaser_link_label', $itoi_pr_id ), 'See product' );
 				$itoi_pr_photo     = get_field( 'teaser_photo', $itoi_pr_id );
 				$itoi_pr_video     = get_field( 'teaser_video', $itoi_pr_id );
-				$itoi_pr_caption   = get_field( 'teaser_placeholder_caption', $itoi_pr_id ) ?: ( get_the_title() . ' product photo — pending' );
+				$itoi_pr_caption   = itoi_or( get_field( 'teaser_placeholder_caption', $itoi_pr_id ), get_the_title() . ' product photo — pending' );
 				$itoi_pr_photo_url = $itoi_pr_photo ? wp_get_attachment_image_url( $itoi_pr_photo, 'large' ) : '';
 				$itoi_pr_media     = itoi_media_cover( $itoi_pr_photo_url, $itoi_pr_video, $itoi_pr_headline, 'absolute inset-0 h-full w-full object-cover' );
 				?>

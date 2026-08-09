@@ -116,7 +116,7 @@ function itoi_enqueue_assets() {
 						'partnerName'   => $itoi_hero_row['partner_name'] ?? '',
 						'partnerLogo'   => $itoi_partner_logo_id ? wp_get_attachment_image_url( $itoi_partner_logo_id, 'medium' ) : '',
 						'photo'         => $itoi_slide_photo_id ? wp_get_attachment_image_url( $itoi_slide_photo_id, 'large' ) : '',
-						'photoAlt'      => $itoi_slide_photo_id ? ( get_post_meta( $itoi_slide_photo_id, '_wp_attachment_image_alt', true ) ?: '' ) : '',
+						'photoAlt'      => $itoi_slide_photo_id ? itoi_or( get_post_meta( $itoi_slide_photo_id, '_wp_attachment_image_alt', true ), '' ) : '',
 						'video'         => ! empty( $itoi_slide_video['url'] ) ? $itoi_slide_video['url'] : '',
 					);
 				}

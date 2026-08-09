@@ -17,11 +17,11 @@ while ( have_posts() ) :
 	the_post();
 
 	$itoi_id            = get_the_ID();
-	$itoi_title         = get_field( 'title' ) ?: get_the_title();
+	$itoi_title         = itoi_or( get_field( 'title' ), get_the_title() );
 	$itoi_dek           = get_field( 'dek' );
 	$itoi_body          = get_field( 'body' );
 	$itoi_industry_id   = get_field( 'industry' );
-	$itoi_industry_name = $itoi_industry_id ? ( get_field( 'name', $itoi_industry_id ) ?: get_the_title( $itoi_industry_id ) ) : 'General';
+	$itoi_industry_name = $itoi_industry_id ? itoi_or( get_field( 'name', $itoi_industry_id ), get_the_title( $itoi_industry_id ) ) : 'General';
 	$itoi_read_time     = get_field( 'read_time_minutes' );
 	$itoi_pub_date      = get_field( 'published_date' );
 	$itoi_solution_id   = get_field( 'related_solution' );
@@ -63,7 +63,7 @@ while ( have_posts() ) :
 			<div class="mx-auto flex max-w-[720px] flex-wrap items-center justify-between gap-6 rounded-2xl border border-line bg-white p-7">
 				<div>
 					<div class="mb-1 text-[12.5px] font-bold uppercase tracking-wide text-text-muted">Related solution</div>
-					<h2 class="text-xl"><?php echo esc_html( get_field( 'headline', $itoi_solution_id ) ?: get_the_title( $itoi_solution_id ) ); ?></h2>
+					<h2 class="text-xl"><?php echo esc_html( itoi_or( get_field( 'headline', $itoi_solution_id ), get_the_title( $itoi_solution_id ) ) ); ?></h2>
 				</div>
 				<a href="<?php echo esc_url( get_permalink( $itoi_solution_id ) ); ?>" class="whitespace-nowrap rounded-full bg-cta px-[22px] py-[11px] text-sm font-bold text-white transition-colors hover:bg-cta-hover">View solution &rarr;</a>
 			</div>

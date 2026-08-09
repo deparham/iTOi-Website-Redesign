@@ -43,14 +43,14 @@ $itoi_case_studies_query = new WP_Query(
 				while ( $itoi_case_studies_query->have_posts() ) :
 					$itoi_case_studies_query->the_post();
 					$itoi_client   = get_field( 'client_name' );
-					$itoi_headline = get_field( 'headline' ) ?: get_the_title();
+					$itoi_headline = itoi_or( get_field( 'headline' ), get_the_title() );
 					$itoi_hero_id  = get_field( 'hero_image' );
 					$itoi_hero_img = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'medium_large' ) : '';
-					$itoi_title    = $itoi_client ?: $itoi_headline;
+					$itoi_title    = itoi_or( $itoi_client, $itoi_headline );
 					// Prefer real Media Library alt text; fall back to a descriptive
 					// phrase rather than the title (already shown as this tile's own
 					// visible caption immediately below the image).
-					$itoi_hero_alt   = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_title . ' case study photo' ) : '';
+					$itoi_hero_alt   = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_title . ' case study photo' ) : '';
 					$itoi_hero_video = get_field( 'hero_video' );
 					++$itoi_tile_index;
 					?>

@@ -55,7 +55,7 @@ function itoi_edu_get_all_faqs() {
 		}
 		$groups[] = array(
 			'solution_id'    => $solution->ID,
-			'solution_title' => get_field( 'headline', $solution->ID ) ?: get_the_title( $solution->ID ),
+			'solution_title' => itoi_or( get_field( 'headline', $solution->ID ), get_the_title( $solution->ID ) ),
 			'solution_url'   => get_permalink( $solution->ID ),
 			'faqs'           => $faqs,
 		);

@@ -117,7 +117,7 @@ function itoi_get_customers_section_data( $args ) {
 			// that state ("... — narrative pending"), not public-facing copy,
 			// so the spotlight headline falls back to the real client name.
 			$itoi_case_pending   = ! $itoi_case_narrative || false !== strpos( $itoi_case_narrative, 'TODO(fact-check)' );
-			$itoi_case_headline  = $itoi_case_pending ? get_the_title( $itoi_spotlight_client_id ) : ( get_field( 'headline', $itoi_spotlight_case_id ) ?: get_the_title( $itoi_spotlight_case_id ) );
+			$itoi_case_headline  = $itoi_case_pending ? get_the_title( $itoi_spotlight_client_id ) : itoi_or( get_field( 'headline', $itoi_spotlight_case_id ), get_the_title( $itoi_spotlight_case_id ) );
 			$itoi_case_permalink = get_permalink( $itoi_spotlight_case_id );
 		}
 	}

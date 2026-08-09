@@ -49,7 +49,7 @@ $itoi_solutions_query = new WP_Query(
 				while ( $itoi_solutions_query->have_posts() ) :
 					$itoi_solutions_query->the_post();
 					$itoi_eyebrow    = get_field( 'eyebrow' );
-					$itoi_headline   = get_field( 'headline' ) ?: get_the_title();
+					$itoi_headline   = itoi_or( get_field( 'headline' ), get_the_title() );
 					$itoi_dek        = get_field( 'dek' );
 					$itoi_tile_id    = get_field( 'tile_image' );
 					$itoi_tile_img   = $itoi_tile_id ? wp_get_attachment_image_url( $itoi_tile_id, 'medium_large' ) : '';

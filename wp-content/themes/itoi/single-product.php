@@ -42,7 +42,7 @@ get_header();
  */
 function itoi_product_visual( $photo_id, $video_field, $caption, $todo_label, $media_classes, $placeholder_classes ) {
 	$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'large' ) : '';
-	$photo_alt = $photo_id ? ( get_post_meta( $photo_id, '_wp_attachment_image_alt', true ) ?: '' ) : '';
+	$photo_alt = $photo_id ? itoi_or( get_post_meta( $photo_id, '_wp_attachment_image_alt', true ), '' ) : '';
 	$media     = itoi_media_cover( $photo_url, $video_field, $photo_alt, $media_classes );
 
 	if ( $media ) {
@@ -63,7 +63,7 @@ while ( have_posts() ) :
 	the_post();
 
 	$itoi_product_id = get_the_ID();
-	$itoi_sections   = get_field( 'page_sections', $itoi_product_id ) ?: array();
+	$itoi_sections   = itoi_or( get_field( 'page_sections', $itoi_product_id ), array() );
 	// Hero's primary CTA scrolls to #comparison — only real if this product
 	// actually has that section (not every product has a real, sourced
 	// comparison to make; e.g. a partner-hardware page like PC2SE Outdoor).
@@ -78,12 +78,12 @@ while ( have_posts() ) :
 
 			// ================= HERO =================
 			case 'hero':
-				$itoi_eyebrow  = $itoi_section['hero_eyebrow'] ?: 'Introducing ' . get_the_title();
+				$itoi_eyebrow  = itoi_or( $itoi_section['hero_eyebrow'], 'Introducing ' . get_the_title() );
 				$itoi_emphasis = $itoi_section['hero_headline_emphasis'] ?? '';
 				$itoi_muted    = $itoi_section['hero_headline_muted'] ?? '';
 				$itoi_lede     = $itoi_section['hero_lede'] ?? '';
-				$itoi_cta_p    = $itoi_section['hero_cta_primary_label'] ?: 'See how it compares';
-				$itoi_cta_s    = $itoi_section['hero_cta_secondary_label'] ?: 'View specifications';
+				$itoi_cta_p    = itoi_or( $itoi_section['hero_cta_primary_label'], 'See how it compares' );
+				$itoi_cta_s    = itoi_or( $itoi_section['hero_cta_secondary_label'], 'View specifications' );
 				$itoi_photo    = $itoi_section['hero_device_photo'] ?? 0;
 				$itoi_video    = $itoi_section['hero_device_video'] ?? null;
 				$itoi_caption  = $itoi_section['hero_device_placeholder_caption'] ?? '';
@@ -134,7 +134,7 @@ while ( have_posts() ) :
 
 			// ================= STAT STRIP =================
 			case 'stat_strip':
-				$itoi_stats = $itoi_section['stat_items'] ?: array();
+				$itoi_stats = itoi_or( $itoi_section['stat_items'], array() );
 				if ( empty( $itoi_stats ) ) {
 					break;
 				}
@@ -157,7 +157,7 @@ while ( have_posts() ) :
 
 			// ================= HOW IT WORKS =================
 			case 'how_it_works':
-				$itoi_steps = $itoi_section['how_it_works_steps'] ?: array();
+				$itoi_steps = itoi_or( $itoi_section['how_it_works_steps'], array() );
 				if ( empty( $itoi_steps ) ) {
 					break;
 				}
@@ -201,12 +201,12 @@ while ( have_posts() ) :
 
 			// ================= COMPARISON =================
 			case 'comparison':
-				$itoi_cmp_rows = $itoi_section['comparison_rows'] ?: array();
+				$itoi_cmp_rows = itoi_or( $itoi_section['comparison_rows'], array() );
 				if ( empty( $itoi_cmp_rows ) ) {
 					break;
 				}
-				$itoi_col_a = $itoi_section['comparison_column_a_label'] ?: '2D Camera';
-				$itoi_col_b = $itoi_section['comparison_column_b_label'] ?: get_the_title();
+				$itoi_col_a = itoi_or( $itoi_section['comparison_column_a_label'], '2D Camera' );
+				$itoi_col_b = itoi_or( $itoi_section['comparison_column_b_label'], get_the_title() );
 				?>
 				<section class="border-b border-line bg-white px-8 py-section-lg min-[980px]:scroll-mt-[96px]" id="comparison">
 					<div class="mx-auto max-w-[1080px]">
@@ -253,7 +253,7 @@ while ( have_posts() ) :
 
 			// ================= SPECIFICATIONS =================
 			case 'specifications':
-				$itoi_specs = $itoi_section['specs'] ?: array();
+				$itoi_specs = itoi_or( $itoi_section['specs'], array() );
 				if ( empty( $itoi_specs ) ) {
 					break;
 				}
@@ -291,12 +291,12 @@ while ( have_posts() ) :
 
 			// ================= USE CASES =================
 			case 'use_cases':
-				$itoi_chips = $itoi_section['use_case_chips'] ?: array();
+				$itoi_chips = itoi_or( $itoi_section['use_case_chips'], array() );
 				if ( empty( $itoi_chips ) ) {
 					break;
 				}
 				$itoi_cap_label = $itoi_section['use_cases_capabilities_label'] ?? '';
-				$itoi_caps      = $itoi_section['use_cases_capabilities'] ?: array();
+				$itoi_caps      = itoi_or( $itoi_section['use_cases_capabilities'], array() );
 				?>
 				<section class="border-b border-line bg-white px-8 py-section-sm">
 					<div class="mx-auto max-w-[1280px]">
@@ -344,7 +344,7 @@ while ( have_posts() ) :
 							<p class="m-0 max-w-[40ch] text-white/60"><?php echo esc_html( $itoi_section['final_cta_text'] ); ?></p>
 						<?php endif; ?>
 					</div>
-					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink"><?php echo esc_html( $itoi_section['final_cta_button_label'] ?: 'Get demo' ); ?> &rarr;</a>
+					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink"><?php echo esc_html( itoi_or( $itoi_section['final_cta_button_label'], 'Get demo' ) ); ?> &rarr;</a>
 				</div>
 				<?php
 				break;

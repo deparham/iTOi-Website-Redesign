@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$itoi_trust_heading = get_field( 'trust_section_heading', 'option' ) ?: 'Trusted by teams who measure performance, not guesswork.';
+$itoi_trust_heading = itoi_or( get_field( 'trust_section_heading', 'option' ), 'Trusted by teams who measure performance, not guesswork.' );
 $itoi_trust_metrics = get_field( 'trust_metrics', 'option' );
 if ( empty( $itoi_trust_metrics ) ) {
 	// 2026-08-05: replaced 4 vague descriptors ("Millions", "Real-time",

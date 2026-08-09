@@ -342,7 +342,7 @@ function itoi_solution_builder_resolve_solutions( $slugs ) {
 			continue;
 		}
 		$dek      = function_exists( 'get_field' ) ? get_field( 'dek', $post->ID ) : '';
-		$photo_id = function_exists( 'get_field' ) ? ( get_field( 'tile_image', $post->ID ) ?: get_field( 'hero_image', $post->ID ) ) : 0;
+		$photo_id = function_exists( 'get_field' ) ? itoi_or( get_field( 'tile_image', $post->ID ), get_field( 'hero_image', $post->ID ) ) : 0;
 
 		$resolved[ $slug ] = array(
 			'slug'  => $slug,

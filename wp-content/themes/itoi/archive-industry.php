@@ -50,13 +50,13 @@ $itoi_industries_query = new WP_Query(
 				while ( $itoi_industries_query->have_posts() ) :
 					$itoi_industries_query->the_post();
 					$itoi_id      = get_the_ID();
-					$itoi_name    = get_field( 'name' ) ?: get_the_title();
+					$itoi_name    = itoi_or( get_field( 'name' ), get_the_title() );
 					$itoi_summary = get_field( 'summary' );
 					$itoi_hero_id = get_field( 'hero_image' );
 					$itoi_hero    = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'medium_large' ) : '';
 					// Prefer the real Media Library alt text over the bare
 					// industry name — see single-industry.php for the same fix.
-					$itoi_hero_alt   = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_name ) : $itoi_name;
+					$itoi_hero_alt   = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_name ) : $itoi_name;
 					$itoi_hero_video = get_field( 'hero_video' );
 					++$itoi_tile_index;
 					?>

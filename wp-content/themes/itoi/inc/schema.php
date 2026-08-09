@@ -37,7 +37,7 @@ function itoi_local_business_schema() {
 		return;
 	}
 
-	$phone = get_field( 'manager_1_phone', 'option' ) ?: get_field( 'support_phone', 'option' );
+	$phone = itoi_or( get_field( 'manager_1_phone', 'option' ), get_field( 'support_phone', 'option' ) );
 
 	$schema = array(
 		'@context' => 'https://schema.org',
@@ -74,7 +74,7 @@ function itoi_service_schema() {
 		return;
 	}
 
-	$headline = get_field( 'headline' ) ?: get_the_title();
+	$headline = itoi_or( get_field( 'headline' ), get_the_title() );
 	$dek      = get_field( 'dek' );
 
 	$schema = array(
@@ -137,7 +137,7 @@ function itoi_article_schema() {
 		if ( $author_id ) {
 			$schema['author'] = array(
 				'@type' => 'Person',
-				'name'  => get_field( 'name', $author_id ) ?: get_the_title( $author_id ),
+				'name'  => itoi_or( get_field( 'name', $author_id ), get_the_title( $author_id ) ),
 			);
 		}
 	}

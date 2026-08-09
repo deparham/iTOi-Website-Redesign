@@ -59,14 +59,14 @@ while ( have_posts() ) :
 					while ( $itoi_guides_query->have_posts() ) :
 						$itoi_guides_query->the_post();
 						$itoi_quick_items[] = array(
-							'label' => ( get_field( 'title' ) ?: get_the_title() ) . ' — Guide',
+							'label' => itoi_or( get_field( 'title' ), get_the_title() ) . ' — Guide',
 							'url'   => get_permalink(),
 						);
 					endwhile;
 					wp_reset_postdata();
 
 					foreach ( $itoi_glossary_terms as $itoi_term_post ) :
-						$itoi_term_name     = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
+						$itoi_term_name     = itoi_or( get_field( 'term', $itoi_term_post->ID ), $itoi_term_post->post_title );
 						$itoi_quick_items[] = array(
 							'label' => $itoi_term_name . ' — Glossary',
 							'url'   => home_url( '/education/glossary/#term-' . sanitize_title( $itoi_term_name ) ),

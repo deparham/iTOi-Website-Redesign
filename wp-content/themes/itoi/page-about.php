@@ -30,7 +30,7 @@ while ( have_posts() ) :
 	// from the client's capability deck (PROJECT.md/NOTES.md). Placed here,
 	// About page over the homepage — see NOTES.md for the placement
 	// rationale. ACF: Partners, Not Vendors options page.
-	$itoi_partners_headline = get_field( 'partners_headline', 'option' ) ?: 'Partners, not vendors.';
+	$itoi_partners_headline = itoi_or( get_field( 'partners_headline', 'option' ), 'Partners, not vendors.' );
 	$itoi_partners_intro    = get_field( 'partners_intro', 'option' );
 	$itoi_partners_cards    = get_field( 'partners_cards', 'option' );
 	?>

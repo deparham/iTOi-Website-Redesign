@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$itoi_dm_eyebrow  = get_field( 'delivery_model_eyebrow', 'option' ) ?: 'THE DELIVERY MODEL';
-$itoi_dm_headline = get_field( 'delivery_model_headline', 'option' ) ?: 'Every engagement, end-to-end.';
+$itoi_dm_eyebrow  = itoi_or( get_field( 'delivery_model_eyebrow', 'option' ), 'THE DELIVERY MODEL' );
+$itoi_dm_headline = itoi_or( get_field( 'delivery_model_headline', 'option' ), 'Every engagement, end-to-end.' );
 $itoi_dm_steps    = get_field( 'delivery_model_steps', 'option' );
 $itoi_dm_count    = is_array( $itoi_dm_steps ) ? count( $itoi_dm_steps ) : 0;
 

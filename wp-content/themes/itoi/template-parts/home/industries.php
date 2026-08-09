@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( ! $itoi_post || 'publish' !== $itoi_post->post_status ) {
 					continue;
 				}
-				$itoi_name       = get_field( 'name', $itoi_post->ID ) ?: get_the_title( $itoi_post );
+				$itoi_name       = itoi_or( get_field( 'name', $itoi_post->ID ), get_the_title( $itoi_post ) );
 				$itoi_summary    = get_field( 'summary', $itoi_post->ID );
 				$itoi_photo_id   = get_field( 'hero_image', $itoi_post->ID );
 				$itoi_photo_url  = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'large' ) : '';
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$itoi_carousel_media = itoi_media_cover(
 								$itoi_photo_url,
 								$itoi_hero_video,
-								$itoi_photo_alt ?: $itoi_name,
+								itoi_or( $itoi_photo_alt, $itoi_name ),
 								'absolute inset-0 h-full w-full object-cover ' . $itoi_obj_pos,
 								'loading="lazy"'
 							);

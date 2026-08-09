@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				while ( $itoi_footer_solutions->have_posts() ) :
 					$itoi_footer_solutions->the_post();
 					?>
-					<a href="<?php the_permalink(); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink"><?php echo esc_html( get_field( 'headline' ) ?: get_the_title() ); ?></a>
+					<a href="<?php the_permalink(); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink"><?php echo esc_html( itoi_or( get_field( 'headline' ), get_the_title() ) ); ?></a>
 					<?php
 				endwhile;
 				wp_reset_postdata();

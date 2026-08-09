@@ -17,7 +17,7 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$itoi_name    = get_field( 'name' ) ?: get_the_title();
+	$itoi_name    = itoi_or( get_field( 'name' ), get_the_title() );
 	$itoi_summary = get_field( 'summary' );
 	$itoi_hero_id = get_field( 'hero_image' );
 	$itoi_hero    = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
@@ -30,7 +30,7 @@ while ( have_posts() ) :
 	// already has one (e.g. "Generic retail store interior with merchandise
 	// displays (temporary stock photo)"); only fall back to the name if an
 	// editor ever uploads one without setting alt text.
-	$itoi_hero_alt      = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_name ) : $itoi_name;
+	$itoi_hero_alt      = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_name ) : $itoi_name;
 	$itoi_clients       = get_field( 'client_examples' );
 	$itoi_rel_solutions = get_field( 'related_solutions' );
 
@@ -64,27 +64,27 @@ while ( have_posts() ) :
 
 	// Retail: foot-traffic funnel (built first, see NOTES.md history).
 	if ( 'retail' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_funnel_traffic = (int) ( get_field( 'funnel_default_traffic' ) ?: 10000 );
-		$itoi_funnel_rate    = (float) ( get_field( 'funnel_conversion_rate' ) ?: 0 );
-		$itoi_funnel_value   = (float) ( get_field( 'funnel_value_per_lead' ) ?: 0 );
+		$itoi_funnel_traffic = (int) itoi_or( get_field( 'funnel_default_traffic' ), 10000 );
+		$itoi_funnel_rate    = (float) itoi_or( get_field( 'funnel_conversion_rate' ), 0 );
+		$itoi_funnel_value   = (float) itoi_or( get_field( 'funnel_value_per_lead' ), 0 );
 	}
 
 	// Hospitality: click-through guest-journey timeline.
 	if ( 'hospitality' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_hosp_stages       = get_field( 'hospitality_stages' ) ?: array();
-		$itoi_hosp_completeness = get_field( 'hospitality_completeness_label' ) ?: 'Guest Profile Completeness';
-		$itoi_hosp_reset        = get_field( 'hospitality_reset_label' ) ?: 'Start over';
+		$itoi_hosp_stages       = itoi_or( get_field( 'hospitality_stages' ), array() );
+		$itoi_hosp_completeness = itoi_or( get_field( 'hospitality_completeness_label' ), 'Guest Profile Completeness' );
+		$itoi_hosp_reset        = itoi_or( get_field( 'hospitality_reset_label' ), 'Start over' );
 	}
 
 	// Banking & Finance: access scenario simulator.
 	if ( 'banking-finance' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_bank_scenarios = get_field( 'banking_scenarios' ) ?: array();
+		$itoi_bank_scenarios = itoi_or( get_field( 'banking_scenarios' ), array() );
 	}
 
 	// Government & Councils: live funding-allocation chart.
 	if ( 'government-councils' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_gov_categories = get_field( 'government_categories' ) ?: array();
-		$itoi_gov_checkboxes = get_field( 'government_checkboxes' ) ?: array();
+		$itoi_gov_categories = itoi_or( get_field( 'government_categories' ), array() );
+		$itoi_gov_checkboxes = itoi_or( get_field( 'government_checkboxes' ), array() );
 	}
 
 	// Logistics & Warehousing: drag-to-compare incident timeline. Gap-label
@@ -92,9 +92,9 @@ while ( have_posts() ) :
 	// occurs → Discovered) on each line — computed once here rather than
 	// in the template.
 	if ( 'logistics-warehousing' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_log_events        = get_field( 'logistics_events' ) ?: array();
-		$itoi_log_without_label = get_field( 'logistics_without_label' ) ?: 'Without ITOI';
-		$itoi_log_with_label    = get_field( 'logistics_with_label' ) ?: 'With ITOI';
+		$itoi_log_events        = itoi_or( get_field( 'logistics_events' ), array() );
+		$itoi_log_without_label = itoi_or( get_field( 'logistics_without_label' ), 'Without ITOI' );
+		$itoi_log_with_label    = itoi_or( get_field( 'logistics_with_label' ), 'With ITOI' );
 		$itoi_log_gap_without   = get_field( 'logistics_gap_label_without' );
 		$itoi_log_gap_with      = get_field( 'logistics_gap_label_with' );
 
@@ -112,18 +112,18 @@ while ( have_posts() ) :
 	// generated client-side (JS), this just passes the zone weights and
 	// slider bounds through as data.
 	if ( 'stadiums-events' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_stadium_zones      = get_field( 'stadium_zones' ) ?: array();
-		$itoi_stadium_min        = (int) ( get_field( 'stadium_min_attendees' ) ?: 5000 );
-		$itoi_stadium_max        = (int) ( get_field( 'stadium_max_attendees' ) ?: 50000 );
-		$itoi_stadium_default    = (int) ( get_field( 'stadium_default_attendees' ) ?: 15000 );
-		$itoi_stadium_max_marker = (int) ( get_field( 'stadium_max_markers' ) ?: 50 );
+		$itoi_stadium_zones      = itoi_or( get_field( 'stadium_zones' ), array() );
+		$itoi_stadium_min        = (int) itoi_or( get_field( 'stadium_min_attendees' ), 5000 );
+		$itoi_stadium_max        = (int) itoi_or( get_field( 'stadium_max_attendees' ), 50000 );
+		$itoi_stadium_default    = (int) itoi_or( get_field( 'stadium_default_attendees' ), 15000 );
+		$itoi_stadium_max_marker = (int) itoi_or( get_field( 'stadium_max_markers' ), 50 );
 	}
 
 	// Casinos & Gaming: zone-selector floor map. Zone position on the
 	// floor plan is fixed by row order (see the field's own instructions),
 	// not stored separately — only the copy is ACF-driven.
 	if ( 'casinos-gaming' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_casino_zones = get_field( 'casino_zones' ) ?: array();
+		$itoi_casino_zones = itoi_or( get_field( 'casino_zones' ), array() );
 	}
 
 	$itoi_hero_headline = $itoi_show_funnel ? $itoi_funnel_headline : $itoi_name;
@@ -651,8 +651,8 @@ while ( have_posts() ) :
 		$itoi_lf_overview_visual_cap    = get_field( 'overview_visual_caption' );
 		$itoi_lf_overview_video         = get_field( 'overview_video' );
 		$itoi_lf_overview_process_steps = get_field( 'overview_process_diagram_steps' );
-		$itoi_lf_overview_process_style = get_field( 'overview_process_diagram_style' ) ?: 'lines';
-		$itoi_lf_feature_rows           = get_field( 'overview_feature_rows' ) ?: array();
+		$itoi_lf_overview_process_style = itoi_or( get_field( 'overview_process_diagram_style' ), 'lines' );
+		$itoi_lf_feature_rows           = itoi_or( get_field( 'overview_feature_rows' ), array() );
 
 		// Migrated 2026-07-30 (see NOTES.md): use cases are their own `use_case`
 		// CPT now (itoi_get_industry_use_cases() in inc/use-cases.php), not a
@@ -670,10 +670,10 @@ while ( have_posts() ) :
 		);
 
 		$itoi_lf_why_heading = get_field( 'why_heading' );
-		$itoi_lf_why_items   = get_field( 'why_items' ) ?: array();
+		$itoi_lf_why_items   = itoi_or( get_field( 'why_items' ), array() );
 
 		$itoi_lf_solutions_heading = get_field( 'solutions_heading' );
-		$itoi_lf_solutions         = get_field( 'longform_solutions' ) ?: array();
+		$itoi_lf_solutions         = itoi_or( get_field( 'longform_solutions' ), array() );
 
 		$itoi_lf_customers_heading   = get_field( 'customers_heading' );
 		$itoi_lf_spotlight_client_id = get_field( 'spotlight_client' );
@@ -685,7 +685,7 @@ while ( have_posts() ) :
 		// since this photo is presented next to a specific real client's name.
 		// Only applies to the photo, never to an uploaded spotlight_video.
 		$itoi_lf_spotlight_is_stock      = (bool) get_field( 'spotlight_photo_is_stock' );
-		$itoi_lf_logo_groups             = get_field( 'logo_strip_groups' ) ?: array();
+		$itoi_lf_logo_groups             = itoi_or( get_field( 'logo_strip_groups' ), array() );
 		$itoi_lf_customers_empty_message = get_field( 'customers_empty_message' );
 
 		// Resolution + case-study lookup extracted 2026-07-30 (see NOTES.md)
@@ -774,7 +774,7 @@ while ( have_posts() ) :
 
 				<?php
 				$itoi_lf_overview_visual_url = $itoi_lf_overview_visual_id ? wp_get_attachment_image_url( $itoi_lf_overview_visual_id, 'large' ) : '';
-				$itoi_lf_overview_media      = itoi_media_cover( $itoi_lf_overview_visual_url, $itoi_lf_overview_video, $itoi_lf_overview_visual_cap ?: $itoi_name, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+				$itoi_lf_overview_media      = itoi_media_cover( $itoi_lf_overview_visual_url, $itoi_lf_overview_video, itoi_or( $itoi_lf_overview_visual_cap, $itoi_name ), 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 				?>
 				<div class="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 					<?php if ( $itoi_lf_overview_media ) : ?>
@@ -790,7 +790,7 @@ while ( have_posts() ) :
 						foreach ( $itoi_lf_feature_rows as $itoi_row_index => $itoi_row ) :
 							$itoi_row_image_id  = $itoi_row['image'];
 							$itoi_row_image_url = $itoi_row_image_id ? wp_get_attachment_image_url( $itoi_row_image_id, 'large' ) : '';
-							$itoi_row_media     = itoi_media_cover( $itoi_row_image_url, $itoi_row['video'] ?? null, $itoi_row['image_caption'] ?: $itoi_row['headline'], 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+							$itoi_row_media     = itoi_media_cover( $itoi_row_image_url, $itoi_row['video'] ?? null, itoi_or( $itoi_row['image_caption'], $itoi_row['headline'] ), 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 
 							ob_start();
 							?>
@@ -915,7 +915,7 @@ while ( have_posts() ) :
 								continue;
 							}
 							$itoi_s_eyebrow    = get_field( 'eyebrow', $itoi_sid );
-							$itoi_s_headline   = get_field( 'headline', $itoi_sid ) ?: get_the_title( $itoi_sid );
+							$itoi_s_headline   = itoi_or( get_field( 'headline', $itoi_sid ), get_the_title( $itoi_sid ) );
 							$itoi_s_tile_id    = get_field( 'tile_image', $itoi_sid );
 							$itoi_s_tile_url   = $itoi_s_tile_id ? wp_get_attachment_image_url( $itoi_s_tile_id, 'medium_large' ) : '';
 							$itoi_s_tile_video = get_field( 'tile_video', $itoi_sid );
@@ -984,7 +984,7 @@ while ( have_posts() ) :
 						if ( 'publish' !== get_post_status( $itoi_sid ) ) {
 							continue;
 						}
-						$itoi_s_headline = get_field( 'headline', $itoi_sid ) ?: get_the_title( $itoi_sid );
+						$itoi_s_headline = itoi_or( get_field( 'headline', $itoi_sid ), get_the_title( $itoi_sid ) );
 						$itoi_s_dek      = get_field( 'dek', $itoi_sid );
 						?>
 						<a href="<?php echo esc_url( get_permalink( $itoi_sid ) ); ?>" class="glass-element-light block rounded-xl px-5 py-5 transition-all hover:-translate-y-[3px]">

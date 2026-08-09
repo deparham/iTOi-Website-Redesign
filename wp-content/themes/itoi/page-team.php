@@ -60,7 +60,7 @@ while ( have_posts() ) :
 	if ( $itoi_team_query->have_posts() ) {
 		while ( $itoi_team_query->have_posts() ) {
 			$itoi_team_query->the_post();
-			$itoi_dept = get_field( 'department' ) ?: 'Team';
+			$itoi_dept = itoi_or( get_field( 'department' ), 'Team' );
 			if ( ! isset( $itoi_by_dept[ $itoi_dept ] ) ) {
 				$itoi_by_dept[ $itoi_dept ] = array();
 			}
@@ -87,7 +87,7 @@ endif;
 					<div class="grid grid-cols-1 gap-6 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3">
 						<?php
 						foreach ( $itoi_by_dept[ $itoi_dept_name ] as $itoi_member_id ) :
-							$itoi_name         = get_field( 'name', $itoi_member_id ) ?: get_the_title( $itoi_member_id );
+							$itoi_name         = itoi_or( get_field( 'name', $itoi_member_id ), get_the_title( $itoi_member_id ) );
 							$itoi_role         = get_field( 'role', $itoi_member_id );
 							$itoi_bio          = get_field( 'bio', $itoi_member_id );
 							$itoi_email        = get_field( 'email', $itoi_member_id );

@@ -65,7 +65,7 @@ if ( $itoi_guides_query->have_posts() ) {
 				<?php endif; ?>
 				<?php
 				foreach ( $itoi_industry_counts as $itoi_ind_id => $itoi_count ) :
-					$itoi_ind_name = get_field( 'name', $itoi_ind_id ) ?: get_the_title( $itoi_ind_id );
+					$itoi_ind_name = itoi_or( get_field( 'name', $itoi_ind_id ), get_the_title( $itoi_ind_id ) );
 					?>
 					<button type="button" class="guide-filter-pill rounded-full border-[1.5px] border-line px-5 py-2.5 text-[13.5px] font-bold text-ink transition-all hover:border-ink" data-filter="industry-<?php echo (int) $itoi_ind_id; ?>" aria-pressed="false">
 						<?php echo esc_html( $itoi_ind_name ); ?> <span class="text-text-muted">(<?php echo (int) $itoi_count; ?>)</span>
@@ -80,10 +80,10 @@ if ( $itoi_guides_query->have_posts() ) {
 				while ( $itoi_guides_query->have_posts() ) :
 					$itoi_guides_query->the_post();
 					$itoi_id            = get_the_ID();
-					$itoi_title         = get_field( 'title' ) ?: get_the_title();
+					$itoi_title         = itoi_or( get_field( 'title' ), get_the_title() );
 					$itoi_dek           = get_field( 'dek' );
 					$itoi_industry_id   = get_field( 'industry' );
-					$itoi_industry_name = $itoi_industry_id ? ( get_field( 'name', $itoi_industry_id ) ?: get_the_title( $itoi_industry_id ) ) : 'General';
+					$itoi_industry_name = $itoi_industry_id ? itoi_or( get_field( 'name', $itoi_industry_id ), get_the_title( $itoi_industry_id ) ) : 'General';
 					$itoi_read_time     = get_field( 'read_time_minutes' );
 					$itoi_category      = $itoi_industry_id ? 'industry-' . $itoi_industry_id : 'general';
 					?>

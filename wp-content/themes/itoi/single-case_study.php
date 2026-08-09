@@ -24,8 +24,8 @@ while ( have_posts() ) :
 	the_post();
 
 	$itoi_client         = get_field( 'client_name' );
-	$itoi_headline       = get_field( 'headline' ) ?: get_the_title();
-	$itoi_title          = $itoi_client ?: $itoi_headline;
+	$itoi_headline       = itoi_or( get_field( 'headline' ), get_the_title() );
+	$itoi_title          = itoi_or( $itoi_client, $itoi_headline );
 	$itoi_narrative      = get_field( 'narrative' );
 	$itoi_metrics_raw    = get_field( 'metrics' );
 	$itoi_pull_quote     = get_field( 'pull_quote' );
@@ -36,7 +36,7 @@ while ( have_posts() ) :
 	$itoi_hero_video_url = ! empty( $itoi_hero_video['url'] ) ? $itoi_hero_video['url'] : '';
 	// Prefer real Media Library alt text; fall back to a descriptive phrase
 	// rather than repeating the H1 (which is just $itoi_title) verbatim.
-	$itoi_hero_alt = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_title . ' case study photo' ) : '';
+	$itoi_hero_alt = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_title . ' case study photo' ) : '';
 	// TEMPORARY: while hero_image is a stock stand-in (site-wide stock
 	// sourcing pass, see NOTES.md), the page must visibly disclose that —
 	// not just via an admin-only note — so nobody mistakes it for a real
@@ -161,7 +161,7 @@ while ( have_posts() ) :
 						// Prefer real Media Library alt text per photo; fall back to a
 						// numbered, non-duplicate description rather than repeating the
 						// same title on every gallery image.
-						$itoi_img_alt = get_post_meta( $itoi_img_id, '_wp_attachment_image_alt', true ) ?: ( $itoi_title . ' — gallery photo ' . $itoi_gallery_index );
+						$itoi_img_alt = itoi_or( get_post_meta( $itoi_img_id, '_wp_attachment_image_alt', true ), $itoi_title . ' — gallery photo ' . $itoi_gallery_index );
 						?>
 						<div class="aspect-[4/3] overflow-hidden rounded-xl">
 							<?php

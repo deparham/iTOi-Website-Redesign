@@ -97,7 +97,7 @@ if ( ! empty( $itoi_mega_locations['primary'] ) ) {
 		}
 	}
 }
-$itoi_mega_previews = get_field( 'mega_menu_previews', 'option' ) ?: array();
+$itoi_mega_previews = itoi_or( get_field( 'mega_menu_previews', 'option' ), array() );
 
 /**
  * Every page: the ticker+nav block "combines" with whatever section sits

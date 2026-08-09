@@ -19,7 +19,7 @@ while ( have_posts() ) :
 
 	$itoi_id                    = get_the_ID();
 	$itoi_eyebrow               = get_field( 'eyebrow' );
-	$itoi_headline              = get_field( 'headline' ) ?: get_the_title();
+	$itoi_headline              = itoi_or( get_field( 'headline' ), get_the_title() );
 	$itoi_dek                   = get_field( 'dek' );
 	$itoi_tagline               = get_field( 'tagline' );
 	$itoi_hero_id               = get_field( 'hero_image' );
@@ -34,7 +34,7 @@ while ( have_posts() ) :
 	$itoi_spec_items            = get_field( 'spec_strip_items' );
 	$itoi_narrative             = get_field( 'narrative' );
 	$itoi_process_diagram_steps = get_field( 'process_diagram_steps' );
-	$itoi_process_diagram_style = get_field( 'process_diagram_style' ) ?: 'lines';
+	$itoi_process_diagram_style = itoi_or( get_field( 'process_diagram_style' ), 'lines' );
 	$itoi_capability_cards      = get_field( 'capability_cards' );
 	$itoi_specs                 = get_field( 'specs' );
 	$itoi_integrations          = get_field( 'integrations' );
@@ -392,7 +392,7 @@ while ( have_posts() ) :
 						$itoi_cc_photo_id    = $itoi_cc['photo'];
 						$itoi_cc_photo_url   = $itoi_cc_photo_id ? wp_get_attachment_image_url( $itoi_cc_photo_id, 'medium_large' ) : '';
 						$itoi_cc_placeholder = trim( (string) $itoi_cc['photo_placeholder_alt'] );
-						$itoi_cc_alt         = $itoi_cc_photo_id ? ( get_post_meta( $itoi_cc_photo_id, '_wp_attachment_image_alt', true ) ?: $itoi_cc_placeholder ) : $itoi_cc_placeholder;
+						$itoi_cc_alt         = $itoi_cc_photo_id ? itoi_or( get_post_meta( $itoi_cc_photo_id, '_wp_attachment_image_alt', true ), $itoi_cc_placeholder ) : $itoi_cc_placeholder;
 						$itoi_cc_media       = itoi_media_cover( $itoi_cc_photo_url, $itoi_cc['video'] ?? null, $itoi_cc_alt, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 						?>
 						<div class="flip-card capability-flip-card aspect-[4/5]">

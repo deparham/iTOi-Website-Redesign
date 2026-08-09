@@ -26,7 +26,7 @@ $itoi_hero_headline   = $itoi_hero_slide0['headline'] ?? 'Turn what happens acro
 // Eyebrow — added 2026-08-05 (see NOTES.md, homepage positioning pass). States
 // ITOI's category in one line before the rotating headline/subcopy get
 // specific. Static, does not rotate with hero_slides.
-$itoi_hero_eyebrow = get_field( 'hero_eyebrow', 'option' ) ?: 'Physical intelligence for multi-site operations';
+$itoi_hero_eyebrow = itoi_or( get_field( 'hero_eyebrow', 'option' ), 'Physical intelligence for multi-site operations' );
 
 $itoi_hero_subcopy = $itoi_hero_slide0['subcopy'] ?? 'Connect cameras, sensors and operational systems in one intelligent platform for security, analytics and automation.';
 
@@ -49,7 +49,7 @@ $itoi_slide0_photo_url = $itoi_slide0_photo_id ? wp_get_attachment_image_url( $i
 // never an empty alt on what's this page's single largest, most visible
 // photo. Dormant today (no photo is currently attached to hero slide 0 —
 // confirmed live), but real and correct once one is.
-$itoi_slide0_photo_alt = $itoi_slide0_photo_id ? ( get_post_meta( $itoi_slide0_photo_id, '_wp_attachment_image_alt', true ) ?: $itoi_hero_headline ?: 'ITOI Solutions' ) : '';
+$itoi_slide0_photo_alt = $itoi_slide0_photo_id ? itoi_or( itoi_or( get_post_meta( $itoi_slide0_photo_id, '_wp_attachment_image_alt', true ), $itoi_hero_headline ), 'ITOI Solutions' ) : '';
 $itoi_slide0_video     = $itoi_hero_slide0['video'] ?? null;
 $itoi_slide0_video_url = ! empty( $itoi_slide0_video['url'] ) ? $itoi_slide0_video['url'] : '';
 $itoi_hero_has_media   = $itoi_slide0_photo_url || $itoi_slide0_video_url;
@@ -59,10 +59,10 @@ $itoi_hero_has_media   = $itoi_slide0_photo_url || $itoi_slide0_video_url;
 // unrelated copy untouched. Repeater ('option') isn't ?:-friendly like the
 // scalar fields above, so it gets the same get_field()+empty() fallback
 // pattern used elsewhere on this page.
-$itoi_hero_cta_primary_label   = get_field( 'hero_cta_primary_label', 'option' ) ?: 'Book a site assessment';
-$itoi_hero_cta_primary_url     = get_field( 'hero_cta_primary_url', 'option' ) ?: '/contact/';
-$itoi_hero_cta_secondary_label = get_field( 'hero_cta_secondary_label', 'option' ) ?: 'See customer results';
-$itoi_hero_cta_secondary_url   = get_field( 'hero_cta_secondary_url', 'option' ) ?: '/case-studies/';
+$itoi_hero_cta_primary_label   = itoi_or( get_field( 'hero_cta_primary_label', 'option' ), 'Book a site assessment' );
+$itoi_hero_cta_primary_url     = itoi_or( get_field( 'hero_cta_primary_url', 'option' ), '/contact/' );
+$itoi_hero_cta_secondary_label = itoi_or( get_field( 'hero_cta_secondary_label', 'option' ), 'See customer results' );
+$itoi_hero_cta_secondary_url   = itoi_or( get_field( 'hero_cta_secondary_url', 'option' ), '/case-studies/' );
 $itoi_hero_trust_metrics       = get_field( 'hero_trust_metrics', 'option' );
 if ( empty( $itoi_hero_trust_metrics ) ) {
 	$itoi_hero_trust_metrics = array(

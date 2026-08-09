@@ -53,7 +53,7 @@ while ( have_posts() ) :
 				<div class="flex flex-col gap-4">
 					<?php
 					foreach ( $itoi_terms as $itoi_term_post ) :
-						$itoi_term_name  = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
+						$itoi_term_name  = itoi_or( get_field( 'term', $itoi_term_post->ID ), $itoi_term_post->post_title );
 						$itoi_definition = get_field( 'definition', $itoi_term_post->ID );
 						$itoi_related    = get_field( 'related_guides', $itoi_term_post->ID );
 						$itoi_slug       = sanitize_title( $itoi_term_name );
@@ -77,7 +77,7 @@ while ( have_posts() ) :
 											continue;
 										}
 										?>
-										<a href="<?php echo esc_url( get_permalink( $itoi_guide_id ) ); ?>" class="font-semibold text-ink underline underline-offset-4"><?php echo esc_html( get_field( 'title', $itoi_guide_id ) ?: get_the_title( $itoi_guide_id ) ); ?> &rarr;</a>
+										<a href="<?php echo esc_url( get_permalink( $itoi_guide_id ) ); ?>" class="font-semibold text-ink underline underline-offset-4"><?php echo esc_html( itoi_or( get_field( 'title', $itoi_guide_id ), get_the_title( $itoi_guide_id ) ) ); ?> &rarr;</a>
 									<?php endforeach; ?>
 								</div>
 							<?php endif; ?>
