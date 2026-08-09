@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile WordPress.Files.FileName.NotHyphenatedLowercase -- must exactly match the registered `case_study` CPT slug (post-types.php) for WordPress's own single-{post_type}.php template hierarchy to find this file; hyphenating would silently break template resolution.
 /**
  * Single case study — pulls every ACF Case Study field (PROJECT.md §4).
  * Metrics and pull_quote are frequently empty or explicitly TODO-tagged

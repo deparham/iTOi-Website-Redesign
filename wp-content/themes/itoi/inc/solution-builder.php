@@ -601,6 +601,7 @@ function itoi_solution_builder_ajax_submit_lead() {
 		// Sandbox has no MTA (no sendmail binary) — wp_mail() correctly
 		// returns false here; logged so this doesn't fail invisibly. Lead
 		// is still saved regardless of email delivery. See NOTES.md.
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- deliberate production logging, not leftover debug code: alerts when a real lead's notification email silently fails to send.
 		error_log( '[itoi solution-builder] wp_mail() returned false for lead #' . $post_id . ' — no MTA available in this environment.' );
 	}
 

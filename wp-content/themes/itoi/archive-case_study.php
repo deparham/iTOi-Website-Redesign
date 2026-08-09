@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile WordPress.Files.FileName.NotHyphenatedLowercase -- must exactly match the registered `case_study` CPT slug (post-types.php) for WordPress's own archive-{post_type}.php template hierarchy to find this file; hyphenating would silently break template resolution.
 /**
  * Case studies archive — image-tile grid, same visual language as
  * archive-solution.php / archive-industry.php per PROJECT.md §3/§5.

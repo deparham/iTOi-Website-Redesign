@@ -244,7 +244,7 @@ function itoi_register_post_types() {
 			'menu_icon'           => 'dashicons-clipboard',
 			'supports'            => array( 'title' ),
 			'capabilities'        => array(
-				'create_posts' => 'do_not_allow', // created only via the AJAX handler, not wp-admin "Add New"
+				'create_posts' => 'do_not_allow', // Created only via the AJAX handler, not wp-admin "Add New".
 			),
 			'map_meta_cap'        => true,
 			'rewrite'             => false,

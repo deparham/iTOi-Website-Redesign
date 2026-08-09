@@ -17,7 +17,7 @@ require ITOI_THEME_DIR . '/inc/post-types.php';
 require ITOI_THEME_DIR . '/inc/theme-setup.php';
 require ITOI_THEME_DIR . '/inc/enqueue.php';
 require ITOI_THEME_DIR . '/inc/acf.php';
-require ITOI_THEME_DIR . '/inc/nav-walker.php';
+require ITOI_THEME_DIR . '/inc/class-itoi-nav-walker.php';
 require ITOI_THEME_DIR . '/inc/schema.php';
 require ITOI_THEME_DIR . '/inc/redirects.php';
 require ITOI_THEME_DIR . '/inc/reveal.php';

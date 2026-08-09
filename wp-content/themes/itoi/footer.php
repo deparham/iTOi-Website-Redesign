@@ -228,7 +228,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 <button type="button" class="finder-trigger trigger-glass fixed bottom-[22px] right-[22px] z-[80] flex items-center gap-2.5 rounded-[30px] px-5 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 max-[640px]:p-3.5" id="finderTrigger" aria-label="<?php echo esc_attr( $fyf_trigger_label ); ?>">
 	<span class="h-2 w-2 flex-none rounded-full bg-signature-bright"></span><span class="txt max-[640px]:hidden"><?php echo esc_html( $fyf_trigger_label ); ?></span>
 </button>
-<?php endif; // ! is_page( 'solution-builder' ) ?>
+<?php endif; // End: hidden on the Solution Builder page itself. ?>
 
 <?php wp_footer(); ?>
 </body>

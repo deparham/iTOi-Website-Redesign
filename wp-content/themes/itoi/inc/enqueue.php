@@ -160,7 +160,7 @@ function itoi_enqueue_assets() {
 			}
 		}
 		wp_localize_script( 'itoi-homepage', 'itoiWhyTabs', $itoi_why_tabs );
-	endif; // is_front_page()
+	endif; // End: is_front_page().
 
 	// The 7 per-industry interactive mechanics + long-form sub-nav —
 	// single-industry.php only. is_singular('industry') rather than a

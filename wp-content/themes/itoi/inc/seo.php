@@ -75,7 +75,7 @@ function itoi_seo_resolve_description() {
 		'solution'   => 'dek',
 		'product'    => 'dek',
 		'industry'   => 'dek',
-		'case_study' => 'headline', // case studies use 'headline', not 'dek'
+		'case_study' => 'headline', // Case studies use the headline field, not dek.
 		'insight'    => 'dek',
 		'guide'      => 'dek',
 		'page'       => 'dek',
@@ -796,12 +796,12 @@ function itoi_seo_output_fallback_sitemap() {
  * when Yoast is active would just duplicate the exact same line Yoast's
  * own block already adds a few lines below it.
  *
- * @param string $output Core's own generated robots.txt content.
- * @param bool   $public Whether Settings > Reading's "discourage search engines" box is unchecked.
+ * @param string $output    Core's own generated robots.txt content.
+ * @param bool   $is_public Whether Settings > Reading's "discourage search engines" box is unchecked.
  * @return string The customized robots.txt content.
  */
-function itoi_seo_robots_txt( $output, $public ) {
-	if ( ! $public ) {
+function itoi_seo_robots_txt( $output, $is_public ) {
+	if ( ! $is_public ) {
 		return "User-agent: *\nDisallow: /\n";
 	}
 

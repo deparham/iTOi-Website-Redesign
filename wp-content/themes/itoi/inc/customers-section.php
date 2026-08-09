@@ -64,6 +64,7 @@ function itoi_get_customers_section_data( $args ) {
 					'posts_per_page' => -1,
 					'orderby'        => 'title',
 					'order'          => 'ASC',
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- necessary: filtering `client` posts by taxonomy term is the actual point of this query, and the `client` CPT is a small, curated list (client logos), not a large dataset.
 					'tax_query'      => array(
 						array(
 							'taxonomy' => 'client_category',
