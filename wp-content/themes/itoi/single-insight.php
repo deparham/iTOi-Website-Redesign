@@ -4,6 +4,8 @@
  * ACF dek + author (PROJECT.md §4). Author is a `team_member` relationship;
  * team_member has no public single template yet (out of Phase 7 scope),
  * so the byline renders as plain name/photo, not a link.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -4,6 +4,8 @@
  * industry summary + Learn more on the back face). Full rationale:
  * docs/decisions/002-industries-carousel-flip-cards.md. Split out of
  * front-page.php 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

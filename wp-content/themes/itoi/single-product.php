@@ -16,6 +16,8 @@
  * label), extending the site's existing "Live Detection" dark-hero
  * identity — not a new sanctioned spot for the signature color elsewhere
  * (CLAUDE.md's hard rule). Font is Inter (self-hosted), not Manrope.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

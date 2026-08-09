@@ -7,6 +7,8 @@
  * to the mockup. Ticker rotation, dropdown-on-hover already works via CSS,
  * but the JS-driven pieces (ticker auto-advance) are wired up in Phase 3
  * per PROJECT.md §10 — this renders the ticker's first message only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

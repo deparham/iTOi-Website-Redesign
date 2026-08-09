@@ -7,6 +7,8 @@
  * Zero insight posts are published as of Phase 5 (see NOTES.md) — that's
  * a real, honest empty state (matches the live site having no blog
  * section yet), not a bug, so it's rendered as a message, not hidden.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

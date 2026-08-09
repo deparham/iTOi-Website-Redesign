@@ -4,6 +4,8 @@
  * ACF-driven (why_choose_photos). Full rationale:
  * docs/decisions/004-why-choose-and-delivery-model.md. Split out of
  * front-page.php 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

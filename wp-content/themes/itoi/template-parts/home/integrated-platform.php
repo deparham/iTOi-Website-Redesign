@@ -5,6 +5,8 @@
  * Restored to the homepage 2026-08-05 ("10/10" pass), same reasoning as
  * "Meet Our Products". Split out of front-page.php 2026-08-06
  * (template-parts split).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

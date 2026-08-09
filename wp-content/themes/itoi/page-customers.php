@@ -7,6 +7,8 @@
  * section headings, not the locked 7-slug `industry` CPT (PROJECT.md §4
  * addendum). Only clients with a real `case_study` relationship link
  * through; everyone else is a name/wordmark card only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

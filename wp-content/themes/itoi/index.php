@@ -2,6 +2,8 @@
 /**
  * Fallback template (required by WordPress for a theme to be valid).
  * Real archive/single templates arrive in later phases per PROJECT.md §5.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

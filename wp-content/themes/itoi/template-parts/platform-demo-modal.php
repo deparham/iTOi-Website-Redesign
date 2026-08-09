@@ -13,6 +13,8 @@
  * All stat/chart/table values below are illustrative demo content, not
  * real ACF-backed copy — deliberate scoping decision, see NOTES.md and
  * PROJECT.md platform-demo spec Part 5.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

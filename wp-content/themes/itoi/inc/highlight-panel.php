@@ -9,6 +9,8 @@
  * editorial and lives in single-solution.php itself; this file only holds
  * the lookup helper, since the same "find a real row by its exact stored
  * label/name" logic is needed for every page's selection.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

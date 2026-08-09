@@ -6,6 +6,8 @@
  * screen, instead of the two stacking visually in the same bottom-right
  * corner. Split out of front-page.php 2026-08-06 (template-parts split) —
  * markup unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

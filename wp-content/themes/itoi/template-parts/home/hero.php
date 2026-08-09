@@ -5,6 +5,8 @@
  * initHeroSlideshow() / initHeroDetectionBoxes(), assets/js/main.js. Full
  * history: docs/decisions/003-hero-slideshow.md. Split out of front-page.php
  * 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

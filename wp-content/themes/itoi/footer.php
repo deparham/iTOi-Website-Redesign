@@ -3,6 +3,8 @@
  * Footer: dense 5-column footer. Ground truth: preview-verkada-match.html <footer>.
  * The black "final CTA" band above the footer is homepage-specific markup
  * (§3 mechanic #10) and lives in front-page.php, not here.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

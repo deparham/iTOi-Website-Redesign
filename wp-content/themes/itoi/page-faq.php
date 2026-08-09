@@ -6,6 +6,8 @@
  * the answer body — see initItoiFilterLists in assets/js/main.js). A
  * solution with zero FAQs is simply absent (itoi_edu_get_all_faqs already
  * filters those out) — never an empty/broken group.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

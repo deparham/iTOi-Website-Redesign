@@ -22,6 +22,8 @@
  * also becomes glass; the CF7 form's actual inputs/textarea/button stay on
  * their existing solid `.form-control`/`.btn-secondary` styling, untouched
  * — same rule as the Glossary search input in the earlier test wave.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

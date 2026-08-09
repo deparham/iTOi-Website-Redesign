@@ -5,6 +5,8 @@
  * Moved out of front-page.php 2026-08-06 (template-parts split) — same
  * functions, same output, just relocated alongside this theme's existing
  * per-concern icon files (inc/longform-icons.php, inc/solution-spec-icons.php).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * "How the platform works" (Observe / Understand / Act) pillar icons.
  * 24x24, stroke="currentColor", stroke-width 1.6, --ink monochrome — ordinary
  * content icons, not the Live Detection signature layer.
+ *
+ * @param string $key     One of 'observe', 'understand', 'act'.
+ * @param string $classes Classes applied to the <svg> element.
  */
 function itoi_pillar_icon( $key, $classes = 'h-6 w-6' ) {
 	$common = 'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
@@ -29,7 +34,12 @@ function itoi_pillar_icon( $key, $classes = 'h-6 w-6' ) {
 	printf( '<svg class="%s" viewBox="0 0 24 24" %s>%s</svg>', esc_attr( $classes ), $common, $paths[ $key ] ); // phpcs:ignore -- $common/$paths are hardcoded above, not user input
 }
 
-/** "Core outcomes" card icons. Same convention as itoi_pillar_icon() above. */
+/**
+ * "Core outcomes" card icons. Same convention as itoi_pillar_icon() above.
+ *
+ * @param string $key     One of 'conversion', 'blind-spots', 'security', 'staffing', 'compare', 'automate'.
+ * @param string $classes Classes applied to the <svg> element.
+ */
 function itoi_outcome_icon( $key, $classes = 'h-6 w-6' ) {
 	$common = 'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
 	$paths  = array(

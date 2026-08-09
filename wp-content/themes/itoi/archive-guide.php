@@ -6,6 +6,8 @@
  * inventing a second pattern — wired up by initClientFilter-style logic
  * inline below since the pill/card ID pair (#guideFilterRow/#guideGrid) is
  * unique to this page.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

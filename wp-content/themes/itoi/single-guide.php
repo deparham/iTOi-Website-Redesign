@@ -3,6 +3,8 @@
  * Single guide detail (/education/guides/{slug}/). Empty related_solution
  * renders no CTA card (real empty state, not a broken block) — same
  * convention as single-solution.php's FAQ/related sections.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

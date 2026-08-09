@@ -5,6 +5,8 @@
  * files (inc/home-icons.php etc.). First occupant moved out of front-page.php
  * 2026-08-06 (template-parts split); add future cross-template helpers here
  * rather than growing a page template's own file.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * lines and blowing out the hero's height. Thresholds mirrored exactly in
  * heroHeadlineSizeClass() (assets/js/main.js) for slides 2-5, which render
  * client-side on slide change — keep both in sync if these ever change.
+ *
+ * @param string $headline The hero headline text to measure.
+ * @return string One of 'hero-headline-size-1' through 'hero-headline-size-4'.
  */
 function itoi_hero_headline_size_class( $headline ) {
 	$length = mb_strlen( (string) $headline );

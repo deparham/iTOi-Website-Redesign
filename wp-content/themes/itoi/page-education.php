@@ -6,6 +6,8 @@
  * questions — reuses the same [data-filter-root] pattern built for the
  * Glossary/FAQ pages (assets/js/main.js, initItoiFilterLists), just applied
  * to a merged, capped list rather than the full content of any one page.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

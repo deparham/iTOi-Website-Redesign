@@ -13,6 +13,8 @@
  * dark photo scrim, so this page no longer shares that exact markup with
  * archive-industry.php — a deliberate, approved divergence for this test
  * only. Section-level aurora-bg-light added to the tile-grid section.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

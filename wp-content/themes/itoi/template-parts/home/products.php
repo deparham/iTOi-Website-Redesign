@@ -6,6 +6,8 @@
  * overview on the main page... take product back to where it was." Split
  * out of front-page.php 2026-08-06 (template-parts split) — same markup/PHP,
  * same #productsCompactCarousel id initProductsCarousel() (main.js) targets.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

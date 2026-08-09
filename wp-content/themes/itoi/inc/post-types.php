@@ -2,6 +2,8 @@
 /**
  * Custom post types — PROJECT.md §4. Registered in the theme, not a plugin,
  * for portability.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

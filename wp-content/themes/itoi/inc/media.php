@@ -17,6 +17,8 @@
  * (PROJECT.md §1 requires ≥90). Never autoplays at all for a reduce-motion
  * visitor (initLazyMediaVideos() skips observing entirely) — the poster
  * frame is the correct, final state for them, not a loading placeholder.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

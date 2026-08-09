@@ -44,6 +44,8 @@
  * facial-recognition-demographics) are updated to point straight at the
  * final new-category destination rather than the now-defunct intermediate
  * old solution slug, to avoid a needless double redirect hop.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -14,6 +14,8 @@
  * pill (matching the Solutions archive's restructured pill) now that it
  * sits in the light panel instead — `.pill-glass`'s white text would be
  * illegible there.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -9,6 +9,8 @@
  * Site Settings later if it needs to be editable" reasoning used elsewhere
  * on this page. Icon function: itoi_pillar_icon() (inc/home-icons.php).
  * Split out of front-page.php 2026-08-06 (template-parts split).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

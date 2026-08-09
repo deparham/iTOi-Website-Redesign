@@ -5,6 +5,8 @@
  * used to exist). Full design rationale and implementation notes:
  * docs/decisions/001-trust-credibility-section.md. Split out of
  * front-page.php 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

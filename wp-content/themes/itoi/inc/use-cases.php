@@ -12,6 +12,8 @@
  * source. This file is still the single place that queries use cases so
  * the /use-cases/ hub, the nav dropdown, the homepage teaser, and each
  * industry's own long-form Use Cases tab all draw from one source.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

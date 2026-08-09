@@ -1,6 +1,8 @@
 <?php
 /**
  * Core theme supports and setup.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

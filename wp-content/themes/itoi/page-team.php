@@ -14,6 +14,8 @@
  * this *live, public* page the moment it's saved — exactly the
  * incomplete-content-leaking-to-visitors risk flagged in this pass.
  * Filtered to `publish` only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

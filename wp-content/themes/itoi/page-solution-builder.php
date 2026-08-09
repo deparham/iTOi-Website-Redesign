@@ -9,6 +9,8 @@
  * All scoring happens in PHP (inc/solution-builder.php) via AJAX — this
  * template only renders the option lists and the empty result containers
  * that assets/js/solution-builder.js fills in from the AJAX response.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

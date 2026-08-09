@@ -4,6 +4,8 @@
  * archive-guide.php, page-glossary.php and page-faq.php, so the "pull every
  * FAQ across every solution" and "list every glossary term" queries live in
  * one place rather than four.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

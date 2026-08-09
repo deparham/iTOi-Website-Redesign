@@ -16,6 +16,8 @@
  * — same underlying $steps data shape either way, so it stays one editable
  * field structure sitewide instead of forking into two disconnected
  * systems for what a visitor experiences as the same kind of component.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

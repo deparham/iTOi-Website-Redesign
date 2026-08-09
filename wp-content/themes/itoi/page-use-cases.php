@@ -28,6 +28,8 @@
  * .use-case-filter-pill.active in src/tailwind.css) and on the cards
  * (photo untouched/opaque on top, the info-bar below it is the glass
  * surface).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

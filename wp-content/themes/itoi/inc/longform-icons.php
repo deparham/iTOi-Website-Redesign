@@ -6,6 +6,8 @@
  * from the wrapping element's text color class. This grid sits on the dark
  * bg-teal-900 section, so it uses the bright variant, not the plain navy
  * token (see NOTES.md's 2026-07-22 amber-to-navy migration entry).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

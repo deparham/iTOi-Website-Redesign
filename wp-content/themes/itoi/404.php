@@ -1,6 +1,8 @@
 <?php
 /**
  * 404 template (PROJECT.md §5).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

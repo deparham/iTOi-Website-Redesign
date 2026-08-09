@@ -8,6 +8,8 @@
  * fields (teaser_eyebrow/teaser_headline/teaser_supporting_line/teaser_photo/
  * teaser_video) for the tile — the same short summary already built for the
  * homepage turnstile, not a separate set of archive-specific fields.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

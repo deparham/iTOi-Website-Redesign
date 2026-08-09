@@ -39,16 +39,32 @@
  * illustrative UI ornament, not a claimed metric (PROJECT.md §3's
  * existing "Live Detection" hero visualization already uses the same
  * drifting-confidence-label device; this extends it, doesn't invent it).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * The fade/rise-on-scroll class alone — safe on any block, no visible
+ * chrome of its own. See the file-level doc comment above for when to use
+ * this versus itoi_reveal_markup().
+ *
+ * @return string The 'itoi-reveal' class name.
+ */
 function itoi_reveal_class() {
 	return 'itoi-reveal';
 }
 
+/**
+ * The corner-bracket + confidence-tag markup — only for framed/bordered/
+ * photo elements. See the file-level doc comment above for when NOT to
+ * use this.
+ *
+ * @param int $index Varies the displayed confidence percentage across repeated instances on one page.
+ */
 function itoi_reveal_markup( $index = 0 ) {
 	$values = array( 96, 97, 98, 99 );
 	$value  = $values[ abs( (int) $index ) % count( $values ) ];

@@ -8,6 +8,8 @@
  * custom screen, not a core feature. Industry/Solution/Featured stay
  * single-post-only (edit_item screen) since only content+media was asked
  * for here; shown read-only per row so each row is still identifiable.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

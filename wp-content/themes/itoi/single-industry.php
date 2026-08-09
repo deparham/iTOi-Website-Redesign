@@ -4,6 +4,8 @@
  * client_examples/related_solutions render only what's real — empty for
  * industries with no live-site-supported evidence (casinos-gaming had
  * none at all as of Phase 5).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

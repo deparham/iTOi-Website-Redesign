@@ -7,6 +7,8 @@
  * Liquid glass wave 6, 2026-07-28 (see NOTES.md): tiles restructured to the
  * photo-on-top / light-glass-panel-below shape, same as the other two
  * archives — no light surface existed for the on-light tokens otherwise.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

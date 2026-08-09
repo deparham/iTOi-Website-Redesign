@@ -17,6 +17,8 @@
  * the taxonomy/relationship queries twice. front-page.php has no sub-nav,
  * so it uses the itoi_render_customers_section() convenience wrapper that
  * does both in one call.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Resolves both callers' raw ACF field values into the data
+ * itoi_render_customers_section_data() needs to render.
+ *
  * @param array $args {
+ *     Raw section args.
+ *
  *     @type string $heading             Section heading.
  *     @type int    $spotlight_client_id `client` CPT post ID, or 0/empty for none.
  *     @type int    $spotlight_photo_id  Attachment ID.
@@ -133,6 +140,8 @@ function itoi_get_customers_section_data( $args ) {
 }
 
 /**
+ * Renders the spotlight case-study card + logo marquee/badge rows.
+ *
  * @param array $data Result of itoi_get_customers_section_data(). Caller is
  *                     expected to have already checked $data['show'].
  */

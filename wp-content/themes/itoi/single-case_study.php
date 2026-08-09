@@ -10,6 +10,8 @@
  * - The quote block only prints when pull_quote itself is non-empty;
  *   attribution is optional within that and checked independently of
  *   ACF's own conditional_logic, since templates don't enforce it.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

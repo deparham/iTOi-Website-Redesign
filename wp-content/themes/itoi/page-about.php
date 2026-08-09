@@ -4,6 +4,8 @@
  * own post_content (Phase 5) — this template renders it as-is, plus a
  * bottom CTA band that also guarantees a real h2 in the page regardless
  * of how post_content is edited (the Phase 7 heading-order lesson).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -15,6 +15,8 @@
  * system used in earlier waves. See the [data-filter-item].glass-element-light
  * override in src/tailwind.css for why the item's transition value was
  * touched — it's what keeps the search filter's fade animation intact.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -1,6 +1,8 @@
 <?php
 /**
  * ITOI theme bootstrap. Stays thin — logic lives in inc/.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

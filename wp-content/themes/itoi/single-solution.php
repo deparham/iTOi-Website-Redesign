@@ -4,6 +4,8 @@
  * Empty repeaters/relationships render nothing (real empty states, not
  * broken blocks) — e.g. every solution currently has zero FAQs sourced
  * from the live site, so that section simply doesn't print.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -6,12 +6,19 @@
  * 24x24 viewBox, stroke=currentColor so color comes from the wrapping
  * element's text class. This strip sits on the light --hero-bg tiles, so it
  * uses the plain ink/teal text color, not the bright dark-bg variant.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Renders one spec-strip icon by key.
+ *
+ * @param string $key One of the spec keys defined in $paths below, e.g. 'camera', 'thermometer'.
+ */
 function itoi_solution_spec_icon( $key ) {
 	$common = 'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
 

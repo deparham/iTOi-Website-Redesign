@@ -19,6 +19,8 @@
  *
  * Every value below is sourced from the Site Settings options page or
  * a post's own ACF/standard fields — nothing here is invented copy.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

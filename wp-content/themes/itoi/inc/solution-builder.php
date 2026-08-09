@@ -8,6 +8,8 @@
  * so there is exactly one place that can get the arithmetic wrong, and so
  * the lead-capture handler can recalculate authoritatively from the raw
  * answers instead of trusting whatever a client posts back.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -171,13 +173,13 @@ function itoi_solution_builder_challenge_options() {
  * Core scoring engine — PART 3 of the build spec, applied verbatim.
  *
  * @param array $answers {
- *   @type string $business_type  industry slug
- *   @type string $employees      one of itoi_solution_builder_employee_options() keys
- *   @type string $sites          one of itoi_solution_builder_site_options() keys
- *   @type string $existing_cctv  'yes'|'no'
- *   @type string $existing_pos   'yes'|'no'
- *   @type string $cloud_based    'yes'|'no'
- *   @type array  $challenges     subset of itoi_solution_builder_challenge_options() keys
+ *   @type string $business_type  Industry slug.
+ *   @type string $employees      One of itoi_solution_builder_employee_options() keys.
+ *   @type string $sites          One of itoi_solution_builder_site_options() keys.
+ *   @type string $existing_cctv  'yes'|'no'.
+ *   @type string $existing_pos   'yes'|'no'.
+ *   @type string $cloud_based    'yes'|'no'.
+ *   @type array  $challenges     Subset of itoi_solution_builder_challenge_options() keys.
  * }
  * @return array
  */
@@ -327,7 +329,7 @@ function itoi_solution_builder_calculate( $answers ) {
  * one-sentence dek, tile image, permalink) — never invented copy, always
  * pulled from ACF (CLAUDE.md's "no hardcoded copy" rule applies here too).
  *
- * @param array $slugs
+ * @param array $slugs Solution category slugs to resolve.
  * @return array slug => array(title, desc, url, photo)
  */
 function itoi_solution_builder_resolve_solutions( $slugs ) {
@@ -359,6 +361,7 @@ function itoi_solution_builder_resolve_solutions( $slugs ) {
  * param below — default reproduces this function's original h-8 w-8
  * output exactly, so nothing else needs to change to add a second caller.
  *
+ * @param string $slug    One of the architecture flow diagram slugs defined in $paths below.
  * @param string $classes Tailwind size classes for the <svg>. Default matches original behavior.
  */
 function itoi_solution_builder_icon( $slug, $classes = 'h-8 w-8' ) {
@@ -388,6 +391,9 @@ function itoi_solution_builder_icon( $slug, $classes = 'h-8 w-8' ) {
  * Sanitize + validate a raw $_POST payload of answers against the exact
  * option sets above. Returns array( 'answers' => ..., 'errors' => array() ).
  * $raw_challenges is expected to arrive as $_POST['challenges'] (array).
+ *
+ * @param array $raw The raw, unsanitized $_POST payload.
+ * @return array{answers: array, errors: array}
  */
 function itoi_solution_builder_sanitize_answers( $raw ) {
 	$errors  = array();
