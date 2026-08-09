@@ -47,5 +47,5 @@ function itoi_solution_spec_icon( $key ) {
 		$key = 'generic';
 	}
 
-	printf( '<svg class="mx-auto h-[18px] w-[18px] text-teal-700" viewBox="0 0 24 24" %s>%s</svg>', $common, $paths[ $key ] );
+	printf( '<svg class="mx-auto h-[18px] w-[18px] text-teal-700" viewBox="0 0 24 24" %s>%s</svg>', $common, $paths[ $key ] ); // phpcs:ignore -- $common/$paths are hardcoded above, not user input
 }

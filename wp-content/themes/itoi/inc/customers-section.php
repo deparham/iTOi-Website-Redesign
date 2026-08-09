@@ -161,7 +161,7 @@ function itoi_render_customers_section_data( $data ) {
 				<div class="glass-element-light mb-14 grid grid-cols-1 overflow-hidden rounded-2xl min-[900px]:grid-cols-2">
 					<div class="relative aspect-[4/3] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] min-[900px]:aspect-auto">
 						<?php if ( $itoi_spotlight_media ) : ?>
-							<?php echo $itoi_spotlight_media; ?>
+							<?php echo $itoi_spotlight_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php // Stock-photo disclaimer only applies to the placeholder photo, never to an uploaded video. ?>
 							<?php if ( $data['spotlight_is_stock'] && ! $itoi_spotlight_video_url ) : ?>
 								<div class="absolute inset-x-0 bottom-0 bg-black/70 px-4 py-2.5 text-center text-[12.5px] font-semibold leading-snug text-white">
@@ -214,8 +214,8 @@ function itoi_render_customers_section_data( $data ) {
 								?>
 								<div class="longform-marquee-viewport overflow-hidden">
 									<div class="longform-marquee-track flex w-max <?php echo esc_attr( $itoi_lg_anim_class ); ?>">
-										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_lg_pills_html; ?></div>
-										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_lg_pills_html; ?></div>
+										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_lg_pills_html; // phpcs:ignore -- built above via esc_html() per name, ob_get_clean()'d. ?></div>
+										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_lg_pills_html; // phpcs:ignore -- same buffer as the primary copy above. ?></div>
 									</div>
 								</div>
 							<?php else : ?>
@@ -314,8 +314,8 @@ function itoi_render_client_logo_row() {
 		?>
 		<div class="longform-marquee-viewport overflow-hidden">
 			<div class="longform-marquee-track flex w-max animate-itoi-marquee">
-				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_pills_html; ?></div>
-				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_pills_html; ?></div>
+				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_pills_html; // phpcs:ignore -- built above via esc_html() per name, ob_get_clean()'d. ?></div>
+				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_pills_html; // phpcs:ignore -- same buffer as the primary copy above. ?></div>
 			</div>
 		</div>
 	<?php else : ?>

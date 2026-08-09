@@ -142,7 +142,7 @@ while ( have_posts() ) :
 					<a href="<?php echo esc_url( $itoi_uc['solution_url'] ); ?>" class="use-case-card glass-element-light group block overflow-hidden rounded-2xl transition-all hover:-translate-y-[3px]" data-category="industry-<?php echo (int) $itoi_uc['industry_id']; ?>">
 						<div class="relative aspect-[16/10] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 							<?php if ( $itoi_uc_media ) : ?>
-								<?php echo $itoi_uc_media; ?>
+								<?php echo $itoi_uc_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_uc['label'] ); ?> (TODO)</div>
 							<?php endif; ?>

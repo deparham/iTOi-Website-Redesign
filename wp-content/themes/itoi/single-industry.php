@@ -567,7 +567,7 @@ while ( have_posts() ) :
 					$itoi_hero_media = itoi_media_cover( $itoi_hero, $itoi_hero_video, $itoi_hero_alt, 'absolute inset-0 h-full w-full object-cover' );
 					?>
 					<?php if ( $itoi_hero_media ) : ?>
-						<?php echo $itoi_hero_media; ?>
+						<?php echo $itoi_hero_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 					<?php else : ?>
 						<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_name ); ?> (TODO)</div>
 					<?php endif; ?>
@@ -778,7 +778,7 @@ while ( have_posts() ) :
 				?>
 				<div class="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 					<?php if ( $itoi_lf_overview_media ) : ?>
-						<?php echo $itoi_lf_overview_media; ?>
+						<?php echo $itoi_lf_overview_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 					<?php else : ?>
 						<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]"><?php echo esc_html( $itoi_lf_overview_visual_cap ); ?> (TODO)</div>
 					<?php endif; ?>
@@ -812,7 +812,7 @@ while ( have_posts() ) :
 							?>
 							<div class="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 								<?php if ( $itoi_row_media ) : ?>
-									<?php echo $itoi_row_media; ?>
+									<?php echo $itoi_row_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 								<?php else : ?>
 									<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]"><?php echo esc_html( $itoi_row['image_caption'] ); ?> (TODO)</div>
 								<?php endif; ?>
@@ -821,7 +821,7 @@ while ( have_posts() ) :
 							$itoi_row_visual_html = ob_get_clean();
 							?>
 							<div class="grid grid-cols-1 items-center gap-8 min-[980px]:grid-cols-2 min-[980px]:gap-14">
-								<?php echo ( 1 === $itoi_row_index % 2 ) ? $itoi_row_visual_html . $itoi_row_text_html : $itoi_row_text_html . $itoi_row_visual_html; ?>
+								<?php echo ( 1 === $itoi_row_index % 2 ) ? $itoi_row_visual_html . $itoi_row_text_html : $itoi_row_text_html . $itoi_row_visual_html; // phpcs:ignore -- both halves are ob_get_clean() of already-esc_html()'d/itoi_media_cover()-escaped markup above. ?>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -852,7 +852,7 @@ while ( have_posts() ) :
 							<a href="<?php echo esc_url( $itoi_uc['solution_url'] ); ?>" class="use-case-card glass-element-light group block overflow-hidden rounded-2xl transition-all hover:-translate-y-[3px]">
 								<div class="relative aspect-[16/10] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 									<?php if ( $itoi_uc_media ) : ?>
-										<?php echo $itoi_uc_media; ?>
+										<?php echo $itoi_uc_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_uc['label'] ); ?> (TODO)</div>
 									<?php endif; ?>
@@ -926,7 +926,7 @@ while ( have_posts() ) :
 									$itoi_s_tile_media = itoi_media_cover( $itoi_s_tile_url, $itoi_s_tile_video, $itoi_s_headline, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 									?>
 									<?php if ( $itoi_s_tile_media ) : ?>
-										<?php echo $itoi_s_tile_media; ?>
+										<?php echo $itoi_s_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_s_headline ); ?> (TODO)</div>
 									<?php endif; ?>

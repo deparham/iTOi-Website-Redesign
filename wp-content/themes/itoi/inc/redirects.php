@@ -86,7 +86,8 @@ function itoi_old_url_redirects() {
 		'aurora'                          => '/products/aurora/',
 	);
 
-	$path = trim( parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ) ?? '', '/' );
+	$itoi_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$path             = trim( wp_parse_url( $itoi_request_uri, PHP_URL_PATH ) ?? '', '/' );
 
 	if ( isset( $map[ $path ] ) ) {
 		wp_safe_redirect( home_url( $map[ $path ] ), 301 );

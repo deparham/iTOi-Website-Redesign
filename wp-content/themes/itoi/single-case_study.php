@@ -84,7 +84,7 @@ while ( have_posts() ) :
 				$itoi_hero_media = itoi_media_cover( $itoi_hero, $itoi_hero_video, $itoi_hero_alt, 'absolute inset-0 h-full w-full object-cover' );
 				?>
 				<?php if ( $itoi_hero_media ) : ?>
-					<?php echo $itoi_hero_media; ?>
+					<?php echo $itoi_hero_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 					<?php // Stock-photo disclaimer only applies to the placeholder photo, never to an uploaded video. ?>
 					<?php if ( $itoi_hero_is_stock && ! $itoi_hero_video_url ) : ?>
 						<!-- Mandatory honesty safeguard (PROJECT.md) — glass treatment

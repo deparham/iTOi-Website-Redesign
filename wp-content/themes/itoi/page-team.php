@@ -110,7 +110,7 @@ endif;
 									email/LinkedIn below are untouched. -->
 								<div class="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,rgba(14,17,22,0.55)_0%,rgba(14,17,22,0)_45%)]">
 									<?php if ( $itoi_member_media ) : ?>
-										<?php echo $itoi_member_media; ?>
+										<?php echo $itoi_member_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center text-center text-[9px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo TODO</div>
 									<?php endif; ?>

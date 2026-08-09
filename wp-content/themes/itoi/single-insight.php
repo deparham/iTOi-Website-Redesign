@@ -38,7 +38,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 			<div class="mt-6 flex items-center gap-3">
 				<?php if ( $itoi_author_media ) : ?>
-					<?php echo $itoi_author_media; ?>
+					<?php echo $itoi_author_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 				<?php endif; ?>
 				<div class="text-[13.5px]">
 					<?php if ( $itoi_author ) : ?>

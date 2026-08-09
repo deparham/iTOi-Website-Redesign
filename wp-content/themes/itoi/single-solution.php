@@ -67,7 +67,7 @@ while ( have_posts() ) :
 				$itoi_hero_media = itoi_media_cover( $itoi_hero, $itoi_hero_video, $itoi_headline, 'absolute inset-0 h-full w-full object-cover' );
 				?>
 				<?php if ( $itoi_hero_media ) : ?>
-					<?php echo $itoi_hero_media; ?>
+					<?php echo $itoi_hero_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 				<?php else : ?>
 					<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_headline ); ?> (TODO)</div>
 				<?php endif; ?>
@@ -300,7 +300,7 @@ while ( have_posts() ) :
 							$itoi_highlight_media = itoi_media_cover( $itoi_highlight_photo, $itoi_highlight_video, $itoi_headline . ' highlight', 'absolute inset-0 h-full w-full object-cover' );
 							?>
 							<?php if ( $itoi_highlight_media ) : ?>
-								<?php echo $itoi_highlight_media; ?>
+								<?php echo $itoi_highlight_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-white/40">Photo &mdash; <?php echo esc_html( $itoi_headline ); ?> highlight (TODO)</div>
 							<?php endif; ?>
@@ -411,7 +411,7 @@ while ( have_posts() ) :
 										photo is, not just on the darker ones. -->
 									<div class="relative aspect-[4/3] w-full flex-none overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,rgba(14,17,22,0.6)_0%,rgba(14,17,22,0)_45%)]">
 										<?php if ( $itoi_cc_media ) : ?>
-											<?php echo $itoi_cc_media; ?>
+											<?php echo $itoi_cc_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 										<?php else : ?>
 											<div class="absolute inset-0 flex items-center justify-center p-3 text-center text-[10.5px] uppercase tracking-[0.06em] text-[#8f99a6]"><?php echo esc_html( $itoi_cc_placeholder ); ?> (TODO)</div>
 										<?php endif; ?>

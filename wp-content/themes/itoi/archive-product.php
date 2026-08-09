@@ -66,7 +66,7 @@ $itoi_products_query = new WP_Query(
 							);
 							?>
 							<?php if ( $itoi_tile_media ) : ?>
-								<?php echo $itoi_tile_media; ?>
+								<?php echo $itoi_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="relative z-[1] flex max-w-[280px] flex-col items-center gap-1.5 rounded-lg border border-dashed border-white/25 bg-black/20 px-4 py-4 text-center">
 									<span class="text-[10px] font-bold uppercase tracking-[0.08em] text-signature-bright">TODO(photo)</span>

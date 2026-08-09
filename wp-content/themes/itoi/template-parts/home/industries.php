@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							);
 							?>
 							<?php if ( $itoi_carousel_media ) : ?>
-								<?php echo $itoi_carousel_media; ?>
+								<?php echo $itoi_carousel_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo — <?php echo esc_html( $itoi_name ); ?></div>
 							<?php endif; ?>

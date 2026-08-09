@@ -79,7 +79,8 @@ function itoi_use_case_bulk_edit_get_posts() {
  * the listing with a "Saved." notice.
  */
 function itoi_use_case_bulk_edit_save() {
-	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+	$itoi_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+	if ( 'POST' !== $itoi_request_method ) {
 		return;
 	}
 
@@ -92,6 +93,7 @@ function itoi_use_case_bulk_edit_save() {
 		wp_die( esc_html__( 'You do not have permission to do this.', 'itoi' ) );
 	}
 
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- each row's fields are individually sanitized/cast below: title via sanitize_text_field(), post_id/photo/video via (int) cast. Nothing here is used unsanitized.
 	$itoi_rows = isset( $_POST['use_case'] ) && is_array( $_POST['use_case'] ) ? wp_unslash( $_POST['use_case'] ) : array();
 
 	foreach ( $itoi_rows as $itoi_post_id => $itoi_fields ) {
@@ -141,6 +143,7 @@ function itoi_use_case_bulk_edit_render() {
 		<h1>Edit All Use Cases</h1>
 		<p>Title, photo and video for every use case, saved together. To change which Industry or Solution a use case belongs to, or its "Featured in nav" flag, still open that one individually — <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=use_case' ) ); ?>">back to the Use Cases list</a>.</p>
 
+		<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only UI flag, doesn't process/mutate anything; the actual save is nonce-verified in itoi_use_case_bulk_edit_save(). ?>
 		<?php if ( isset( $_GET['itoi_saved'] ) ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Saved.</p></div>
 		<?php endif; ?>

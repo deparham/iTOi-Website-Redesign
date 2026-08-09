@@ -69,7 +69,7 @@ $itoi_solutions_query = new WP_Query(
 							);
 							?>
 							<?php if ( $itoi_tile_media ) : ?>
-								<?php echo $itoi_tile_media; ?>
+								<?php echo $itoi_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_headline ); ?> (TODO)</div>
 							<?php endif; ?>

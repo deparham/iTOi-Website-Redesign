@@ -35,5 +35,5 @@ function itoi_longform_icon( $key ) {
 		return;
 	}
 
-	printf( '<svg class="h-10 w-10 text-signature-bright" viewBox="0 0 24 24" %s>%s</svg>', $common, $paths[ $key ] );
+	printf( '<svg class="h-10 w-10 text-signature-bright" viewBox="0 0 24 24" %s>%s</svg>', $common, $paths[ $key ] ); // phpcs:ignore -- $common/$paths are hardcoded above, not user input
 }
