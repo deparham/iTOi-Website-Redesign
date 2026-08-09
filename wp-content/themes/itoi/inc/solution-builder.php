@@ -173,6 +173,8 @@ function itoi_solution_builder_challenge_options() {
  * Core scoring engine — PART 3 of the build spec, applied verbatim.
  *
  * @param array $answers {
+ *   The quiz answers to score.
+ *
  *   @type string $business_type  Industry slug.
  *   @type string $employees      One of itoi_solution_builder_employee_options() keys.
  *   @type string $sites          One of itoi_solution_builder_site_options() keys.

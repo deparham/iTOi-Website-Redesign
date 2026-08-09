@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Registers the "Edit All" admin submenu page and hooks its save/enqueue
+ * callbacks to the page's own `load-` action.
+ */
 function itoi_use_case_bulk_edit_menu() {
 	$itoi_hook = add_submenu_page(
 		'edit.php?post_type=use_case',
@@ -34,6 +38,10 @@ function itoi_use_case_bulk_edit_menu() {
 }
 add_action( 'admin_menu', 'itoi_use_case_bulk_edit_menu' );
 
+/**
+ * Enqueues the media picker and this screen's own admin JS — only on the
+ * bulk-edit page itself, via the `load-` hook.
+ */
 function itoi_use_case_bulk_edit_enqueue() {
 	wp_enqueue_media();
 	wp_enqueue_script(
@@ -46,6 +54,8 @@ function itoi_use_case_bulk_edit_enqueue() {
 }
 
 /**
+ * Every use_case post this screen lists, one row per post.
+ *
  * @return array[] Ordered like the front end (itoi_get_industry_use_cases()) —
  *                  menu_order groups them by industry already (2026-07-30
  *                  migration set it that way), status 'any' so drafts show
@@ -63,6 +73,11 @@ function itoi_use_case_bulk_edit_get_posts() {
 	);
 }
 
+/**
+ * Handles the bulk-edit form's POST submission — verifies the nonce and
+ * capability, saves each row's title/photo/video, then redirects back to
+ * the listing with a "Saved." notice.
+ */
 function itoi_use_case_bulk_edit_save() {
 	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
 		return;
@@ -110,6 +125,11 @@ function itoi_use_case_bulk_edit_save() {
 	exit;
 }
 
+/**
+ * Renders the "Edit All Use Cases" admin screen: one row per use case,
+ * grouped under an industry heading, with its own inline title/photo/video
+ * editors, submitted together as a single form.
+ */
 function itoi_use_case_bulk_edit_render() {
 	if ( ! current_user_can( 'edit_posts' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'itoi' ) );

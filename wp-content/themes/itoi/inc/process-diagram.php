@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Renders one process-step icon by slug.
+ *
  * @param string $slug    One of: camera-pos, processor-node, dashboard-arrow, shield, database,
  *                        network, floor-plan-nodes, switch-poe, lifecycle-shield, headset-clock.
  * @param string $classes Tailwind size classes for the <svg>.

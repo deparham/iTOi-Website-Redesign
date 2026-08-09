@@ -24,6 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * render a blank/broken tile, since a mismatch here means the curated
  * selection has drifted from the live field data (e.g. a content editor
  * renamed a spec label), not that placeholder content should appear.
+ *
+ * @param array  $rows   The ACF repeater rows to search.
+ * @param string $key    The row key to match against, e.g. 'label' or 'name'.
+ * @param string $needle The exact value to match.
+ * @return array|null The matching row, or null if none matched.
  */
 function itoi_highlight_find_row( $rows, $key, $needle ) {
 	if ( empty( $rows ) ) {
@@ -48,6 +53,9 @@ function itoi_highlight_find_row( $rows, $key, $needle ) {
  * section immediately below always shows the complete, unmodified value —
  * this tile is a curated preview, not the only place the full detail
  * lives. Values with no " (" are returned unchanged.
+ *
+ * @param string $value The raw spec/capability value.
+ * @return string $value with any trailing " (...)" parenthetical stripped.
  */
 function itoi_highlight_stat_display( $value ) {
 	$paren_pos = strpos( $value, ' (' );
@@ -59,6 +67,9 @@ function itoi_highlight_stat_display( $value ) {
  * the DISPLAY text's own length (i.e. after itoi_highlight_stat_display()),
  * never a truncated/reworded version of the value itself beyond that one
  * mechanical paren-strip.
+ *
+ * @param string $value The display text (already run through itoi_highlight_stat_display()).
+ * @return string A text-size utility class, scaled to $value's length.
  */
 function itoi_highlight_stat_size( $value ) {
 	$len = strlen( $value );

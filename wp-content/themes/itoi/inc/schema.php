@@ -27,6 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Sitewide LocalBusiness JSON-LD, sourced from Site Settings' company
+ * address/phone/office-hours fields. Outputs nothing if no address is set.
+ */
 function itoi_local_business_schema() {
 	$address = get_field( 'company_address', 'option' );
 	if ( ! $address ) {
@@ -61,6 +65,10 @@ function itoi_local_business_schema() {
 }
 add_action( 'wp_head', 'itoi_local_business_schema' );
 
+/**
+ * Service JSON-LD on single `solution` pages — Yoast free has no built-in
+ * Service page type, so this fills that gap directly.
+ */
 function itoi_service_schema() {
 	if ( ! is_singular( 'solution' ) ) {
 		return;
@@ -90,6 +98,11 @@ function itoi_service_schema() {
 }
 add_action( 'wp_head', 'itoi_service_schema' );
 
+/**
+ * Article JSON-LD on single `case_study`/`insight` pages — Yoast free's
+ * own Article schema generator never fires for custom post types (see the
+ * file-level doc comment above), so this fills that gap directly.
+ */
 function itoi_article_schema() {
 	if ( ! is_singular( array( 'case_study', 'insight' ) ) ) {
 		return;

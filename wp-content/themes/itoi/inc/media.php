@@ -26,6 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Renders a <video> when a video is set, otherwise an <img>, otherwise ''.
+ *
  * @param string     $photo_url  Already-sized image URL, or '' if none.
  * @param array|null $video_field Raw ACF file-field value (array with 'url'), or null/[]/'' if none.
  * @param string     $alt        Alt text (video ignores this — it's decorative/muted, no captions).

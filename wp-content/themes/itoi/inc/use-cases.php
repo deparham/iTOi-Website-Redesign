@@ -24,7 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Flat list of every real, industry-linked use case sitewide.
  *
  * @param array $args {
+ *     Optional filter args.
+ *
  *     @type bool $featured_only Only rows with the "Featured in nav dropdown" flag set.
+ *                                Default false.
  * }
  * @return array[] Each row: key, label, image_id, video, solution_id, solution_title,
  *                  solution_url, industry_id, industry_name, industry_slug, featured_in_nav.

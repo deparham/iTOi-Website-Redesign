@@ -52,6 +52,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Redirects old, no-longer-existing URLs to their real successor — see the
+ * file-level doc comment above for the full map's provenance/scope.
+ */
 function itoi_old_url_redirects() {
 	$map = array(
 		// Solutions restructure, 2026-07-23 — old /solutions/{slug}/ URLs

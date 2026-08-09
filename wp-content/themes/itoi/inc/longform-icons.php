@@ -14,6 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Renders one "Why ITOI" grid icon by key.
+ *
+ * @param string $key One of the icon keys defined in $paths below.
+ */
 function itoi_longform_icon( $key ) {
 	$common = 'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"';
 

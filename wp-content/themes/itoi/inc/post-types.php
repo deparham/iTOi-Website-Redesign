@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Registers every custom post type this theme defines (PROJECT.md §4).
+ */
 function itoi_register_post_types() {
 
 	register_post_type(
