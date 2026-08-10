@@ -7,6 +7,8 @@
  * rather than deleted outright, so it can be switched back on later with no
  * code change. Split out of front-page.php 2026-08-06 (template-parts
  * split).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

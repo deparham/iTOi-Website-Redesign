@@ -4,6 +4,8 @@
  * own post_content (Phase 5) — this template renders it as-is, plus a
  * bottom CTA band that also guarantees a real h2 in the page regardless
  * of how post_content is edited (the Phase 7 heading-order lesson).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +30,7 @@ while ( have_posts() ) :
 	// from the client's capability deck (PROJECT.md/NOTES.md). Placed here,
 	// About page over the homepage — see NOTES.md for the placement
 	// rationale. ACF: Partners, Not Vendors options page.
-	$itoi_partners_headline = get_field( 'partners_headline', 'option' ) ?: 'Partners, not vendors.';
+	$itoi_partners_headline = itoi_or( get_field( 'partners_headline', 'option' ), 'Partners, not vendors.' );
 	$itoi_partners_intro    = get_field( 'partners_intro', 'option' );
 	$itoi_partners_cards    = get_field( 'partners_cards', 'option' );
 	?>
@@ -75,7 +77,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/team/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Meet the team</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

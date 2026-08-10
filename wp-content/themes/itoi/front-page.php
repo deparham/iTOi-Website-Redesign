@@ -8,6 +8,8 @@
  * itself already handles its own "nothing to show" cases (Products/Delivery
  * Model return early with no query results, Traffic-Demo returns early when
  * its Site Settings toggle is off).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -3,6 +3,8 @@
  * Footer: dense 5-column footer. Ground truth: preview-verkada-match.html <footer>.
  * The black "final CTA" band above the footer is homepage-specific markup
  * (§3 mechanic #10) and lives in front-page.php, not here.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -42,17 +44,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 				<p class="mb-4 text-xs uppercase tracking-wider text-text-muted">Solutions</p>
 				<?php
-				$itoi_footer_solutions = new WP_Query( array(
-					'post_type'      => 'solution',
-					'post_status'    => 'publish',
-					'posts_per_page' => -1,
-					'orderby'        => 'title',
-					'order'          => 'ASC',
-				) );
+				$itoi_footer_solutions = new WP_Query(
+					array(
+						'post_type'      => 'solution',
+						'post_status'    => 'publish',
+						'posts_per_page' => -1,
+						'orderby'        => 'title',
+						'order'          => 'ASC',
+					)
+				);
 				while ( $itoi_footer_solutions->have_posts() ) :
 					$itoi_footer_solutions->the_post();
 					?>
-					<a href="<?php the_permalink(); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink"><?php echo esc_html( get_field( 'headline' ) ?: get_the_title() ); ?></a>
+					<a href="<?php the_permalink(); ?>" class="mb-2.5 block text-[13.5px] text-text-muted hover:text-ink"><?php echo esc_html( itoi_or( get_field( 'headline' ), get_the_title() ) ); ?></a>
 					<?php
 				endwhile;
 				wp_reset_postdata();
@@ -128,10 +132,10 @@ if ( ! is_page( 'solution-builder' ) ) :
 	?>
 <!-- ============ SOLUTION BUILDER POPUP — markup (shared, every page except /solution-builder/ itself) ============ -->
 <!-- role="dialog"/aria-modal/aria-hidden added 2026-08-05 (Phase 5) — see
-     #megaMenu's identical fix above for the reasoning (a closed overlay's
-     heading otherwise still sits in the accessible tree). initFinder()
-     (assets/js/main.js) toggles aria-hidden and now also traps focus
-     while open. -->
+	#megaMenu's identical fix above for the reasoning (a closed overlay's
+	heading otherwise still sits in the accessible tree). initFinder()
+	(assets/js/main.js) toggles aria-hidden and now also traps focus
+	while open. -->
 <div class="finder-overlay" id="finderOverlay" role="dialog" aria-modal="true" aria-label="Solution builder" aria-hidden="true">
 	<div class="finder-card p-10 max-[640px]:p-6">
 		<button type="button" class="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center rounded-full border border-line bg-white text-base text-text-muted hover:bg-hero-bg hover:text-ink" id="finderClose" aria-label="Close">&times;</button>
@@ -224,7 +228,7 @@ if ( ! is_page( 'solution-builder' ) ) :
 <button type="button" class="finder-trigger trigger-glass fixed bottom-[22px] right-[22px] z-[80] flex items-center gap-2.5 rounded-[30px] px-5 py-3.5 text-sm font-bold text-white hover:-translate-y-0.5 max-[640px]:p-3.5" id="finderTrigger" aria-label="<?php echo esc_attr( $fyf_trigger_label ); ?>">
 	<span class="h-2 w-2 flex-none rounded-full bg-signature-bright"></span><span class="txt max-[640px]:hidden"><?php echo esc_html( $fyf_trigger_label ); ?></span>
 </button>
-<?php endif; // ! is_page( 'solution-builder' ) ?>
+<?php endif; // End: hidden on the Solution Builder page itself. ?>
 
 <?php wp_footer(); ?>
 </body>

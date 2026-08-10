@@ -18,6 +18,8 @@
  * description ("later-phase work"), so it's left unrendered here
  * rather than wired to template parts that would go untested and
  * unused. Revisit once a real page actually uses it.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,7 +54,7 @@ while ( have_posts() ) :
 		</div>
 	</section>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

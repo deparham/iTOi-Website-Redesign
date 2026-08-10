@@ -6,6 +6,8 @@
  * the answer body — see initItoiFilterLists in assets/js/main.js). A
  * solution with zero FAQs is simply absent (itoi_edu_get_all_faqs already
  * filters those out) — never an empty/broken group.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +77,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Contact us</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

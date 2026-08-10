@@ -22,6 +22,8 @@
  * also becomes glass; the CF7 form's actual inputs/textarea/button stay on
  * their existing solid `.form-control`/`.btn-secondary` styling, untouched
  * — same rule as the Glossary search input in the earlier test wave.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -68,10 +70,22 @@ while ( have_posts() ) :
 							<dt class="mb-1 text-[12.5px] font-bold uppercase tracking-wide text-text-muted">Management</dt>
 							<dd>
 								<?php if ( $itoi_mgr1_name ) : ?>
-									<div><?php echo esc_html( $itoi_mgr1_name ); ?><?php if ( $itoi_mgr1_email ) : ?> &mdash; <a class="underline" href="mailto:<?php echo esc_attr( $itoi_mgr1_email ); ?>"><?php echo esc_html( $itoi_mgr1_email ); ?></a><?php endif; ?><?php if ( $itoi_mgr1_phone ) : ?> &mdash; <?php echo esc_html( $itoi_mgr1_phone ); ?><?php endif; ?></div>
+									<div><?php echo esc_html( $itoi_mgr1_name ); ?>
+									<?php
+									if ( $itoi_mgr1_email ) :
+										?>
+										&mdash; <a class="underline" href="mailto:<?php echo esc_attr( $itoi_mgr1_email ); ?>"><?php echo esc_html( $itoi_mgr1_email ); ?></a><?php endif; ?>
+										<?php
+										if ( $itoi_mgr1_phone ) :
+											?>
+										&mdash; <?php echo esc_html( $itoi_mgr1_phone ); ?><?php endif; ?></div>
 								<?php endif; ?>
 								<?php if ( $itoi_mgr2_name ) : ?>
-									<div><?php echo esc_html( $itoi_mgr2_name ); ?><?php if ( $itoi_mgr2_email ) : ?> &mdash; <a class="underline" href="mailto:<?php echo esc_attr( $itoi_mgr2_email ); ?>"><?php echo esc_html( $itoi_mgr2_email ); ?></a><?php endif; ?></div>
+									<div><?php echo esc_html( $itoi_mgr2_name ); ?>
+									<?php
+									if ( $itoi_mgr2_email ) :
+										?>
+										&mdash; <a class="underline" href="mailto:<?php echo esc_attr( $itoi_mgr2_email ); ?>"><?php echo esc_html( $itoi_mgr2_email ); ?></a><?php endif; ?></div>
 								<?php endif; ?>
 							</dd>
 						</div>
@@ -80,9 +94,18 @@ while ( have_posts() ) :
 						<div class="glass-element-light rounded-2xl p-5">
 							<dt class="mb-1 text-[12.5px] font-bold uppercase tracking-wide text-text-muted">Support</dt>
 							<dd>
-								<?php if ( $itoi_support_phone ) : ?><?php echo esc_html( $itoi_support_phone ); ?><br><?php endif; ?>
-								<?php if ( $itoi_support_email ) : ?><a class="underline" href="mailto:<?php echo esc_attr( $itoi_support_email ); ?>"><?php echo esc_html( $itoi_support_email ); ?></a><?php endif; ?>
-								<?php if ( $itoi_support_hours ) : ?><div class="mt-1 text-text-muted"><?php echo esc_html( $itoi_support_hours ); ?></div><?php endif; ?>
+								<?php
+								if ( $itoi_support_phone ) :
+									?>
+									<?php echo esc_html( $itoi_support_phone ); ?><br><?php endif; ?>
+								<?php
+								if ( $itoi_support_email ) :
+									?>
+									<a class="underline" href="mailto:<?php echo esc_attr( $itoi_support_email ); ?>"><?php echo esc_html( $itoi_support_email ); ?></a><?php endif; ?>
+								<?php
+								if ( $itoi_support_hours ) :
+									?>
+									<div class="mt-1 text-text-muted"><?php echo esc_html( $itoi_support_hours ); ?></div><?php endif; ?>
 							</dd>
 						</div>
 					<?php endif; ?>
@@ -111,12 +134,12 @@ while ( have_posts() ) :
 		.itoi-contact-form label { display: block; margin-bottom: 0.375rem; font-size: 13px; font-weight: 700; }
 		.itoi-contact-form .required { color: var(--signature-dim); margin-left: 2px; }
 		/* Liquid glass wave 6: explicit solid background — Tailwind's preflight
-		   resets form elements to background-color:transparent, so these
-		   inputs only ever looked solid because the old parent card was
-		   opaque bg-white. The parent (.itoi-contact-form) is now
-		   .glass-element-light (translucent + blurred), so without this an
-		   input would show the blurred glass through it — the one thing
-		   this wave's own rule says must never happen to a real control. */
+			resets form elements to background-color:transparent, so these
+			inputs only ever looked solid because the old parent card was
+			opaque bg-white. The parent (.itoi-contact-form) is now
+			.glass-element-light (translucent + blurred), so without this an
+			input would show the blurred glass through it — the one thing
+			this wave's own rule says must never happen to a real control. */
 		.itoi-contact-form input.form-control,
 		.itoi-contact-form textarea.form-control { width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.9rem; font-size: 14.5px; font-family: inherit; }
 		.itoi-contact-form input.form-control:focus,
@@ -127,7 +150,7 @@ while ( have_posts() ) :
 		.itoi-contact-form .wpcf7-response-output { margin-top: 1.25rem; border-radius: 12px; border: 1px solid var(--line); padding: 0.75rem 1rem; font-size: 13.5px; }
 	</style>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

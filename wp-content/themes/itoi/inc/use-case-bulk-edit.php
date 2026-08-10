@@ -8,12 +8,18 @@
  * custom screen, not a core feature. Industry/Solution/Featured stay
  * single-post-only (edit_item screen) since only content+media was asked
  * for here; shown read-only per row so each row is still identifiable.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Registers the "Edit All" admin submenu page and hooks its save/enqueue
+ * callbacks to the page's own `load-` action.
+ */
 function itoi_use_case_bulk_edit_menu() {
 	$itoi_hook = add_submenu_page(
 		'edit.php?post_type=use_case',
@@ -32,6 +38,10 @@ function itoi_use_case_bulk_edit_menu() {
 }
 add_action( 'admin_menu', 'itoi_use_case_bulk_edit_menu' );
 
+/**
+ * Enqueues the media picker and this screen's own admin JS — only on the
+ * bulk-edit page itself, via the `load-` hook.
+ */
 function itoi_use_case_bulk_edit_enqueue() {
 	wp_enqueue_media();
 	wp_enqueue_script(
@@ -44,6 +54,8 @@ function itoi_use_case_bulk_edit_enqueue() {
 }
 
 /**
+ * Every use_case post this screen lists, one row per post.
+ *
  * @return array[] Ordered like the front end (itoi_get_industry_use_cases()) —
  *                  menu_order groups them by industry already (2026-07-30
  *                  migration set it that way), status 'any' so drafts show
@@ -61,8 +73,14 @@ function itoi_use_case_bulk_edit_get_posts() {
 	);
 }
 
+/**
+ * Handles the bulk-edit form's POST submission — verifies the nonce and
+ * capability, saves each row's title/photo/video, then redirects back to
+ * the listing with a "Saved." notice.
+ */
 function itoi_use_case_bulk_edit_save() {
-	if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+	$itoi_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+	if ( 'POST' !== $itoi_request_method ) {
 		return;
 	}
 
@@ -75,6 +93,7 @@ function itoi_use_case_bulk_edit_save() {
 		wp_die( esc_html__( 'You do not have permission to do this.', 'itoi' ) );
 	}
 
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- each row's fields are individually sanitized/cast below: title via sanitize_text_field(), post_id/photo/video via (int) cast. Nothing here is used unsanitized.
 	$itoi_rows = isset( $_POST['use_case'] ) && is_array( $_POST['use_case'] ) ? wp_unslash( $_POST['use_case'] ) : array();
 
 	foreach ( $itoi_rows as $itoi_post_id => $itoi_fields ) {
@@ -98,8 +117,8 @@ function itoi_use_case_bulk_edit_save() {
 	wp_safe_redirect(
 		add_query_arg(
 			array(
-				'post_type' => 'use_case',
-				'page'      => 'itoi-use-case-bulk-edit',
+				'post_type'  => 'use_case',
+				'page'       => 'itoi-use-case-bulk-edit',
 				'itoi_saved' => 1,
 			),
 			admin_url( 'edit.php' )
@@ -108,6 +127,11 @@ function itoi_use_case_bulk_edit_save() {
 	exit;
 }
 
+/**
+ * Renders the "Edit All Use Cases" admin screen: one row per use case,
+ * grouped under an industry heading, with its own inline title/photo/video
+ * editors, submitted together as a single form.
+ */
 function itoi_use_case_bulk_edit_render() {
 	if ( ! current_user_can( 'edit_posts' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'itoi' ) );
@@ -119,6 +143,7 @@ function itoi_use_case_bulk_edit_render() {
 		<h1>Edit All Use Cases</h1>
 		<p>Title, photo and video for every use case, saved together. To change which Industry or Solution a use case belongs to, or its "Featured in nav" flag, still open that one individually — <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=use_case' ) ); ?>">back to the Use Cases list</a>.</p>
 
+		<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only UI flag, doesn't process/mutate anything; the actual save is nonce-verified in itoi_use_case_bulk_edit_save(). ?>
 		<?php if ( isset( $_GET['itoi_saved'] ) ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Saved.</p></div>
 		<?php endif; ?>

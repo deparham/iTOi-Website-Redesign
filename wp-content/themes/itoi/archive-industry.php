@@ -14,6 +14,8 @@
  * pill (matching the Solutions archive's restructured pill) now that it
  * sits in the light panel instead — `.pill-glass`'s white text would be
  * illegible there.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -48,15 +50,15 @@ $itoi_industries_query = new WP_Query(
 				while ( $itoi_industries_query->have_posts() ) :
 					$itoi_industries_query->the_post();
 					$itoi_id      = get_the_ID();
-					$itoi_name    = get_field( 'name' ) ?: get_the_title();
+					$itoi_name    = itoi_or( get_field( 'name' ), get_the_title() );
 					$itoi_summary = get_field( 'summary' );
 					$itoi_hero_id = get_field( 'hero_image' );
 					$itoi_hero    = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'medium_large' ) : '';
 					// Prefer the real Media Library alt text over the bare
 					// industry name — see single-industry.php for the same fix.
-					$itoi_hero_alt   = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_name ) : $itoi_name;
+					$itoi_hero_alt   = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_name ) : $itoi_name;
 					$itoi_hero_video = get_field( 'hero_video' );
-					$itoi_tile_index++;
+					++$itoi_tile_index;
 					?>
 					<a href="<?php the_permalink(); ?>" class="group glass-element-light block rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>
@@ -71,7 +73,7 @@ $itoi_industries_query = new WP_Query(
 							);
 							?>
 							<?php if ( $itoi_tile_media ) : ?>
-								<?php echo $itoi_tile_media; ?>
+								<?php echo $itoi_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_name ); ?> (TODO)</div>
 							<?php endif; ?>

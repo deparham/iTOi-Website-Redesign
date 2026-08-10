@@ -4,6 +4,8 @@
  * client_examples/related_solutions render only what's real — empty for
  * industries with no live-site-supported evidence (casinos-gaming had
  * none at all as of Phase 5).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,10 +17,10 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$itoi_name       = get_field( 'name' ) ?: get_the_title();
-	$itoi_summary    = get_field( 'summary' );
-	$itoi_hero_id    = get_field( 'hero_image' );
-	$itoi_hero       = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
+	$itoi_name    = itoi_or( get_field( 'name' ), get_the_title() );
+	$itoi_summary = get_field( 'summary' );
+	$itoi_hero_id = get_field( 'hero_image' );
+	$itoi_hero    = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'large' ) : '';
 	// Optional — takes priority over the photo above wherever the hero
 	// renders (both the funnel photo-hero-with-inset-card layout below and
 	// the plain side-by-side hero); the photo still doubles as its poster.
@@ -28,8 +30,8 @@ while ( have_posts() ) :
 	// already has one (e.g. "Generic retail store interior with merchandise
 	// displays (temporary stock photo)"); only fall back to the name if an
 	// editor ever uploads one without setting alt text.
-	$itoi_hero_alt   = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_name ) : $itoi_name;
-	$itoi_clients    = get_field( 'client_examples' );
+	$itoi_hero_alt      = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_name ) : $itoi_name;
+	$itoi_clients       = get_field( 'client_examples' );
 	$itoi_rel_solutions = get_field( 'related_solutions' );
 
 	// Foot-traffic funnel — new component, not in PROJECT.md's original §10
@@ -62,27 +64,27 @@ while ( have_posts() ) :
 
 	// Retail: foot-traffic funnel (built first, see NOTES.md history).
 	if ( 'retail' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_funnel_traffic = (int) ( get_field( 'funnel_default_traffic' ) ?: 10000 );
-		$itoi_funnel_rate    = (float) ( get_field( 'funnel_conversion_rate' ) ?: 0 );
-		$itoi_funnel_value   = (float) ( get_field( 'funnel_value_per_lead' ) ?: 0 );
+		$itoi_funnel_traffic = (int) itoi_or( get_field( 'funnel_default_traffic' ), 10000 );
+		$itoi_funnel_rate    = (float) itoi_or( get_field( 'funnel_conversion_rate' ), 0 );
+		$itoi_funnel_value   = (float) itoi_or( get_field( 'funnel_value_per_lead' ), 0 );
 	}
 
 	// Hospitality: click-through guest-journey timeline.
 	if ( 'hospitality' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_hosp_stages      = get_field( 'hospitality_stages' ) ?: array();
-		$itoi_hosp_completeness = get_field( 'hospitality_completeness_label' ) ?: 'Guest Profile Completeness';
-		$itoi_hosp_reset        = get_field( 'hospitality_reset_label' ) ?: 'Start over';
+		$itoi_hosp_stages       = itoi_or( get_field( 'hospitality_stages' ), array() );
+		$itoi_hosp_completeness = itoi_or( get_field( 'hospitality_completeness_label' ), 'Guest Profile Completeness' );
+		$itoi_hosp_reset        = itoi_or( get_field( 'hospitality_reset_label' ), 'Start over' );
 	}
 
 	// Banking & Finance: access scenario simulator.
 	if ( 'banking-finance' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_bank_scenarios = get_field( 'banking_scenarios' ) ?: array();
+		$itoi_bank_scenarios = itoi_or( get_field( 'banking_scenarios' ), array() );
 	}
 
 	// Government & Councils: live funding-allocation chart.
 	if ( 'government-councils' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_gov_categories = get_field( 'government_categories' ) ?: array();
-		$itoi_gov_checkboxes = get_field( 'government_checkboxes' ) ?: array();
+		$itoi_gov_categories = itoi_or( get_field( 'government_categories' ), array() );
+		$itoi_gov_checkboxes = itoi_or( get_field( 'government_checkboxes' ), array() );
 	}
 
 	// Logistics & Warehousing: drag-to-compare incident timeline. Gap-label
@@ -90,9 +92,9 @@ while ( have_posts() ) :
 	// occurs → Discovered) on each line — computed once here rather than
 	// in the template.
 	if ( 'logistics-warehousing' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_log_events        = get_field( 'logistics_events' ) ?: array();
-		$itoi_log_without_label = get_field( 'logistics_without_label' ) ?: 'Without ITOI';
-		$itoi_log_with_label    = get_field( 'logistics_with_label' ) ?: 'With ITOI';
+		$itoi_log_events        = itoi_or( get_field( 'logistics_events' ), array() );
+		$itoi_log_without_label = itoi_or( get_field( 'logistics_without_label' ), 'Without ITOI' );
+		$itoi_log_with_label    = itoi_or( get_field( 'logistics_with_label' ), 'With ITOI' );
 		$itoi_log_gap_without   = get_field( 'logistics_gap_label_without' );
 		$itoi_log_gap_with      = get_field( 'logistics_gap_label_with' );
 
@@ -110,22 +112,22 @@ while ( have_posts() ) :
 	// generated client-side (JS), this just passes the zone weights and
 	// slider bounds through as data.
 	if ( 'stadiums-events' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_stadium_zones      = get_field( 'stadium_zones' ) ?: array();
-		$itoi_stadium_min        = (int) ( get_field( 'stadium_min_attendees' ) ?: 5000 );
-		$itoi_stadium_max        = (int) ( get_field( 'stadium_max_attendees' ) ?: 50000 );
-		$itoi_stadium_default    = (int) ( get_field( 'stadium_default_attendees' ) ?: 15000 );
-		$itoi_stadium_max_marker = (int) ( get_field( 'stadium_max_markers' ) ?: 50 );
+		$itoi_stadium_zones      = itoi_or( get_field( 'stadium_zones' ), array() );
+		$itoi_stadium_min        = (int) itoi_or( get_field( 'stadium_min_attendees' ), 5000 );
+		$itoi_stadium_max        = (int) itoi_or( get_field( 'stadium_max_attendees' ), 50000 );
+		$itoi_stadium_default    = (int) itoi_or( get_field( 'stadium_default_attendees' ), 15000 );
+		$itoi_stadium_max_marker = (int) itoi_or( get_field( 'stadium_max_markers' ), 50 );
 	}
 
 	// Casinos & Gaming: zone-selector floor map. Zone position on the
 	// floor plan is fixed by row order (see the field's own instructions),
 	// not stored separately — only the copy is ACF-driven.
 	if ( 'casinos-gaming' === $itoi_slug && $itoi_show_funnel ) {
-		$itoi_casino_zones = get_field( 'casino_zones' ) ?: array();
+		$itoi_casino_zones = itoi_or( get_field( 'casino_zones' ), array() );
 	}
 
 	$itoi_hero_headline = $itoi_show_funnel ? $itoi_funnel_headline : $itoi_name;
-	$itoi_hero_desc      = $itoi_show_funnel ? $itoi_funnel_intro : $itoi_summary;
+	$itoi_hero_desc     = $itoi_show_funnel ? $itoi_funnel_intro : $itoi_summary;
 
 	// Photo-hero-with-inset-card layout — Retail + Hospitality for now,
 	// pending review before wider rollout (see NOTES.md). Every other
@@ -136,25 +138,25 @@ while ( have_posts() ) :
 	<?php if ( $itoi_use_photo_hero ) : ?>
 
 		<!-- One continuous rounded card (photo top + funnel bottom), inset
-		     within the page's normal container width — not full-bleed. A
-		     single shadow wraps the whole block; overflow-hidden + one
-		     border-radius on this outer wrapper clips the photo to rounded
-		     top corners and the funnel section to rounded bottom corners
-		     automatically, with a flat/square seam where they meet (no
-		     separate overlap mechanic anymore — that was the previous
-		     "floating card over full-bleed photo" version; this replaces
-		     it, see NOTES.md). -->
+			within the page's normal container width — not full-bleed. A
+			single shadow wraps the whole block; overflow-hidden + one
+			border-radius on this outer wrapper clips the photo to rounded
+			top corners and the funnel section to rounded bottom corners
+			automatically, with a flat/square seam where they meet (no
+			separate overlap mechanic anymore — that was the previous
+			"floating card over full-bleed photo" version; this replaces
+			it, see NOTES.md). -->
 		<section class="aurora-bg-light px-8 pt-[168px] pb-10 min-[640px]:pt-[206px] min-[980px]:pb-16">
 			<div class="relative mx-auto max-w-[1280px] overflow-hidden rounded-[22px] shadow-[0_30px_60px_-30px_rgba(14,17,22,0.25)]" id="funnelSection" data-conversion-rate="<?php echo esc_attr( $itoi_funnel_rate ?? '' ); ?>" data-value-per-lead="<?php echo esc_attr( $itoi_funnel_value ?? '' ); ?>">
 
 				<!-- Photo portion — height is content-driven at every breakpoint
-				     (top padding is the free variable): a strict CSS aspect-ratio
-				     box was tried here and rejected — with in-flow content plus
-				     overflow-hidden, the eyebrow/H1 got clipped whenever content
-				     needed more room than the ratio allowed (see NOTES.md). Mobile
-				     top padding is tuned to land near a 4:3-ish proportion in
-				     practice; ≥768px padding is tuned to land in the spec's
-				     55-60%-of-card-height band. -->
+					(top padding is the free variable): a strict CSS aspect-ratio
+					box was tried here and rejected — with in-flow content plus
+					overflow-hidden, the eyebrow/H1 got clipped whenever content
+					needed more room than the ratio allowed (see NOTES.md). Mobile
+					top padding is tuned to land near a 4:3-ish proportion in
+					practice; ≥768px padding is tuned to land in the spec's
+					55-60%-of-card-height band. -->
 				<div class="relative overflow-hidden text-white">
 					<div class="absolute inset-0">
 						<?php if ( ! empty( $itoi_hero_video['url'] ) ) : ?>
@@ -179,11 +181,11 @@ while ( have_posts() ) :
 						<?php endif; ?>
 					</div>
 					<!-- Heavier at the bottom, fading lighter toward the top — same
-					     legibility approach as the homepage mega-hero's dark scrim,
-					     adapted for a photo background. Also still doing the
-					     photo-to-white-card transition on its own at the very
-					     bottom (per the previous round's reference), now simply
-					     handing off to a flush seam instead of an overlap. -->
+						legibility approach as the homepage mega-hero's dark scrim,
+						adapted for a photo background. Also still doing the
+						photo-to-white-card transition on its own at the very
+						bottom (per the previous round's reference), now simply
+						handing off to a flush seam instead of an overlap. -->
 					<div class="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,14,17,0.82)_0%,rgba(11,14,17,0.25)_55%,rgba(11,14,17,0.15)_100%)]"></div>
 
 					<div class="relative z-[2] px-8 pb-9 pt-20 md:px-11 md:pb-11 md:pt-[100px]">
@@ -202,18 +204,18 @@ while ( have_posts() ) :
 				</div>
 
 				<!-- Interaction portion — flush against the photo above, no
-				     headline by design (direct payoff of the hero's claim). This
-				     whole block is .no-detect-reveal: it's an interactive tool a
-				     visitor engages with immediately, not a passive content block,
-				     so it must never pick up the scroll-triggered corner-bracket
-				     effect (see NOTES.md + the JS's :not(.no-detect-reveal) guard). -->
+					headline by design (direct payoff of the hero's claim). This
+					whole block is .no-detect-reveal: it's an interactive tool a
+					visitor engages with immediately, not a passive content block,
+					so it must never pick up the scroll-triggered corner-bracket
+					effect (see NOTES.md + the JS's :not(.no-detect-reveal) guard). -->
 				<div class="no-detect-reveal glass-panel-light p-6 min-[900px]:p-8">
 					<?php if ( 'retail' === $itoi_slug ) : ?>
 
 						<!-- Label row: "Monthly foot traffic" left, "Illustrative
-						     estimate" right, same row — then the slider/number input
-						     directly below, unboxed. Still fully functional — both
-						     inputs, both wired, same JS as before. -->
+							estimate" right, same row — then the slider/number input
+							directly below, unboxed. Still fully functional — both
+							inputs, both wired, same JS as before. -->
 						<div class="mb-3 flex items-center justify-between">
 							<label for="funnelTrafficSlider" class="text-[14px] font-bold">Monthly foot traffic</label>
 							<span class="text-[13px] text-text-muted">Illustrative estimate</span>
@@ -224,7 +226,7 @@ while ( have_posts() ) :
 						</div>
 
 						<!-- Three plain columns, no arrows/dividers/background-gradient,
-						     left-aligned throughout, signature navy on Qualified Leads + Revenue. -->
+							left-aligned throughout, signature navy on Qualified Leads + Revenue. -->
 						<div class="grid grid-cols-1 gap-6 min-[640px]:grid-cols-3" id="funnelViz">
 							<div id="funnelZoneTraffic">
 								<div class="funnel-zone-label">Traffic</div>
@@ -250,9 +252,9 @@ while ( have_posts() ) :
 					<?php elseif ( 'hospitality' === $itoi_slug ) : ?>
 
 						<!-- Click-through guest-journey timeline. Stages toggle
-						     independently (any order, any combination) — clicking an
-						     active stage again turns it off. Completeness = (active
-						     stage count / total) * 100%, not tied to click order. -->
+							independently (any order, any combination) — clicking an
+							active stage again turns it off. Completeness = (active
+							stage count / total) * 100%, not tied to click order. -->
 						<div id="hospitalityTimeline" data-stage-count="<?php echo esc_attr( count( $itoi_hosp_stages ) ); ?>">
 							<div class="mb-5 flex flex-wrap gap-2.5" id="hospitalityStageRow">
 								<?php foreach ( $itoi_hosp_stages as $itoi_stage_index => $itoi_stage ) : ?>
@@ -297,11 +299,11 @@ while ( have_posts() ) :
 					<?php elseif ( 'banking-finance' === $itoi_slug ) : ?>
 
 						<!-- Access scenario simulator. Clicking a scenario card
-						     replaces whatever result is currently shown (never
-						     stacks) with a short animated response — icon state
-						     change + a fading-in log line. The log line's time
-						     is the live current time, appended client-side, not
-						     a stored/fabricated timestamp (see NOTES.md). -->
+							replaces whatever result is currently shown (never
+							stacks) with a short animated response — icon state
+							change + a fading-in log line. The log line's time
+							is the live current time, appended client-side, not
+							a stored/fabricated timestamp (see NOTES.md). -->
 						<div id="bankingSimulator">
 							<div class="mb-6 grid grid-cols-1 gap-3 min-[720px]:grid-cols-3">
 								<?php foreach ( $itoi_bank_scenarios as $itoi_scenario_index => $itoi_scenario ) : ?>
@@ -336,11 +338,11 @@ while ( have_posts() ) :
 					<?php elseif ( 'government-councils' === $itoi_slug ) : ?>
 
 						<!-- Live funding-allocation chart. Checkboxes toggle
-						     independently (any combination) — a category's bar
-						     height = baseline + sum of every currently-checked
-						     box's impact on that category (each checkbox's
-						     "impact_map" ACF field), capped at 100. Muted
-						     teal-gray = baseline, signature navy = boosted right now. -->
+							independently (any combination) — a category's bar
+							height = baseline + sum of every currently-checked
+							box's impact on that category (each checkbox's
+							"impact_map" ACF field), capped at 100. Muted
+							teal-gray = baseline, signature navy = boosted right now. -->
 						<div id="governmentFundingChart">
 							<div class="mb-7 grid grid-cols-1 gap-2.5 min-[640px]:grid-cols-2" id="governmentCheckboxRow">
 								<?php foreach ( $itoi_gov_checkboxes as $itoi_checkbox_index => $itoi_checkbox ) : ?>
@@ -377,13 +379,13 @@ while ( have_posts() ) :
 					<?php elseif ( 'logistics-warehousing' === $itoi_slug ) : ?>
 
 						<!-- Drag-to-compare incident timeline. "Without ITOI" is the
-						     always-visible base layer; "With ITOI" is an overlay
-						     clipped to the handle's position — the classic
-						     before/after image-comparison-slider pattern, built with
-						     two DOM timelines and a JS-measured width clip instead of
-						     two images (see NOTES.md). Both timelines share the same
-						     4 event labels; only each event's horizontal position and
-						     the Incident→Discovered gap label differ between them. -->
+							always-visible base layer; "With ITOI" is an overlay
+							clipped to the handle's position — the classic
+							before/after image-comparison-slider pattern, built with
+							two DOM timelines and a JS-measured width clip instead of
+							two images (see NOTES.md). Both timelines share the same
+							4 event labels; only each event's horizontal position and
+							the Incident→Discovered gap label differ between them. -->
 						<div id="logisticsComparison">
 							<div class="mb-3 flex items-center justify-between text-[12px] font-bold uppercase tracking-wide text-text-muted">
 								<span><?php echo esc_html( $itoi_log_without_label ); ?></span>
@@ -399,8 +401,8 @@ while ( have_posts() ) :
 										<?php endif; ?>
 										<?php foreach ( $itoi_log_events as $itoi_event_index => $itoi_event ) : ?>
 											<?php
-											$itoi_pos = (float) $itoi_event['without_position'];
-											$itoi_anchor = $itoi_pos <= 5 ? '0%' : ( $itoi_pos >= 95 ? '-100%' : '-50%' );
+											$itoi_pos         = (float) $itoi_event['without_position'];
+											$itoi_anchor      = $itoi_pos <= 5 ? '0%' : ( $itoi_pos >= 95 ? '-100%' : '-50%' );
 											$itoi_start_class = 0 === $itoi_event_index ? ' logistics-event--start' : '';
 											?>
 											<div class="logistics-event<?php echo esc_attr( $itoi_start_class ); ?>" style="left:<?php echo esc_attr( $itoi_pos ); ?>%">
@@ -427,7 +429,7 @@ while ( have_posts() ) :
 												if ( 0 === $itoi_event_index ) {
 													continue;
 												}
-												$itoi_pos = (float) $itoi_event['with_position'];
+												$itoi_pos    = (float) $itoi_event['with_position'];
 												$itoi_anchor = $itoi_pos <= 5 ? '0%' : ( $itoi_pos >= 95 ? '-100%' : '-50%' );
 												?>
 												<div class="logistics-event logistics-event--with" style="left:<?php echo esc_attr( $itoi_pos ); ?>%">
@@ -462,15 +464,15 @@ while ( have_posts() ) :
 					<?php elseif ( 'stadiums-events' === $itoi_slug ) : ?>
 
 						<!-- Live density visualization. Reuses the site's signature-
-						     navy-bordered "detection marker" visual language (see the
-						     hero's detection boxes: rounded-[3px] border-[1.5px]
-						     border-signature) scaled down for density display.
-						     Marker positions are pre-generated once per zone (a
-						     stable pool sized to that zone's share of the total
-						     marker cap) and JS reveals a prefix of that pool as
-						     the slider increases — markers never re-shuffle
-						     position when the count changes, only appear or
-						     disappear (see NOTES.md). -->
+							navy-bordered "detection marker" visual language (see the
+							hero's detection boxes: rounded-[3px] border-[1.5px]
+							border-signature) scaled down for density display.
+							Marker positions are pre-generated once per zone (a
+							stable pool sized to that zone's share of the total
+							marker cap) and JS reveals a prefix of that pool as
+							the slider increases — markers never re-shuffle
+							position when the count changes, only appear or
+							disappear (see NOTES.md). -->
 						<div id="stadiumDensity" data-min="<?php echo esc_attr( $itoi_stadium_min ); ?>" data-max="<?php echo esc_attr( $itoi_stadium_max ); ?>" data-max-markers="<?php echo esc_attr( $itoi_stadium_max_marker ); ?>">
 							<div class="mb-5 flex flex-wrap items-center gap-3">
 								<label for="stadiumSlider" class="text-[14px] font-bold">Event size</label>
@@ -495,11 +497,11 @@ while ( have_posts() ) :
 					<?php elseif ( 'casinos-gaming' === $itoi_slug ) : ?>
 
 						<!-- Illustrative floor-plan zone selector. Clicking a zone
-						     highlights it (signature navy) and swaps in its description below —
-						     only one zone's description shows at a time (replaced,
-						     not stacked). Zone position on the grid is fixed by row
-						     order (see the ACF field's own instructions), matching
-						     the order the spec lists them in. -->
+							highlights it (signature navy) and swaps in its description below —
+							only one zone's description shows at a time (replaced,
+							not stacked). Zone position on the grid is fixed by row
+							order (see the ACF field's own instructions), matching
+							the order the spec lists them in. -->
 						<div id="casinoFloorMap">
 							<div class="casino-floor-grid mb-5 grid gap-2.5" id="casinoZoneGrid">
 								<?php foreach ( $itoi_casino_zones as $itoi_zone_index => $itoi_zone ) : ?>
@@ -565,7 +567,7 @@ while ( have_posts() ) :
 					$itoi_hero_media = itoi_media_cover( $itoi_hero, $itoi_hero_video, $itoi_hero_alt, 'absolute inset-0 h-full w-full object-cover' );
 					?>
 					<?php if ( $itoi_hero_media ) : ?>
-						<?php echo $itoi_hero_media; ?>
+						<?php echo $itoi_hero_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 					<?php else : ?>
 						<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_name ); ?> (TODO)</div>
 					<?php endif; ?>
@@ -577,20 +579,20 @@ while ( have_posts() ) :
 			<section class="aurora-bg-light border-b border-line bg-hero-bg px-8 py-section-md" id="funnelSection" data-conversion-rate="<?php echo esc_attr( $itoi_funnel_rate ?? '' ); ?>" data-value-per-lead="<?php echo esc_attr( $itoi_funnel_value ?? '' ); ?>">
 				<div class="mx-auto max-w-[1280px]">
 					<!-- No headline here by design — this is the direct payoff of
-					     the hero's claim above, not a second hero moment. -->
+						the hero's claim above, not a second hero moment. -->
 
 					<!-- Input — no-detect-reveal: interactive control, never the passive
-					     scroll-reveal treatment (same rule as the photo-hero branch's
-					     interaction card above; this branch is currently unreachable
-					     since every industry has both hero_image + funnel_enabled set,
-					     but was a landmine carrying the exact recurring bracket bug —
-					     see NOTES.md). Wave 6 (liquid glass, light variant): the
-					     section background got aurora-bg-light for consistency with
-					     the live photo-hero branch above, but this card stays plain
-					     bg-white, untouched — it's the funnel's own interactive
-					     control, explicitly excluded from the glass/aurora treatment
-					     per the wave-6 brief, same as the live branch's
-					     .glass-panel-light card is left alone. -->
+						scroll-reveal treatment (same rule as the photo-hero branch's
+						interaction card above; this branch is currently unreachable
+						since every industry has both hero_image + funnel_enabled set,
+						but was a landmine carrying the exact recurring bracket bug —
+						see NOTES.md). Wave 6 (liquid glass, light variant): the
+						section background got aurora-bg-light for consistency with
+						the live photo-hero branch above, but this card stays plain
+						bg-white, untouched — it's the funnel's own interactive
+						control, explicitly excluded from the glass/aurora treatment
+						per the wave-6 brief, same as the live branch's
+						.glass-panel-light card is left alone. -->
 					<div class="no-detect-reveal mx-auto mb-8 flex max-w-[720px] flex-wrap items-center justify-center gap-4 rounded-2xl border border-line bg-white px-6 py-5">
 						<label for="funnelTrafficSlider" class="text-[13.5px] font-bold">Monthly foot traffic</label>
 						<input type="range" id="funnelTrafficSlider" min="1000" max="50000" step="500" value="<?php echo esc_attr( $itoi_funnel_traffic ); ?>" class="h-1.5 w-full max-w-[260px] flex-1 accent-signature">
@@ -598,8 +600,8 @@ while ( have_posts() ) :
 					</div>
 
 					<!-- Funnel visualization: one continuous card, three zones, not
-					     three separate cards — no border/gap between zones, a single
-					     background gradient and connecting chevrons carry the flow. -->
+						three separate cards — no border/gap between zones, a single
+						background gradient and connecting chevrons carry the flow. -->
 					<div class="funnel-viz mx-auto flex max-w-[1100px] flex-col overflow-hidden rounded-2xl border border-line min-[900px]:flex-row" id="funnelViz">
 						<div class="funnel-zone funnel-zone--traffic" id="funnelZoneTraffic">
 							<div class="funnel-zone-label">Traffic</div>
@@ -643,14 +645,14 @@ while ( have_posts() ) :
 	$itoi_show_longform = (bool) get_field( 'longform_enabled' );
 
 	if ( $itoi_show_longform ) :
-		$itoi_lf_overview_headline   = get_field( 'overview_headline' );
-		$itoi_lf_overview_sub        = get_field( 'overview_subheadline' );
-		$itoi_lf_overview_visual_id  = get_field( 'overview_visual' );
-		$itoi_lf_overview_visual_cap = get_field( 'overview_visual_caption' );
-		$itoi_lf_overview_video      = get_field( 'overview_video' );
+		$itoi_lf_overview_headline      = get_field( 'overview_headline' );
+		$itoi_lf_overview_sub           = get_field( 'overview_subheadline' );
+		$itoi_lf_overview_visual_id     = get_field( 'overview_visual' );
+		$itoi_lf_overview_visual_cap    = get_field( 'overview_visual_caption' );
+		$itoi_lf_overview_video         = get_field( 'overview_video' );
 		$itoi_lf_overview_process_steps = get_field( 'overview_process_diagram_steps' );
-		$itoi_lf_overview_process_style = get_field( 'overview_process_diagram_style' ) ?: 'lines';
-		$itoi_lf_feature_rows        = get_field( 'overview_feature_rows' ) ?: array();
+		$itoi_lf_overview_process_style = itoi_or( get_field( 'overview_process_diagram_style' ), 'lines' );
+		$itoi_lf_feature_rows           = itoi_or( get_field( 'overview_feature_rows' ), array() );
 
 		// Migrated 2026-07-30 (see NOTES.md): use cases are their own `use_case`
 		// CPT now (itoi_get_industry_use_cases() in inc/use-cases.php), not a
@@ -668,22 +670,22 @@ while ( have_posts() ) :
 		);
 
 		$itoi_lf_why_heading = get_field( 'why_heading' );
-		$itoi_lf_why_items   = get_field( 'why_items' ) ?: array();
+		$itoi_lf_why_items   = itoi_or( get_field( 'why_items' ), array() );
 
 		$itoi_lf_solutions_heading = get_field( 'solutions_heading' );
-		$itoi_lf_solutions         = get_field( 'longform_solutions' ) ?: array();
+		$itoi_lf_solutions         = itoi_or( get_field( 'longform_solutions' ), array() );
 
-		$itoi_lf_customers_heading       = get_field( 'customers_heading' );
-		$itoi_lf_spotlight_client_id     = get_field( 'spotlight_client' );
-		$itoi_lf_spotlight_photo_id      = get_field( 'spotlight_photo' );
-		$itoi_lf_spotlight_video         = get_field( 'spotlight_video' );
+		$itoi_lf_customers_heading   = get_field( 'customers_heading' );
+		$itoi_lf_spotlight_client_id = get_field( 'spotlight_client' );
+		$itoi_lf_spotlight_photo_id  = get_field( 'spotlight_photo' );
+		$itoi_lf_spotlight_video     = get_field( 'spotlight_video' );
 		// TEMPORARY: while spotlight_photo is a stock stand-in (2026-07-24
 		// site-wide stock-sourcing follow-up, see NOTES.md), disclose that
 		// visibly — same pattern as single-case_study.php's hero_image_is_stock,
 		// since this photo is presented next to a specific real client's name.
 		// Only applies to the photo, never to an uploaded spotlight_video.
 		$itoi_lf_spotlight_is_stock      = (bool) get_field( 'spotlight_photo_is_stock' );
-		$itoi_lf_logo_groups             = get_field( 'logo_strip_groups' ) ?: array();
+		$itoi_lf_logo_groups             = itoi_or( get_field( 'logo_strip_groups' ), array() );
 		$itoi_lf_customers_empty_message = get_field( 'customers_empty_message' );
 
 		// Resolution + case-study lookup extracted 2026-07-30 (see NOTES.md)
@@ -691,7 +693,7 @@ while ( have_posts() ) :
 		// Customers section. Resolved once here (not the render-only
 		// wrapper) since the sub-nav below needs to know whether this
 		// section will show *before* the section itself renders.
-		$itoi_lf_customers_data = itoi_get_customers_section_data(
+		$itoi_lf_customers_data         = itoi_get_customers_section_data(
 			array(
 				'heading'             => $itoi_lf_customers_heading,
 				'spotlight_client_id' => $itoi_lf_spotlight_client_id,
@@ -706,23 +708,23 @@ while ( have_posts() ) :
 		?>
 
 		<!-- ================= LONG-FORM SUB-NAV =================
-		     Sticky, sits below the main header. Top offset updated
-		     2026-08-03 (see NOTES.md) when header.php's ticker+nav became
-		     fixed on every page (was previously sticky-in-flow here,
-		     hence the old 72px value matching just the nav pill's own
-		     height) — this now has to clear the FULL fixed stack: ticker
-		     (h-[38px]) + header's own mt-3/mt-4 margin (12px/16px) + the
-		     nav pill (h-[72px]), plus an 8px gap so it doesn't touch the
-		     pill's edge. 38+12+72+8=130 / 38+16+72+8=134.
-		     Scrollspy (IntersectionObserver, not scroll-position math) in
-		     assets/js/main.js initLongformScrollspy().
+			Sticky, sits below the main header. Top offset updated
+			2026-08-03 (see NOTES.md) when header.php's ticker+nav became
+			fixed on every page (was previously sticky-in-flow here,
+			hence the old 72px value matching just the nav pill's own
+			height) — this now has to clear the FULL fixed stack: ticker
+			(h-[38px]) + header's own mt-3/mt-4 margin (12px/16px) + the
+			nav pill (h-[72px]), plus an 8px gap so it doesn't touch the
+			pill's edge. 38+12+72+8=130 / 38+16+72+8=134.
+			Scrollspy (IntersectionObserver, not scroll-position math) in
+			assets/js/main.js initLongformScrollspy().
 
-		     2026-08-04 (see NOTES.md): once this sub-nav goes sticky, the
-		     fixed main nav (#siteHeaderFixed, header.php) now hides itself
-		     rather than sitting stacked on top of it — initLongformHeaderHide()
-		     in main.js watches the 1px sentinel immediately below via
-		     IntersectionObserver, reading this nav's own computed `top` so the
-		     two never drift out of sync with each other. -->
+			2026-08-04 (see NOTES.md): once this sub-nav goes sticky, the
+			fixed main nav (#siteHeaderFixed, header.php) now hides itself
+			rather than sitting stacked on top of it — initLongformHeaderHide()
+			in main.js watches the 1px sentinel immediately below via
+			IntersectionObserver, reading this nav's own computed `top` so the
+			two never drift out of sync with each other. -->
 		<div id="longformSubnavSentinel" aria-hidden="true"></div>
 		<nav class="longform-subnav sticky top-[130px] z-[45] border-b border-line bg-white min-[640px]:top-[134px]" aria-label="<?php echo esc_attr( $itoi_name ); ?> page sections">
 			<div class="no-scrollbar mx-auto flex max-w-[1280px] items-center justify-center gap-1 overflow-x-auto px-8 min-[640px]:gap-3" id="longformSubnav">
@@ -748,13 +750,13 @@ while ( have_posts() ) :
 
 		<!-- ================= OVERVIEW ================= -->
 		<!-- Headline/sub restructured 2026-07-31 (see NOTES.md) to two-column
-		     (heading left, body right) with an optional CAPTURE → ANALYSE →
-		     ACT-style diagram (itoi_render_process_diagram(),
-		     inc/process-diagram.php — shared with single-solution.php's own
-		     Overview section) below it. The hero visual and
-		     overview_feature_rows further down are unchanged, just now
-		     sitting below the diagram instead of directly below the
-		     headline. -->
+			(heading left, body right) with an optional CAPTURE → ANALYSE →
+			ACT-style diagram (itoi_render_process_diagram(),
+			inc/process-diagram.php — shared with single-solution.php's own
+			Overview section) below it. The hero visual and
+			overview_feature_rows further down are unchanged, just now
+			sitting below the diagram instead of directly below the
+			headline. -->
 		<section id="overview" class="aurora-bg-light scroll-mt-[128px] border-b border-line px-8 py-section-md">
 			<div class="mx-auto max-w-[1280px]">
 				<?php if ( $itoi_lf_overview_headline || $itoi_lf_overview_sub ) : ?>
@@ -772,11 +774,11 @@ while ( have_posts() ) :
 
 				<?php
 				$itoi_lf_overview_visual_url = $itoi_lf_overview_visual_id ? wp_get_attachment_image_url( $itoi_lf_overview_visual_id, 'large' ) : '';
-				$itoi_lf_overview_media      = itoi_media_cover( $itoi_lf_overview_visual_url, $itoi_lf_overview_video, $itoi_lf_overview_visual_cap ?: $itoi_name, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+				$itoi_lf_overview_media      = itoi_media_cover( $itoi_lf_overview_visual_url, $itoi_lf_overview_video, itoi_or( $itoi_lf_overview_visual_cap, $itoi_name ), 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 				?>
 				<div class="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 					<?php if ( $itoi_lf_overview_media ) : ?>
-						<?php echo $itoi_lf_overview_media; ?>
+						<?php echo $itoi_lf_overview_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 					<?php else : ?>
 						<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]"><?php echo esc_html( $itoi_lf_overview_visual_cap ); ?> (TODO)</div>
 					<?php endif; ?>
@@ -788,7 +790,7 @@ while ( have_posts() ) :
 						foreach ( $itoi_lf_feature_rows as $itoi_row_index => $itoi_row ) :
 							$itoi_row_image_id  = $itoi_row['image'];
 							$itoi_row_image_url = $itoi_row_image_id ? wp_get_attachment_image_url( $itoi_row_image_id, 'large' ) : '';
-							$itoi_row_media     = itoi_media_cover( $itoi_row_image_url, $itoi_row['video'] ?? null, $itoi_row['image_caption'] ?: $itoi_row['headline'], 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+							$itoi_row_media     = itoi_media_cover( $itoi_row_image_url, $itoi_row['video'] ?? null, itoi_or( $itoi_row['image_caption'], $itoi_row['headline'] ), 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 
 							ob_start();
 							?>
@@ -810,7 +812,7 @@ while ( have_posts() ) :
 							?>
 							<div class="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 								<?php if ( $itoi_row_media ) : ?>
-									<?php echo $itoi_row_media; ?>
+									<?php echo $itoi_row_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 								<?php else : ?>
 									<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]"><?php echo esc_html( $itoi_row['image_caption'] ); ?> (TODO)</div>
 								<?php endif; ?>
@@ -819,7 +821,7 @@ while ( have_posts() ) :
 							$itoi_row_visual_html = ob_get_clean();
 							?>
 							<div class="grid grid-cols-1 items-center gap-8 min-[980px]:grid-cols-2 min-[980px]:gap-14">
-								<?php echo ( 1 === $itoi_row_index % 2 ) ? $itoi_row_visual_html . $itoi_row_text_html : $itoi_row_text_html . $itoi_row_visual_html; ?>
+								<?php echo ( 1 === $itoi_row_index % 2 ) ? $itoi_row_visual_html . $itoi_row_text_html : $itoi_row_text_html . $itoi_row_visual_html; // phpcs:ignore -- both halves are ob_get_clean() of already-esc_html()'d/itoi_media_cover()-escaped markup above. ?>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -845,12 +847,12 @@ while ( have_posts() ) :
 							// twice per card. Only this call site changed; other
 							// itoi_media_cover() callers keep real alt text where the
 							// image is the only source of that information.
-							$itoi_uc_media     = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], '', 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+							$itoi_uc_media = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], '', 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 							?>
 							<a href="<?php echo esc_url( $itoi_uc['solution_url'] ); ?>" class="use-case-card glass-element-light group block overflow-hidden rounded-2xl transition-all hover:-translate-y-[3px]">
 								<div class="relative aspect-[16/10] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
 									<?php if ( $itoi_uc_media ) : ?>
-										<?php echo $itoi_uc_media; ?>
+										<?php echo $itoi_uc_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_uc['label'] ); ?> (TODO)</div>
 									<?php endif; ?>
@@ -868,14 +870,14 @@ while ( have_posts() ) :
 
 		<!-- ================= WHY ITOI ================= -->
 		<!-- wave 4 (liquid glass, see NOTES.md): added aurora-bg to this
-		     section (already bg-teal-900, no color-token fixes needed here
-		     unlike the other 2 wave-4 sections). Each of the 6 why_items
-		     previously sat directly on the section background with no card
-		     wrapper at all — added one (padding/border/radius) since
-		     "convert cards to glass" needs an actual card, then applied
-		     .why-benefit-card-glass to it. Icon/headline/body colors
-		     (already white/white-70 — this section was already dark)
-		     unchanged. -->
+			section (already bg-teal-900, no color-token fixes needed here
+			unlike the other 2 wave-4 sections). Each of the 6 why_items
+			previously sat directly on the section background with no card
+			wrapper at all — added one (padding/border/radius) since
+			"convert cards to glass" needs an actual card, then applied
+			.why-benefit-card-glass to it. Icon/headline/body colors
+			(already white/white-70 — this section was already dark)
+			unchanged. -->
 		<section id="why-itoi" class="aurora-bg scroll-mt-[128px] bg-teal-900 px-8 py-section-lg">
 			<div class="mx-auto max-w-[1280px]">
 				<h2 class="mb-10 text-center text-[clamp(26px,3vw,38px)] text-white"><?php echo esc_html( $itoi_lf_why_heading ); ?></h2>
@@ -896,9 +898,9 @@ while ( have_posts() ) :
 		</section>
 
 		<!-- ================= SOLUTIONS =================
-		     Matches archive-solution.php's tile markup exactly (no shared
-		     component was extracted this session — see NOTES.md — so this
-		     duplicates that file's classes rather than diverging from them). -->
+			Matches archive-solution.php's tile markup exactly (no shared
+			component was extracted this session — see NOTES.md — so this
+			duplicates that file's classes rather than diverging from them). -->
 		<section id="solutions" class="aurora-bg-light scroll-mt-[128px] border-b border-line px-8 py-section-md">
 			<div class="mx-auto max-w-[1280px]">
 				<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
@@ -912,10 +914,10 @@ while ( have_posts() ) :
 							if ( 'publish' !== get_post_status( $itoi_sid ) ) {
 								continue;
 							}
-							$itoi_s_eyebrow  = get_field( 'eyebrow', $itoi_sid );
-							$itoi_s_headline = get_field( 'headline', $itoi_sid ) ?: get_the_title( $itoi_sid );
-							$itoi_s_tile_id  = get_field( 'tile_image', $itoi_sid );
-							$itoi_s_tile_url = $itoi_s_tile_id ? wp_get_attachment_image_url( $itoi_s_tile_id, 'medium_large' ) : '';
+							$itoi_s_eyebrow    = get_field( 'eyebrow', $itoi_sid );
+							$itoi_s_headline   = itoi_or( get_field( 'headline', $itoi_sid ), get_the_title( $itoi_sid ) );
+							$itoi_s_tile_id    = get_field( 'tile_image', $itoi_sid );
+							$itoi_s_tile_url   = $itoi_s_tile_id ? wp_get_attachment_image_url( $itoi_s_tile_id, 'medium_large' ) : '';
 							$itoi_s_tile_video = get_field( 'tile_video', $itoi_sid );
 							?>
 							<a href="<?php echo esc_url( get_permalink( $itoi_sid ) ); ?>" class="group glass-element-light block rounded-2xl">
@@ -924,7 +926,7 @@ while ( have_posts() ) :
 									$itoi_s_tile_media = itoi_media_cover( $itoi_s_tile_url, $itoi_s_tile_video, $itoi_s_headline, 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 									?>
 									<?php if ( $itoi_s_tile_media ) : ?>
-										<?php echo $itoi_s_tile_media; ?>
+										<?php echo $itoi_s_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_s_headline ); ?> (TODO)</div>
 									<?php endif; ?>
@@ -944,15 +946,15 @@ while ( have_posts() ) :
 		</section>
 
 		<!-- ================= CUSTOMERS =================
-		     Only rendered at all when $itoi_lf_show_customers_section is
-		     true (real spotlight, real logo-strip rows, or an explicit
-		     empty-state message) — an industry with zero confirmed clients
-		     and no empty-state copy omits this section (and its sub-nav
-		     link above) entirely rather than showing a heading over
-		     nothing. See NOTES.md for which industries hit which branch.
-		     Render logic extracted 2026-07-30 into
-		     inc/customers-section.php — shared with the homepage's own
-		     Customers section (see NOTES.md). -->
+			Only rendered at all when $itoi_lf_show_customers_section is
+			true (real spotlight, real logo-strip rows, or an explicit
+			empty-state message) — an industry with zero confirmed clients
+			and no empty-state copy omits this section (and its sub-nav
+			link above) entirely rather than showing a heading over
+			nothing. See NOTES.md for which industries hit which branch.
+			Render logic extracted 2026-07-30 into
+			inc/customers-section.php — shared with the homepage's own
+			Customers section (see NOTES.md). -->
 		<?php if ( $itoi_lf_show_customers_section ) : ?>
 			<?php itoi_render_customers_section_data( $itoi_lf_customers_data ); ?>
 		<?php endif; ?>
@@ -977,11 +979,12 @@ while ( have_posts() ) :
 			<div class="mx-auto max-w-[1280px]">
 				<h2 class="mb-8 text-2xl">Solutions for <?php echo esc_html( $itoi_name ); ?></h2>
 				<div class="grid grid-cols-1 gap-6 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3">
-					<?php foreach ( $itoi_rel_solutions as $itoi_sid ) :
+					<?php
+					foreach ( $itoi_rel_solutions as $itoi_sid ) :
 						if ( 'publish' !== get_post_status( $itoi_sid ) ) {
 							continue;
 						}
-						$itoi_s_headline = get_field( 'headline', $itoi_sid ) ?: get_the_title( $itoi_sid );
+						$itoi_s_headline = itoi_or( get_field( 'headline', $itoi_sid ), get_the_title( $itoi_sid ) );
 						$itoi_s_dek      = get_field( 'dek', $itoi_sid );
 						?>
 						<a href="<?php echo esc_url( get_permalink( $itoi_sid ) ); ?>" class="glass-element-light block rounded-xl px-5 py-5 transition-all hover:-translate-y-[3px]">
@@ -1005,7 +1008,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Contact us</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

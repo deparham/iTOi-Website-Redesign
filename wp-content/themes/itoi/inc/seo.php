@@ -21,6 +21,8 @@
  * All values are sourced from ACF fields or core post data. If a field is
  * empty, functions here return/output nothing for that piece — never
  * invented copy (PROJECT.md §6).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -73,7 +75,7 @@ function itoi_seo_resolve_description() {
 		'solution'   => 'dek',
 		'product'    => 'dek',
 		'industry'   => 'dek',
-		'case_study' => 'headline', // case studies use 'headline', not 'dek'
+		'case_study' => 'headline', // Case studies use the headline field, not dek.
 		'insight'    => 'dek',
 		'guide'      => 'dek',
 		'page'       => 'dek',
@@ -110,6 +112,9 @@ function itoi_seo_default_description() {
  * Yoast fallback — only supplies a description when Yoast's own value
  * (editor-set meta box, or Yoast's own auto-generated fallback) is empty.
  * Never overrides a value Yoast already produced.
+ *
+ * @param string $metadesc Yoast's own resolved meta description, possibly empty.
+ * @return string $metadesc unchanged if non-empty, otherwise the resolved fallback.
  */
 function itoi_seo_metadesc_fallback( $metadesc ) {
 	if ( $metadesc ) {
@@ -154,6 +159,9 @@ add_action( 'wp_head', 'itoi_seo_output_metadesc_no_yoast', 20 );
  * already applies automatically once nothing else is found (see
  * Open_Graph_Image_Generator::add_from_default() in the plugin itself);
  * not reimplemented here to avoid a second, competing fallback path.
+ *
+ * @param int $post_id The current singular post's ID.
+ * @return int The resolved attachment ID, or 0 if neither ACF field is set.
  */
 function itoi_seo_resolve_share_image_id( $post_id ) {
 	$hero_image_id = get_field( 'hero_image', $post_id );
@@ -194,6 +202,8 @@ function itoi_seo_resolve_share_image_id( $post_id ) {
  * by reading wp-content/plugins/wordpress-seo/src/presenters/open-graph/
  * image-presenter.php directly rather than assuming the filter name in
  * the task description was the right integration point.
+ *
+ * @param \Yoast\WP\SEO\Values\Open_Graph\Images $image_container Yoast's Open Graph image list for the current page.
  */
 function itoi_seo_add_opengraph_image_fallback( $image_container ) {
 	if ( ! is_singular() ) {
@@ -239,6 +249,8 @@ if ( defined( 'WPSEO_VERSION' ) ) {
  * exactly this — it resolves which underlying option a given settings
  * key actually belongs to instead of a theme having to hardcode that
  * mapping (and risk it changing between Yoast versions).
+ *
+ * @param int|string $post_id The saved ACF options page's post_id (always the string 'options' for all 4 of this theme's option pages).
  */
 function itoi_seo_sync_og_default_image( $post_id ) {
 	if ( 'options' !== $post_id || ! defined( 'WPSEO_VERSION' ) || ! class_exists( 'WPSEO_Options' ) ) {
@@ -283,6 +295,9 @@ add_action( 'acf/save_post', 'itoi_seo_sync_og_default_image', 20 );
  * page-education.php) don't create a second URL at all — the filtering
  * never changes the URL, so there's no separate address for a search
  * engine to index in the first place; nothing to canonicalize there.
+ *
+ * @param string $canonical Yoast's own resolved canonical URL.
+ * @return string The archive's unpaginated URL when on a paged CPT archive, otherwise $canonical unchanged.
  */
 function itoi_seo_canonical_paginated_archive( $canonical ) {
 	if ( ! is_post_type_archive() || ! is_paged() ) {
@@ -342,6 +357,9 @@ function itoi_seo_should_noindex() {
  * navigation links worth letting search engines follow; only the page
  * itself shouldn't rank), not just the Solution Builder case the task
  * specifically named "noindex,follow" for.
+ *
+ * @param string $robots Yoast's own formatted robots meta string, e.g. "index, follow, max-snippet:-1".
+ * @return string $robots with the leading index token swapped for noindex, or unchanged if this request shouldn't be noindexed.
  */
 function itoi_seo_robots_noindex_filter( $robots ) {
 	if ( ! itoi_seo_should_noindex() ) {
@@ -360,6 +378,11 @@ if ( defined( 'WPSEO_VERSION' ) ) {
 	add_filter( 'wpseo_robots', 'itoi_seo_robots_noindex_filter' );
 }
 
+/**
+ * No-Yoast direct robots meta output for the same 3 pages
+ * itoi_seo_robots_noindex_filter() covers via the wpseo_robots filter —
+ * only runs when Yoast isn't installed.
+ */
 function itoi_seo_output_robots_no_yoast() {
 	if ( defined( 'WPSEO_VERSION' ) || ! itoi_seo_should_noindex() ) {
 		return;
@@ -449,6 +472,9 @@ function itoi_seo_current_archive_fallback() {
  * Yoast's un-replaced replace-var tokens (%%pt_plural%%, %%sitename%%,
  * etc.) only ever appear in its own unconfigured defaults; nobody hand-
  * types that syntax into a real custom title.
+ *
+ * @param string $post_type The CPT slug being checked, e.g. 'insight'.
+ * @return bool Whether this archive already has a real, editor-set title.
  */
 function itoi_seo_archive_title_is_configured( $post_type ) {
 	$titles_option = get_option( 'wpseo_titles' );
@@ -456,13 +482,27 @@ function itoi_seo_archive_title_is_configured( $post_type ) {
 	return '' !== $value && false === strpos( $value, '%%' );
 }
 
-/** Same check for the metadesc side — Yoast's default there is genuinely an empty string, so this one IS a plain emptiness check. */
+/**
+ * Same check for the metadesc side — Yoast's default there is genuinely
+ * an empty string, so this one IS a plain emptiness check.
+ *
+ * @param string $post_type The CPT slug being checked, e.g. 'insight'.
+ * @return bool Whether this archive already has a real, editor-set meta description.
+ */
 function itoi_seo_archive_metadesc_is_configured( $post_type ) {
 	$titles_option = get_option( 'wpseo_titles' );
 	$value         = isset( $titles_option[ 'metadesc-ptarchive-' . $post_type ] ) ? $titles_option[ 'metadesc-ptarchive-' . $post_type ] : '';
 	return '' !== $value;
 }
 
+/**
+ * Yoast wpseo_title / document_title_parts fallback — supplies this
+ * archive's fallback title only when Yoast has no real, editor-configured
+ * one (see itoi_seo_archive_title_is_configured()).
+ *
+ * @param string $title Yoast's own resolved title, or the raw document_title_parts title when Yoast is absent.
+ * @return string The fallback title when unconfigured, otherwise $title unchanged.
+ */
 function itoi_seo_archive_title_fallback( $title ) {
 	$current = itoi_seo_current_archive_fallback();
 	if ( ! $current ) {
@@ -490,6 +530,14 @@ if ( defined( 'WPSEO_VERSION' ) ) {
 	);
 }
 
+/**
+ * Yoast wpseo_metadesc fallback — supplies this archive's fallback meta
+ * description only when Yoast has no real, editor-configured one (see
+ * itoi_seo_archive_metadesc_is_configured()).
+ *
+ * @param string $metadesc Yoast's own resolved meta description, possibly empty.
+ * @return string The fallback description when unconfigured, otherwise $metadesc unchanged.
+ */
 function itoi_seo_archive_metadesc_fallback( $metadesc ) {
 	$current = itoi_seo_current_archive_fallback();
 	if ( ! $current ) {
@@ -632,6 +680,12 @@ function itoi_seo_register_fallback_sitemap() {
 }
 add_action( 'init', 'itoi_seo_register_fallback_sitemap' );
 
+/**
+ * The template_redirect callback registered by
+ * itoi_seo_register_fallback_sitemap() — renders the fallback XML sitemap
+ * and exits when the itoi_sitemap query var is set, otherwise returns
+ * immediately without touching output.
+ */
 function itoi_seo_output_fallback_sitemap() {
 	if ( defined( 'WPSEO_VERSION' ) || ! get_query_var( 'itoi_sitemap' ) ) {
 		return;
@@ -741,9 +795,13 @@ function itoi_seo_output_fallback_sitemap() {
  * returns, rather than replacing it. Adding a Sitemap: line here too
  * when Yoast is active would just duplicate the exact same line Yoast's
  * own block already adds a few lines below it.
+ *
+ * @param string $output    Core's own generated robots.txt content.
+ * @param bool   $is_public Whether Settings > Reading's "discourage search engines" box is unchecked.
+ * @return string The customized robots.txt content.
  */
-function itoi_seo_robots_txt( $output, $public ) {
-	if ( ! $public ) {
+function itoi_seo_robots_txt( $output, $is_public ) {
+	if ( ! $is_public ) {
 		return "User-agent: *\nDisallow: /\n";
 	}
 

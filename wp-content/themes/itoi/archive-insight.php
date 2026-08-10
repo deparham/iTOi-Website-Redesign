@@ -7,6 +7,8 @@
  * Zero insight posts are published as of Phase 5 (see NOTES.md) — that's
  * a real, honest empty state (matches the live site having no blog
  * section yet), not a bug, so it's rendered as a message, not hidden.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -49,7 +51,16 @@ $itoi_insights_query = new WP_Query(
 					<a href="<?php the_permalink(); ?>" class="group flex flex-col gap-5 py-8 min-[640px]:flex-row min-[640px]:items-center">
 						<div class="relative aspect-[4/3] w-full flex-none overflow-hidden rounded-xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] min-[640px]:w-[220px]">
 							<?php if ( $itoi_thumb ) : ?>
-								<?php echo get_the_post_thumbnail( get_the_ID(), 'medium', array( 'class' => 'absolute inset-0 h-full w-full object-cover', 'alt' => get_the_title_attribute( array( 'echo' => false ) ) ) ); ?>
+								<?php
+								echo get_the_post_thumbnail(
+									get_the_ID(),
+									'medium',
+									array(
+										'class' => 'absolute inset-0 h-full w-full object-cover',
+										'alt'   => get_the_title_attribute( array( 'echo' => false ) ),
+									)
+								);
+								?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php the_title_attribute(); ?> (TODO)</div>
 							<?php endif; ?>

@@ -4,6 +4,8 @@
  * ACF dek + author (PROJECT.md §4). Author is a `team_member` relationship;
  * team_member has no public single template yet (out of Phase 7 scope),
  * so the byline renders as plain name/photo, not a link.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,16 +17,16 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$itoi_dek       = get_field( 'dek' );
-	$itoi_author_id = get_field( 'author' );
-	$itoi_author_id = ! empty( $itoi_author_id ) ? $itoi_author_id[0] : null;
-	$itoi_author    = $itoi_author_id ? get_field( 'name', $itoi_author_id ) : '';
+	$itoi_dek          = get_field( 'dek' );
+	$itoi_author_id    = get_field( 'author' );
+	$itoi_author_id    = ! empty( $itoi_author_id ) ? $itoi_author_id[0] : null;
+	$itoi_author       = $itoi_author_id ? get_field( 'name', $itoi_author_id ) : '';
 	$itoi_author_role  = $itoi_author_id ? get_field( 'role', $itoi_author_id ) : '';
-	$itoi_photo_id  = $itoi_author_id ? get_field( 'photo', $itoi_author_id ) : null;
-	$itoi_photo     = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'thumbnail' ) : '';
-	$itoi_video     = $itoi_author_id ? get_field( 'video', $itoi_author_id ) : null;
+	$itoi_photo_id     = $itoi_author_id ? get_field( 'photo', $itoi_author_id ) : null;
+	$itoi_photo        = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'thumbnail' ) : '';
+	$itoi_video        = $itoi_author_id ? get_field( 'video', $itoi_author_id ) : null;
 	$itoi_author_media = itoi_media_cover( $itoi_photo, $itoi_video, $itoi_author, 'h-10 w-10 rounded-full object-cover' );
-	$itoi_hero      = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+	$itoi_hero         = get_the_post_thumbnail_url( get_the_ID(), 'large' );
 	?>
 
 	<section class="border-b border-line bg-hero-bg px-8 pt-[168px] pb-16 min-[640px]:pt-[206px] min-[980px]:pb-[70px]">
@@ -36,7 +38,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 			<div class="mt-6 flex items-center gap-3">
 				<?php if ( $itoi_author_media ) : ?>
-					<?php echo $itoi_author_media; ?>
+					<?php echo $itoi_author_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 				<?php endif; ?>
 				<div class="text-[13.5px]">
 					<?php if ( $itoi_author ) : ?>
@@ -51,7 +53,16 @@ while ( have_posts() ) :
 	<?php if ( $itoi_hero ) : ?>
 		<section class="px-8 pt-16 min-[980px]:pt-[70px]">
 			<div class="relative mx-auto aspect-[16/9] max-w-[900px] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
-				<?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'class' => 'absolute inset-0 h-full w-full object-cover', 'alt' => get_the_title_attribute( array( 'echo' => false ) ) ) ); ?>
+				<?php
+				echo get_the_post_thumbnail(
+					get_the_ID(),
+					'large',
+					array(
+						'class' => 'absolute inset-0 h-full w-full object-cover',
+						'alt'   => get_the_title_attribute( array( 'echo' => false ) ),
+					)
+				);
+				?>
 			</div>
 		</section>
 	<?php endif; ?>
@@ -69,7 +80,7 @@ while ( have_posts() ) :
 		</div>
 	</section>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

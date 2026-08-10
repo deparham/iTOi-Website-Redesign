@@ -8,6 +8,8 @@
  * immediately above is bg-white. Icon function: itoi_outcome_icon()
  * (inc/home-icons.php). Split out of front-page.php 2026-08-06
  * (template-parts split).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,12 +21,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 // security" rather than "Strengthen site security", etc.) — real solution
 // links unchanged.
 $itoi_outcome_cards = array(
-	array( 'icon' => 'security', 'title' => 'Improve site security', 'desc' => 'Manage access, inventory and biometric entry from one system.', 'url' => '/solutions/security-access-inventory/' ),
-	array( 'icon' => 'conversion', 'title' => 'Understand visitor behaviour', 'desc' => 'Connect foot-traffic and activity data to see what\'s actually happening on site.', 'url' => '/solutions/intelligence-analytics/' ),
-	array( 'icon' => 'compare', 'title' => 'Compare location performance', 'desc' => 'Report across every location from a single, consistent dashboard.', 'url' => '/solutions/intelligence-analytics/' ),
-	array( 'icon' => 'staffing', 'title' => 'Optimise staffing and resources', 'desc' => 'Match rosters to real occupancy and activity patterns, not guesswork.', 'url' => '/solutions/workforce-ops-robotics/' ),
-	array( 'icon' => 'automate', 'title' => 'Automate operational responses', 'desc' => 'Hand off routine facility and back-of-house tasks to the platform.', 'url' => '/solutions/back-of-house-integration/' ),
-	array( 'icon' => 'blind-spots', 'title' => 'Reduce unnecessary alerts', 'desc' => 'Cover every zone with video and loss-prevention monitoring that cuts false positives.', 'url' => '/solutions/cctv-video-loss-prevention/' ),
+	array(
+		'icon'  => 'security',
+		'title' => 'Improve site security',
+		'desc'  => 'Manage access, inventory and biometric entry from one system.',
+		'url'   => '/solutions/security-access-inventory/',
+	),
+	array(
+		'icon'  => 'conversion',
+		'title' => 'Understand visitor behaviour',
+		'desc'  => 'Connect foot-traffic and activity data to see what\'s actually happening on site.',
+		'url'   => '/solutions/intelligence-analytics/',
+	),
+	array(
+		'icon'  => 'compare',
+		'title' => 'Compare location performance',
+		'desc'  => 'Report across every location from a single, consistent dashboard.',
+		'url'   => '/solutions/intelligence-analytics/',
+	),
+	array(
+		'icon'  => 'staffing',
+		'title' => 'Optimise staffing and resources',
+		'desc'  => 'Match rosters to real occupancy and activity patterns, not guesswork.',
+		'url'   => '/solutions/workforce-ops-robotics/',
+	),
+	array(
+		'icon'  => 'automate',
+		'title' => 'Automate operational responses',
+		'desc'  => 'Hand off routine facility and back-of-house tasks to the platform.',
+		'url'   => '/solutions/back-of-house-integration/',
+	),
+	array(
+		'icon'  => 'blind-spots',
+		'title' => 'Reduce unnecessary alerts',
+		'desc'  => 'Cover every zone with video and loss-prevention monitoring that cuts false positives.',
+		'url'   => '/solutions/cctv-video-loss-prevention/',
+	),
 );
 ?>
 <section class="border-b border-line bg-hero-bg px-5 py-section-lg min-[640px]:px-8" id="coreOutcomes">

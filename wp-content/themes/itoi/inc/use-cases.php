@@ -12,6 +12,8 @@
  * source. This file is still the single place that queries use cases so
  * the /use-cases/ hub, the nav dropdown, the homepage teaser, and each
  * industry's own long-form Use Cases tab all draw from one source.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Flat list of every real, industry-linked use case sitewide.
  *
  * @param array $args {
+ *     Optional filter args.
+ *
  *     @type bool $featured_only Only rows with the "Featured in nav dropdown" flag set.
+ *                                Default false.
  * }
  * @return array[] Each row: key, label, image_id, video, solution_id, solution_title,
  *                  solution_url, industry_id, industry_name, industry_slug, featured_in_nav.
@@ -52,15 +57,15 @@ function itoi_get_industry_use_cases( $args = array() ) {
 				continue;
 			}
 
-			$itoi_industry_name = get_field( 'name', $itoi_industry_id ) ?: get_the_title( $itoi_industry_id );
+			$itoi_industry_name = itoi_or( get_field( 'name', $itoi_industry_id ), get_the_title( $itoi_industry_id ) );
 
 			$itoi_all_use_cases[] = array(
 				'key'             => 'use-case-' . $itoi_uc_post->ID,
 				'label'           => get_the_title( $itoi_uc_post ),
-				'image_id'        => get_field( 'photo', $itoi_uc_post->ID ) ?: 0,
-				'video'           => get_field( 'video', $itoi_uc_post->ID ) ?: null,
+				'image_id'        => itoi_or( get_field( 'photo', $itoi_uc_post->ID ), 0 ),
+				'video'           => itoi_or( get_field( 'video', $itoi_uc_post->ID ), null ),
 				'solution_id'     => $itoi_solution_id,
-				'solution_title'  => get_field( 'headline', $itoi_solution_id ) ?: get_the_title( $itoi_solution_id ),
+				'solution_title'  => itoi_or( get_field( 'headline', $itoi_solution_id ), get_the_title( $itoi_solution_id ) ),
 				'solution_url'    => get_permalink( $itoi_solution_id ),
 				'industry_id'     => $itoi_industry_id,
 				'industry_name'   => $itoi_industry_name,
@@ -96,8 +101,8 @@ function itoi_get_industry_use_cases( $args = array() ) {
  * @return array[] Each row: title, url.
  */
 function itoi_get_nav_use_case_children() {
-	$itoi_featured  = itoi_get_industry_use_cases( array( 'featured_only' => true ) );
-	$itoi_children  = array();
+	$itoi_featured = itoi_get_industry_use_cases( array( 'featured_only' => true ) );
+	$itoi_children = array();
 
 	foreach ( $itoi_featured as $itoi_uc ) {
 		$itoi_children[] = array(

@@ -16,6 +16,8 @@
  * — same underlying $steps data shape either way, so it stays one editable
  * field structure sitewide instead of forking into two disconnected
  * systems for what a visitor experiences as the same kind of component.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Renders one process-step icon by slug.
+ *
  * @param string $slug    One of: camera-pos, processor-node, dashboard-arrow, shield, database,
  *                        network, floor-plan-nodes, switch-poe, lifecycle-shield, headset-clock.
  * @param string $classes Tailwind size classes for the <svg>.
@@ -67,9 +71,9 @@ function itoi_render_process_diagram( $steps, $style = 'lines' ) {
 	if ( empty( $steps ) ) {
 		return;
 	}
-	$itoi_pd_is_dots = 'dots' === $style;
+	$itoi_pd_is_dots      = 'dots' === $style;
 	$itoi_pd_icon_classes = $itoi_pd_is_dots ? 'h-12 w-12' : 'h-9 w-9';
-	$itoi_pd_top_margin = $itoi_pd_is_dots ? 'mt-10 min-[980px]:mt-10' : 'mt-12 min-[980px]:mt-16';
+	$itoi_pd_top_margin   = $itoi_pd_is_dots ? 'mt-10 min-[980px]:mt-10' : 'mt-12 min-[980px]:mt-16';
 	?>
 	<div class="mx-auto <?php echo esc_attr( $itoi_pd_top_margin ); ?> flex max-w-[700px] items-start justify-center">
 		<?php foreach ( $steps as $itoi_pd_i => $itoi_pd_step ) : ?>

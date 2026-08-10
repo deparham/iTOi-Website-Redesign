@@ -6,6 +6,8 @@
  * questions — reuses the same [data-filter-root] pattern built for the
  * Glossary/FAQ pages (assets/js/main.js, initItoiFilterLists), just applied
  * to a merged, capped list rather than the full content of any one page.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,13 +25,13 @@ $itoi_guides_query = new WP_Query(
 		'order'          => 'ASC',
 	)
 );
-$itoi_guide_count = $itoi_guides_query->found_posts;
+$itoi_guide_count  = $itoi_guides_query->found_posts;
 
 $itoi_glossary_terms = itoi_edu_get_glossary_terms();
 $itoi_glossary_count = count( $itoi_glossary_terms );
 
 $itoi_faq_groups = itoi_edu_get_all_faqs();
-$itoi_faq_count   = 0;
+$itoi_faq_count  = 0;
 foreach ( $itoi_faq_groups as $itoi_group ) {
 	$itoi_faq_count += count( $itoi_group['faqs'] );
 }
@@ -57,14 +59,14 @@ while ( have_posts() ) :
 					while ( $itoi_guides_query->have_posts() ) :
 						$itoi_guides_query->the_post();
 						$itoi_quick_items[] = array(
-							'label' => ( get_field( 'title' ) ?: get_the_title() ) . ' — Guide',
+							'label' => itoi_or( get_field( 'title' ), get_the_title() ) . ' — Guide',
 							'url'   => get_permalink(),
 						);
 					endwhile;
 					wp_reset_postdata();
 
 					foreach ( $itoi_glossary_terms as $itoi_term_post ) :
-						$itoi_term_name = get_field( 'term', $itoi_term_post->ID ) ?: $itoi_term_post->post_title;
+						$itoi_term_name     = itoi_or( get_field( 'term', $itoi_term_post->ID ), $itoi_term_post->post_title );
 						$itoi_quick_items[] = array(
 							'label' => $itoi_term_name . ' — Glossary',
 							'url'   => home_url( '/education/glossary/#term-' . sanitize_title( $itoi_term_name ) ),
@@ -146,7 +148,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Get demo</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

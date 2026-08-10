@@ -1,6 +1,8 @@
 <?php
 /**
  * Core theme supports and setup.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,18 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Self-hosted sans-serif per PROJECT.md §3 (Inter or Manrope) — see NOTES.md for the choice.
 define( 'ITOI_FONT_LABEL', 'Inter' );
 
+/**
+ * Registers this theme's core supports, nav menus, and custom image sizes.
+ */
 function itoi_theme_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'automatic-feed-links' );
-	add_theme_support( 'custom-logo', array(
-		'height'      => 94,
-		'width'       => 279,
-		'flex-height' => true,
-		'flex-width'  => true,
-	) );
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 94,
+			'width'       => 279,
+			'flex-height' => true,
+			'flex-width'  => true,
+		)
+	);
 
 	register_nav_menus(
 		array(

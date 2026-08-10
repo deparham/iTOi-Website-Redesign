@@ -16,6 +16,8 @@
  * label), extending the site's existing "Live Detection" dark-hero
  * identity — not a new sanctioned spot for the signature color elsewhere
  * (CLAUDE.md's hard rule). Font is Inter (self-hosted), not Manrope.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,7 +42,7 @@ get_header();
  */
 function itoi_product_visual( $photo_id, $video_field, $caption, $todo_label, $media_classes, $placeholder_classes ) {
 	$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'large' ) : '';
-	$photo_alt = $photo_id ? ( get_post_meta( $photo_id, '_wp_attachment_image_alt', true ) ?: '' ) : '';
+	$photo_alt = $photo_id ? itoi_or( get_post_meta( $photo_id, '_wp_attachment_image_alt', true ), '' ) : '';
 	$media     = itoi_media_cover( $photo_url, $video_field, $photo_alt, $media_classes );
 
 	if ( $media ) {
@@ -61,29 +63,30 @@ while ( have_posts() ) :
 	the_post();
 
 	$itoi_product_id = get_the_ID();
-	$itoi_sections    = get_field( 'page_sections', $itoi_product_id ) ?: array();
+	$itoi_sections   = itoi_or( get_field( 'page_sections', $itoi_product_id ), array() );
 	// Hero's primary CTA scrolls to #comparison — only real if this product
 	// actually has that section (not every product has a real, sourced
 	// comparison to make; e.g. a partner-hardware page like PC2SE Outdoor).
 	$itoi_has_comparison = in_array( 'comparison', wp_list_pluck( $itoi_sections, 'acf_fc_layout' ), true );
 	?>
 
-	<?php foreach ( $itoi_sections as $itoi_section ) :
+	<?php
+	foreach ( $itoi_sections as $itoi_section ) :
 		$itoi_layout = $itoi_section['acf_fc_layout'] ?? '';
 
 		switch ( $itoi_layout ) :
 
 			// ================= HERO =================
 			case 'hero':
-				$itoi_eyebrow    = $itoi_section['hero_eyebrow'] ?: 'Introducing ' . get_the_title();
-				$itoi_emphasis   = $itoi_section['hero_headline_emphasis'] ?? '';
-				$itoi_muted      = $itoi_section['hero_headline_muted'] ?? '';
-				$itoi_lede       = $itoi_section['hero_lede'] ?? '';
-				$itoi_cta_p      = $itoi_section['hero_cta_primary_label'] ?: 'See how it compares';
-				$itoi_cta_s      = $itoi_section['hero_cta_secondary_label'] ?: 'View specifications';
-				$itoi_photo      = $itoi_section['hero_device_photo'] ?? 0;
-				$itoi_video      = $itoi_section['hero_device_video'] ?? null;
-				$itoi_caption    = $itoi_section['hero_device_placeholder_caption'] ?? '';
+				$itoi_eyebrow  = itoi_or( $itoi_section['hero_eyebrow'], 'Introducing ' . get_the_title() );
+				$itoi_emphasis = $itoi_section['hero_headline_emphasis'] ?? '';
+				$itoi_muted    = $itoi_section['hero_headline_muted'] ?? '';
+				$itoi_lede     = $itoi_section['hero_lede'] ?? '';
+				$itoi_cta_p    = itoi_or( $itoi_section['hero_cta_primary_label'], 'See how it compares' );
+				$itoi_cta_s    = itoi_or( $itoi_section['hero_cta_secondary_label'], 'View specifications' );
+				$itoi_photo    = $itoi_section['hero_device_photo'] ?? 0;
+				$itoi_video    = $itoi_section['hero_device_video'] ?? null;
+				$itoi_caption  = $itoi_section['hero_device_placeholder_caption'] ?? '';
 				?>
 				<section class="relative overflow-hidden px-5 pt-[168px] pb-14 min-[640px]:px-8 min-[640px]:pt-[206px] min-[640px]:pb-20" id="productHero">
 					<div class="absolute inset-0 bg-[linear-gradient(160deg,#0a1720,#122b38_55%,#1b3a48)]"></div>
@@ -95,7 +98,10 @@ while ( have_posts() ) :
 							</div>
 							<h1 class="mb-5 text-[clamp(30px,5.2vw,52px)] leading-[1.1] text-white">
 								<?php echo esc_html( $itoi_emphasis ); ?>
-								<?php if ( $itoi_muted ) : ?><span class="font-semibold text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
+								<?php
+								if ( $itoi_muted ) :
+									?>
+									<span class="font-semibold text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
 							</h1>
 							<?php if ( $itoi_lede ) : ?>
 								<p class="mx-auto mb-8 max-w-[58ch] text-[15.5px] text-white/80 min-[1024px]:text-[16.5px]"><?php echo esc_html( $itoi_lede ); ?></p>
@@ -112,7 +118,10 @@ while ( have_posts() ) :
 						<div class="aurora-device-stage relative mx-auto mt-14 flex aspect-[16/8] w-full max-w-[900px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 min-[640px]:mt-16">
 							<?php
 							itoi_product_visual(
-								$itoi_photo, $itoi_video, $itoi_caption, 'TODO(photo)',
+								$itoi_photo,
+								$itoi_video,
+								$itoi_caption,
+								'TODO(photo)',
 								'absolute inset-0 h-full w-full object-cover',
 								'relative z-[1] flex max-w-[380px] flex-col items-center gap-2 rounded-xl border border-dashed border-white/25 bg-black/20 px-6 py-7 text-center'
 							);
@@ -125,7 +134,7 @@ while ( have_posts() ) :
 
 			// ================= STAT STRIP =================
 			case 'stat_strip':
-				$itoi_stats = $itoi_section['stat_items'] ?: array();
+				$itoi_stats = itoi_or( $itoi_section['stat_items'], array() );
 				if ( empty( $itoi_stats ) ) {
 					break;
 				}
@@ -148,7 +157,7 @@ while ( have_posts() ) :
 
 			// ================= HOW IT WORKS =================
 			case 'how_it_works':
-				$itoi_steps = $itoi_section['how_it_works_steps'] ?: array();
+				$itoi_steps = itoi_or( $itoi_section['how_it_works_steps'], array() );
 				if ( empty( $itoi_steps ) ) {
 					break;
 				}
@@ -162,7 +171,8 @@ while ( have_posts() ) :
 							<h2 class="mb-10 max-w-[24ch] text-[clamp(26px,3vw,38px)]"><?php echo esc_html( $itoi_section['how_it_works_headline'] ?? '' ); ?></h2>
 						</div>
 						<div class="grid grid-cols-1 gap-8 min-[860px]:grid-cols-3">
-							<?php foreach ( $itoi_steps as $itoi_step_i => $itoi_step ) :
+							<?php
+							foreach ( $itoi_steps as $itoi_step_i => $itoi_step ) :
 								$itoi_step_todo = 'illustration' === ( $itoi_step['step_visual_type'] ?? 'photo' ) ? 'TODO(illustration)' : 'TODO(photo)';
 								?>
 								<div class="flex flex-col gap-4 rounded-2xl border border-line bg-white p-6">
@@ -191,12 +201,12 @@ while ( have_posts() ) :
 
 			// ================= COMPARISON =================
 			case 'comparison':
-				$itoi_cmp_rows = $itoi_section['comparison_rows'] ?: array();
+				$itoi_cmp_rows = itoi_or( $itoi_section['comparison_rows'], array() );
 				if ( empty( $itoi_cmp_rows ) ) {
 					break;
 				}
-				$itoi_col_a = $itoi_section['comparison_column_a_label'] ?: '2D Camera';
-				$itoi_col_b = $itoi_section['comparison_column_b_label'] ?: get_the_title();
+				$itoi_col_a = itoi_or( $itoi_section['comparison_column_a_label'], '2D Camera' );
+				$itoi_col_b = itoi_or( $itoi_section['comparison_column_b_label'], get_the_title() );
 				?>
 				<section class="border-b border-line bg-white px-8 py-section-lg min-[980px]:scroll-mt-[96px]" id="comparison">
 					<div class="mx-auto max-w-[1080px]">
@@ -243,7 +253,7 @@ while ( have_posts() ) :
 
 			// ================= SPECIFICATIONS =================
 			case 'specifications':
-				$itoi_specs = $itoi_section['specs'] ?: array();
+				$itoi_specs = itoi_or( $itoi_section['specs'], array() );
 				if ( empty( $itoi_specs ) ) {
 					break;
 				}
@@ -281,12 +291,12 @@ while ( have_posts() ) :
 
 			// ================= USE CASES =================
 			case 'use_cases':
-				$itoi_chips = $itoi_section['use_case_chips'] ?: array();
+				$itoi_chips = itoi_or( $itoi_section['use_case_chips'], array() );
 				if ( empty( $itoi_chips ) ) {
 					break;
 				}
 				$itoi_cap_label = $itoi_section['use_cases_capabilities_label'] ?? '';
-				$itoi_caps      = $itoi_section['use_cases_capabilities'] ?: array();
+				$itoi_caps      = itoi_or( $itoi_section['use_cases_capabilities'], array() );
 				?>
 				<section class="border-b border-line bg-white px-8 py-section-sm">
 					<div class="mx-auto max-w-[1280px]">
@@ -308,7 +318,10 @@ while ( have_posts() ) :
 							<div class="mt-8 flex flex-wrap items-center gap-2.5 text-[13px] text-text-muted">
 								<span class="font-bold text-ink"><?php echo esc_html( $itoi_cap_label ); ?></span>
 								<?php foreach ( $itoi_caps as $itoi_cap_i => $itoi_cap ) : ?>
-									<?php if ( $itoi_cap_i > 0 ) : ?><span aria-hidden="true">&middot;</span><?php endif; ?>
+									<?php
+									if ( $itoi_cap_i > 0 ) :
+										?>
+										<span aria-hidden="true">&middot;</span><?php endif; ?>
 									<span><?php echo esc_html( $itoi_cap['label'] ?? '' ); ?></span>
 								<?php endforeach; ?>
 							</div>
@@ -331,7 +344,7 @@ while ( have_posts() ) :
 							<p class="m-0 max-w-[40ch] text-white/60"><?php echo esc_html( $itoi_section['final_cta_text'] ); ?></p>
 						<?php endif; ?>
 					</div>
-					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink"><?php echo esc_html( $itoi_section['final_cta_button_label'] ?: 'Get demo' ); ?> &rarr;</a>
+					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink"><?php echo esc_html( itoi_or( $itoi_section['final_cta_button_label'], 'Get demo' ) ); ?> &rarr;</a>
 				</div>
 				<?php
 				break;

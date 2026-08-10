@@ -14,6 +14,8 @@
  * this *live, public* page the moment it's saved — exactly the
  * incomplete-content-leaking-to-visitors risk flagged in this pass.
  * Filtered to `publish` only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -53,12 +55,12 @@ while ( have_posts() ) :
 		)
 	);
 
-	$itoi_dept_order  = array( 'Management', 'IT', 'Marketing' );
-	$itoi_by_dept     = array();
+	$itoi_dept_order = array( 'Management', 'IT', 'Marketing' );
+	$itoi_by_dept    = array();
 	if ( $itoi_team_query->have_posts() ) {
 		while ( $itoi_team_query->have_posts() ) {
 			$itoi_team_query->the_post();
-			$itoi_dept = get_field( 'department' ) ?: 'Team';
+			$itoi_dept = itoi_or( get_field( 'department' ), 'Team' );
 			if ( ! isset( $itoi_by_dept[ $itoi_dept ] ) ) {
 				$itoi_by_dept[ $itoi_dept ] = array();
 			}
@@ -74,36 +76,41 @@ while ( have_posts() ) :
 
 	<?php if ( ! empty( $itoi_by_dept ) ) : ?>
 		<?php foreach ( $itoi_dept_final_order as $itoi_dept_name ) : ?>
-			<?php if ( empty( $itoi_by_dept[ $itoi_dept_name ] ) ) : continue; endif; ?>
+			<?php
+			if ( empty( $itoi_by_dept[ $itoi_dept_name ] ) ) :
+				continue;
+endif;
+			?>
 			<section class="px-8 py-section-md">
 				<div class="mx-auto max-w-[1280px]">
 					<h2 class="mb-8 text-2xl"><?php echo esc_html( $itoi_dept_name ); ?></h2>
 					<div class="grid grid-cols-1 gap-6 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3">
-						<?php foreach ( $itoi_by_dept[ $itoi_dept_name ] as $itoi_member_id ) :
-							$itoi_name     = get_field( 'name', $itoi_member_id ) ?: get_the_title( $itoi_member_id );
-							$itoi_role     = get_field( 'role', $itoi_member_id );
-							$itoi_bio      = get_field( 'bio', $itoi_member_id );
-							$itoi_email    = get_field( 'email', $itoi_member_id );
-							$itoi_li       = get_field( 'linkedin_url', $itoi_member_id );
-							$itoi_photo_id = get_field( 'photo', $itoi_member_id );
-							$itoi_photo    = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'team-photo' ) : '';
-							$itoi_video    = get_field( 'video', $itoi_member_id );
+						<?php
+						foreach ( $itoi_by_dept[ $itoi_dept_name ] as $itoi_member_id ) :
+							$itoi_name         = itoi_or( get_field( 'name', $itoi_member_id ), get_the_title( $itoi_member_id ) );
+							$itoi_role         = get_field( 'role', $itoi_member_id );
+							$itoi_bio          = get_field( 'bio', $itoi_member_id );
+							$itoi_email        = get_field( 'email', $itoi_member_id );
+							$itoi_li           = get_field( 'linkedin_url', $itoi_member_id );
+							$itoi_photo_id     = get_field( 'photo', $itoi_member_id );
+							$itoi_photo        = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'team-photo' ) : '';
+							$itoi_video        = get_field( 'video', $itoi_member_id );
 							$itoi_member_media = itoi_media_cover( $itoi_photo, $itoi_video, $itoi_name, 'absolute inset-0 h-full w-full object-cover' );
 							?>
 							<div class="rounded-2xl border border-line bg-white p-6">
 								<!-- Liquid glass, wave 5 (see NOTES.md): name/role moved off
-								     the card body onto a glass badge over the photo itself —
-								     same pattern as single-solution.php's capability-name
-								     flip-card badges (wave 3), including the dark bottom-fade
-								     gradient behind it for legibility, applied here regardless
-								     of whether the photo is real or still the placeholder
-								     gradient (see NOTES.md — real bios/photos not supplied
-								     yet, but the badge should already be correct once they
-								     are). Small pill only, not a whole-card conversion — bio/
-								     email/LinkedIn below are untouched. -->
+									the card body onto a glass badge over the photo itself —
+									same pattern as single-solution.php's capability-name
+									flip-card badges (wave 3), including the dark bottom-fade
+									gradient behind it for legibility, applied here regardless
+									of whether the photo is real or still the placeholder
+									gradient (see NOTES.md — real bios/photos not supplied
+									yet, but the badge should already be correct once they
+									are). Small pill only, not a whole-card conversion — bio/
+									email/LinkedIn below are untouched. -->
 								<div class="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] after:absolute after:inset-0 after:bg-[linear-gradient(to_top,rgba(14,17,22,0.55)_0%,rgba(14,17,22,0)_45%)]">
 									<?php if ( $itoi_member_media ) : ?>
-										<?php echo $itoi_member_media; ?>
+										<?php echo $itoi_member_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 									<?php else : ?>
 										<div class="absolute inset-0 flex items-center justify-center text-center text-[9px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo TODO</div>
 									<?php endif; ?>
@@ -139,7 +146,7 @@ while ( have_posts() ) :
 		</section>
 	<?php endif; ?>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();

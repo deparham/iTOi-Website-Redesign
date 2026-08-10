@@ -4,6 +4,8 @@
  * industry summary + Learn more on the back face). Full rationale:
  * docs/decisions/002-industries-carousel-flip-cards.md. Split out of
  * front-page.php 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -42,14 +44,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if ( ! $itoi_post || 'publish' !== $itoi_post->post_status ) {
 					continue;
 				}
-				$itoi_name      = get_field( 'name', $itoi_post->ID ) ?: get_the_title( $itoi_post );
-				$itoi_summary   = get_field( 'summary', $itoi_post->ID );
-				$itoi_photo_id  = get_field( 'hero_image', $itoi_post->ID );
-				$itoi_photo_url = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'large' ) : '';
-				$itoi_photo_alt = $itoi_photo_id ? get_post_meta( $itoi_photo_id, '_wp_attachment_image_alt', true ) : '';
+				$itoi_name       = itoi_or( get_field( 'name', $itoi_post->ID ), get_the_title( $itoi_post ) );
+				$itoi_summary    = get_field( 'summary', $itoi_post->ID );
+				$itoi_photo_id   = get_field( 'hero_image', $itoi_post->ID );
+				$itoi_photo_url  = $itoi_photo_id ? wp_get_attachment_image_url( $itoi_photo_id, 'large' ) : '';
+				$itoi_photo_alt  = $itoi_photo_id ? get_post_meta( $itoi_photo_id, '_wp_attachment_image_alt', true ) : '';
 				$itoi_hero_video = get_field( 'hero_video', $itoi_post->ID );
-				$itoi_permalink = get_permalink( $itoi_post );
-				$itoi_obj_pos   = isset( $itoi_object_position[ $itoi_slug ] ) ? $itoi_object_position[ $itoi_slug ] : 'object-center';
+				$itoi_permalink  = get_permalink( $itoi_post );
+				$itoi_obj_pos    = isset( $itoi_object_position[ $itoi_slug ] ) ? $itoi_object_position[ $itoi_slug ] : 'object-center';
 				?>
 				<div class="flip-card shrink-0 basis-[300px] aspect-[4/5] min-[640px]:basis-[320px]" data-href="<?php echo esc_url( $itoi_permalink ); ?>">
 					<div class="flip-card-inner">
@@ -58,13 +60,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$itoi_carousel_media = itoi_media_cover(
 								$itoi_photo_url,
 								$itoi_hero_video,
-								$itoi_photo_alt ?: $itoi_name,
+								itoi_or( $itoi_photo_alt, $itoi_name ),
 								'absolute inset-0 h-full w-full object-cover ' . $itoi_obj_pos,
 								'loading="lazy"'
 							);
 							?>
 							<?php if ( $itoi_carousel_media ) : ?>
-								<?php echo $itoi_carousel_media; ?>
+								<?php echo $itoi_carousel_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo — <?php echo esc_html( $itoi_name ); ?></div>
 							<?php endif; ?>

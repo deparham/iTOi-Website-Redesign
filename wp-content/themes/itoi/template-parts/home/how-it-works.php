@@ -9,6 +9,8 @@
  * Site Settings later if it needs to be editable" reasoning used elsewhere
  * on this page. Icon function: itoi_pillar_icon() (inc/home-icons.php).
  * Split out of front-page.php 2026-08-06 (template-parts split).
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,9 +23,18 @@ $itoi_pillar_cards = array(
 		'title' => 'Observe',
 		'desc'  => "Capture what's happening on site — video, access events and sensor data from cameras, door hardware and Aurora's privacy-safe people counters.",
 		'links' => array(
-			array( 'label' => 'Video & loss prevention', 'url' => '/solutions/cctv-video-loss-prevention/' ),
-			array( 'label' => 'Security, access & inventory', 'url' => '/solutions/security-access-inventory/' ),
-			array( 'label' => 'Sensory intelligence', 'url' => '/solutions/sensory-intelligence/' ),
+			array(
+				'label' => 'Video & loss prevention',
+				'url'   => '/solutions/cctv-video-loss-prevention/',
+			),
+			array(
+				'label' => 'Security, access & inventory',
+				'url'   => '/solutions/security-access-inventory/',
+			),
+			array(
+				'label' => 'Sensory intelligence',
+				'url'   => '/solutions/sensory-intelligence/',
+			),
 		),
 	),
 	array(
@@ -31,8 +42,14 @@ $itoi_pillar_cards = array(
 		'title' => 'Understand',
 		'desc'  => 'Turn that activity into operational information — foot-traffic and conversion reporting, cross-site comparisons, and POS or accounting integrations.',
 		'links' => array(
-			array( 'label' => 'Intelligence & analytics', 'url' => '/solutions/intelligence-analytics/' ),
-			array( 'label' => 'Back-of-house integration', 'url' => '/solutions/back-of-house-integration/' ),
+			array(
+				'label' => 'Intelligence & analytics',
+				'url'   => '/solutions/intelligence-analytics/',
+			),
+			array(
+				'label' => 'Back-of-house integration',
+				'url'   => '/solutions/back-of-house-integration/',
+			),
 		),
 	),
 	array(
@@ -40,8 +57,14 @@ $itoi_pillar_cards = array(
 		'title' => 'Act',
 		'desc'  => "Use the intelligence to improve operations — alerts, workforce and facility automation, and customer engagement that responds to what's actually happening.",
 		'links' => array(
-			array( 'label' => 'Workforce, ops & robotics', 'url' => '/solutions/workforce-ops-robotics/' ),
-			array( 'label' => 'Customer engagement & signage', 'url' => '/solutions/customer-engagement-signage/' ),
+			array(
+				'label' => 'Workforce, ops & robotics',
+				'url'   => '/solutions/workforce-ops-robotics/',
+			),
+			array(
+				'label' => 'Customer engagement & signage',
+				'url'   => '/solutions/customer-engagement-signage/',
+			),
 		),
 	),
 );

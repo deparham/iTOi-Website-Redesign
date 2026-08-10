@@ -8,6 +8,8 @@
  * so there is exactly one place that can get the arithmetic wrong, and so
  * the lead-capture handler can recalculate authoritatively from the raw
  * answers instead of trusting whatever a client posts back.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +36,7 @@ function itoi_solution_builder_categories() {
 /** Business type (industry slug) -> categories weighted +2 each. */
 function itoi_solution_builder_industry_weights() {
 	return array(
-		'retail'               => array( 'intelligence-analytics', 'cctv-video-loss-prevention', 'security-access-inventory', 'workforce-ops-robotics' ),
+		'retail'                => array( 'intelligence-analytics', 'cctv-video-loss-prevention', 'security-access-inventory', 'workforce-ops-robotics' ),
 		'hospitality'           => array( 'customer-engagement-signage', 'back-of-house-integration', 'cctv-video-loss-prevention', 'workforce-ops-robotics' ),
 		'banking-finance'       => array( 'security-access-inventory', 'cctv-video-loss-prevention', 'intelligence-analytics' ),
 		'government-councils'   => array( 'intelligence-analytics', 'cctv-video-loss-prevention', 'security-access-inventory' ),
@@ -68,7 +70,10 @@ function itoi_solution_builder_industries() {
 		}
 		$post = get_page_by_path( $slug, OBJECT, 'industry' );
 		if ( $post && 'publish' === $post->post_status ) {
-			$industries[] = array( 'slug' => $slug, 'title' => get_the_title( $post ) );
+			$industries[] = array(
+				'slug'  => $slug,
+				'title' => get_the_title( $post ),
+			);
 		}
 	}
 
@@ -78,20 +83,44 @@ function itoi_solution_builder_industries() {
 /** Step 2 — employees. Value => [label, midpoint for the ROI formula]. */
 function itoi_solution_builder_employee_options() {
 	return array(
-		'1-10'   => array( 'label' => '1-10', 'midpoint' => 5 ),
-		'11-50'  => array( 'label' => '11-50', 'midpoint' => 30 ),
-		'51-200' => array( 'label' => '51-200', 'midpoint' => 125 ),
-		'200+'   => array( 'label' => '200+', 'midpoint' => 250 ),
+		'1-10'   => array(
+			'label'    => '1-10',
+			'midpoint' => 5,
+		),
+		'11-50'  => array(
+			'label'    => '11-50',
+			'midpoint' => 30,
+		),
+		'51-200' => array(
+			'label'    => '51-200',
+			'midpoint' => 125,
+		),
+		'200+'   => array(
+			'label'    => '200+',
+			'midpoint' => 250,
+		),
 	);
 }
 
 /** Step 3 — sites. Value => [label, midpoint for the ROI formula]. */
 function itoi_solution_builder_site_options() {
 	return array(
-		'1'     => array( 'label' => '1', 'midpoint' => 1 ),
-		'2-5'   => array( 'label' => '2-5', 'midpoint' => 3 ),
-		'6-20'  => array( 'label' => '6-20', 'midpoint' => 13 ),
-		'20+'   => array( 'label' => '20+', 'midpoint' => 25 ),
+		'1'    => array(
+			'label'    => '1',
+			'midpoint' => 1,
+		),
+		'2-5'  => array(
+			'label'    => '2-5',
+			'midpoint' => 3,
+		),
+		'6-20' => array(
+			'label'    => '6-20',
+			'midpoint' => 13,
+		),
+		'20+'  => array(
+			'label'    => '20+',
+			'midpoint' => 25,
+		),
 	);
 }
 
@@ -100,7 +129,10 @@ function itoi_solution_builder_challenge_options() {
 	return array(
 		'theft'             => array(
 			'label'   => 'Theft or shrinkage',
-			'weights' => array( 'cctv-video-loss-prevention' => 3, 'security-access-inventory' => 1 ),
+			'weights' => array(
+				'cctv-video-loss-prevention' => 3,
+				'security-access-inventory'  => 1,
+			),
 		),
 		'staffing'          => array(
 			'label'   => 'Staffing inefficiency',
@@ -108,19 +140,31 @@ function itoi_solution_builder_challenge_options() {
 		),
 		'visibility'        => array(
 			'label'   => 'Poor visibility across sites',
-			'weights' => array( 'back-of-house-integration' => 3, 'intelligence-analytics' => 1 ),
+			'weights' => array(
+				'back-of-house-integration' => 3,
+				'intelligence-analytics'    => 1,
+			),
 		),
 		'outdated-security' => array(
 			'label'   => 'Outdated security',
-			'weights' => array( 'security-access-inventory' => 3, 'it-network-infrastructure' => 1 ),
+			'weights' => array(
+				'security-access-inventory' => 3,
+				'it-network-infrastructure' => 1,
+			),
 		),
 		'engagement'        => array(
 			'label'   => 'Low customer engagement',
-			'weights' => array( 'customer-engagement-signage' => 3, 'sensory-intelligence' => 1 ),
+			'weights' => array(
+				'customer-engagement-signage' => 3,
+				'sensory-intelligence'        => 1,
+			),
 		),
 		'compliance'        => array(
 			'label'   => 'Compliance concerns',
-			'weights' => array( 'security-access-inventory' => 2, 'back-of-house-integration' => 2 ),
+			'weights' => array(
+				'security-access-inventory' => 2,
+				'back-of-house-integration' => 2,
+			),
 		),
 	);
 }
@@ -129,13 +173,15 @@ function itoi_solution_builder_challenge_options() {
  * Core scoring engine — PART 3 of the build spec, applied verbatim.
  *
  * @param array $answers {
- *   @type string $business_type  industry slug
- *   @type string $employees      one of itoi_solution_builder_employee_options() keys
- *   @type string $sites          one of itoi_solution_builder_site_options() keys
- *   @type string $existing_cctv  'yes'|'no'
- *   @type string $existing_pos   'yes'|'no'
- *   @type string $cloud_based    'yes'|'no'
- *   @type array  $challenges     subset of itoi_solution_builder_challenge_options() keys
+ *   The quiz answers to score.
+ *
+ *   @type string $business_type  Industry slug.
+ *   @type string $employees      One of itoi_solution_builder_employee_options() keys.
+ *   @type string $sites          One of itoi_solution_builder_site_options() keys.
+ *   @type string $existing_cctv  'yes'|'no'.
+ *   @type string $existing_pos   'yes'|'no'.
+ *   @type string $cloud_based    'yes'|'no'.
+ *   @type array  $challenges     Subset of itoi_solution_builder_challenge_options() keys.
  * }
  * @return array
  */
@@ -155,8 +201,8 @@ function itoi_solution_builder_calculate( $answers ) {
 	if ( '51-200' === ( $answers['employees'] ?? '' ) ) {
 		$scores['back-of-house-integration'] += 1;
 	} elseif ( '200+' === ( $answers['employees'] ?? '' ) ) {
-		$scores['back-of-house-integration']  += 2;
-		$scores['it-network-infrastructure']  += 2;
+		$scores['back-of-house-integration'] += 2;
+		$scores['it-network-infrastructure'] += 2;
 	}
 
 	// --- SITES ---
@@ -179,20 +225,20 @@ function itoi_solution_builder_calculate( $answers ) {
 	// --- EXISTING POS ---
 	if ( 'yes' === ( $answers['existing_pos'] ?? '' ) ) {
 		$scores['intelligence-analytics']     += 2;
-		$scores['cctv-video-loss-prevention']  += 1;
+		$scores['cctv-video-loss-prevention'] += 1;
 	}
 
 	// --- CLOUD-BASED ---
 	if ( 'yes' === ( $answers['cloud_based'] ?? '' ) ) {
-		$scores['back-of-house-integration']  += 1;
-		$scores['it-network-infrastructure']  += 1;
+		$scores['back-of-house-integration'] += 1;
+		$scores['it-network-infrastructure'] += 1;
 	} elseif ( 'no' === ( $answers['cloud_based'] ?? '' ) ) {
 		$scores['it-network-infrastructure'] += 2;
 	}
 
 	// --- CHALLENGES (stack) ---
 	$challenge_options = itoi_solution_builder_challenge_options();
-	$challenges         = is_array( $answers['challenges'] ?? null ) ? $answers['challenges'] : array();
+	$challenges        = is_array( $answers['challenges'] ?? null ) ? $answers['challenges'] : array();
 	foreach ( $challenges as $challenge_value ) {
 		if ( ! isset( $challenge_options[ $challenge_value ] ) ) {
 			continue;
@@ -243,7 +289,7 @@ function itoi_solution_builder_calculate( $answers ) {
 	$efficiency_saving = $employees_midpoint * 2 * 35 * 52;
 
 	$loss_reduction_value = 0;
-	$theft_selected        = in_array( 'theft', $challenges, true );
+	$theft_selected       = in_array( 'theft', $challenges, true );
 	if ( $theft_selected ) {
 		$loss_reduction_value = $sites_midpoint * 8000;
 	}
@@ -251,7 +297,7 @@ function itoi_solution_builder_calculate( $answers ) {
 	$roi_total = $efficiency_saving + $loss_reduction_value;
 
 	// --- IMPLEMENTATION TIMELINE (Part 6, exact mapping) ---
-	$timeline_map = array(
+	$timeline_map   = array(
 		'1'    => '2-4 weeks',
 		'2-5'  => '4-8 weeks',
 		'6-20' => '8-16 weeks (2-4 months)',
@@ -260,20 +306,20 @@ function itoi_solution_builder_calculate( $answers ) {
 	$timeline_range = $timeline_map[ $answers['sites'] ?? '' ] ?? '';
 
 	return array(
-		'scores'                => $scores,
-		'recommended'           => $recommended,
-		'roi'                   => array(
-			'efficiency_saving'     => $efficiency_saving,
-			'loss_reduction_value'  => $loss_reduction_value,
-			'theft_selected'        => $theft_selected,
-			'total'                 => $roi_total,
-			'disclaimer'            => 'Illustrative estimate only, based on general assumptions (2 hours/week saved per employee at $35/hour; $8,000/year loss-reduction per site where theft/shrinkage was selected). Actual results vary by site, industry, and implementation. Not a guaranteed outcome.',
+		'scores'       => $scores,
+		'recommended'  => $recommended,
+		'roi'          => array(
+			'efficiency_saving'    => $efficiency_saving,
+			'loss_reduction_value' => $loss_reduction_value,
+			'theft_selected'       => $theft_selected,
+			'total'                => $roi_total,
+			'disclaimer'           => 'Illustrative estimate only, based on general assumptions (2 hours/week saved per employee at $35/hour; $8,000/year loss-reduction per site where theft/shrinkage was selected). Actual results vary by site, industry, and implementation. Not a guaranteed outcome.',
 		),
-		'timeline'              => array(
+		'timeline'     => array(
 			'range'   => $timeline_range,
 			'caption' => 'Estimated timeline — actual implementation depends on site complexity and existing infrastructure.',
 		),
-		'architecture'          => array(
+		'architecture' => array(
 			'nodes'                 => $recommended,
 			'show_existing_systems' => ( 'yes' === ( $answers['existing_pos'] ?? '' ) || 'yes' === ( $answers['cloud_based'] ?? '' ) ),
 		),
@@ -285,7 +331,7 @@ function itoi_solution_builder_calculate( $answers ) {
  * one-sentence dek, tile image, permalink) — never invented copy, always
  * pulled from ACF (CLAUDE.md's "no hardcoded copy" rule applies here too).
  *
- * @param array $slugs
+ * @param array $slugs Solution category slugs to resolve.
  * @return array slug => array(title, desc, url, photo)
  */
 function itoi_solution_builder_resolve_solutions( $slugs ) {
@@ -296,7 +342,7 @@ function itoi_solution_builder_resolve_solutions( $slugs ) {
 			continue;
 		}
 		$dek      = function_exists( 'get_field' ) ? get_field( 'dek', $post->ID ) : '';
-		$photo_id = function_exists( 'get_field' ) ? ( get_field( 'tile_image', $post->ID ) ?: get_field( 'hero_image', $post->ID ) ) : 0;
+		$photo_id = function_exists( 'get_field' ) ? itoi_or( get_field( 'tile_image', $post->ID ), get_field( 'hero_image', $post->ID ) ) : 0;
 
 		$resolved[ $slug ] = array(
 			'slug'  => $slug,
@@ -317,6 +363,7 @@ function itoi_solution_builder_resolve_solutions( $slugs ) {
  * param below — default reproduces this function's original h-8 w-8
  * output exactly, so nothing else needs to change to add a second caller.
  *
+ * @param string $slug    One of the architecture flow diagram slugs defined in $paths below.
  * @param string $classes Tailwind size classes for the <svg>. Default matches original behavior.
  */
 function itoi_solution_builder_icon( $slug, $classes = 'h-8 w-8' ) {
@@ -346,12 +393,15 @@ function itoi_solution_builder_icon( $slug, $classes = 'h-8 w-8' ) {
  * Sanitize + validate a raw $_POST payload of answers against the exact
  * option sets above. Returns array( 'answers' => ..., 'errors' => array() ).
  * $raw_challenges is expected to arrive as $_POST['challenges'] (array).
+ *
+ * @param array $raw The raw, unsanitized $_POST payload.
+ * @return array{answers: array, errors: array}
  */
 function itoi_solution_builder_sanitize_answers( $raw ) {
 	$errors  = array();
 	$answers = array();
 
-	$industries = array_keys( itoi_solution_builder_industry_weights() );
+	$industries    = array_keys( itoi_solution_builder_industry_weights() );
 	$business_type = sanitize_key( wp_unslash( $raw['business_type'] ?? '' ) );
 	if ( ! in_array( $business_type, $industries, true ) ) {
 		$errors[] = 'business_type';
@@ -378,11 +428,14 @@ function itoi_solution_builder_sanitize_answers( $raw ) {
 		$answers[ $field ] = $value;
 	}
 
-	$valid_challenges   = array_keys( itoi_solution_builder_challenge_options() );
-	$submitted_challenges = is_array( $raw['challenges'] ?? null ) ? wp_unslash( $raw['challenges'] ) : array();
+	$valid_challenges      = array_keys( itoi_solution_builder_challenge_options() );
+	$submitted_challenges  = is_array( $raw['challenges'] ?? null ) ? wp_unslash( $raw['challenges'] ) : array();
 	$answers['challenges'] = array_values( array_intersect( array_map( 'sanitize_key', $submitted_challenges ), $valid_challenges ) );
 
-	return array( 'answers' => $answers, 'errors' => $errors );
+	return array(
+		'answers' => $answers,
+		'errors'  => $errors,
+	);
 }
 
 /**
@@ -394,7 +447,13 @@ function itoi_solution_builder_ajax_calculate() {
 
 	$sanitized = itoi_solution_builder_sanitize_answers( $_POST );
 	if ( ! empty( $sanitized['errors'] ) ) {
-		wp_send_json_error( array( 'message' => 'Please answer every question before continuing.', 'fields' => $sanitized['errors'] ), 400 );
+		wp_send_json_error(
+			array(
+				'message' => 'Please answer every question before continuing.',
+				'fields'  => $sanitized['errors'],
+			),
+			400
+		);
 	}
 
 	$result             = itoi_solution_builder_calculate( $sanitized['answers'] );
@@ -436,7 +495,13 @@ function itoi_solution_builder_ajax_submit_lead() {
 
 	$sanitized = itoi_solution_builder_sanitize_answers( $_POST );
 	if ( ! empty( $sanitized['errors'] ) ) {
-		wp_send_json_error( array( 'message' => 'Please complete every question first.', 'fields' => $sanitized['errors'] ), 400 );
+		wp_send_json_error(
+			array(
+				'message' => 'Please complete every question first.',
+				'fields'  => $sanitized['errors'],
+			),
+			400
+		);
 	}
 
 	$name    = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
@@ -455,7 +520,13 @@ function itoi_solution_builder_ajax_submit_lead() {
 		$lead_errors[] = 'company';
 	}
 	if ( ! empty( $lead_errors ) ) {
-		wp_send_json_error( array( 'message' => 'Name, email and company are required.', 'fields' => $lead_errors ), 400 );
+		wp_send_json_error(
+			array(
+				'message' => 'Name, email and company are required.',
+				'fields'  => $lead_errors,
+			),
+			400
+		);
 	}
 
 	$answers            = $sanitized['answers'];
@@ -530,6 +601,7 @@ function itoi_solution_builder_ajax_submit_lead() {
 		// Sandbox has no MTA (no sendmail binary) — wp_mail() correctly
 		// returns false here; logged so this doesn't fail invisibly. Lead
 		// is still saved regardless of email delivery. See NOTES.md.
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- deliberate production logging, not leftover debug code: alerts when a real lead's notification email silently fails to send.
 		error_log( '[itoi solution-builder] wp_mail() returned false for lead #' . $post_id . ' — no MTA available in this environment.' );
 	}
 

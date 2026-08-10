@@ -10,6 +10,8 @@
  *   confirmed enforced everywhere) and belong at the server/reverse-proxy
  *   level or a dedicated follow-up with the site operator, not guessed at
  *   here.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

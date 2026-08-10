@@ -5,14 +5,16 @@
  * used to exist). Full design rationale and implementation notes:
  * docs/decisions/001-trust-credibility-section.md. Split out of
  * front-page.php 2026-08-06 (template-parts split) — markup/logic unchanged.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$itoi_trust_heading = get_field( 'trust_section_heading', 'option' ) ?: 'Trusted by teams who measure performance, not guesswork.';
-$itoi_trust_metrics  = get_field( 'trust_metrics', 'option' );
+$itoi_trust_heading = itoi_or( get_field( 'trust_section_heading', 'option' ), 'Trusted by teams who measure performance, not guesswork.' );
+$itoi_trust_metrics = get_field( 'trust_metrics', 'option' );
 if ( empty( $itoi_trust_metrics ) ) {
 	// 2026-08-05: replaced 4 vague descriptors ("Millions", "Real-time",
 	// "Multi-site", "Enterprise" — none of them real numbers, none of them
@@ -25,10 +27,22 @@ if ( empty( $itoi_trust_metrics ) ) {
 	// section instead of being lost, so this is now the one section
 	// carrying both the real numbers and the capability statements.
 	$itoi_trust_metrics = array(
-		array( 'stat_value' => '99.87%', 'stat_label' => 'facial recognition accuracy' ),
-		array( 'stat_value' => '<100ms', 'stat_label' => 'detection speed' ),
-		array( 'stat_value' => 'Multi-site', 'stat_label' => 'reporting across every location' ),
-		array( 'stat_value' => 'Australian', 'stat_label' => 'deployment & support' ),
+		array(
+			'stat_value' => '99.87%',
+			'stat_label' => 'facial recognition accuracy',
+		),
+		array(
+			'stat_value' => '<100ms',
+			'stat_label' => 'detection speed',
+		),
+		array(
+			'stat_value' => 'Multi-site',
+			'stat_label' => 'reporting across every location',
+		),
+		array(
+			'stat_value' => 'Australian',
+			'stat_label' => 'deployment & support',
+		),
 	);
 }
 ?>
@@ -40,7 +54,8 @@ if ( empty( $itoi_trust_metrics ) ) {
 
 		<?php if ( ! empty( $itoi_trust_metrics ) ) : ?>
 			<div class="mb-14 grid grid-cols-2 gap-4 min-[640px]:gap-6 min-[980px]:grid-cols-4 min-[980px]:gap-7" id="trustMetricsGrid">
-				<?php foreach ( $itoi_trust_metrics as $itoi_tm_row ) :
+				<?php
+				foreach ( $itoi_trust_metrics as $itoi_tm_row ) :
 					if ( empty( $itoi_tm_row['stat_value'] ) ) {
 						continue;
 					}

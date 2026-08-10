@@ -3,12 +3,18 @@
  * ACF Options Pages. Field groups themselves live in acf-json/ (local JSON,
  * committed) — ACF loads them automatically, nothing to register here for
  * the fields, only the options page they attach to.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Registers this theme's ACF options pages (Site Settings and friends).
+ * Field groups themselves live in acf-json/ and load automatically.
+ */
 function itoi_acf_options_pages() {
 	if ( ! function_exists( 'acf_add_options_page' ) ) {
 		return;

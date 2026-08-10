@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile WordPress.Files.FileName.NotHyphenatedLowercase -- must exactly match the registered `case_study` CPT slug (post-types.php) for WordPress's own archive-{post_type}.php template hierarchy to find this file; hyphenating would silently break template resolution.
 /**
  * Case studies archive — image-tile grid, same visual language as
  * archive-solution.php / archive-industry.php per PROJECT.md §3/§5.
@@ -7,6 +8,8 @@
  * Liquid glass wave 6, 2026-07-28 (see NOTES.md): tiles restructured to the
  * photo-on-top / light-glass-panel-below shape, same as the other two
  * archives — no light surface existed for the on-light tokens otherwise.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,17 +43,17 @@ $itoi_case_studies_query = new WP_Query(
 				$itoi_tile_index = 0;
 				while ( $itoi_case_studies_query->have_posts() ) :
 					$itoi_case_studies_query->the_post();
-					$itoi_client    = get_field( 'client_name' );
-					$itoi_headline  = get_field( 'headline' ) ?: get_the_title();
-					$itoi_hero_id   = get_field( 'hero_image' );
-					$itoi_hero_img  = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'medium_large' ) : '';
-					$itoi_title     = $itoi_client ?: $itoi_headline;
+					$itoi_client   = get_field( 'client_name' );
+					$itoi_headline = itoi_or( get_field( 'headline' ), get_the_title() );
+					$itoi_hero_id  = get_field( 'hero_image' );
+					$itoi_hero_img = $itoi_hero_id ? wp_get_attachment_image_url( $itoi_hero_id, 'medium_large' ) : '';
+					$itoi_title    = itoi_or( $itoi_client, $itoi_headline );
 					// Prefer real Media Library alt text; fall back to a descriptive
 					// phrase rather than the title (already shown as this tile's own
 					// visible caption immediately below the image).
-					$itoi_hero_alt  = $itoi_hero_id ? ( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ) ?: $itoi_title . ' case study photo' ) : '';
+					$itoi_hero_alt   = $itoi_hero_id ? itoi_or( get_post_meta( $itoi_hero_id, '_wp_attachment_image_alt', true ), $itoi_title . ' case study photo' ) : '';
 					$itoi_hero_video = get_field( 'hero_video' );
-					$itoi_tile_index++;
+					++$itoi_tile_index;
 					?>
 					<a href="<?php the_permalink(); ?>" class="group glass-element-light block rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>
@@ -65,7 +68,7 @@ $itoi_case_studies_query = new WP_Query(
 							);
 							?>
 							<?php if ( $itoi_tile_media ) : ?>
-								<?php echo $itoi_tile_media; ?>
+								<?php echo $itoi_tile_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php else : ?>
 								<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-[11px] uppercase tracking-[0.06em] text-[#8f99a6]">Photo &mdash; <?php echo esc_html( $itoi_title ); ?> (TODO)</div>
 							<?php endif; ?>

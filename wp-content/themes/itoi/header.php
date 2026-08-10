@@ -7,6 +7,8 @@
  * to the mockup. Ticker rotation, dropdown-on-hover already works via CSS,
  * but the JS-driven pieces (ticker auto-advance) are wired up in Phase 3
  * per PROJECT.md §10 — this renders the ticker's first message only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,14 +41,14 @@ if ( ! empty( $itoi_mega_locations['primary'] ) ) {
 		$itoi_all_items = wp_get_nav_menu_items( $itoi_mega_menu_obj->term_id );
 		if ( $itoi_all_items ) {
 			foreach ( $itoi_all_items as $itoi_item ) {
-				if ( 0 == $itoi_item->menu_item_parent ) {
+				if ( 0 === (int) $itoi_item->menu_item_parent ) {
 					$itoi_url = $itoi_item->url;
 					// A parent used only to group children (e.g. "Resources")
 					// has no real destination of its own — send it to its
 					// first child instead of a dead "#" link.
 					if ( ! $itoi_url || '#' === $itoi_url ) {
 						foreach ( $itoi_all_items as $itoi_child ) {
-							if ( $itoi_child->menu_item_parent == $itoi_item->ID ) {
+							if ( (int) $itoi_child->menu_item_parent === (int) $itoi_item->ID ) {
 								$itoi_url = $itoi_child->url;
 								break;
 							}
@@ -77,7 +79,7 @@ if ( ! empty( $itoi_mega_locations['primary'] ) ) {
 					} else {
 						$itoi_children = array();
 						foreach ( $itoi_all_items as $itoi_child ) {
-							if ( $itoi_child->menu_item_parent == $itoi_item->ID ) {
+							if ( (int) $itoi_child->menu_item_parent === (int) $itoi_item->ID ) {
 								$itoi_children[] = array(
 									'title' => $itoi_child->title,
 									'url'   => $itoi_child->url,
@@ -95,7 +97,7 @@ if ( ! empty( $itoi_mega_locations['primary'] ) ) {
 		}
 	}
 }
-$itoi_mega_previews = get_field( 'mega_menu_previews', 'option' ) ?: array();
+$itoi_mega_previews = itoi_or( get_field( 'mega_menu_previews', 'option' ), array() );
 
 /**
  * Every page: the ticker+nav block "combines" with whatever section sits
@@ -116,10 +118,10 @@ $itoi_mega_previews = get_field( 'mega_menu_previews', 'option' ) ?: array();
  * white ticker text over a translucent black/20 on a light background
  * would fail WCAG contrast.
  */
-$itoi_dark_hero        = is_front_page() || is_page( 'use-cases' ) || is_singular( 'product' );
-$itoi_header_wrap_cls  = 'fixed inset-x-0 top-0 z-[60]';
-$itoi_ticker_cls       = $itoi_dark_hero ? 'bg-black/20 backdrop-blur-sm' : 'bg-ink';
-$itoi_header_cls       = 'mt-3 min-[640px]:mt-4';
+$itoi_dark_hero       = is_front_page() || is_page( 'use-cases' ) || is_singular( 'product' );
+$itoi_header_wrap_cls = 'fixed inset-x-0 top-0 z-[60]';
+$itoi_ticker_cls      = $itoi_dark_hero ? 'bg-black/20 backdrop-blur-sm' : 'bg-ink';
+$itoi_header_cls      = 'mt-3 min-[640px]:mt-4';
 
 // 2026-08-05: the ticker no longer rotates (external improvement plan
 // Phase 3.4/5.6 — see NOTES.md; user explicitly authorized overriding
@@ -142,7 +144,17 @@ $itoi_ticker_text     = ! empty( $itoi_ticker_messages[0]['text'] ) ? $itoi_tick
 <header class="<?php echo esc_attr( $itoi_header_cls ); ?> px-3 min-[640px]:px-6 min-[980px]:px-8">
 	<div class="nav-glass mx-auto flex h-[72px] max-w-[1280px] items-center gap-6 rounded-full px-6 min-[640px]:px-8">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex shrink-0 items-center" aria-label="<?php bloginfo( 'name' ); ?>">
-			<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'h-9 w-auto', 'alt' => get_bloginfo( 'name' ) ) ); ?>
+			<?php
+			echo wp_get_attachment_image(
+				get_theme_mod( 'custom_logo' ),
+				'full',
+				false,
+				array(
+					'class' => 'h-9 w-auto',
+					'alt'   => get_bloginfo( 'name' ),
+				)
+			);
+			?>
 		</a>
 
 		<?php
@@ -208,12 +220,12 @@ $itoi_ticker_text     = ! empty( $itoi_ticker_messages[0]['text'] ) ? $itoi_tick
 </div>
 
 <!-- aria-hidden defaults true (external improvement plan Phase 5.7): this
-     dialog was previously only ever CSS-hidden (.open class), never
-     removed from the accessibility tree while closed — its #megaMenuHeadline
-     <h2> sat before every page's real H1 in DOM order, both breaking
-     heading-order (axe, solution-builder page) and reachable via a screen
-     reader's heading-navigation shortcut while invisible. initMegaMenu()
-     (assets/js/main.js) toggles this alongside the existing .open class. -->
+	dialog was previously only ever CSS-hidden (.open class), never
+	removed from the accessibility tree while closed — its #megaMenuHeadline
+	<h2> sat before every page's real H1 in DOM order, both breaking
+	heading-order (axe, solution-builder page) and reachable via a screen
+	reader's heading-navigation shortcut while invisible. initMegaMenu()
+	(assets/js/main.js) toggles this alongside the existing .open class. -->
 <div class="mega-menu aurora-bg" id="megaMenu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
 	<div class="mx-auto max-w-[1280px] px-8 py-10 min-[980px]:py-16">
 		<div class="mb-10 flex items-center justify-between min-[980px]:mb-16">
@@ -228,7 +240,8 @@ $itoi_ticker_text     = ! empty( $itoi_ticker_messages[0]['text'] ) ? $itoi_tick
 		<div class="grid grid-cols-1 gap-10 min-[980px]:grid-cols-[1.1fr_1fr] min-[980px]:gap-16">
 			<nav aria-label="Site menu">
 				<ul class="flex flex-col gap-5 min-[980px]:gap-7">
-					<?php foreach ( $itoi_mega_items as $itoi_index => $itoi_nav_item ) :
+					<?php
+					foreach ( $itoi_mega_items as $itoi_index => $itoi_nav_item ) :
 						$itoi_preview = $itoi_mega_previews[ $itoi_index ] ?? array();
 						?>
 						<li>

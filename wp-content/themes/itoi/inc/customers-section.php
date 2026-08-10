@@ -17,6 +17,8 @@
  * the taxonomy/relationship queries twice. front-page.php has no sub-nav,
  * so it uses the itoi_render_customers_section() convenience wrapper that
  * does both in one call.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Resolves both callers' raw ACF field values into the data
+ * itoi_render_customers_section_data() needs to render.
+ *
  * @param array $args {
+ *     Raw section args.
+ *
  *     @type string $heading             Section heading.
  *     @type int    $spotlight_client_id `client` CPT post ID, or 0/empty for none.
  *     @type int    $spotlight_photo_id  Attachment ID.
@@ -57,6 +64,7 @@ function itoi_get_customers_section_data( $args ) {
 					'posts_per_page' => -1,
 					'orderby'        => 'title',
 					'order'          => 'ASC',
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- necessary: filtering `client` posts by taxonomy term is the actual point of this query, and the `client` CPT is a small, curated list (client logos), not a large dataset.
 					'tax_query'      => array(
 						array(
 							'taxonomy' => 'client_category',
@@ -110,29 +118,31 @@ function itoi_get_customers_section_data( $args ) {
 			// that state ("... — narrative pending"), not public-facing copy,
 			// so the spotlight headline falls back to the real client name.
 			$itoi_case_pending   = ! $itoi_case_narrative || false !== strpos( $itoi_case_narrative, 'TODO(fact-check)' );
-			$itoi_case_headline  = $itoi_case_pending ? get_the_title( $itoi_spotlight_client_id ) : ( get_field( 'headline', $itoi_spotlight_case_id ) ?: get_the_title( $itoi_spotlight_case_id ) );
+			$itoi_case_headline  = $itoi_case_pending ? get_the_title( $itoi_spotlight_client_id ) : itoi_or( get_field( 'headline', $itoi_spotlight_case_id ), get_the_title( $itoi_spotlight_case_id ) );
 			$itoi_case_permalink = get_permalink( $itoi_spotlight_case_id );
 		}
 	}
 
 	return array(
-		'heading'              => $args['heading'] ?? '',
-		'spotlight_client_id'  => $itoi_spotlight_client_id,
-		'spotlight_photo_id'   => $args['spotlight_photo_id'] ?? 0,
-		'spotlight_video'      => $args['spotlight_video'] ?? null,
-		'spotlight_is_stock'   => ! empty( $args['spotlight_is_stock'] ),
-		'resolved_logo_rows'   => $itoi_resolved_logo_rows,
-		'empty_message'        => $itoi_empty_message,
-		'show'                 => (bool) ( $itoi_spotlight_client_id || ! empty( $itoi_resolved_logo_rows ) || $itoi_empty_message ),
-		'case_ok'              => $itoi_spotlight_case_ok,
-		'case_pending'         => $itoi_case_pending,
-		'case_headline'        => $itoi_case_headline,
-		'case_permalink'       => $itoi_case_permalink,
-		'case_narrative'       => $itoi_case_narrative,
+		'heading'             => $args['heading'] ?? '',
+		'spotlight_client_id' => $itoi_spotlight_client_id,
+		'spotlight_photo_id'  => $args['spotlight_photo_id'] ?? 0,
+		'spotlight_video'     => $args['spotlight_video'] ?? null,
+		'spotlight_is_stock'  => ! empty( $args['spotlight_is_stock'] ),
+		'resolved_logo_rows'  => $itoi_resolved_logo_rows,
+		'empty_message'       => $itoi_empty_message,
+		'show'                => (bool) ( $itoi_spotlight_client_id || ! empty( $itoi_resolved_logo_rows ) || $itoi_empty_message ),
+		'case_ok'             => $itoi_spotlight_case_ok,
+		'case_pending'        => $itoi_case_pending,
+		'case_headline'       => $itoi_case_headline,
+		'case_permalink'      => $itoi_case_permalink,
+		'case_narrative'      => $itoi_case_narrative,
 	);
 }
 
 /**
+ * Renders the spotlight case-study card + logo marquee/badge rows.
+ *
  * @param array $data Result of itoi_get_customers_section_data(). Caller is
  *                     expected to have already checked $data['show'].
  */
@@ -144,15 +154,15 @@ function itoi_render_customers_section_data( $data ) {
 
 			<?php if ( $data['spotlight_client_id'] ) : ?>
 				<?php
-				$itoi_spotlight_photo_url  = $data['spotlight_photo_id'] ? wp_get_attachment_image_url( $data['spotlight_photo_id'], 'large' ) : '';
+				$itoi_spotlight_photo_url   = $data['spotlight_photo_id'] ? wp_get_attachment_image_url( $data['spotlight_photo_id'], 'large' ) : '';
 				$itoi_spotlight_client_name = get_the_title( $data['spotlight_client_id'] );
-				$itoi_spotlight_video_url  = ! empty( $data['spotlight_video']['url'] ) ? $data['spotlight_video']['url'] : '';
-				$itoi_spotlight_media      = itoi_media_cover( $itoi_spotlight_photo_url, $data['spotlight_video'], $itoi_spotlight_client_name . ' store', 'absolute inset-0 h-full w-full object-cover' );
+				$itoi_spotlight_video_url   = ! empty( $data['spotlight_video']['url'] ) ? $data['spotlight_video']['url'] : '';
+				$itoi_spotlight_media       = itoi_media_cover( $itoi_spotlight_photo_url, $data['spotlight_video'], $itoi_spotlight_client_name . ' store', 'absolute inset-0 h-full w-full object-cover' );
 				?>
 				<div class="glass-element-light mb-14 grid grid-cols-1 overflow-hidden rounded-2xl min-[900px]:grid-cols-2">
 					<div class="relative aspect-[4/3] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)] min-[900px]:aspect-auto">
 						<?php if ( $itoi_spotlight_media ) : ?>
-							<?php echo $itoi_spotlight_media; ?>
+							<?php echo $itoi_spotlight_media; // phpcs:ignore -- itoi_media_cover() already escapes. ?>
 							<?php // Stock-photo disclaimer only applies to the placeholder photo, never to an uploaded video. ?>
 							<?php if ( $data['spotlight_is_stock'] && ! $itoi_spotlight_video_url ) : ?>
 								<div class="absolute inset-x-0 bottom-0 bg-black/70 px-4 py-2.5 text-center text-[12.5px] font-semibold leading-snug text-white">
@@ -180,7 +190,8 @@ function itoi_render_customers_section_data( $data ) {
 
 			<?php if ( ! empty( $data['resolved_logo_rows'] ) ) : ?>
 				<div class="flex flex-col gap-10">
-					<?php foreach ( $data['resolved_logo_rows'] as $itoi_lg_row ) :
+					<?php
+					foreach ( $data['resolved_logo_rows'] as $itoi_lg_row ) :
 						$itoi_lg_names      = $itoi_lg_row['names'];
 						$itoi_lg_is_scroll  = count( $itoi_lg_names ) > 5;
 						$itoi_lg_anim_class = 'right' === $itoi_lg_row['direction'] ? 'animate-itoi-marquee-reverse' : 'animate-itoi-marquee';
@@ -198,18 +209,19 @@ function itoi_render_customers_section_data( $data ) {
 								foreach ( $itoi_lg_names as $itoi_lg_name ) :
 									?>
 									<span class="glass-element-light inline-block whitespace-nowrap rounded-full px-5 py-2.5 text-[13.5px] font-bold"><?php echo esc_html( $itoi_lg_name ); ?></span>
-								<?php endforeach;
+									<?php
+								endforeach;
 								$itoi_lg_pills_html = ob_get_clean();
 								?>
 								<div class="longform-marquee-viewport overflow-hidden">
 									<div class="longform-marquee-track flex w-max <?php echo esc_attr( $itoi_lg_anim_class ); ?>">
-										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_lg_pills_html; ?></div>
-										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_lg_pills_html; ?></div>
+										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_lg_pills_html; // phpcs:ignore -- built above via esc_html() per name, ob_get_clean()'d. ?></div>
+										<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_lg_pills_html; // phpcs:ignore -- same buffer as the primary copy above. ?></div>
 									</div>
 								</div>
 							<?php else : ?>
 								<!-- Too few names to scroll sensibly — plain static
-								     row instead of a marquee. -->
+									row instead of a marquee. -->
 								<div class="flex flex-wrap gap-3">
 									<?php foreach ( $itoi_lg_names as $itoi_lg_name ) : ?>
 										<span class="glass-element-light inline-block whitespace-nowrap rounded-full px-5 py-2.5 text-[13.5px] font-bold"><?php echo esc_html( $itoi_lg_name ); ?></span>
@@ -297,13 +309,14 @@ function itoi_render_client_logo_row() {
 		foreach ( $itoi_names as $itoi_name ) :
 			?>
 			<span class="inline-block whitespace-nowrap rounded-full border border-line bg-white px-5 py-2.5 text-[13.5px] font-bold text-ink shadow-sm"><?php echo esc_html( $itoi_name ); ?></span>
-		<?php endforeach;
+			<?php
+		endforeach;
 		$itoi_pills_html = ob_get_clean();
 		?>
 		<div class="longform-marquee-viewport overflow-hidden">
 			<div class="longform-marquee-track flex w-max animate-itoi-marquee">
-				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_pills_html; ?></div>
-				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_pills_html; ?></div>
+				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="primary"><?php echo $itoi_pills_html; // phpcs:ignore -- built above via esc_html() per name, ob_get_clean()'d. ?></div>
+				<div class="longform-marquee-group flex flex-none gap-3 pr-3" data-copy="duplicate" aria-hidden="true"><?php echo $itoi_pills_html; // phpcs:ignore -- same buffer as the primary copy above. ?></div>
 			</div>
 		</div>
 	<?php else : ?>
@@ -312,5 +325,6 @@ function itoi_render_client_logo_row() {
 				<span class="inline-block whitespace-nowrap rounded-full border border-line bg-white px-5 py-2.5 text-[13.5px] font-bold text-ink shadow-sm"><?php echo esc_html( $itoi_name ); ?></span>
 			<?php endforeach; ?>
 		</div>
-	<?php endif;
+		<?php
+	endif;
 }

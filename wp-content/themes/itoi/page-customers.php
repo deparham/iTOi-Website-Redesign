@@ -7,6 +7,8 @@
  * section headings, not the locked 7-slug `industry` CPT (PROJECT.md §4
  * addendum). Only clients with a real `case_study` relationship link
  * through; everyone else is a name/wordmark card only.
+ *
+ * @package ITOI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -70,19 +72,29 @@ while ( have_posts() ) :
 					<?php
 					while ( $itoi_clients_query->have_posts() ) :
 						$itoi_clients_query->the_post();
-						$itoi_client_name  = get_the_title();
+						$itoi_client_name      = get_the_title();
 						$itoi_client_terms_obj = get_the_terms( get_the_ID(), 'client_category' );
-						$itoi_client_cat   = ( $itoi_client_terms_obj && ! is_wp_error( $itoi_client_terms_obj ) ) ? $itoi_client_terms_obj[0] : null;
-						$itoi_logo_id      = get_field( 'logo' );
-						$itoi_case_study_id = get_field( 'case_study' );
-						$itoi_case_study_url = ( $itoi_case_study_id && get_post_status( $itoi_case_study_id ) === 'publish' ) ? get_permalink( $itoi_case_study_id ) : '';
+						$itoi_client_cat       = ( $itoi_client_terms_obj && ! is_wp_error( $itoi_client_terms_obj ) ) ? $itoi_client_terms_obj[0] : null;
+						$itoi_logo_id          = get_field( 'logo' );
+						$itoi_case_study_id    = get_field( 'case_study' );
+						$itoi_case_study_url   = ( $itoi_case_study_id && get_post_status( $itoi_case_study_id ) === 'publish' ) ? get_permalink( $itoi_case_study_id ) : '';
 						?>
 						<div
 							class="client-card group relative flex flex-col items-center justify-center gap-2 rounded-xl border border-line bg-white px-4 py-7 text-center transition-all hover:-translate-y-[3px] hover:border-ink focus-within:-translate-y-[3px] focus-within:border-ink"
 							data-category="<?php echo $itoi_client_cat ? esc_attr( $itoi_client_cat->slug ) : ''; ?>"
 						>
 							<?php if ( $itoi_logo_id ) : ?>
-								<?php echo wp_get_attachment_image( $itoi_logo_id, 'medium', false, array( 'class' => 'mb-1 h-8 max-w-full object-contain', 'alt' => $itoi_client_name ) ); ?>
+								<?php
+								echo wp_get_attachment_image(
+									$itoi_logo_id,
+									'medium',
+									false,
+									array(
+										'class' => 'mb-1 h-8 max-w-full object-contain',
+										'alt'   => $itoi_client_name,
+									)
+								);
+								?>
 							<?php else : ?>
 								<div class="text-[14.5px] font-extrabold leading-snug"><?php echo esc_html( $itoi_client_name ); ?></div>
 							<?php endif; ?>
@@ -116,7 +128,7 @@ while ( have_posts() ) :
 		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="rounded-full bg-white px-[22px] py-[11px] text-sm font-bold text-ink">Contact us</a>
 	</div>
 
-<?php
+	<?php
 endwhile;
 
 get_footer();
