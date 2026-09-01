@@ -91,10 +91,21 @@ $itoi_dr_cols  = 4 === $itoi_dr_count ? 2 : 3;
  * One door. $side is 'left'|'right'; $image_id is that side's bracket, 0 or
  * empty for the vector stand-in. Kept local to this template — it exists
  * only to avoid writing the same 20 lines twice, mirrored.
+ *
+ * The modifier class is written out in full on both branches rather than
+ * built as "door-hero-door--{$side}". Tailwind only keeps a rule whose
+ * class it can find as a literal string in the scanned files
+ * (tailwind.config.js `content`), and every .door-hero-* rule lives inside
+ * this stylesheet's @layer utilities block — so an interpolated name
+ * compiles away to nothing, with no build error. That is not hypothetical:
+ * the interpolated version shipped first and silently dropped both doors'
+ * position, dot grid, gradient and shadow, leaving one flat navy slab over
+ * the left half of the screen.
  */
 function itoi_door_reveal_door( $side, $image_id ) {
+	$itoi_dr_side_class = 'left' === $side ? 'door-hero-door--left' : 'door-hero-door--right';
 	?>
-	<div class="door-hero-door door-hero-door--<?php echo esc_attr( $side ); ?>" aria-hidden="true">
+	<div class="door-hero-door <?php echo esc_attr( $itoi_dr_side_class ); ?>" aria-hidden="true">
 		<?php if ( $image_id ) : ?>
 			<?php
 			echo wp_get_attachment_image(
