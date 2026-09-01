@@ -1,0 +1,183 @@
+{
+    "key": "group_7c53f40c5e38",
+    "title": "Hero — Door Reveal",
+    "fields": [
+        {
+            "key": "field_1b1df8da5c11",
+            "label": "Eyebrow",
+            "name": "door_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Small uppercase label above the headline.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Problems we solve",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_9ec9546388fd",
+            "label": "Headline",
+            "name": "door_headline",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Press Enter for a line break — the break is rendered on the page exactly where you put it. A textarea rather than a plain text field precisely because ACF's text field strips line breaks, and this headline is designed to sit on two lines.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "We take the\nguesswork out of it.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_411baf8a5109",
+            "label": "Left door bracket render",
+            "name": "door_bracket_left",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Transparent PNG or WebP of the 3D bracket, sitting near the left door's inner edge. Only the bracket itself — the navy panel and its dot grid are drawn in CSS, so they stay sharp at any viewport size. Leave empty to show the flat vector stand-in instead of a stretched placeholder.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": "png,webp"
+        },
+        {
+            "key": "field_40eb9ef3a142",
+            "label": "Right door bracket render",
+            "name": "door_bracket_right",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Same as the left, mirrored — sits near the right door's inner edge.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": "png,webp"
+        },
+        {
+            "key": "field_667ddfad9602",
+            "label": "Cards",
+            "name": "door_cards",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "The cards revealed behind the doors. 4, 5 or 6 — the grid re-columns itself for each count (4 = two columns, 5-6 = three), so any of them lays out correctly with no template change.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add card",
+            "min": 4,
+            "max": 6,
+            "rows_per_page": 20,
+            "collapsed": "field_bf0aefafe684",
+            "sub_fields": [
+                {
+                    "key": "field_bf0aefafe684",
+                    "label": "Question",
+                    "name": "card_question",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "The customer's question, in their words.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_667ddfad9602"
+                },
+                {
+                    "key": "field_d0216ccdf7ba",
+                    "label": "Answer",
+                    "name": "card_answer",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "How ITOI answers it. Hidden visually on phones (≤860px) so the grid still fits one screen — still read out by screen readers there, so nothing is lost.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_667ddfad9602"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Scroll-driven \"door reveal\" section (template-parts/home/hero-door-reveal.php, assets/js/door-hero.js), added 2026-09-01 in the homepage slot the Video Showcase used to hold. Two navy doors slide apart as you scroll to reveal the eyebrow/headline/card grid behind them. NOTE: this is the one homepage section whose content lives on the Home page's own edit screen rather than in Site Settings ▸ (homepage) tabs, where every other homepage section keeps its content — that placement was specified explicitly for this section.",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1788220800
+}

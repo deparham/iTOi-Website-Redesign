@@ -3,6 +3,43 @@
     "title": "Product Page Content",
     "fields": [
         {
+            "key": "field_prd0en4bl3d1a2b",
+            "label": "Enabled",
+            "name": "product_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Off = this product's page becomes unavailable — visiting /products/{slug}/ redirects to the Products archive instead of rendering, and it disappears from the Products archive grid, the homepage Real Use Cases carousel, and its Partners-section card (if it has one). On by default; existing products are unaffected until you switch one off.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_ext1ink2ur1a1b2",
+            "label": "Link elsewhere instead (optional)",
+            "name": "external_link_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Don't want to build a full page for this product? Put its destination URL here — could be another page on this site, or an external site. Every link to this product sitewide (Products archive, Real Use Cases carousel, Partners section) will point straight there instead of /products/{slug}/, and visiting this product's own page will redirect there too, rather than showing an empty/unfinished page. Leave empty (the default) to build a real page below as normal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https://"
+        },
+        {
             "key": "field_42812cc6dd84",
             "label": "Page Sections",
             "name": "",
@@ -41,6 +78,26 @@
                     "label": "Hero",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_ad987d65611e",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
                         {
                             "key": "field_9d4ef90f7d4a",
                             "label": "Eyebrow",
@@ -237,6 +294,26 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_ca85d0e96625",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
                             "key": "field_df4065b80d0a",
                             "label": "Stat items",
                             "name": "stat_items",
@@ -311,6 +388,26 @@
                     "label": "How It Works",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_a9b265a4d57d",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
                         {
                             "key": "field_bb270751dcb8",
                             "label": "Eyebrow",
@@ -521,6 +618,26 @@
                     "label": "Comparison Table",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_bbfad815f00b",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off. Also removes the Hero section's \"See how it compares\" button/#comparison scroll target on this page while off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
                         {
                             "key": "field_cd3657db075e",
                             "label": "Eyebrow",
@@ -780,6 +897,26 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_00ece18d9646",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
                             "key": "field_464f5e25e4e8",
                             "label": "Eyebrow",
                             "name": "specs_eyebrow",
@@ -935,6 +1072,26 @@
                     "label": "Use Cases",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_8de7d2a6a8c1",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
                         {
                             "key": "field_16a634c33ab0",
                             "label": "Heading",
@@ -1093,6 +1250,26 @@
                     "label": "Final CTA",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_db4d1f3253d0",
+                            "label": "Section enabled",
+                            "name": "section_enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Off = this section is skipped on the live page, but its content below stays saved — turn it back on any time instead of deleting/re-adding it. On by default; existing sections are unaffected until you switch one off.",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
                         {
                             "key": "field_98d4ebf6d5cc",
                             "label": "Headline",
@@ -1324,6 +1501,173 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_14a579aa50654",
+            "label": "SEO description (dek)",
+            "name": "dek",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "2026-08-06 (wp-admin content audit): added to close the gap inc/schema.php's itoi_product_schema() flagged in its own comment — that function has always called get_field('dek', ...) for this product's structured-data description, but no field named `dek` existed on this CPT until now, so every product's schema.org markup was silently missing a description. Short (1-2 sentence) plain-text summary; not shown anywhere on the page itself, only in the JSON-LD <script> tag search engines read.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_8c45bf0d120a6",
+            "label": "Price (AUD, for SEO schema only)",
+            "name": "product_price",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Same gap as the SEO description field above — inc/schema.php's Offer schema has always checked for this field but it never existed. Numeric only (e.g. \"1499\"), no currency symbol or text — schema.org's price property expects a plain number; priceCurrency (AUD) is already hardcoded in inc/schema.php. Leave empty if this product isn't sold at a fixed public price (e.g. quote-only) — the Offer block simply won't be added to this product's schema, exactly like today.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7a1c9e35f60b1",
+            "label": "Real Use Cases Card",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_2c8e4a71d9f31",
+            "label": "Show in “Real Use Cases” homepage carousel",
+            "name": "show_in_use_cases_carousel",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "2026-08-24: this carousel (front-page.php → template-parts/home/use-cases.php, id=\"useCasesCarousel\") is now driven directly by Products, not the `use_case` CPT — explicit instruction, replacing the earlier use_case→product link (that field/CPT still exists and still powers the /use-cases/ hub, the nav dropdown, and each industry's long-form Use Cases tab — unrelated, unaffected). Checking this box is what makes a product show up there; the 3 fields below are that card's content. Off by default so a half-finished product page doesn't appear until you're ready.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_3d9f5b82e0a42",
+            "label": "Category label",
+            "name": "use_case_category_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The card's front-face label, e.g. “Indoor retail analytics” — the use-case category this product is shown under, not the product name itself (the back face already shows the real product name/description/photo from the Homepage Turnstile Card fields above, reused as-is).",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_2c8e4a71d9f31",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_4e0a6c93f1b53",
+            "label": "Card front photo",
+            "name": "use_case_front_photo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "16:10-ish. Leave empty to show a placeholder box naming the category above, same honest-placeholder pattern as everywhere else in this theme.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_2c8e4a71d9f31",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_5f1b7d04a2c64",
+            "label": "Card front video",
+            "name": "use_case_front_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Optional, takes priority over the photo above.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_2c8e4a71d9f31",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0,
+            "mime_types": "mp4,webm,mov"
         }
     ],
     "location": [
@@ -1342,10 +1686,10 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Restructured 2026-07-31 (see NOTES.md, \"Products turnstile + per-product pages\") from a fixed 7-tab layout into a Flexible Content field (“Page sections”) with 7 reusable section types (Hero, Stat Strip, How It Works, Comparison Table, Specifications, Use Cases, Final CTA) so editors can add/remove/reorder a product's page sections in wp-admin. Rendered by single-product.php (/products/{slug}/). The separate “Homepage Turnstile Card” tab (7 fields, unchanged keys from the field group's original 2026-07-30 version) feeds the homepage's “Meet our products” turnstile card for this product — independent of the page sections above.",
+    "description": "Restructured 2026-07-31 (see NOTES.md, \"Products turnstile + per-product pages\") from a fixed 7-tab layout into a Flexible Content field (“Page sections”) with 7 reusable section types (Hero, Stat Strip, How It Works, Comparison Table, Specifications, Use Cases, Final CTA) so editors can add/remove/reorder a product's page sections in wp-admin. Rendered by single-product.php (/products/{slug}/). The separate “Homepage Turnstile Card” tab (7 fields, unchanged keys from the field group's original 2026-07-30 version) feeds the homepage's “Meet our products” turnstile card for this product — independent of the page sections above. A third tab, \"Real Use Cases Card\" (added 2026-08-24), controls whether/how this product appears in the homepage \"Real Use Cases\" carousel — independent of the two tabs above. 2026-08-31: each of the 7 layouts also got a per-section \"Section enabled\" checkbox (section_enabled) — lets an editor hide one section on the live page without losing its content; see single-product.php's page_sections filter.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1785456017
+    "modified": 1788134400
 }

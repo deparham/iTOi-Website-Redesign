@@ -1,7 +1,7 @@
 <?php
 /**
  * Guides index (/education/guides/) — tile grid, client-side filterable by
- * industry. Same filter-pill mechanic as page-customers.php's category
+ * industry. Same filter-pill mechanic as page-portfolio.php's category
  * filter (data-filter attribute + active-state toggle), reused rather than
  * inventing a second pattern — wired up by initClientFilter-style logic
  * inline below since the pill/card ID pair (#guideFilterRow/#guideGrid) is

@@ -51,7 +51,7 @@ while ( have_posts() ) :
 	<?php if ( $itoi_hero ) : ?>
 		<section class="px-8 pt-16 min-[980px]:pt-[70px]">
 			<div class="relative mx-auto aspect-[16/9] max-w-[900px] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
-				<img src="<?php echo esc_url( $itoi_hero ); ?>" alt="<?php the_title_attribute(); ?>" class="absolute inset-0 h-full w-full object-cover">
+				<?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'class' => 'absolute inset-0 h-full w-full object-cover', 'alt' => get_the_title_attribute( array( 'echo' => false ) ) ) ); ?>
 			</div>
 		</section>
 	<?php endif; ?>

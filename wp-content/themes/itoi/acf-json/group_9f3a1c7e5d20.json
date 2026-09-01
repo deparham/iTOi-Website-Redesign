@@ -3,12 +3,29 @@
     "title": "Industry — Hero Interaction",
     "fields": [
         {
+            "key": "field_c9d0e1f2a3b4",
+            "label": "Funnel Settings",
+            "name": "",
+            "type": "tab",
+            "instructions": "Shared base config for the interactive funnel widget — applies regardless of which industry-type tab below is actually used for this post.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_9f3a1c001",
             "label": "Enable funnel section",
             "name": "funnel_enabled",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "Interactive foot-traffic → qualified leads → revenue visualization. Off by default — turn on per-industry once real headline\/copy\/assumption values are filled in below.",
+            "instructions": "Interactive foot-traffic → qualified leads → revenue visualization. Off by default — turn on per-industry once real headline/copy/assumption values are filled in below.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -106,7 +123,7 @@
             "step": 500,
             "placeholder": "",
             "prepend": "",
-            "append": "visitors\/mo"
+            "append": "visitors/mo"
         },
         {
             "key": "field_9f3a1c005",
@@ -114,7 +131,7 @@
             "name": "funnel_conversion_rate",
             "aria-label": "",
             "type": "number",
-            "instructions": "What share of monthly foot traffic the illustration treats as a “qualified lead.” Generic\/illustrative only — PROJECT.md §6 has no real ITOI conversion-rate data yet. Never present as a guaranteed or measured figure.",
+            "instructions": "What share of monthly foot traffic the illustration treats as a “qualified lead.” Generic/illustrative only — PROJECT.md §6 has no real ITOI conversion-rate data yet. Never present as a guaranteed or measured figure.",
             "required": false,
             "conditional_logic": [
                 [
@@ -144,7 +161,7 @@
             "name": "funnel_value_per_lead",
             "aria-label": "",
             "type": "number",
-            "instructions": "Generic\/illustrative only, same caveat as above.",
+            "instructions": "Generic/illustrative only, same caveat as above.",
             "required": false,
             "conditional_logic": [
                 [
@@ -195,6 +212,23 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_d0e1f2a3b4c5",
+            "label": "Hospitality",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the hospitality funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_9f3a1c008",
@@ -320,12 +354,29 @@
             "append": ""
         },
         {
+            "key": "field_e1f2a3b4c5d6",
+            "label": "Banking",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the banking funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_9f3a1c013",
             "label": "Banking — access scenarios",
             "name": "banking_scenarios",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "3 rows: Valid badge, Tailgating attempt, Lost badge reported. Each is a clickable scenario card in the access-simulator interaction on the Banking & Finance industry page. Log message is appended with the live current time client-side (not a stored real timestamp) — keep the message itself illustrative, no real incident data.",
+            "instructions": "3 rows, one per access-scenario card (Valid badge / Tailgating attempt / etc.). Clicking a card shows its result panel.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -337,26 +388,6 @@
             "button_label": "Add scenario",
             "min": 0,
             "max": 0,
-            "default_value": [
-                {
-                    "field_9f3a1c014": "Valid badge",
-                    "field_9f3a1c015": "Employee badge scanned, matches access list",
-                    "field_9f3a1c016": "success",
-                    "field_9f3a1c017": "Access granted"
-                },
-                {
-                    "field_9f3a1c014": "Tailgating attempt",
-                    "field_9f3a1c015": "Second person follows an authorized badge-holder through",
-                    "field_9f3a1c016": "alert",
-                    "field_9f3a1c017": "Tailgating flagged — security notified"
-                },
-                {
-                    "field_9f3a1c014": "Lost badge reported",
-                    "field_9f3a1c015": "A badge already reported lost is presented at the door",
-                    "field_9f3a1c016": "alert",
-                    "field_9f3a1c017": "Reported badge used — access denied"
-                }
-            ],
             "rows_per_page": 20,
             "collapsed": "",
             "sub_fields": [
@@ -383,7 +414,7 @@
                 },
                 {
                     "key": "field_9f3a1c015",
-                    "label": "One-line description",
+                    "label": "Scenario description",
                     "name": "scenario_description",
                     "aria-label": "",
                     "type": "text",
@@ -408,7 +439,7 @@
                     "name": "result_type",
                     "aria-label": "",
                     "type": "select",
-                    "instructions": "Drives the icon\/color treatment — success (green check, door unlocks) or alert (red pulse, flag banner).",
+                    "instructions": "Controls the result panel's icon/styling.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -421,23 +452,21 @@
                         "alert": "Alert"
                     },
                     "default_value": "success",
+                    "return_format": "value",
                     "multiple": 0,
                     "allow_null": 0,
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
-                    "return_format": "value",
-                    "parent_repeater": "field_9f3a1c013",
-                    "create_options": 0,
-                    "save_options": 0
+                    "parent_repeater": "field_9f3a1c013"
                 },
                 {
                     "key": "field_9f3a1c017",
-                    "label": "Log message (illustrative)",
+                    "label": "Log message",
                     "name": "log_message",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The live current time is appended client-side — don't include a timestamp here.",
+                    "instructions": "Shown in the result panel's monospace log line.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -455,12 +484,29 @@
             ]
         },
         {
+            "key": "field_f2a3b4c5d6e7",
+            "label": "Government",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the government funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_9f3a1c018",
-            "label": "Government — funding-allocation categories",
+            "label": "Government — funding categories",
             "name": "government_categories",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "3-4 rows — the bars in the funding-allocation chart on the Government & Councils industry page. Baseline value is the bar's illustrative starting height (0-100 scale); toggling a checkbox below adds its impact on top, capped at 100.",
+            "instructions": "4 rows — the chart's bars. Each checkbox above can boost one or more of these via its Impact map field.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -472,24 +518,6 @@
             "button_label": "Add category",
             "min": 0,
             "max": 0,
-            "default_value": [
-                {
-                    "field_9f3a1c019": "Evening foot traffic",
-                    "field_9f3a1c020": 35
-                },
-                {
-                    "field_9f3a1c019": "Weekend attendance",
-                    "field_9f3a1c020": 45
-                },
-                {
-                    "field_9f3a1c019": "Dwell time",
-                    "field_9f3a1c020": 30
-                },
-                {
-                    "field_9f3a1c019": "Safety perception",
-                    "field_9f3a1c020": 40
-                }
-            ],
             "rows_per_page": 20,
             "collapsed": "",
             "sub_fields": [
@@ -516,11 +544,11 @@
                 },
                 {
                     "key": "field_9f3a1c020",
-                    "label": "Baseline value (0-100, illustrative)",
+                    "label": "Baseline value",
                     "name": "baseline_value",
                     "aria-label": "",
                     "type": "number",
-                    "instructions": "",
+                    "instructions": "0-100. The bar's height before any checkbox impact is applied.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -528,11 +556,11 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": 0,
+                    "default_value": "",
                     "min": 0,
                     "max": 100,
-                    "step": 1,
                     "placeholder": "",
+                    "step": "",
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_9f3a1c018"
@@ -621,6 +649,23 @@
                     "parent_repeater": "field_9f3a1c021"
                 }
             ]
+        },
+        {
+            "key": "field_a3b4c5d6e7f8",
+            "label": "Logistics",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the logistics funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_9f3a1c024",
@@ -815,6 +860,23 @@
             "append": ""
         },
         {
+            "key": "field_b4c5d6e7f8a9",
+            "label": "Stadium",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the stadium funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_9f3a1c032",
             "label": "Stadiums — density zones",
             "name": "stadium_zones",
@@ -988,6 +1050,23 @@
             "append": ""
         },
         {
+            "key": "field_c5d6e7f8a9b0",
+            "label": "Casino",
+            "name": "",
+            "type": "tab",
+            "instructions": "Only relevant if this industry post uses the casino funnel variant.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_9f3a1c039",
             "label": "Casinos — floor-plan zones",
             "name": "casino_zones",
@@ -1116,10 +1195,10 @@
     "instruction_placement": "label",
     "hide_on_screen": [],
     "active": true,
-    "description": "New component, not in PROJECT.md's original §10 phase plan — added 2026-07-20 at explicit user request for the Retail industry landing page. Available on every industry entry (so it's reusable without a code change) but only populated\/enabled on Retail for now. See NOTES.md.",
+    "description": "New component, not in PROJECT.md's original §10 phase plan — added 2026-07-20 at explicit user request for the Retail industry landing page. Available on every industry entry (so it's reusable without a code change) but only populated/enabled on Retail for now. See NOTES.md. Reorganized into per-industry-type tabs 2026-08-24 (was a 24-field flat list mixing all 6 industry variants together) — explicit instruction, for admin discoverability.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1784611724
+    "modified": 1787542465
 }

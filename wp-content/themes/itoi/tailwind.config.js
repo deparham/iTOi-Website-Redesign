@@ -35,7 +35,33 @@ module.exports = {
         'signature-glow': 'var(--signature-glow)',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // 2026-08-21 — sitewide swap from Inter to Lora, explicit
+        // instruction, confirmed after flagging that it overrides
+        // CLAUDE.md/PROJECT.md §3's original "single sans-serif (Inter or
+        // Manrope), no serif" rule — both docs updated to match, this
+        // isn't an undocumented drift. Key stays named `sans` (not
+        // renamed to e.g. `body`) since dozens of templates already
+        // reference `font-sans`/the body default via
+        // theme('fontFamily.sans') — renaming the key would mean hunting
+        // down every one of those for zero functional benefit; the VALUE
+        // is what changed. See src/tailwind.css's Lora @font-face block
+        // for the actual asset (3 self-hosted weights, no Google Fonts
+        // CDN). The short-lived 'trust-serif' single-heading exception
+        // this superseded is gone — the whole site is that font now, no
+        // separate token needed.
+        sans: ['Lora', 'ui-serif', 'Georgia', 'serif'],
+        // 2026-08-24 — scoped exception, not a reopening of the decision
+        // above. Technology Partners cards (template-parts/partners.php)
+        // need real typographic contrast between the section's decorative
+        // serif title ("Our Partners", left on the sitewide Lora default)
+        // and the cards' own content (eyebrow/name/description/button),
+        // which reads as a data label, not prose — explicit instruction.
+        // System-UI stack, no new font asset/network request: this theme
+        // hasn't shipped a real sans-serif webfont since Inter was removed
+        // (see the note above), and adding one back just for one section
+        // isn't worth it when every OS already ships a perfectly good
+        // sans. Only ever reference this from template-parts/partners.php.
+        'ui-sans': ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       // Section-padding scale — 2026-07-27 visual consistency audit (see
       // NOTES.md). 3 tiers only, each a fluid clamp() var (src/tailwind.css

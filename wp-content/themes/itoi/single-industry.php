@@ -733,11 +733,11 @@ while ( have_posts() ) :
 					'why-itoi'  => 'Why ITOI',
 					'solutions' => 'Solutions',
 				);
-				// Omitted for any industry where Customers has no real
+				// Omitted for any industry where Portfolio has no real
 				// content at all — a nav link to an empty section is
 				// broken UX (see NOTES.md, e.g. Casinos & Gaming).
 				if ( $itoi_lf_show_customers_section ) {
-					$itoi_lf_nav_items['customers'] = 'Customers';
+					$itoi_lf_nav_items['portfolio'] = 'Portfolio';
 				}
 				foreach ( $itoi_lf_nav_items as $itoi_nav_id => $itoi_nav_label ) :
 					?>
@@ -836,7 +836,16 @@ while ( have_posts() ) :
 						<?php
 						foreach ( $itoi_lf_use_cases as $itoi_uc ) :
 							$itoi_uc_image_url = $itoi_uc['image_id'] ? wp_get_attachment_image_url( $itoi_uc['image_id'], 'medium_large' ) : '';
-							$itoi_uc_media     = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], $itoi_uc['label'], 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
+							// 2026-08-05 (external improvement plan Phase 5.7, axe
+							// image-redundant-alt): this card's own visible label
+							// (rendered just below, same $itoi_uc['label']) already
+							// says exactly what the alt text was repeating — empty
+							// alt marks the image decorative here instead, so a
+							// screen reader doesn't announce the same short phrase
+							// twice per card. Only this call site changed; other
+							// itoi_media_cover() callers keep real alt text where the
+							// image is the only source of that information.
+							$itoi_uc_media     = itoi_media_cover( $itoi_uc_image_url, $itoi_uc['video'], '', 'absolute inset-0 h-full w-full object-cover', 'loading="lazy"' );
 							?>
 							<a href="<?php echo esc_url( $itoi_uc['solution_url'] ); ?>" class="use-case-card glass-element-light group block overflow-hidden rounded-2xl transition-all hover:-translate-y-[3px]">
 								<div class="relative aspect-[16/10] w-full overflow-hidden bg-[linear-gradient(135deg,#e2e7ee,#cfd7e0)]">
@@ -934,7 +943,7 @@ while ( have_posts() ) :
 			</div>
 		</section>
 
-		<!-- ================= CUSTOMERS =================
+		<!-- ================= PORTFOLIO =================
 		     Only rendered at all when $itoi_lf_show_customers_section is
 		     true (real spotlight, real logo-strip rows, or an explicit
 		     empty-state message) — an industry with zero confirmed clients
@@ -942,8 +951,9 @@ while ( have_posts() ) :
 		     link above) entirely rather than showing a heading over
 		     nothing. See NOTES.md for which industries hit which branch.
 		     Render logic extracted 2026-07-30 into
-		     inc/customers-section.php — shared with the homepage's own
-		     Customers section (see NOTES.md). -->
+		     inc/customers-section.php — labeled "Portfolio" on the front
+		     end since 2026-08-10 (see NOTES.md), section/function names
+		     kept as "customers" internally. -->
 		<?php if ( $itoi_lf_show_customers_section ) : ?>
 			<?php itoi_render_customers_section_data( $itoi_lf_customers_data ); ?>
 		<?php endif; ?>

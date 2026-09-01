@@ -1,6 +1,10 @@
 # Node toolchain — production runs on the compiled CSS in assets/, no Node process.
 node_modules/
 
+# PHP dev tooling (phpcs/WPCS, see composer.json) — CI installs from
+# composer.lock, not part of the production runtime.
+vendor/
+
 # Screenshot loop output — cleared each session per CLAUDE.md, not committed.
 temporary-screenshots/
 
@@ -12,3 +16,9 @@ temporary-lighthouse/
 
 # Local IDE/editor state and pasted chat images — not project source.
 .claude/
+
+# Plugin/tool installer archives sometimes staged here mid-install
+# (e.g. a licensed plugin zip dropped in the theme root before being
+# extracted into wp-content/plugins/) — never meant to be committed.
+# See NOTES.md 2026-08-05/06 for why this matters here specifically.
+*.zip

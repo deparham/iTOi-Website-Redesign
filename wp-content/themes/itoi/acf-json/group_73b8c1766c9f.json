@@ -3,8 +3,25 @@
     "title": "Site Settings",
     "fields": [
         {
+            "key": "field_1c2a5e7f9b31",
+            "label": "Company & Contact",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_2a7f5a915c18",
-            "label": "Company address",
+            "label": "Company Address",
             "name": "company_address",
             "aria-label": "",
             "type": "textarea",
@@ -16,15 +33,15 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2,
-            "default_value": "1\/249 ShellHarbour Rd, Port Kembla 2505",
+            "rows": 3,
+            "default_value": "",
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
         },
         {
             "key": "field_e1dd3704afd8",
-            "label": "Manager 1 — name",
+            "label": "Manager 1 Name",
             "name": "manager_1_name",
             "aria-label": "",
             "type": "text",
@@ -36,7 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Sean Kiely",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -44,7 +61,7 @@
         },
         {
             "key": "field_7d18befa9ec5",
-            "label": "Manager 1 — email",
+            "label": "Manager 1 Email",
             "name": "manager_1_email",
             "aria-label": "",
             "type": "email",
@@ -56,14 +73,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "sean.kiely@itoisolutions.com.au",
+            "default_value": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
             "key": "field_a2fd4b55c92a",
-            "label": "Manager 1 — phone",
+            "label": "Manager 1 Phone",
             "name": "manager_1_phone",
             "aria-label": "",
             "type": "text",
@@ -75,7 +92,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "+61 4040 90072",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -83,7 +100,7 @@
         },
         {
             "key": "field_c34b0024148a",
-            "label": "Manager 2 — name",
+            "label": "Manager 2 Name",
             "name": "manager_2_name",
             "aria-label": "",
             "type": "text",
@@ -95,7 +112,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Michael Stark",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -103,7 +120,7 @@
         },
         {
             "key": "field_5e71982e4455",
-            "label": "Manager 2 — email",
+            "label": "Manager 2 Email",
             "name": "manager_2_email",
             "aria-label": "",
             "type": "email",
@@ -115,14 +132,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "michael.stark@itoisolutions.com.au",
+            "default_value": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
             "key": "field_8b90051c6300",
-            "label": "Support phone",
+            "label": "Support Phone",
             "name": "support_phone",
             "aria-label": "",
             "type": "text",
@@ -134,7 +151,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "+61 468 765 815",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -142,7 +159,7 @@
         },
         {
             "key": "field_81bc10170c12",
-            "label": "Support email",
+            "label": "Support Email",
             "name": "support_email",
             "aria-label": "",
             "type": "email",
@@ -154,14 +171,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "support@itoisolutions.com.au",
+            "default_value": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
             "key": "field_3ab38a054b33",
-            "label": "Office hours",
+            "label": "Office Hours",
             "name": "office_hours",
             "aria-label": "",
             "type": "text",
@@ -173,7 +190,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Mon–Fri 8:00–17:00 AEST",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -181,7 +198,7 @@
         },
         {
             "key": "field_0c957cbce512",
-            "label": "Support hours",
+            "label": "Support Hours",
             "name": "support_hours",
             "aria-label": "",
             "type": "text",
@@ -193,15 +210,32 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "24\/7",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
+            "key": "field_2d3b6f80ac42",
+            "label": "SEO Defaults",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_fb7f00e00b56",
-            "label": "Default OG image",
+            "label": "Default OG Image",
             "name": "og_default_image",
             "aria-label": "",
             "type": "image",
@@ -225,8 +259,28 @@
             "mime_types": ""
         },
         {
+            "key": "field_c4a9e17b2f63",
+            "label": "Default Meta Description",
+            "name": "default_meta_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
             "key": "field_ed38066fdd49",
-            "label": "Site tagline",
+            "label": "Site Tagline",
             "name": "site_tagline",
             "aria-label": "",
             "type": "text",
@@ -245,12 +299,11 @@
             "append": ""
         },
         {
-            "key": "field_d8306bab8278",
-            "label": "Hero slides",
-            "name": "hero_slides",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Mega-hero dot-nav slideshow (PROJECT.md §3 mechanic #2). 2026-07-23 correction: an earlier session incorrectly collapsed this to a single fixed headline\/subcopy (fields hero_headline\/hero_subcopy) — that removal was never requested and has been reverted; the auto-advancing multi-slide dot-nav is restored. This time the repeater is actually wired to the front end (inc\/enqueue.php localizes it as itoiHeroSlides for assets\/js\/main.js) — the old pre-2026-07-23 version of this field existed but was never read by any template, see NOTES.md. Slide 5 (RetailNext) uses the partnership sub-fields below instead of a plain headline.",
+            "key": "field_3e4c7091bd53",
+            "label": "Header & Navigation",
+            "name": "",
+            "type": "tab",
+            "instructions": "Mega menu preview cards and the scrolling ticker bar — both rendered in header.php, sitewide.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -258,725 +311,17 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
-            "button_label": "Add slide",
-            "default_value": [
-                {
-                    "field_a18ebd116097": "Enterprise security systems that eliminate operational blind spots.",
-                    "field_2457b8ae6410": "Integrated facial recognition, ANPR, access control, and intelligent surveillance for schools, healthcare facilities, logistics sites, and commercial property across Australia.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "Know what happened, the moment it happens",
-                    "field_2457b8ae6410": "Real-time detection across every zone, with alerts routed straight to the right person.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "One platform for cameras, access and analytics",
-                    "field_2457b8ae6410": "Retail analytics, facial recognition and smart security, unified in a single dashboard.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "Built for Australian retail, venues and government",
-                    "field_2457b8ae6410": "From single stores to council-wide deployments, backed by 24\/7 local support.",
-                    "field_a517ac4e9cdd": "0",
-                    "field_1ed67b0df23d": "",
-                    "field_b35c03f09ed3": ""
-                },
-                {
-                    "field_a18ebd116097": "RetailNext × iTOi Solutions",
-                    "field_2457b8ae6410": "Powered by RetailNext's proven retail analytics platform, deployed and supported by ITOI.",
-                    "field_a517ac4e9cdd": "1",
-                    "field_1ed67b0df23d": "RetailNext",
-                    "field_b35c03f09ed3": ""
-                }
-            ],
-            "min": 0,
-            "max": 0,
-            "rows_per_page": 20,
-            "collapsed": "field_a18ebd116097",
-            "sub_fields": [
-                {
-                    "key": "field_a18ebd116097",
-                    "label": "Headline",
-                    "name": "headline",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "Plain-text headline. For the RetailNext-style partnership slide, still fill this in as a plain-text equivalent (used as a fallback\/aria-label) even though the on-screen treatment uses the co-branding lockup below instead.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_2457b8ae6410",
-                    "label": "Subcopy",
-                    "name": "subcopy",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "rows": 2,
-                    "default_value": "",
-                    "new_lines": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_a517ac4e9cdd",
-                    "label": "This is a co-branding \/ partnership slide",
-                    "name": "is_partnership",
-                    "aria-label": "",
-                    "type": "true_false",
-                    "instructions": "When checked, the headline renders as a \"Partner × ITOI\" co-branding lockup (partner logo if uploaded below, otherwise partner name as styled text) instead of the plain Headline text above.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "message": "",
-                    "default_value": 0,
-                    "ui": 1,
-                    "ui_on_text": "",
-                    "ui_off_text": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_1ed67b0df23d",
-                    "label": "Partner name",
-                    "name": "partner_name",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "e.g. \"RetailNext\". Only used when \"co-branding\/partnership slide\" above is checked.",
-                    "required": false,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_a517ac4e9cdd",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_b35c03f09ed3",
-                    "label": "Partner logo",
-                    "name": "partner_logo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "Optional. TODO(photo)-style empty state — no RetailNext logo asset exists in this environment yet, so this slide currently renders text-only (\"RetailNext × iTOi Solutions\", styled). Upload a real logo here to switch the lockup to logo+wordmark once available.",
-                    "required": false,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_a517ac4e9cdd",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "preview_size": "medium",
-                    "library": "all",
-                    "min_width": 0,
-                    "min_height": 0,
-                    "min_size": 0,
-                    "max_width": 0,
-                    "max_height": 0,
-                    "max_size": 0,
-                    "mime_types": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_9d1b2c4e6f80",
-                    "label": "Background photo",
-                    "name": "photo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "Optional, per slide. Shown as this slide's background while it's active, behind the Live Detection markers (which keep drawing on top regardless — CLAUDE.md's signature-layer rule). Leave empty to keep the plain dark-gradient look for this slide. Also used as the background video's poster frame and as the still fallback when a visitor has \"reduce motion\" turned on, if a background video is set below. TEMPORARY: may currently hold a free-licensed stock photo\/video-poster frame from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check the attachment's caption in Media Library for source + license, and replace before launch.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "preview_size": "medium",
-                    "library": "all",
-                    "min_width": 0,
-                    "min_height": 0,
-                    "min_size": 0,
-                    "max_width": 0,
-                    "max_height": 0,
-                    "max_size": 0,
-                    "mime_types": "",
-                    "parent_repeater": "field_d8306bab8278"
-                },
-                {
-                    "key": "field_9d2b3c5e6f81",
-                    "label": "Background video",
-                    "name": "video",
-                    "aria-label": "",
-                    "type": "file",
-                    "instructions": "Optional, per slide. Takes priority over the photo above if both are set — muted, autoplay, loops while this slide is active. Never plays for a visitor with \"reduce motion\" turned on (the photo above, or the plain gradient if no photo is set, shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. TEMPORARY: may currently hold a free-licensed stock video from the site-wide stock sourcing pass (see NOTES.md) standing in until real ITOI footage exists — check NOTES.md for the source\/license, and replace before launch.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": 0,
-                    "max_size": 0,
-                    "mime_types": "mp4,webm,mov",
-                    "parent_repeater": "field_d8306bab8278"
-                }
-            ]
-        },
-        {
-            "key": "field_3e7c92a1f6d4",
-            "label": "Hero primary CTA — label",
-            "name": "hero_cta_primary_label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Static, slide-0-only primary CTA for the mega-hero (front-page.php #megaHero). Does not rotate with the hero_slides dot-nav slideshow above — only slide 0 uses this button.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Book a site assessment",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_4f8d03b2a7e5",
-            "label": "Hero primary CTA — URL",
-            "name": "hero_cta_primary_url",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Relative path preferred, rendered via esc_url() directly (same convention as why_choose_photos' cta_url, field_7b9d1f3a5c68) — not wrapped in home_url().",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "/contact/",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_5a9e14c3b8f6",
-            "label": "Hero secondary CTA — label",
-            "name": "hero_cta_secondary_label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Static, slide-0-only secondary CTA for the mega-hero.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "View case studies",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_6b0f25d4c9a7",
-            "label": "Hero secondary CTA — URL",
-            "name": "hero_cta_secondary_url",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Relative path, esc_url()'d directly, same convention as the primary CTA URL above.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "/case-studies/",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_7c1a36e5daf8",
-            "label": "Hero trust metrics",
-            "name": "hero_trust_metrics",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Static, slide-0-only 3-item trust row shown under the hero CTAs (front-page.php #megaHero). Exactly 3 items by design (min/max both set to 3) — this row's layout assumes exactly three; adding/removing rows requires a template/CSS change, not just content edits.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "button_label": "Add metric",
-            "min": 3,
-            "max": 3,
-            "default_value": [
-                {
-                    "field_8d2b47f6ebc9": "Under 2 hour response time"
-                },
-                {
-                    "field_8d2b47f6ebc9": "Australia wide coverage"
-                },
-                {
-                    "field_8d2b47f6ebc9": "Enterprise SLA support"
-                }
-            ],
-            "rows_per_page": 20,
-            "collapsed": "",
-            "sub_fields": [
-                {
-                    "key": "field_8d2b47f6ebc9",
-                    "label": "Text",
-                    "name": "text",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_7c1a36e5daf8"
-                }
-            ]
-        },
-        {
-            "key": "field_729d8478c158",
-            "label": "Ticker messages",
-            "name": "ticker_messages",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Rotating banner (PROJECT.md §3 mechanic #1). Currently hardcoded in header.php\/main.js — wiring the template to read from here is follow-up work, not done in this phase.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "button_label": "Add message",
-            "default_value": [
-                {
-                    "text": "Live foot-traffic detection now ships on every ITOI camera."
-                },
-                {
-                    "text": "ITOI now integrates directly with Xero and MYOB for POS matching."
-                },
-                {
-                    "text": "New: autonomous cleaning fleet now available for warehouse sites."
-                }
-            ],
-            "min": 0,
-            "max": 0,
-            "rows_per_page": 20,
-            "collapsed": "",
-            "sub_fields": [
-                {
-                    "key": "field_2f8453357fb2",
-                    "label": "Text",
-                    "name": "text",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_729d8478c158"
-                }
-            ]
-        },
-        {
-            "key": "field_9a3c5e1f7b02",
-            "label": "Why choose ITOI — headline",
-            "name": "why_choose_headline",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Homepage \"Why teams choose ITOI\" split-panel section (PROJECT.md §3 mechanic #6) — the centered white H2 above the pill tabs.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Why teams choose ITOI",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_5b1a7c02e9f4",
-            "label": "Why choose ITOI — tabs",
-            "name": "why_choose_photos",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Homepage \"Why teams choose ITOI\" split-panel (PROJECT.md §3 mechanic #6) — one pill tab per row, in display order (front-page.php #pillTabs). Made fully editable 2026-08-04 (see NOTES.md) — every field below (including tab label, title, description, bullets and CTA) used to be hardcoded in assets\/js\/main.js (whyData); that array is gone, this repeater is now the only source, mirrored to the front end via wp_localize_script (inc\/enqueue.php). Field name kept as `why_choose_photos` even though its scope grew, so the photo\/video already uploaded to each row doesn't need re-uploading.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "button_label": "Add tab",
-            "min": 5,
-            "max": 5,
-            "default_value": [
-                {
-                    "field_5b1a7c1a9f01": "Plug-and-play setup",
-                    "field_2c4e6a8b0d13": "Plug-and-play setup",
-                    "field_3d5f7b9c1e24": "Works with cameras you already have — no forklift upgrade required.",
-                    "field_4e6a8c0d2f35": [
-                        { "field_5f7b9d1e3a46": "Bridges to existing CCTV, alarms and door hardware" },
-                        { "field_5f7b9d1e3a46": "Cloud + on-device storage" },
-                        { "field_5f7b9d1e3a46": "Automatic updates, no on-site maintenance visits" }
-                    ],
-                    "field_6a8c0e2f4b57": "Learn more",
-                    "field_7b9d1f3a5c68": "#"
-                },
-                {
-                    "field_5b1a7c1a9f01": "Scalability",
-                    "field_2c4e6a8b0d13": "Scales with every new site",
-                    "field_3d5f7b9c1e24": "Add a store or a stadium without adding a new system to manage.",
-                    "field_4e6a8c0d2f35": [
-                        { "field_5f7b9d1e3a46": "One dashboard across every location" },
-                        { "field_5f7b9d1e3a46": "No per-site licensing headaches" },
-                        { "field_5f7b9d1e3a46": "Roll out in days, not months" }
-                    ],
-                    "field_6a8c0e2f4b57": "Learn more",
-                    "field_7b9d1f3a5c68": "#"
-                },
-                {
-                    "field_5b1a7c1a9f01": "Integrations",
-                    "field_2c4e6a8b0d13": "Integrates with what you run today",
-                    "field_3d5f7b9c1e24": "POS, staffing, and access systems connect without custom dev work.",
-                    "field_4e6a8c0d2f35": [
-                        { "field_5f7b9d1e3a46": "Open API and FTP upload for POS data" },
-                        { "field_5f7b9d1e3a46": "SSO \/ SAML for staff access" },
-                        { "field_5f7b9d1e3a46": "Works alongside existing alarm panels" }
-                    ],
-                    "field_6a8c0e2f4b57": "Learn more",
-                    "field_7b9d1f3a5c68": "#"
-                },
-                {
-                    "field_5b1a7c1a9f01": "Security & privacy",
-                    "field_2c4e6a8b0d13": "Built with privacy in mind",
-                    "field_3d5f7b9c1e24": "Data handling designed around the Australian Privacy Act and the APPs.",
-                    "field_4e6a8c0d2f35": [
-                        { "field_5f7b9d1e3a46": "Data stored in Australia" },
-                        { "field_5f7b9d1e3a46": "Role-based access controls" },
-                        { "field_5f7b9d1e3a46": "Clear retention and deletion policies" }
-                    ],
-                    "field_6a8c0e2f4b57": "Learn more",
-                    "field_7b9d1f3a5c68": "#"
-                },
-                {
-                    "field_5b1a7c1a9f01": "24\/7 support",
-                    "field_2c4e6a8b0d13": "24\/7 specialist support",
-                    "field_3d5f7b9c1e24": "A real person, day or night, when something needs attention.",
-                    "field_4e6a8c0d2f35": [
-                        { "field_5f7b9d1e3a46": "In-house support, not outsourced" },
-                        { "field_5f7b9d1e3a46": "Responses in minutes, not days" },
-                        { "field_5f7b9d1e3a46": "Dedicated account specialist per client" }
-                    ],
-                    "field_6a8c0e2f4b57": "Learn more",
-                    "field_7b9d1f3a5c68": "#"
-                }
-            ],
-            "rows_per_page": 20,
-            "collapsed": "field_2c4e6a8b0d13",
-            "sub_fields": [
-                {
-                    "key": "field_5b1a7c1a9f01",
-                    "label": "Pill tab label",
-                    "name": "tab_label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "The short label shown on the pill button itself (front-page.php #pillTabs) — keep it to 2-3 words so it fits.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_2c4e6a8b0d13",
-                    "label": "Panel title",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "The panel's own H3, shown once this tab is active — can be longer\/more descriptive than the pill label above.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_3d5f7b9c1e24",
-                    "label": "Panel description",
-                    "name": "description",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "rows": 2,
-                    "default_value": "",
-                    "new_lines": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_4e6a8c0d2f35",
-                    "label": "Checklist items",
-                    "name": "bullets",
-                    "aria-label": "",
-                    "type": "repeater",
-                    "instructions": "Shown as a checkmark list under the description.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "layout": "table",
-                    "button_label": "Add item",
-                    "min": 0,
-                    "max": 0,
-                    "default_value": [],
-                    "rows_per_page": 20,
-                    "collapsed": "",
-                    "parent_repeater": "field_5b1a7c02e9f4",
-                    "sub_fields": [
-                        {
-                            "key": "field_5f7b9d1e3a46",
-                            "label": "Item",
-                            "name": "text",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": false,
-                            "conditional_logic": false,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_4e6a8c0d2f35"
-                        }
-                    ]
-                },
-                {
-                    "key": "field_6a8c0e2f4b57",
-                    "label": "CTA label",
-                    "name": "cta_label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "Learn more",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_7b9d1f3a5c68",
-                    "label": "CTA link",
-                    "name": "cta_url",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "TODO(fact-check) — no confirmed per-tab destination exists yet for any of these 5 CTAs (PROJECT.md §6 do-not-invent rule); every row currently keeps the same \"#\" placeholder the hardcoded version always used. Set a real URL per row once a content owner confirms where each should point.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "#",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_5b1a7c2b8e12",
-                    "label": "Photo",
-                    "name": "photo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "Also used as the video's poster frame and as the still fallback for a \"reduce motion\" visitor, if a video is set below. Optional if a video is set instead — one of the two is required, not both.",
-                    "required": 0,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "preview_size": "medium",
-                    "library": "all",
-                    "min_width": 0,
-                    "min_height": 0,
-                    "min_size": 0,
-                    "max_width": 0,
-                    "max_height": 0,
-                    "max_size": 0,
-                    "mime_types": "",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                },
-                {
-                    "key": "field_6c2d8e4f7a03",
-                    "label": "Video",
-                    "name": "video",
-                    "aria-label": "",
-                    "type": "file",
-                    "instructions": "Optional. Takes priority over the photo above if both are set — muted, autoplay, loops while this tab is active. Never plays for a visitor with \"reduce motion\" turned on (the photo above shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted.",
-                    "required": 0,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": 0,
-                    "max_size": 0,
-                    "mime_types": "mp4,webm,mov",
-                    "parent_repeater": "field_5b1a7c02e9f4"
-                }
-            ]
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6d2f9a13c701",
-            "label": "Mega menu — category previews",
+            "label": "Mega Menu Previews",
             "name": "mega_menu_previews",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Right-column preview content for the full-screen mega menu (header.php), one row per top-level Primary menu item, in the same order as Appearance → Menus → Primary. Shown when that item is hovered\/focused on the left.",
+            "instructions": "One row per top-level nav item, in the same order — eyebrow/headline/description shown in the mega menu's right-hand preview panel when that item is focused/hovered.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -984,67 +329,13 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add category preview",
-            "min": 5,
-            "max": 5,
-            "default_value": [
-                {
-                    "field_6d2f9a1a0001": "Solutions",
-                    "field_6d2f9a1a0002": "Solutions",
-                    "field_6d2f9a1a0003": "One platform, seven ways to see more",
-                    "field_6d2f9a1a0004": "Retail analytics, facial recognition, smart security and more — all unified behind a single ITOI dashboard."
-                },
-                {
-                    "field_6d2f9a1a0001": "Use Cases",
-                    "field_6d2f9a1a0002": "Use Cases",
-                    "field_6d2f9a1a0003": "Built around the problem, not the product",
-                    "field_6d2f9a1a0004": "Placeholder — real use cases to be added from the live site."
-                },
-                {
-                    "field_6d2f9a1a0001": "Industries",
-                    "field_6d2f9a1a0002": "Industries",
-                    "field_6d2f9a1a0003": "Trusted across retail, hospitality and more",
-                    "field_6d2f9a1a0004": "From shopping centres to stadiums, ITOI supports seven core industries with tailored deployments."
-                },
-                {
-                    "field_6d2f9a1a0001": "Customers",
-                    "field_6d2f9a1a0002": "Customers",
-                    "field_6d2f9a1a0003": "Real deployments, real results",
-                    "field_6d2f9a1a0004": "See who trusts ITOI across retail, government, banking and more."
-                },
-                {
-                    "field_6d2f9a1a0001": "Resources",
-                    "field_6d2f9a1a0002": "Resources",
-                    "field_6d2f9a1a0003": "Learn more about ITOI",
-                    "field_6d2f9a1a0004": "Insights, company info and the people behind the platform."
-                }
-            ],
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
             "rows_per_page": 20,
-            "collapsed": "",
+            "collapsed": "field_6d2f9a1a0002",
             "sub_fields": [
-                {
-                    "key": "field_6d2f9a1a0001",
-                    "label": "Nav item (reference only)",
-                    "name": "nav_label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "Matches the Primary menu's top-level item order — not itself rendered, just here so the right preview lands on the right item.",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "readonly": 1,
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6d2f9a13c701"
-                },
                 {
                     "key": "field_6d2f9a1a0002",
                     "label": "Eyebrow",
@@ -1107,41 +398,37 @@
                     "maxlength": "",
                     "placeholder": "",
                     "parent_repeater": "field_6d2f9a13c701"
+                },
+                {
+                    "key": "field_6d2f9a1a0001",
+                    "label": "Nav label (legacy, may be unused)",
+                    "name": "nav_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6d2f9a13c701"
                 }
             ]
         },
         {
-            "key": "field_7f2a91c4e6b3",
-            "label": "Platform demo teaser media",
-            "name": "platform_demo_teaser_image",
-            "aria-label": "",
-            "type": "image",
-            "instructions": "Homepage \"One integrated platform\" teaser (front-page.php, browser-chrome-framed media block above the play button). Swap in a real dashboard screenshot once available — currently defaults in-template to a screenshot of the platform demo modal's own Operations tab if this field is left empty, so the teaser never breaks. See NOTES.md for the format decision (static image vs. muted looping video).",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "id",
-            "preview_size": "large",
-            "library": "all",
-            "min_width": 0,
-            "min_height": 0,
-            "min_size": 0,
-            "max_width": 0,
-            "max_height": 0,
-            "max_size": 0,
-            "mime_types": ""
-        },
-        {
-            "key": "field_1a3c5e7f9b02",
-            "label": "Proof stats",
-            "name": "proof_stats",
+            "key": "field_729d8478c158",
+            "label": "Ticker Messages",
+            "name": "ticker_messages",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Homepage \"proof\" stat tiles — replaced the old client-logo scroller (2026-07-30, see NOTES.md — numbers read as stronger credibility signals than logos). \"Facial recognition accuracy\" and \"Detection speed\" below are already-confirmed real figures (PROJECT.md §6). \"Sites protected\" and \"Real-time monitoring\" are placeholder values — replace with real figures once available, same TODO(metric) convention used elsewhere on this site for unconfirmed numbers.",
+            "instructions": "Only the first row's text is currently shown (header.php) — the ticker no longer rotates/auto-advances (2026-08-05 change).",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1149,35 +436,17 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add stat",
+            "layout": "block",
+            "button_label": "Add row",
             "min": 0,
             "max": 0,
-            "default_value": [
-                {
-                    "field_1a3c5e7f9b03": "99.87%",
-                    "field_1a3c5e7f9b04": "Facial recognition accuracy"
-                },
-                {
-                    "field_1a3c5e7f9b03": "<100ms",
-                    "field_1a3c5e7f9b04": "Detection speed"
-                },
-                {
-                    "field_1a3c5e7f9b03": "500+",
-                    "field_1a3c5e7f9b04": "Sites protected"
-                },
-                {
-                    "field_1a3c5e7f9b03": "24/7",
-                    "field_1a3c5e7f9b04": "Real-time monitoring"
-                }
-            ],
             "rows_per_page": 20,
-            "collapsed": "",
+            "collapsed": "field_2f8453357fb2",
             "sub_fields": [
                 {
-                    "key": "field_1a3c5e7f9b03",
-                    "label": "Value",
-                    "name": "stat_value",
+                    "key": "field_2f8453357fb2",
+                    "label": "Text",
+                    "name": "text",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -1193,38 +462,16 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_1a3c5e7f9b02"
-                },
-                {
-                    "key": "field_1a3c5e7f9b04",
-                    "label": "Label",
-                    "name": "stat_label",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": false,
-                    "conditional_logic": false,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_1a3c5e7f9b02"
+                    "parent_repeater": "field_729d8478c158"
                 }
             ]
         },
         {
-            "key": "field_9e3b51d7c2a4",
-            "label": "Trust & credibility — heading",
-            "name": "trust_section_heading",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Homepage \"Trust & credibility\" section, directly below the mega-hero (front-page.php, id=\"trustCredibility\") — the four large metric cards + real client-logo marquee. Separate from proof_stats above (that section sits lower on the page, dark-glass tiles).",
+            "key": "field_4f5d81a2ce64",
+            "label": "Hero (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1232,19 +479,37 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Trusted by retailers who measure performance, not guesswork.",
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_2b6f4a08e913",
+            "label": "Hero Eyebrow",
+            "name": "hero_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
         },
         {
-            "key": "field_1f4c62e8d3b5",
-            "label": "Trust & credibility — metrics",
-            "name": "trust_metrics",
+            "key": "field_d8306bab8278",
+            "label": "Hero Slides",
+            "name": "hero_slides",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Exactly 4 metric cards by design (min/max both set to 4) — the section's grid assumes exactly four; adding/removing requires a template/CSS change, not just content edits. If a stat_value starts with a digit, its leading number animates (counts up) when the card scrolls into view — see initTrustMetricsCounters() in assets/js/main.js. Non-numeric values (e.g. \"Millions\", \"Real-time\") render as-is, no count-up, same card design either way.",
+            "instructions": "Mega-hero headline/sub slideshow. First entry with isPartnership=1 renders as a co-branding lockup instead of plain text.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -1252,38 +517,408 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
-            "button_label": "Add metric",
-            "min": 4,
-            "max": 4,
-            "default_value": [
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 1,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_a18ebd116097",
+            "sub_fields": [
                 {
-                    "field_2a5d73f9e4c6": "Millions",
-                    "field_3b6e84a0f5d7": "of visitors analysed"
+                    "key": "field_a18ebd116097",
+                    "label": "Headline",
+                    "name": "headline",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_d8306bab8278"
                 },
                 {
-                    "field_2a5d73f9e4c6": "Real-time",
-                    "field_3b6e84a0f5d7": "analytics"
+                    "key": "field_2457b8ae6410",
+                    "label": "Subcopy",
+                    "name": "subcopy",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_d8306bab8278"
                 },
                 {
-                    "field_2a5d73f9e4c6": "Multi-site",
-                    "field_3b6e84a0f5d7": "deployments"
+                    "key": "field_a517ac4e9cdd",
+                    "label": "Is partnership slide",
+                    "name": "is_partnership",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_d8306bab8278"
                 },
                 {
-                    "field_2a5d73f9e4c6": "Enterprise",
-                    "field_3b6e84a0f5d7": "reporting"
+                    "key": "field_1ed67b0df23d",
+                    "label": "Partner name",
+                    "name": "partner_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_d8306bab8278"
+                },
+                {
+                    "key": "field_b35c03f09ed3",
+                    "label": "Partner logo",
+                    "name": "partner_logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_d8306bab8278"
+                },
+                {
+                    "key": "field_9d1b2c4e6f80",
+                    "label": "Background photo",
+                    "name": "photo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_d8306bab8278"
+                },
+                {
+                    "key": "field_9d2b3c5e6f81",
+                    "label": "Background video",
+                    "name": "video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": 0,
+                    "max_size": 0,
+                    "mime_types": "mp4,webm,mov",
+                    "parent_repeater": "field_d8306bab8278"
                 }
+            ]
+        },
+        {
+            "key": "field_3e7c92a1f6d4",
+            "label": "Primary CTA label",
+            "name": "hero_cta_primary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_4f8d03b2a7e5",
+            "label": "Primary CTA URL",
+            "name": "hero_cta_primary_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_5a9e14c3b8f6",
+            "label": "Secondary CTA label",
+            "name": "hero_cta_secondary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6b0f25d4c9a7",
+            "label": "Secondary CTA URL",
+            "name": "hero_cta_secondary_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7c1a36e5daf8",
+            "label": "Hero Trust Metrics",
+            "name": "hero_trust_metrics",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_8d2b47f6ebc9",
+            "sub_fields": [
+                {
+                    "key": "field_8d2b47f6ebc9",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_7c1a36e5daf8"
+                }
+            ]
+        },
+        {
+            "key": "field_5a6e92b3df75",
+            "label": "Trust & Stats (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "template-parts/home/trust-credibility.php — heading, the client-logo row (pick which `client` posts show, or leave empty for the first 6 alphabetically), and the 4 stat cards.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6c1e8a2f4d90",
+            "label": "Trust section eyebrow",
+            "name": "trust_section_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Unused — the reference design this section was rebuilt to match (2026-08-21, pass 3) has no eyebrow badge, so template-parts/home/trust-credibility.php never reads this field. Kept registered rather than deleted (no data-loss risk if something was saved here), but filling it in has no visible effect.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_9e3b51d7c2a4",
+            "label": "Trust section heading",
+            "name": "trust_section_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7d2a9c4e1b63",
+            "label": "Client logos shown",
+            "name": "trust_logo_clients",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Pick which Clients appear in the logo row, and drag to set their order. Leave empty to fall back to the first 6 Clients alphabetically. Each Client shows its uploaded `logo` image if it has one, otherwise its name as a monochrome text wordmark. Picking more than 6 makes the row cross-fade through them, 6 at a time.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "client"
             ],
+            "taxonomy": "",
+            "post_status": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0,
+            "elements": ""
+        },
+        {
+            "key": "field_1f4c62e8d3b5",
+            "label": "Trust metrics",
+            "name": "trust_metrics",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "As many as you like — the grid shows 4 at a time; if you add more than 4, they auto-rotate on the live page (cross-fade, ~5s) instead of all cramming into one grid.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
             "rows_per_page": 20,
             "collapsed": "field_2a5d73f9e4c6",
             "sub_fields": [
                 {
                     "key": "field_2a5d73f9e4c6",
-                    "label": "Value",
+                    "label": "Stat value",
                     "name": "stat_value",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "e.g. \"100+\", \"Millions\", \"Real-time\". If this starts with a digit, the leading number animates (counts up) on scroll-in and any trailing text (+, %, /7, \" hour\") is appended after the count finishes; non-numeric values just render as-is with no count-up.",
+                    "instructions": "",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -1300,7 +935,7 @@
                 },
                 {
                     "key": "field_3b6e84a0f5d7",
-                    "label": "Label",
+                    "label": "Stat label",
                     "name": "stat_label",
                     "aria-label": "",
                     "type": "text",
@@ -1318,8 +953,877 @@
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_1f4c62e8d3b5"
+                },
+                {
+                    "key": "field_9b3f6c1e8a24",
+                    "label": "Verified stat (unused)",
+                    "name": "is_verified_stat",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_1f4c62e8d3b5"
                 }
             ]
+        },
+        {
+            "key": "field_5c8e3a17f902",
+            "label": "Video showcase (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "2026-08-24: full-bleed video-showcase section (template-parts/home/video-showcase.php), placed right after the Trust & Stats section on the homepage. One video (or, if none uploaded yet, just the poster photo) serves double duty — muted/looping as the section's own background, and the same file plays with sound + controls in the “Play video” lightbox, so there's only one asset to source/upload, not two.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5f9fcdcbdeb1",
+            "label": "Show video showcase",
+            "name": "show_video_showcase",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "2026-09-01: this section's homepage slot was taken by the scroll-driven \"door reveal\" section (template-parts/home/hero-door-reveal.php). The Video Showcase itself is untouched — markup, fields and the uploaded video all still here — just switched off by default, exactly like the Traffic Demo toggle further down. Turn this on to bring it back; it renders directly below the door reveal.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6d9f4b28e013",
+            "label": "Heading",
+            "name": "video_showcase_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ITOI in action",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_7e0a5c39f124",
+            "label": "Background/poster photo",
+            "name": "video_showcase_poster",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Full-bleed cover image. Also used as the <video> poster frame when a video is set below. Leave empty to show an honest placeholder instead of stock footage.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_8f1b6d4a0235",
+            "label": "Video",
+            "name": "video_showcase_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Optional. When set: plays muted/looped as the section's own moving background, AND is what “Play video” opens in the lightbox (unmuted, with controls). Leave empty to use the poster photo alone as a static background — the “Play video” button only renders at all if this is set, since there'd be nothing to play otherwise.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0,
+            "mime_types": "mp4,webm,mov"
+        },
+        {
+            "key": "field_9a2c7e5b1346",
+            "label": "“Play video” button label",
+            "name": "video_showcase_cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Play video",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6b7fa3c4e086",
+            "label": "Why Choose ITOI (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_9a3c5e1f7b02",
+            "label": "Why Choose headline",
+            "name": "why_choose_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_5b1a7c02e9f4",
+            "label": "Why Choose Photos",
+            "name": "why_choose_photos",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Pill-tab split panel — one tab per row. Real fallback content lives in template-parts/home/why-choose.php, kept in sync with this field's own default rows.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 1,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_5b1a7c1a9f01",
+            "sub_fields": [
+                {
+                    "key": "field_5b1a7c1a9f01",
+                    "label": "Tab label",
+                    "name": "tab_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_2c4e6a8b0d13",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_3d5f7b9c1e24",
+                    "label": "Description",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_4e6a8c0d2f35",
+                    "label": "Bullets",
+                    "name": "bullets",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "button_label": "Add row",
+                    "min": 0,
+                    "max": 0,
+                    "rows_per_page": 20,
+                    "collapsed": "field_wcb_text",
+                    "sub_fields": [
+                        {
+                            "key": "field_5f7b9d1e3a46",
+                            "label": "Text",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": false,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_4e6a8c0d2f35"
+                        }
+                    ],
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_5b1a7c2b8e12",
+                    "label": "Photo",
+                    "name": "photo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_6c2d8e4f7a03",
+                    "label": "Video",
+                    "name": "video",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": 0,
+                    "max_size": 0,
+                    "mime_types": "mp4,webm,mov",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_6a8c0e2f4b57",
+                    "label": "CTA label",
+                    "name": "cta_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                },
+                {
+                    "key": "field_7b9d1f3a5c68",
+                    "label": "CTA URL",
+                    "name": "cta_url",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_5b1a7c02e9f4"
+                }
+            ]
+        },
+        {
+            "key": "field_7c80b4d5f197",
+            "label": "Real Use Cases carousel (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "Just the section heading — the cards themselves come from Products (Products → a product's own \"Real Use Cases Card\" tab), not from here.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_2d8f4b6c9e13",
+            "label": "Use cases teaser heading",
+            "name": "use_cases_teaser_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Just the section heading — the cards themselves come from Products (Products → a product's own “Real Use Cases Card” tab), not from here.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_797fe0cd86f02",
+            "label": "One integrated platform (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "2026-08-06 (wp-admin content audit): homepage section directly below the mega-hero's teaser image (template-parts/home/integrated-platform.php) — headline/body/CTA label were hardcoded, moved here. Teaser image moved into this tab 2026-08-24 (was a separate, disconnected field at the top of this page) — same section, now grouped together.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_7f2a91c4e6b3",
+            "label": "Platform demo teaser image",
+            "name": "platform_demo_teaser_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_3a87f5cf5af13",
+            "label": "Headline",
+            "name": "integrated_platform_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "One integrated platform",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_358aeb90524c4",
+            "label": "Body",
+            "name": "integrated_platform_body",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Control analytics, access control and patrol from a single cloud-based console.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_a627786ea34f7",
+            "label": "\"Learn more\" button label",
+            "name": "integrated_platform_cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Opens the platform demo modal (template-parts/platform-demo-modal.php) — not a link, so there's no URL field here.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Learn more",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_8d91c5e6a2a8",
+            "label": "Traffic Demo (homepage)",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_7c4e2a9f0d15",
+            "label": "Show traffic demo",
+            "name": "show_traffic_demo",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_797fe0cd86f01",
+            "label": "Footer & brand",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_05e3791552eb5",
+            "label": "Company name",
+            "name": "company_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_825565c21bd8b",
+            "label": "Company tagline",
+            "name": "company_tagline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_da12932ef48bd",
+            "label": "Footer location line",
+            "name": "footer_location_line",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_797fe0cd86f03",
+            "label": "404 page",
+            "name": "",
+            "type": "tab",
+            "instructions": "2026-08-06 (wp-admin content audit): 404.php's heading, description and 2 button labels were hardcoded, moved here. The 2 buttons' destinations (home / contact) are structural navigation, not copy, and stay in the template.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_797fe0cd86f5b",
+            "label": "Heading",
+            "name": "error_404_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_f872c00421e82",
+            "label": "Description",
+            "name": "error_404_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_049bc8a5c2436",
+            "label": "Primary button label",
+            "name": "error_404_button_primary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_f9c31cef9f749",
+            "label": "Secondary button label",
+            "name": "error_404_button_secondary_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_9ea2d6f7b3b9",
+            "label": "Legacy (unused)",
+            "name": "",
+            "type": "tab",
+            "instructions": "Fields no current template reads. Kept registered rather than deleted in case something was saved here historically.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_1a3c5e7f9b02",
+            "label": "Proof stats",
+            "name": "proof_stats",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Unused — the standalone \"PROOF\" stat-tiles section this fed was cut in the 2026-08-05 homepage consolidation pass; its 2 real numbers were moved directly into the Trust & Stats tab's Trust metrics instead. No template reads this field any more. Kept registered rather than deleted (no data-loss risk if something was saved here).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "button_label": "Add row",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "field_ps_number",
+            "sub_fields": [
+                {
+                    "key": "field_ps_number",
+                    "label": "Number",
+                    "name": "number",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_1a3c5e7f9b02"
+                },
+                {
+                    "key": "field_ps_label",
+                    "label": "Label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_1a3c5e7f9b02"
+                }
+            ]
+        },
+        {
+            "key": "field_2fb18d4a5c96",
+            "label": "Portfolio page",
+            "name": "portfolio_page_tab",
+            "type": "tab",
+            "instructions": "The /portfolio/ client-directory page (page-portfolio.php).",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_3ac29e5b6d07",
+            "label": "Enable /portfolio/ page",
+            "name": "enable_portfolio_page",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "2026-08-26: disabled per explicit instruction, kept as a real toggle (same pattern as \"Show traffic demo\" below) rather than deleted outright, so it can be switched back on later with no code change. When off, visiting /portfolio/ redirects straight to the homepage (page-portfolio.php) — the page's actual content/markup is untouched either way. The Portfolio sub-section on each Industry long-form page (single-industry.php, client spotlight + logo rows) is separate and NOT affected by this toggle.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -1336,12 +1840,9 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [],
+    "hide_on_screen": "",
     "active": true,
-    "description": "PROJECT.md §4 Options Page “Site Settings”. Values populated from §6 (do-not-invent list) — pulled into templates so they're editable in one place, never hardcoded.",
+    "description": "PROJECT.md §4 Options Page “Site Settings”. Values populated from §6 (do-not-invent list) — pulled into templates so they're editable in one place, never hardcoded. Reconstructed 2026-08-24 after an accidental JSON-file deletion (see NOTES.md-equivalent commit note) — field names/types verified against real saved wp_options rows and each consuming template's own field usage, not guessed. Reorganized into topic tabs 2026-08-24 (was a 30-field flat list at the top before the 4 existing tabs) — explicit instruction, for admin discoverability.",
     "show_in_rest": 0,
-    "display_title": "",
-    "allow_ai_access": false,
-    "ai_description": "",
-    "modified": 1785892771
+    "modified": 1788220800
 }

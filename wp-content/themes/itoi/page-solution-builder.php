@@ -24,6 +24,19 @@ $itoi_sb_site_options      = itoi_solution_builder_site_options();
 $itoi_sb_challenge_options = itoi_solution_builder_challenge_options();
 
 $itoi_sb_total_steps = 7;
+
+// 2026-08-06 (wp-admin content audit): same Solution Builder Settings
+// fields footer.php's popup reads for its copy of these 7 questions — see
+// that file's comment for why. Fallbacks are the exact previous hardcoded
+// text.
+$itoi_sb_q1_text = get_field( 'sb_q1_text', 'option' ) ?: 'What type of business are you?';
+$itoi_sb_q2_text = get_field( 'sb_q2_text', 'option' ) ?: 'How many employees do you have?';
+$itoi_sb_q3_text = get_field( 'sb_q3_text', 'option' ) ?: 'How many sites do you operate?';
+$itoi_sb_q4_text = get_field( 'sb_q4_text', 'option' ) ?: 'Do you have existing CCTV?';
+$itoi_sb_q5_text = get_field( 'sb_q5_text', 'option' ) ?: 'Do you have an existing POS system?';
+$itoi_sb_q6_text = get_field( 'sb_q6_text', 'option' ) ?: 'Are your operations cloud-based?';
+$itoi_sb_q7_text = get_field( 'sb_q7_text', 'option' ) ?: 'What challenges are you currently facing?';
+$itoi_sb_q7_hint = get_field( 'sb_q7_hint', 'option' ) ?: 'Choose any that apply.';
 ?>
 
 <section class="border-b border-line bg-hero-bg px-8 pt-[168px] pb-section-md min-[640px]:pt-[206px]">
@@ -44,7 +57,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 1 — Business type -->
 			<div class="sb-step active" data-step="0">
-				<div class="sb-question">What type of business are you?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q1_text ); ?></div>
 				<div class="sb-options grid grid-cols-1 gap-2.5 min-[560px]:grid-cols-2" data-group="business_type" data-select="single">
 					<?php foreach ( $itoi_sb_industries as $itoi_sb_industry ) : ?>
 						<button type="button" class="sb-opt" data-value="<?php echo esc_attr( $itoi_sb_industry['slug'] ); ?>"><?php echo esc_html( $itoi_sb_industry['title'] ); ?></button>
@@ -54,7 +67,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 2 — Employees -->
 			<div class="sb-step" data-step="1">
-				<div class="sb-question">How many employees do you have?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q2_text ); ?></div>
 				<div class="sb-options grid grid-cols-2 gap-2.5" data-group="employees" data-select="single">
 					<?php foreach ( $itoi_sb_employee_options as $itoi_sb_value => $itoi_sb_opt ) : ?>
 						<button type="button" class="sb-opt" data-value="<?php echo esc_attr( $itoi_sb_value ); ?>"><?php echo esc_html( $itoi_sb_opt['label'] ); ?></button>
@@ -64,7 +77,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 3 — Sites -->
 			<div class="sb-step" data-step="2">
-				<div class="sb-question">How many sites do you operate?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q3_text ); ?></div>
 				<div class="sb-options grid grid-cols-2 gap-2.5" data-group="sites" data-select="single">
 					<?php foreach ( $itoi_sb_site_options as $itoi_sb_value => $itoi_sb_opt ) : ?>
 						<button type="button" class="sb-opt" data-value="<?php echo esc_attr( $itoi_sb_value ); ?>"><?php echo esc_html( $itoi_sb_opt['label'] ); ?></button>
@@ -74,7 +87,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 4 — Existing CCTV -->
 			<div class="sb-step" data-step="3">
-				<div class="sb-question">Do you have existing CCTV?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q4_text ); ?></div>
 				<div class="sb-options grid grid-cols-2 gap-2.5" data-group="existing_cctv" data-select="single">
 					<button type="button" class="sb-opt" data-value="yes">Yes</button>
 					<button type="button" class="sb-opt" data-value="no">No</button>
@@ -83,7 +96,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 5 — Existing POS -->
 			<div class="sb-step" data-step="4">
-				<div class="sb-question">Do you have an existing POS system?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q5_text ); ?></div>
 				<div class="sb-options grid grid-cols-2 gap-2.5" data-group="existing_pos" data-select="single">
 					<button type="button" class="sb-opt" data-value="yes">Yes</button>
 					<button type="button" class="sb-opt" data-value="no">No</button>
@@ -92,7 +105,7 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 6 — Cloud-based -->
 			<div class="sb-step" data-step="5">
-				<div class="sb-question">Are your operations cloud-based?</div>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q6_text ); ?></div>
 				<div class="sb-options grid grid-cols-2 gap-2.5" data-group="cloud_based" data-select="single">
 					<button type="button" class="sb-opt" data-value="yes">Yes</button>
 					<button type="button" class="sb-opt" data-value="no">No</button>
@@ -101,8 +114,8 @@ $itoi_sb_total_steps = 7;
 
 			<!-- Step 7 — Challenges (multi-select) -->
 			<div class="sb-step" data-step="6">
-				<div class="sb-question">What challenges are you currently facing?</div>
-				<p class="mb-5 -mt-3 text-center text-[13px] text-text-muted">Choose any that apply.</p>
+				<div class="sb-question"><?php echo esc_html( $itoi_sb_q7_text ); ?></div>
+				<p class="mb-5 -mt-3 text-center text-[13px] text-text-muted"><?php echo esc_html( $itoi_sb_q7_hint ); ?></p>
 				<div class="sb-options grid grid-cols-1 gap-2.5 min-[560px]:grid-cols-2" data-group="challenges" data-select="multi">
 					<?php foreach ( $itoi_sb_challenge_options as $itoi_sb_value => $itoi_sb_opt ) : ?>
 						<button type="button" class="sb-opt" data-value="<?php echo esc_attr( $itoi_sb_value ); ?>"><?php echo esc_html( $itoi_sb_opt['label'] ); ?></button>

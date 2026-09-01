@@ -15,10 +15,47 @@
  * ONLY inside the dark hero (eyebrow dot + device-stage placeholder
  * label), extending the site's existing "Live Detection" dark-hero
  * identity — not a new sanctioned spot for the signature color elsewhere
- * (CLAUDE.md's hard rule). Font is Inter (self-hosted), not Manrope.
+ * (CLAUDE.md's hard rule). Font is Lora (self-hosted, sitewide since
+ * 2026-08-21 — was Inter; see tailwind.config.js/src/tailwind.css).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+// "Link elsewhere instead" (2026-08-26, inc/products.php) — a product with
+// this field set doesn't get a real page at all; redirect straight to its
+// real destination rather than rendering whatever's left of Page Sections
+// (likely nothing, or a half-built draft) at this product's own permalink.
+// wp_redirect(), not wp_safe_redirect(): this URL is admin-entered trusted
+// content (an editor deliberately typed it into this product's own field),
+// not unvalidated user/request input — wp_safe_redirect()'s off-site-host
+// allowlist exists to stop an attacker-controlled redirect target, which
+// doesn't apply here, and using it anyway silently sends every off-site
+// link to /wp-admin/ instead (its own documented fallback when the host
+// isn't allow-listed) rather than erroring loudly — confirmed the hard way
+// before shipping this. 302, not 301: this is a per-product, easily-
+// reversible editorial choice (an editor may finish building a real page
+// here later), not a permanent URL change — a 301 risks browsers/search
+// engines caching the redirect past the point it's turned back off.
+// get_queried_object_id(), not get_the_ID() — this runs before the loop
+// below calls the_post()/setup_postdata(), so the global $post the latter
+// depends on isn't reliably populated yet.
+$itoi_external_url = get_field( 'external_link_url', get_queried_object_id() );
+if ( $itoi_external_url ) {
+	wp_redirect( $itoi_external_url, 302 );
+	exit;
+}
+
+// 2026-08-31 — "Enabled" toggle (product_enabled, inc/products.php). Off
+// sends visitors to the Products archive instead of rendering this page
+// — a real, relevant destination rather than a bare 404, same spirit as
+// the external-link redirect above. Checked via itoi_is_product_enabled()
+// specifically, not a raw get_field() call — see that function's own
+// comment for why a plain falsy-check would wrongly treat every
+// pre-existing product (which has never saved this field) as disabled.
+if ( ! itoi_is_product_enabled( get_queried_object_id() ) ) {
+	wp_redirect( home_url( '/products/' ), 302 );
 	exit;
 }
 
@@ -62,6 +99,22 @@ while ( have_posts() ) :
 
 	$itoi_product_id = get_the_ID();
 	$itoi_sections    = get_field( 'page_sections', $itoi_product_id ) ?: array();
+	// "Section enabled" toggle (section_enabled, one per layout in acf-json/
+	// group_f0b5edf92aed.json) — lets an editor hide a single section on the
+	// live page without deleting its saved content. Filtered out up front so
+	// nothing downstream (this loop, the has-comparison check below) ever
+	// sees a disabled row. Same NULL-safe rule as product_enabled
+	// (inc/products.php): a row saved before this checkbox existed has no
+	// `section_enabled` key at all — only an explicit, saved "off" (real
+	// boolean false) should hide it.
+	$itoi_sections = array_values(
+		array_filter(
+			$itoi_sections,
+			static function ( $itoi_section ) {
+				return ! ( isset( $itoi_section['section_enabled'] ) && false === $itoi_section['section_enabled'] );
+			}
+		)
+	);
 	// Hero's primary CTA scrolls to #comparison — only real if this product
 	// actually has that section (not every product has a real, sourced
 	// comparison to make; e.g. a partner-hardware page like PC2SE Outdoor).
@@ -95,7 +148,7 @@ while ( have_posts() ) :
 							</div>
 							<h1 class="mb-5 text-[clamp(30px,5.2vw,52px)] leading-[1.1] text-white">
 								<?php echo esc_html( $itoi_emphasis ); ?>
-								<?php if ( $itoi_muted ) : ?><span class="font-medium text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
+								<?php if ( $itoi_muted ) : ?><span class="font-semibold text-white/55"> <?php echo esc_html( $itoi_muted ); ?></span><?php endif; ?>
 							</h1>
 							<?php if ( $itoi_lede ) : ?>
 								<p class="mx-auto mb-8 max-w-[58ch] text-[15.5px] text-white/80 min-[1024px]:text-[16.5px]"><?php echo esc_html( $itoi_lede ); ?></p>
@@ -214,9 +267,9 @@ while ( have_posts() ) :
 								<table class="w-full min-w-[560px] border-collapse text-left">
 									<thead>
 										<tr class="border-b border-[var(--glass-border-on-light)]">
-											<th class="w-[22%] px-5 py-4 text-[12.5px] font-bold uppercase tracking-wide text-text-muted min-[640px]:px-7"><span class="sr-only">Category</span></th>
-											<th class="px-5 py-4 text-[13.5px] font-bold text-text-muted min-[640px]:px-7"><?php echo esc_html( $itoi_col_a ); ?></th>
-											<th class="px-5 py-4 text-[13.5px] font-extrabold text-ink min-[640px]:px-7"><?php echo esc_html( $itoi_col_b ); ?></th>
+											<th scope="col" class="w-[22%] px-5 py-4 text-[12.5px] font-bold uppercase tracking-wide text-text-muted min-[640px]:px-7"><span class="sr-only">Category</span></th>
+											<th scope="col" class="px-5 py-4 text-[13.5px] font-bold text-text-muted min-[640px]:px-7"><?php echo esc_html( $itoi_col_a ); ?></th>
+											<th scope="col" class="px-5 py-4 text-[13.5px] font-extrabold text-ink min-[640px]:px-7"><?php echo esc_html( $itoi_col_b ); ?></th>
 										</tr>
 									</thead>
 									<tbody>

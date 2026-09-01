@@ -138,7 +138,7 @@ function itoi_get_customers_section_data( $args ) {
  */
 function itoi_render_customers_section_data( $data ) {
 	?>
-	<section id="customers" class="aurora-bg-light scroll-mt-[128px] bg-hero-bg px-8 py-section-md">
+	<section id="portfolio" class="aurora-bg-light scroll-mt-[128px] bg-hero-bg px-8 py-section-md">
 		<div class="mx-auto max-w-[1280px]">
 			<h2 class="mb-8 text-2xl"><?php echo esc_html( $data['heading'] ); ?></h2>
 

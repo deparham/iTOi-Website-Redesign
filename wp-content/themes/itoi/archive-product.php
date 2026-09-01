@@ -22,6 +22,10 @@ $itoi_products_query = new WP_Query(
 		'posts_per_page' => -1,
 		'orderby'        => 'menu_order title',
 		'order'          => 'ASC',
+		// "Enabled" toggle (product_enabled, inc/products.php) — see
+		// itoi_product_enabled_meta_query()'s own comment for why this
+		// specific NOT-EXISTS-OR-not-'0' shape, not a simpler equals check.
+		'meta_query'     => array( itoi_product_enabled_meta_query() ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- handful of `product` posts total, no viable non-meta alternative for a true_false field.
 	)
 );
 ?>
@@ -51,7 +55,7 @@ $itoi_products_query = new WP_Query(
 					$itoi_placeholder  = get_field( 'teaser_placeholder_caption', $itoi_id ) ?: ( get_the_title() . ' product photo — pending' );
 					$itoi_tile_index++;
 					?>
-					<a href="<?php the_permalink(); ?>" class="group glass-element-light block overflow-hidden rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
+					<a href="<?php echo esc_url( itoi_get_product_destination_url( $itoi_id ) ); ?>" class="group glass-element-light block overflow-hidden rounded-2xl <?php echo esc_attr( itoi_reveal_class() ); ?>" style="--reveal-radius:16px">
 						<?php itoi_reveal_markup( $itoi_tile_index - 1 ); ?>
 						<div class="aurora-device-stage relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden">
 							<?php

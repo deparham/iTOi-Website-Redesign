@@ -28,6 +28,12 @@
  * page-for-page, but it's the direct, unambiguous successor of the old
  * portfolio page's purpose (see PROJECT.md §6 client list).
  *
+ * 2026-08-10: page renamed "Customers" -> "Portfolio" (slug `customers`
+ * -> `portfolio`, file page-customers.php -> page-portfolio.php). The
+ * /our-portfolio/ mapping below now points straight at /portfolio/
+ * rather than the now-defunct /customers/ hop, and /customers/ itself
+ * gets its own new entry so existing backlinks/bookmarks still resolve.
+ *
  * 2026-07-23 — Solutions restructure (7 -> 8 categories, see NOTES.md).
  * Old solution slugs now redirect to their new-category successor.
  * 5 of the 7 (the in-place post renames) are already covered by WP
@@ -73,8 +79,12 @@ function itoi_old_url_redirects() {
 		'facial-recognition-demographics'                      => '/solutions/security-access-inventory/',
 		'about-us'                                              => '/about/',
 		'contact-us'                                            => '/contact/',
-		// SEO audit, 2026-07-23 — resolved now that /customers/ exists.
-		'our-portfolio'                                        => '/customers/',
+		// SEO audit, 2026-07-23 — resolved now that the client-list page
+		// exists. Updated 2026-08-10 to point straight at /portfolio/
+		// (that page's current slug) rather than the old /customers/ hop.
+		'our-portfolio'                                        => '/portfolio/',
+		// 2026-08-10 — Customers -> Portfolio rename (see file header).
+		'customers'                                            => '/portfolio/',
 		// Products restructure, 2026-07-31 (see NOTES.md) — Aurora moved off
 		// its one-off WP Page onto the now-public `product` CPT's own routing.
 		'aurora'                                                => '/products/aurora/',

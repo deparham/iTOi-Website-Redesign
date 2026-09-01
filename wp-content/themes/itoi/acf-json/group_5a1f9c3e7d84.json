@@ -1,0 +1,121 @@
+{
+	"key": "group_5a1f9c3e7d84",
+	"title": "Technology Partners",
+	"fields": [
+		{
+			"key": "field_1a2b3c4d5e6f",
+			"label": "Section heading",
+			"name": "technology_partners_heading",
+			"type": "text",
+			"instructions": "Centered heading above the partner logo grid, sitewide (footer.php, directly above the footer).",
+			"required": false,
+			"default_value": "Our Partners",
+			"maxlength": "",
+			"placeholder": "",
+			"prepend": "",
+			"append": ""
+		},
+		{
+			"key": "field_2b3c4d5e6f70",
+			"label": "Partners",
+			"name": "technology_partners",
+			"type": "repeater",
+			"instructions": "One card per partner. Add/reorder freely — the grid wraps to as many rows as needed, no template change required to add a 6th, 7th, etc.",
+			"required": false,
+			"layout": "block",
+			"button_label": "Add partner",
+			"min": 0,
+			"max": 0,
+			"rows_per_page": 20,
+			"collapsed": "field_3c4d5e6f7081",
+			"default_value": [
+				{ "field_3c4d5e6f7081": "SAFR", "field_5e6f708192a3": "", "field_6f708192a3b4": "" },
+				{ "field_3c4d5e6f7081": "RetailNext", "field_5e6f708192a3": "", "field_6f708192a3b4": "" },
+				{ "field_3c4d5e6f7081": "Xovis", "field_5e6f708192a3": "", "field_6f708192a3b4": "" },
+				{ "field_3c4d5e6f7081": "Dahua", "field_5e6f708192a3": "", "field_6f708192a3b4": "" },
+				{ "field_3c4d5e6f7081": "Hikvision", "field_5e6f708192a3": "", "field_6f708192a3b4": "" }
+			],
+			"sub_fields": [
+				{
+					"key": "field_3c4d5e6f7081",
+					"label": "Partner name",
+					"name": "partner_name",
+					"type": "text",
+					"instructions": "",
+					"required": true,
+					"wrapper": { "width": "40" },
+					"default_value": "",
+					"maxlength": "",
+					"placeholder": "",
+					"prepend": "",
+					"append": "",
+					"parent_repeater": "field_2b3c4d5e6f70"
+				},
+				{
+					"key": "field_4d5e6f708192",
+					"label": "Logo",
+					"name": "partner_logo",
+					"type": "image",
+					"instructions": "Shown centered, object-fit: contain, max-height 120px — any native aspect ratio is fine. Leave empty to show an honest gray placeholder box (partner name as its label) instead of a stand-in stock logo.",
+					"required": false,
+					"wrapper": { "width": "30" },
+					"return_format": "id",
+					"preview_size": "medium",
+					"library": "all",
+					"min_width": 0,
+					"min_height": 0,
+					"min_size": 0,
+					"max_width": 0,
+					"max_height": 0,
+					"max_size": 0,
+					"mime_types": "",
+					"parent_repeater": "field_2b3c4d5e6f70"
+				},
+				{
+					"key": "field_5e6f708192a3",
+					"label": "Description",
+					"name": "partner_description",
+					"type": "textarea",
+					"instructions": "Short, one line. Leave empty for now — the card simply omits this paragraph until it's filled in.",
+					"required": false,
+					"wrapper": { "width": "30" },
+					"rows": 2,
+					"default_value": "",
+					"new_lines": "",
+					"maxlength": "",
+					"placeholder": "",
+					"parent_repeater": "field_2b3c4d5e6f70"
+				},
+				{
+					"key": "field_6f708192a3b4",
+					"label": "Link (optional)",
+					"name": "partner_link",
+					"type": "url",
+					"instructions": "“Find out more” destination — an internal page (e.g. a product page) or the partner's own site. Leave empty to render the card with no CTA button (icon still shows) if this partner doesn't need one.",
+					"required": false,
+					"default_value": "",
+					"placeholder": "https://",
+					"parent_repeater": "field_2b3c4d5e6f70"
+				}
+			]
+		}
+	],
+	"location": [
+		[
+			{
+				"param": "options_page",
+				"operator": "==",
+				"value": "technology-partners-settings"
+			}
+		]
+	],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"hide_on_screen": "",
+	"active": true,
+	"description": "Sitewide ‘Our Partners’ technology-partner logo grid (footer.php, directly above the <footer>) — distinct from ‘Partners, Not Vendors’ (group_7f2a4c9e01d3, the About page's 4-card trust-philosophy section; unrelated content, kept as a separate options page to avoid confusion between the two). Added 2026-08-24. Reuses the same card visual language as the Real Use Cases carousel's flip-card back face (F4F3F6 panel, bold 24px name, gray 14px description, dark circle double-arrow icon bottom-right) but as static, non-flipping cards — see template-parts/partners.php.",
+	"show_in_rest": 0
+}

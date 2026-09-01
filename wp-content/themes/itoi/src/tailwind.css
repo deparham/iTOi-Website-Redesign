@@ -2,58 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted Inter — no Google Fonts CDN. Files in assets/fonts/, copied from
-   @fontsource/inter (see package.json devDependencies). Paths are relative to
-   the compiled output at assets/css/style.css. */
-/* font-display: optional (not swap) — a font swap after first paint was
-   reflowing full-page layouts (measured CLS 0.41 on /use-cases/, Lighthouse
-   perf 0.80) because the fallback and Inter glyph metrics differ. `optional`
-   still uses Inter once it's cached, but never swaps mid-visit and forces a
-   reflow — trading "first cold visit may render the fallback font" for zero
-   layout shift, which is the standard fix for CLS caused by web fonts. */
+/* Self-hosted Lora — the site's sitewide typeface. No Google Fonts CDN;
+   files in assets/fonts/, fetched once during a 2026-08-21 build session
+   (same self-hosted convention Inter used, see git history for that
+   block if it's ever needed again — CLAUDE.md/PROJECT.md §3's original
+   "single sans-serif (Inter or Manrope), no serif" rule is what governed
+   Inter's use; this swap is a deliberate, explicit, confirmed override of
+   that rule, not an accidental drift — both docs updated to match).
+   Sequence of how this happened, same day: first a single weight (600)
+   for exactly one heading (Trust & Credibility) to match a supplied
+   reference, explicitly scoped as a CONTAINED exception at the time; then
+   an explicit follow-up instruction to make it the sitewide typeface,
+   confirmed after flagging the rule conflict and the extra weights this
+   would need. This block is that sitewide version — Inter's 4 @font-face
+   rules and its 4 .woff2 files removed (no other reference to 'Inter'
+   remained once `sans` (tailwind.config.js) pointed at Lora — checked).
+   3 weights, latin subset only: 400 (body default), 600 (font-semibold),
+   700 (font-bold AND font-extrabold/800 — Lora's static files only go up
+   to 700; the 700 rule's font-weight range below covers 701-900 too, so
+   `font-extrabold` text — this theme's single heaviest, most common
+   heading weight, ~218 usages — resolves to this same real file instead
+   of silently falling through to the Georgia/serif fallback stack).
+   font-display: optional for the same CLS reason Inter's block used to
+   document: a font swap after first paint reflows full-page layouts when
+   the fallback and the real font's glyph metrics differ (measured
+   directly for Inter at the time, not re-measured for Lora, but the
+   mechanism is the same regardless of which font). */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Lora';
   font-style: normal;
   font-weight: 400;
   font-display: optional;
-  src: url('../fonts/inter-latin-400-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-400-normal.woff') format('woff');
+  src: url('../fonts/lora-latin-400-normal.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: optional;
-  src: url('../fonts/inter-latin-500-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-500-normal.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Inter';
+  font-family: 'Lora';
   font-style: normal;
   font-weight: 600;
   font-display: optional;
-  src: url('../fonts/inter-latin-600-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-600-normal.woff') format('woff');
+  src: url('../fonts/lora-latin-600-normal.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'Lora';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700 900;
   font-display: optional;
-  src: url('../fonts/inter-latin-700-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-700-normal.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  font-display: optional;
-  src: url('../fonts/inter-latin-800-normal.woff2') format('woff2'),
-       url('../fonts/inter-latin-800-normal.woff') format('woff');
+  src: url('../fonts/lora-latin-700-normal.woff2') format('woff2');
 }
 
 /* Design tokens — PROJECT.md §3. Base + signature, both required in Phase 1. */
@@ -122,16 +118,6 @@
   --glass-bg-hero-secondary: rgba(255, 255, 255, 0.08);
   --glass-bg-hero-secondary-hover: rgba(255, 255, 255, 0.16);
   --glass-bg-modal: rgba(255, 255, 255, 0.75);
-
-  /* 2026-08-03 — homepage hero primary CTA only (.hero-cta-accent, see
-     below): rgba of --signature-bright (#5AACFF = 90,172,255), not a new
-     color, just that existing token as a glass tint instead of a flat
-     fill — keeps the punchier one-strong-CTA hierarchy the redesigned
-     centered hero needed without breaking the site's "no new colors" rule
-     or touching the shared --glass-bg-hero-primary token (still used
-     as-is by single-product.php's hero and footer's .trigger-glass). */
-  --glass-bg-hero-accent: rgba(90, 172, 255, 0.3);
-  --glass-bg-hero-accent-hover: rgba(90, 172, 255, 0.4);
 
   /* 2026-07-24 rollout to 5 more components (see NOTES.md "liquid glass
      expansion" entry) — same base tokens above, reused everywhere they
@@ -230,10 +216,41 @@
      site-wide for accessibility, confirmed with the project owner rather
      than assumed. Default is the light-background token; the two permanent
      dark-background containers (full-screen mega menu, mega-hero) override
-     to the bright variant just below so the ring doesn't go dark-on-dark. */
+     to the bright variant just below so the ring doesn't go dark-on-dark.
+     2026-08-06: outline-offset 3px -> 2px to match the standard spec this
+     theme now documents (docs/ — a11y fix pass). :focus-visible only, never
+     :focus, so this never shows for a mouse click, only real keyboard nav.
+     No outline:none/outline-0 anywhere in this file (checked) to fight
+     with. Elements with rounded corners (buttons, pills, cards) don't need
+     a separate rule — every evergreen browser already renders `outline`
+     following the element's own border-radius. */
   :focus-visible {
     outline: 2px solid var(--signature);
-    outline-offset: 3px;
+    outline-offset: 2px;
+  }
+  /* 2026-08-05 (external improvement plan Phase 5.1) — first focusable
+     element on every page (header.php, right after wp_body_open()), jumps
+     a keyboard user straight to <main id="main-content">, skipping the
+     ticker + nav on every single page load/navigation. Off-screen by
+     default via transform (not display:none/visibility:hidden, which
+     would make it unfocusable), slides into view on focus. */
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    transform: translateY(-200%);
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
   }
   .mega-menu :focus-visible,
   #megaHero :focus-visible,
@@ -359,33 +376,33 @@
   .hero-cta-secondary:hover {
     background: var(--glass-bg-hero-secondary-hover);
   }
-  /* Homepage mega hero primary CTA only, 2026-08-03 — see
-     --glass-bg-hero-accent's comment above. Same glass recipe/shape as
-     .hero-cta-primary, just a signature-bright tint instead of white so it
-     reads as the one strong call-to-action next to .hero-cta-secondary. */
-  .hero-cta-accent {
-    background: var(--glass-bg-hero-accent);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid rgba(90, 172, 255, 0.5);
-    border-radius: 30px;
-    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-    color: #fff;
-  }
-  .hero-cta-accent:hover {
-    background: var(--glass-bg-hero-accent-hover);
-  }
   /* No-backdrop-filter fallback — spec's exact example value. Both buttons'
      text is white (see note above), so the dark solid fallback stays
      legible for both, unlike the modal card below which needed a
      different-direction fallback for its dark text. */
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .hero-cta-primary,
-    .hero-cta-secondary,
-    .hero-cta-accent {
+    .hero-cta-secondary {
       background: rgba(14, 17, 22, 0.85);
     }
+  }
+  /* Mega-hero primary CTA, left/right info-bar layout, 2026-08-21 — a
+     genuinely opaque white pill with dark text, not the translucent glass
+     system above. CLAUDE.md's CTA rule reserves solid black for an ordinary
+     light-background primary action; this button sits on the hero's dark
+     background instead, so opaque white (already used sitewide, e.g. solid
+     white nav pill/cards — not a new color) is the correct on-dark
+     equivalent rather than a signature-bright tint, which would read as a
+     new blue accent color on an ordinary CTA. */
+  .hero-cta-solid {
+    background: #fff;
+    color: #0a1720;
+    border-radius: 999px;
+    border: 1px solid #fff;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .hero-cta-solid:hover {
+    background: rgba(255, 255, 255, 0.88);
   }
 
   /* ===========================================================
@@ -563,6 +580,16 @@
     .dotnav-glass {
       background: rgba(14, 17, 22, 0.55);
     }
+  }
+
+  /* 2026-08-05 (Phase 4.5 pause controls, assets/js/main.js
+     initHeroSlideshow()) — dims the pause/play icon when the slideshow
+     has stopped for a reason other than the visitor's own click (tab
+     hidden, hero scrolled offscreen, dot-nav hovered/focused), so "stalled
+     for now" reads differently from "you explicitly paused this." Opacity
+     only, no layout/transform change. */
+  .hero-pause-btn.is-actually-paused {
+    opacity: 0.55;
   }
 
   /* ===========================================================
@@ -871,6 +898,24 @@
     }
   }
 
+  /* Off-screen aurora pause, 2026-08-05 performance pass (see NOTES.md,
+     move 1 of the "close the Lighthouse gap" session) — single-industry.php
+     stacks 9 concurrent .aurora-bg/.aurora-bg-light instances; only the
+     ones near the viewport need to actually animate. Toggled by
+     initAuroraPause() (assets/js/main.js) via IntersectionObserver.
+     Deviation from the prompt's literal ".aurora-paused { animation-
+     play-state: paused }": the animation itself lives on the ::before
+     pseudo-element (see .aurora-bg::before / .aurora-bg-light::before
+     above), not on the host element, so a rule that doesn't target
+     ::before would silently do nothing. Written as one rule (a selector
+     list, not two separate rules) with both host classes named
+     explicitly for guaranteed cascade priority over the base ::before
+     rules regardless of source order. */
+  .aurora-bg.aurora-paused::before,
+  .aurora-bg-light.aurora-paused::before {
+    animation-play-state: paused;
+  }
+
   /* ===========================================================
      Aurora product page (page-aurora.php, /aurora/) — 2026-07-30.
      Two new page-specific pieces, both built only from existing tokens
@@ -1025,24 +1070,35 @@
      start stepping down. Thresholds are content-only (character count),
      not viewport-only, which is the "flexible based on content size" ask
      — a pure CSS clamp() can't do that on its own since vw units carry no
-     information about the string's length. */
+     information about the string's length.
+
+     2026-08-21 ("hero text smaller, like the reference") — all 4 tiers
+     scaled down roughly 30% from their original values (kept in the git
+     history above for context). The reference's own equivalent heading
+     ("Introducing the AF64...", 3 lines) reads at roughly 2.4vw against its
+     own screenshot width — these clamp() maxes are tuned to land in that
+     same range rather than the much larger display-heading scale the
+     original tiers used. */
   .hero-headline-size-1 {
-    font-size: clamp(30px, 5.5vw, 58px);
+    font-size: clamp(26px, 4vw, 42px);
   }
   .hero-headline-size-2 {
-    font-size: clamp(28px, 4.6vw, 54px);
+    font-size: clamp(24px, 3.4vw, 38px);
   }
   .hero-headline-size-3 {
-    font-size: clamp(22px, 3.8vw, 38px);
+    font-size: clamp(20px, 2.8vw, 30px);
   }
   .hero-headline-size-4 {
-    font-size: clamp(19px, 3.2vw, 32px);
+    font-size: clamp(17px, 2.4vw, 26px);
   }
 
-  /* Static dot-grid texture over the mega hero's photo/video, 2026-08-03 —
-     a subtle accent layer, not a replacement for the animated Live
-     Detection bounding boxes (initHeroDetectionBoxes(), main.js), which
-     keep drawing over this exactly as before. Dot color is
+  /* Static dot-grid texture — 2026-08-03, originally shown over the mega
+     hero's photo/video too; 2026-08-21 ("hero video visible with no
+     obstructs") narrowed to the plain-gradient no-media fallback only (see
+     template-parts/home/hero.php's conditional) since it was tinting real
+     footage. Still a subtle accent layer, not a replacement for the
+     animated Live Detection bounding boxes (initHeroDetectionBoxes(),
+     homepage.js), which keep drawing independently of this. Dot color is
      --signature-bright at low opacity (same token as the LIVE pulse dot
      and the detection boxes themselves) so this reads as one consistent
      accent system, not a second unrelated color introduced for the dots
@@ -1050,6 +1106,430 @@
   .hero-dot-grid {
     background-image: radial-gradient(rgba(90, 172, 255, 0.35) 1.5px, transparent 1.5px);
     background-size: 24px 24px;
+  }
+
+  /* Video Showcase (template-parts/home/video-showcase.php, 2026-08-24) —
+     same dot-grid texture mechanism as .hero-dot-grid above (a
+     radial-gradient background-image, not hundreds of real DOM dots), just
+     white/larger/wider-spaced per this section's own spec (4px dots, 66px
+     grid) rather than reusing the hero's blue/24px values — this section
+     sits over a photo/video background at full brightness, where the
+     hero's low-opacity blue would barely read. Confined to the bottom
+     third of the section (height: 33%, positioned via the parent's own
+     absolute inset-x-0 bottom-0), not the whole frame, per spec. */
+  .video-showcase-dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.55) 2px, transparent 2px);
+    background-size: 66px 66px;
+  }
+  @media (max-width: 640px) {
+    /* "keep dot-grid but reduce density/spacing" on mobile. */
+    .video-showcase-dot-grid {
+      background-size: 40px 40px;
+    }
+  }
+
+  /* The one "active" node in the grid — a real element (not part of the
+     background-image pattern above), sonar-ping style: a solid dot with an
+     expanding, fading ring drawn via animated box-shadow (no extra markup
+     needed for the ring itself). Represents a live sensor detection point. */
+  .video-showcase-dot--active {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    animation: video-showcase-pulse 2s ease-in-out infinite;
+  }
+  @keyframes video-showcase-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 22px rgba(255, 255, 255, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
+  @media (max-width: 640px) {
+    .video-showcase-dot--active {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* The sitewide `*,*::before,*::after{animation:none!important}` rule
+       (near the top of this file) already stops the animation itself —
+       this adds back a fixed, static glow ring so "active" still reads as
+       active rather than becoming a plain flat dot with no signal at all,
+       per spec ("static 'on' state instead" of the pulse). */
+    .video-showcase-dot--active {
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.28);
+    }
+  }
+
+  /* Lightbox — video only (distinct from .pd-overlay's dashboard modal and
+     .finder-overlay's multi-step form; those aren't video players and
+     reusing either would mean fighting their unrelated internal layout).
+     Open/close JS mirrors the same overlay.classList.toggle('open') +
+     body-scroll-lock shape every other modal on this site already uses
+     (initPlatformDemo(), homepage.js) — see initVideoShowcase() there. */
+  .video-lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(10, 12, 15, 0.88);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+  }
+  .video-lightbox-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .video-lightbox-panel {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .video-lightbox-video {
+    display: block;
+    width: 100%;
+    max-height: 82vh;
+    border-radius: 12px;
+    background: #000;
+  }
+  .video-lightbox-close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    display: flex;
+    height: 34px;
+    width: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* ===========================================================
+     Door Reveal (template-parts/home/hero-door-reveal.php +
+     assets/js/door-hero.js, 2026-09-01) — the scroll-scrubbed section
+     that took the Video Showcase's homepage slot.
+
+     Read the defaults below as the FINISHED, open state: no JS, failed JS
+     and prefers-reduced-motion all land here, with the content readable
+     and the section only one screen tall. door-hero.js adds
+     .door-hero--scrub, and only that class introduces the tall scroll
+     container, the sticky pin and the closed starting position — so the
+     animation is strictly additive and its absence degrades to plain,
+     legible content rather than a screenful of invisible cards.
+
+     Everything animated is transform/opacity only, driven from a single
+     0-1 progress value; --door-open is the doors' share of it (0 shut, 1
+     fully off-frame). Because the doors travel in percentages of their own
+     width rather than pixels, they need no recalculation on resize.
+     =========================================================== */
+  .door-hero {
+    /* Scoped to the component rather than :root — these two navies exist
+       for this section alone, unlike the shared tokens up top. The accent
+       on the card corner marks is the site's real --signature (#004B89),
+       not a second blue introduced here. */
+    --door-navy: #12325e;
+    --door-navy-deep: #0d2547;
+    position: relative;
+  }
+  .door-hero--scrub {
+    height: 320vh;
+  }
+  .door-hero-pin {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    overflow: hidden;
+    background: var(--hero-bg);
+  }
+  .door-hero--scrub .door-hero-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 0;
+  }
+
+  .door-hero-behind {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 clamp(20px, 6vw, 90px);
+  }
+  .door-hero-panel {
+    width: 100%;
+    max-width: 1180px;
+  }
+  .door-hero-eyebrow {
+    margin: 0 0 10px;
+    font-size: clamp(11px, 1.1vw, 13px);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--signature);
+  }
+  .door-hero-headline {
+    margin: 0 0 clamp(20px, 3.4vh, 40px);
+    font-size: clamp(28px, 5.4vmin, 58px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  /* --door-cols is set per-render from the real card count (2 for four
+     cards, 3 for five or six), so every count the repeater allows lays out
+     without an orphan row — one rule, no per-count class. */
+  .door-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--door-cols, 3), minmax(0, 1fr));
+    gap: clamp(14px, 2.2vw, 30px);
+  }
+  .door-hero-card {
+    position: relative;
+    background: #fff;
+    padding: clamp(16px, 2.1vw, 28px);
+  }
+  /* Thin corner marks — the same two-corner bracket motif .itoi-reveal
+     uses, drawn here as static chrome rather than part of a reveal. */
+  .door-hero-card::before,
+  .door-hero-card::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--signature);
+    border-style: solid;
+  }
+  .door-hero-card::before {
+    top: -7px;
+    left: -7px;
+    border-width: 2px 0 0 2px;
+  }
+  .door-hero-card::after {
+    right: -7px;
+    bottom: -7px;
+    border-width: 0 2px 2px 0;
+  }
+  .door-hero-card-question {
+    margin: 0 0 10px;
+    font-size: clamp(15px, 1.5vw, 21px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .door-hero-card-answer {
+    margin: 0;
+    font-size: clamp(12.5px, 1vw, 15px);
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  /* The doors themselves. 50.2% each, so the pair overlaps by a fraction
+     of a percent at the centre — without it, subpixel rounding leaves a
+     hairline of the content showing through the seam while they're shut. */
+  .door-hero-door {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 50.2%;
+    background-color: var(--door-navy);
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.3) 1.4px, transparent 1.5px),
+      radial-gradient(120% 90% at var(--door-gx) 40%, #1b3f70 0%, var(--door-navy-deep) 70%);
+    background-size: 38px 38px, 100% 100%;
+    will-change: transform;
+  }
+  .door-hero-door--left {
+    left: 0;
+    --door-gx: 100%;
+    /* Fallback 1 = fully open, which is what a no-JS visitor gets. */
+    transform: translate3d(calc(var(--door-open, 1) * -100%), 0, 0);
+    box-shadow: 14px 0 40px rgba(0, 0, 0, 0.45);
+  }
+  .door-hero-door--right {
+    right: 0;
+    --door-gx: 0%;
+    transform: translate3d(calc(var(--door-open, 1) * 100%), 0, 0);
+    box-shadow: -14px 0 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .door-hero-bracket {
+    position: absolute;
+    top: 50%;
+    height: min(52vh, 440px);
+    width: auto;
+    transform: translateY(-50%);
+  }
+  .door-hero-door--left .door-hero-bracket {
+    right: 6%;
+  }
+  .door-hero-door--right .door-hero-bracket {
+    left: 6%;
+  }
+  /* Flat vector stand-in, shown until a real bracket render is uploaded —
+     built from divs so it stays crisp and needs no placeholder asset. */
+  .door-hero-bracket--vector {
+    display: flex;
+    flex-direction: column;
+  }
+  .door-hero-door--right .door-hero-bracket--vector {
+    transform: translateY(-50%) scaleX(-1);
+  }
+  .door-hero-bracket-dot {
+    width: clamp(20px, 2.2vw, 34px);
+    height: clamp(20px, 2.2vw, 34px);
+    margin-bottom: 14px;
+    background: #2f6bb0;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.28);
+  }
+  .door-hero-door--right .door-hero-bracket-dot {
+    background: #f3f6f9;
+  }
+  .door-hero-bracket-shape {
+    position: relative;
+    display: block;
+    width: clamp(60px, 6.4vw, 96px);
+    height: min(38vh, 320px);
+  }
+  .door-hero-bracket-shape i {
+    position: absolute;
+    display: block;
+    background: #2f6bb0;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.28);
+  }
+  .door-hero-door--right .door-hero-bracket-shape i {
+    background: #f3f6f9;
+  }
+  .door-hero-bracket-stem {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: clamp(18px, 1.9vw, 28px);
+  }
+  .door-hero-bracket-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(18px, 1.9vw, 28px);
+  }
+  .door-hero-bracket-bot {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(18px, 1.9vw, 28px);
+  }
+
+  /* Lockup + scroll hint belong to the shut-doors state only, so they
+     default to invisible: that IS the resting state for no-JS/reduced
+     motion, where the doors are already open. */
+  .door-hero-lockup {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .door-hero-lockup b {
+    display: block;
+    font-size: clamp(22px, 3.2vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .door-hero-lockup b em {
+    font-style: normal;
+    font-weight: 500;
+    color: #bcd4ea;
+  }
+  .door-hero-lockup span {
+    display: block;
+    margin-top: 4px;
+    font-size: clamp(12px, 1.5vw, 18px);
+    color: #7fb0e0;
+  }
+  .door-hero-lockup span strong {
+    font-weight: 800;
+    color: #fff;
+  }
+  .door-hero-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    z-index: 3;
+    transform: translateX(-50%);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9dbdd8;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 860px) {
+    /* Shorter scroll distance so the section doesn't eat three phone
+       screens of scrolling, and one card column — the card body text is
+       hidden by the template's own max-[860px]:sr-only (visually gone so
+       the grid fits one screen, still there for screen readers). */
+    .door-hero--scrub {
+      height: 260vh;
+    }
+    .door-hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+    .door-hero-card {
+      padding: 14px 16px;
+    }
+    .door-hero-card-question {
+      font-size: 15px;
+    }
+    .door-hero-bracket {
+      height: min(30vh, 220px);
+    }
+    .door-hero-bracket-shape {
+      height: min(24vh, 180px);
+    }
+  }
+
+  /* Belt and braces: door-hero.js never adds .door-hero--scrub under
+     reduced motion in the first place, so this only matters if the class
+     is ever applied some other way — the finished open state, no pin, no
+     extra scroll distance. */
+  @media (prefers-reduced-motion: reduce) {
+    .door-hero--scrub {
+      height: auto;
+    }
+    .door-hero--scrub .door-hero-pin {
+      position: relative;
+      height: auto;
+      min-height: 100vh;
+    }
+    .door-hero-door {
+      --door-open: 1;
+    }
   }
 
   /* Hero "partnership" slide (e.g. RetailNext) — co-branding lockup
@@ -1263,6 +1743,26 @@
     transform: none;
   }
 
+  /* Generic stagger-reveal item — 2026-08-21 (hero page-load reveal + trust
+     section scroll reveal). Distinct from .itoi-reveal above: that one
+     reveals a single block as a unit; this is the per-ITEM building block
+     for a *list* of siblings each revealed with their own delay
+     (itoiStaggerReveal(), assets/js/core.js, sets each item's
+     transition-delay before adding .is-visible — see that function's
+     docblock for why delay is set in JS, not here). --stagger-distance
+     lets a call site tune the translateY distance per group (e.g. 16px for
+     cards vs 8px for logos) without a second CSS class — set it inline via
+     style="--stagger-distance:8px" on the item, or on its container. */
+  .itoi-stagger-item {
+    opacity: 0;
+    transform: translateY(var(--stagger-distance, 10px));
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .itoi-stagger-item.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .itoi-reveal {
       opacity: 1 !important;
@@ -1271,112 +1771,6 @@
     .itoi-reveal-bracket,
     .itoi-reveal-tag {
       display: none !important;
-    }
-  }
-
-  /* Homepage "Delivery Model" — full-width step rail (front-page.php,
-     between "Explore by use case" and "One integrated platform" —
-     rebuilt 2026-08-03, see NOTES.md; replaces the earlier turnstile
-     carousel, which only ever showed one of six steps at a time).
-
-     Single <ol>, all six steps always in the DOM — no desktop/mobile
-     duplication (would double up for screen readers). Below md it's a
-     vertical timeline (number left, connector line left, copy right);
-     at md+ (see the min-width: 768px block below) it flips to six
-     columns in a row with a horizontal connector line behind the
-     circles. Only .delivery-step--active gets the glass treatment; the
-     other five stay plain outlined cards — glass stays a highlight for
-     the current step, not the whole component's look. */
-  .delivery-rail {
-    position: relative;
-  }
-  .delivery-rail::before {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    top: 20px;
-    bottom: 20px;
-    left: 19px;
-    width: 1px;
-    background: rgba(255, 255, 255, 0.15);
-  }
-  .delivery-step {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: start;
-    column-gap: 16px;
-    padding: 0 0 28px;
-  }
-  .delivery-rail > .delivery-step:last-child {
-    padding-bottom: 0;
-  }
-  .delivery-step__num {
-    grid-row: 1 / 3;
-    display: flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
-    background: var(--teal-900);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 800;
-  }
-  .delivery-step__title {
-    grid-column: 2;
-    margin: 0;
-    color: #fff;
-    font-size: 17px;
-    font-weight: 700;
-  }
-  .delivery-step__desc {
-    grid-column: 2;
-    margin: 0;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 13px;
-    line-height: 1.4;
-  }
-  /* Delivery rail — desktop (md+): six columns in a row instead of the
-     mobile vertical timeline, with a horizontal connector line behind
-     the circles instead of the vertical one. */
-  @media (min-width: 768px) {
-    .delivery-rail::before {
-      top: 20px;
-      bottom: auto;
-      left: 0;
-      right: 0;
-      width: auto;
-      height: 1px;
-      background: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .delivery-step {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 20px 18px;
-      border-radius: 1rem;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .delivery-rail > .delivery-step:last-child {
-      padding-bottom: 20px;
-    }
-    .delivery-step--active {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      .delivery-step--active {
-        background: rgba(14, 17, 22, 0.55);
-      }
     }
   }
 
@@ -2207,6 +2601,36 @@
   }
   .flip-card-back {
     transform: rotateY(180deg);
+    /* 2026-08-21 — real bug found via the a11y-check gate, not a false
+       positive to shrug off: axe-core's color-contrast check doesn't
+       understand backface-visibility (an exotic property outside its
+       normal 2D-flow model). With both faces at position:absolute;inset:0
+       and no z-index, paint order falls back to DOM order — .flip-card-back
+       is always second, so axe always resolved IT as "the" background
+       behind .flip-card-front's own text, regardless of which face is
+       actually visible. This silently under-tested every .flip-card on
+       the site; it only started failing loudly here because this is the
+       first usage with a light back face (#FAFAFA) — a dark back face
+       (the industries carousel, About page) happened to still pass white
+       front-face text against it by accident, same underlying gap. Fixing
+       structurally, not per-usage: explicit z-index makes the front face
+       win ties in axe's paint-order heuristic, matching its real resting
+       state (front visible) rather than depending on font/background luck. */
+    z-index: 0;
+  }
+  .flip-card-front {
+    z-index: 1;
+  }
+
+  /* Real Use Cases carousel only (template-parts/home/use-cases.php,
+     2026-08-21) — an exact supplied spec asked for this specific easing/
+     duration on the flip. Scoped override rather than changing the shared
+     `.flip-card-inner` rule above, which stays 0.6s/default-ease for its
+     other 2 existing usages (About page, industries carousel) — retiming
+     an established, already-shipped interaction on 2 other pages wasn't
+     part of this ask. */
+  .usecase-flip-card .flip-card-inner {
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
   }
 
   /* Solution-page capability cards only (see single-solution.php) — an

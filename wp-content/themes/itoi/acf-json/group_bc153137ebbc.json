@@ -1,54 +1,174 @@
 {
-	"key": "group_bc153137ebbc",
-	"title": "Find Your Fit Settings",
-	"fields": [
-		{
-			"key": "field_135a84d73e6b",
-			"label": "Eyebrow",
-			"name": "fyf_eyebrow",
-			"type": "text",
-			"default_value": "Solution Builder"
-		},
-		{
-			"key": "field_f28283de8ef5",
-			"label": "Heading",
-			"name": "fyf_heading",
-			"type": "text",
-			"default_value": "Answer 7 quick questions, get your recommendation"
-		},
-		{
-			"key": "field_905aec05d794",
-			"label": "Subheading",
-			"name": "fyf_subheading",
-			"type": "textarea",
-			"rows": 2,
-			"default_value": "We'll recommend the right ITOI solutions for your business, with an ROI estimate and implementation timeline."
-		},
-		{
-			"key": "field_f09231d380e9",
-			"label": "Floating trigger button label",
-			"name": "fyf_trigger_label",
-			"type": "text",
-			"default_value": "Build your solution",
-			"instructions": "Text on the floating bottom-right button that reopens the popup."
-		}
-	],
-	"location": [
-		[
-			{
-				"param": "options_page",
-				"operator": "==",
-				"value": "find-your-fit-settings"
-			}
-		]
-	],
-	"menu_order": 0,
-	"position": "normal",
-	"style": "default",
-	"label_placement": "top",
-	"instruction_placement": "label",
-	"hide_on_screen": "",
-	"active": true,
-	"description": "Superseded 2026-07-24 (see NOTES.md, \"Solution Builder popup replaces Find Your Fit\" entry): the old 3-question flow (Step 1/2/3 tabs) and its case-study/solution routing repeaters have been removed entirely, not left dormant. This options page now controls only the popup's modal shell copy (eyebrow/heading/subheading/trigger label) — the popup shell itself, open/close mechanics, auto-open timing, and progress-dot styling are unchanged. The 7 questions it now asks (footer.php) come directly from inc/solution-builder.php's option-list functions, the same single source of truth the dedicated /solution-builder/ page uses, not from ACF — so there's no separate question content to edit here.",
-	"show_in_rest": 0
+    "key": "group_bc153137ebbc",
+    "title": "Solution Builder Settings",
+    "fields": [
+        {
+            "key": "field_5f3a8c1d2e94",
+            "label": "Popup Content",
+            "name": "",
+            "type": "tab",
+            "instructions": "Eyebrow/heading/subheading + the floating trigger button label — the popup's own intro copy, shown before the 7 questions.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_135a84d73e6b",
+            "label": "Eyebrow",
+            "name": "fyf_eyebrow",
+            "type": "text",
+            "default_value": "Solution Builder"
+        },
+        {
+            "key": "field_f28283de8ef5",
+            "label": "Heading",
+            "name": "fyf_heading",
+            "type": "text",
+            "default_value": "Answer 7 quick questions, get your recommendation"
+        },
+        {
+            "key": "field_905aec05d794",
+            "label": "Subheading",
+            "name": "fyf_subheading",
+            "type": "textarea",
+            "rows": 2,
+            "default_value": "We'll recommend the right ITOI solutions for your business, with an ROI estimate and implementation timeline."
+        },
+        {
+            "key": "field_f09231d380e9",
+            "label": "Floating trigger button label",
+            "name": "fyf_trigger_label",
+            "type": "text",
+            "default_value": "Build your solution",
+            "instructions": "Text on the floating bottom-right button that reopens the popup."
+        },
+        {
+            "key": "field_797fe0cd86f00",
+            "label": "Questions",
+            "name": "",
+            "type": "tab",
+            "instructions": "2026-08-06: these 7 question prompts (plus the Question 7 hint) were hardcoded identically in both footer.php (the popup) and page-solution-builder.php (the standalone page) until now — both templates read from these fields instead, so editing here updates both places and they can't drift out of sync."
+        },
+        {
+            "key": "field_2c4ad2f51d128",
+            "label": "Question 1",
+            "name": "sb_q1_text",
+            "type": "text",
+            "default_value": "What type of business are you?"
+        },
+        {
+            "key": "field_479d190f1f165",
+            "label": "Question 2",
+            "name": "sb_q2_text",
+            "type": "text",
+            "default_value": "How many employees do you have?"
+        },
+        {
+            "key": "field_131d82047bca5",
+            "label": "Question 3",
+            "name": "sb_q3_text",
+            "type": "text",
+            "default_value": "How many sites do you operate?"
+        },
+        {
+            "key": "field_2b85f8b96de84",
+            "label": "Question 4",
+            "name": "sb_q4_text",
+            "type": "text",
+            "default_value": "Do you have existing CCTV?"
+        },
+        {
+            "key": "field_cb2edb22ac43b",
+            "label": "Question 5",
+            "name": "sb_q5_text",
+            "type": "text",
+            "default_value": "Do you have an existing POS system?"
+        },
+        {
+            "key": "field_fa1ade8d789f6",
+            "label": "Question 6",
+            "name": "sb_q6_text",
+            "type": "text",
+            "default_value": "Are your operations cloud-based?"
+        },
+        {
+            "key": "field_c01d3d0162b30",
+            "label": "Question 7",
+            "name": "sb_q7_text",
+            "type": "text",
+            "default_value": "What challenges are you currently facing?"
+        },
+        {
+            "key": "field_31ff0756a7f29",
+            "label": "Question 7 — hint",
+            "name": "sb_q7_hint",
+            "type": "text",
+            "default_value": "Choose any that apply.",
+            "instructions": "Shown under Question 7 only — it's the one multi-select question."
+        },
+        {
+            "key": "field_6c83cf2bb300b",
+            "label": "ROI estimate",
+            "name": "",
+            "type": "tab",
+            "instructions": "2026-08-06: the 4 multipliers below drive the \"Estimated Annual Value\" figure on both the popup handoff and the standalone page (inc/solution-builder.php) — and its disclaimer sentence, which is built from these same 4 values so it can't drift out of sync with the real formula. Formula: employees_midpoint × hours-saved × hourly-rate × weeks-per-year, plus (sites_midpoint × loss-reduction-per-site) only when \"theft/shrinkage\" was picked in Question 7."
+        },
+        {
+            "key": "field_6c83cf2bb355b",
+            "label": "Hours saved per employee, per week",
+            "name": "sb_efficiency_hours_saved_per_employee_per_week",
+            "type": "number",
+            "default_value": 2,
+            "step": "0.5"
+        },
+        {
+            "key": "field_d0d741014a4db",
+            "label": "Hourly rate (AUD)",
+            "name": "sb_efficiency_hourly_rate",
+            "type": "number",
+            "default_value": 35,
+            "step": "0.5"
+        },
+        {
+            "key": "field_89e97018d700b",
+            "label": "Working weeks per year",
+            "name": "sb_efficiency_weeks_per_year",
+            "type": "number",
+            "default_value": 52
+        },
+        {
+            "key": "field_f74fe1645adfb",
+            "label": "Loss-reduction value per site, per year (AUD)",
+            "name": "sb_loss_reduction_per_site",
+            "type": "number",
+            "default_value": 8000,
+            "instructions": "Only added to the estimate when \"theft/shrinkage\" is selected in Question 7."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "find-your-fit-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Superseded 2026-07-24 (see NOTES.md, \"Solution Builder popup replaces Find Your Fit\" entry): the old 3-question flow (Step 1/2/3 tabs) and its case-study/solution routing repeaters have been removed entirely, not left dormant. This options page controls the popup's modal shell copy (eyebrow/heading/subheading/trigger label), the 7 question prompts (shared by both footer.php's popup and page-solution-builder.php's standalone page), and the ROI estimate's 4 formula multipliers (2026-08-06, wp-admin content audit) — the popup shell itself, open/close mechanics, and progress-dot styling are unchanged. The *option lists* under each question (which industries, which employee-count bands, etc.) still come from inc/solution-builder.php's option-list functions, not from ACF — those are structural (each one has scoring weights and ROI midpoints tied to it in code), not copy. Wrapped the 4 intro-copy fields in their own \"Popup Content\" tab 2026-08-24 (were flat, ungrouped, ahead of the existing Questions/ROI estimate tabs) — explicit instruction, for consistency with the rest of this page.",
+    "show_in_rest": 0,
+    "modified": 1787540487
 }

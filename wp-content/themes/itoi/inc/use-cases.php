@@ -25,7 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *     @type bool $featured_only Only rows with the "Featured in nav dropdown" flag set.
  * }
  * @return array[] Each row: key, label, image_id, video, solution_id, solution_title,
- *                  solution_url, industry_id, industry_name, industry_slug, featured_in_nav.
+ *                  solution_url, product_id, industry_id, industry_name, industry_slug,
+ *                  featured_in_nav.
  */
 function itoi_get_industry_use_cases( $args = array() ) {
 	static $itoi_all_use_cases = null;
@@ -62,6 +63,11 @@ function itoi_get_industry_use_cases( $args = array() ) {
 				'solution_id'     => $itoi_solution_id,
 				'solution_title'  => get_field( 'headline', $itoi_solution_id ) ?: get_the_title( $itoi_solution_id ),
 				'solution_url'    => get_permalink( $itoi_solution_id ),
+				// Optional — the specific product this use case's flip-card back
+				// face should show. Not every use case has one assigned yet; a
+				// falsy value here means "fall back to the solution above",
+				// handled by the template, not here.
+				'product_id'      => get_field( 'product', $itoi_uc_post->ID ) ?: 0,
 				'industry_id'     => $itoi_industry_id,
 				'industry_name'   => $itoi_industry_name,
 				'industry_slug'   => get_post_field( 'post_name', $itoi_industry_id ),

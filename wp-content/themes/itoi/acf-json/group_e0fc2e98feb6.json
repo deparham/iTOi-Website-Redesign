@@ -77,7 +77,7 @@
             "name": "hero_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "Currently populated with a TEMPORARY STOCK PHOTO (generic, non-ITOI) sourced under a free commercial-use license — see NOTES.md for the source\/license of the specific image on this entry. Replace with real ITOI photography before launch.",
+            "instructions": "Currently populated with a TEMPORARY STOCK PHOTO (generic, non-ITOI) sourced under a free commercial-use license — see NOTES.md for the source/license of the specific image on this entry. Replace with real ITOI photography before launch.",
             "required": 1,
             "conditional_logic": false,
             "wrapper": {

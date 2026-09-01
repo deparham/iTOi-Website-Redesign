@@ -16,7 +16,7 @@
  * also resolves each use case's linked industry/solution data and is
  * shared with the nav dropdown and homepage teaser.
  *
- * Client-side filter-pill mechanic matches archive-guide.php / page-customers.php
+ * Client-side filter-pill mechanic matches archive-guide.php / page-portfolio.php
  * (data-filter attribute + active-state toggle, all filtering done in
  * assets/js/main.js's initUseCaseFilter() — no page reload). Industry-only
  * filtering for v1; a secondary solution-category filter was considered and

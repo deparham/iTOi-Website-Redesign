@@ -4,13 +4,16 @@
  * archive/single URL of its own (registered `public => false` in
  * inc/post-types.php) — it exists purely as data queried directly here.
  *
- * Both confirmed members (Sean Kiely, Michael Stark — PROJECT.md §4/§6)
- * are currently `draft` status themselves, same as this page, since
- * their bio/photo fields are still real placeholders pending real copy
- * (see NOTES.md). Queried with 'any' status rather than filtered to
- * `publish`, because the draft flag here means "profile incomplete,"
- * not "hide this confirmed person" — once this page is published, the
- * two members should appear honestly labeled, not silently vanish.
+ * 2026-08-05 ("10/10" pass, see NOTES.md): the query below was
+ * `post_status => 'any'` — deliberate at the time (2026-07-28) since this
+ * page and its 2 confirmed members were all `draft` together, and the
+ * intent was "profile incomplete, not hidden" once published. That
+ * condition no longer holds: this page and every current team_member post
+ * are `publish` (confirmed via `wp post list`), so `'any'` today means a
+ * future draft member (e.g. "still writing their bio") would appear on
+ * this *live, public* page the moment it's saved — exactly the
+ * incomplete-content-leaking-to-visitors risk flagged in this pass.
+ * Filtered to `publish` only.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +47,7 @@ while ( have_posts() ) :
 		array(
 			'post_type'      => 'team_member',
 			'posts_per_page' => -1,
-			'post_status'    => 'any',
+			'post_status'    => 'publish',
 			'orderby'        => 'title',
 			'order'          => 'ASC',
 		)

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="ITOI">
+    <description>ITOI WordPress theme coding standards.</description>
+
+    <file>.</file>
+
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/assets/*</exclude-pattern>
+    <exclude-pattern>/docs/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="WordPress">
+        <!-- This theme's own convention prefixes every symbol with itoi_
+             already (see CLAUDE.md) — the standard's own prefix-existence
+             check is about missing prefixes entirely, not this project's
+             specific choice, so it's left active; nothing excluded here
+             without a real reason found first. -->
+    </rule>
+    <rule ref="PHPCompatibilityWP"/>
+
+    <config name="testVersion" value="8.1-"/>
+    <config name="minimum_supported_wp_version" value="6.0"/>
+</ruleset>

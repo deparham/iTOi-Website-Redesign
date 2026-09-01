@@ -3,6 +3,23 @@
     "title": "Solution",
     "fields": [
         {
+            "key": "field_a1b2c3d4e5f6",
+            "label": "Overview",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_4cb655a4cc0a",
             "label": "Eyebrow",
             "name": "eyebrow",
@@ -68,7 +85,7 @@
             "name": "tagline",
             "aria-label": "",
             "type": "text",
-            "instructions": "Deck-sourced category tagline, e.g. “The store that knows itself.” Rendered italic. Shown statically under the H1 on this page (single-solution.php) AND as the back-face of this category's flip-card on the homepage grid — same field, both places, so they can't drift out of sync. Leave blank for a category with no confirmed tagline yet (currently IT, Network & Infrastructure) — both templates render gracefully when empty.",
+            "instructions": "",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -76,6 +93,7 @@
                 "class": "",
                 "id": ""
             },
+            "0": false,
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
@@ -88,7 +106,7 @@
             "name": "outcome_description",
             "aria-label": "",
             "type": "text",
-            "instructions": "One-line business outcome, e.g. “Better staffing, stronger merchandising, higher conversion.” Shown alongside Tagline in both places above. Unlike Tagline, every category has a confirmed outcome line (including IT, Network & Infrastructure).",
+            "instructions": "",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -96,11 +114,29 @@
                 "class": "",
                 "id": ""
             },
+            "0": false,
             "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_b2c3d4e5f6a7",
+            "label": "Media",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_65d67d1ffd7c",
@@ -133,7 +169,7 @@
             "name": "hero_video",
             "aria-label": "",
             "type": "file",
-            "instructions": "Optional. Takes priority over Hero image above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Hero image shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. Shown only on this solution's own page hero, not the \/solutions\/ grid (use Tile video below for that).",
+            "instructions": "Optional. Takes priority over Hero image above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Hero image shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. Shown only on this solution's own page hero, not the /solutions/ grid (use Tile video below for that).",
             "required": 0,
             "conditional_logic": false,
             "wrapper": {
@@ -153,7 +189,7 @@
             "name": "tile_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "Used on the \/solutions\/ grid. Optional if Tile video below is set instead — one of the two is required, not both. Also used as the video's poster frame and reduce-motion fallback.",
+            "instructions": "Used on the /solutions/ grid. Optional if Tile video below is set instead — one of the two is required, not both. Also used as the video's poster frame and reduce-motion fallback.",
             "required": 0,
             "conditional_logic": false,
             "wrapper": {
@@ -178,7 +214,7 @@
             "name": "tile_video",
             "aria-label": "",
             "type": "file",
-            "instructions": "Optional. Takes priority over Tile image above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Tile image shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. Shown wherever the tile grid renders: the \/solutions\/ archive and the related-solutions grid on industry pages.",
+            "instructions": "Optional. Takes priority over Tile image above if both are set — muted, autoplay, loops. Never plays for a visitor with \"reduce motion\" turned on (Tile image shows instead). Keep the file small — a compressed .mp4, a few seconds looping cleanly, no audio track needed since it's always muted. Shown wherever the tile grid renders: the /solutions/ archive and the related-solutions grid on industry pages.",
             "required": 0,
             "conditional_logic": false,
             "wrapper": {
@@ -236,6 +272,23 @@
             "min_size": 0,
             "max_size": 0,
             "mime_types": "mp4,webm,mov"
+        },
+        {
+            "key": "field_c3d4e5f6a7b8",
+            "label": "Narrative & Process",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_f7a436ba7091",
@@ -326,7 +379,7 @@
                     "name": "step_icon",
                     "aria-label": "",
                     "type": "select",
-                    "instructions": "Fixed set of hand-authored outline icons — same \"stroke=currentColor, no icon library\" convention as the solution-builder\/carousel icons elsewhere on this site, kept consistent rather than an arbitrary upload.",
+                    "instructions": "Fixed set of hand-authored outline icons — same \"stroke=currentColor, no icon library\" convention as the solution-builder/carousel icons elsewhere on this site, kept consistent rather than an arbitrary upload.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -336,7 +389,7 @@
                     },
                     "choices": {
                         "camera-pos": "Camera + POS",
-                        "processor-node": "Processor \/ node",
+                        "processor-node": "Processor / node",
                         "dashboard-arrow": "Dashboard + trend arrow",
                         "shield": "Shield",
                         "database": "Database",
@@ -353,7 +406,9 @@
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
-                    "parent_repeater": "field_9a1c4e6f2b83"
+                    "parent_repeater": "field_9a1c4e6f2b83",
+                    "create_options": 0,
+                    "save_options": 0
                 },
                 {
                     "key": "field_9a1c4e6f2b87",
@@ -361,7 +416,7 @@
                     "name": "step_accent",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Check for the final\/outcome step only (e.g. ACT) to show it in the brand teal accent instead of plain ink. Only used in the \"Line connectors\" style below — ignored in \"Dot connectors\" style, which keeps every icon the same color.",
+                    "instructions": "Check for the final/outcome step only (e.g. ACT) to show it in the brand teal accent instead of plain ink. Only used in the \"Line connectors\" style below — ignored in \"Dot connectors\" style, which keeps every icon the same color.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -402,15 +457,17 @@
             "allow_null": 0,
             "ui": 0,
             "ajax": 0,
-            "placeholder": ""
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
-            "key": "field_a1b2c3d4e5f6",
+            "key": "field_5d3f8a1c9e27",
             "label": "Intro paragraph",
             "name": "intro_paragraph",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "Restructure pass, 2026-07-27 (see NOTES.md, \"solution page intro restructure\" entry). Condensed 1-2 sentence opening statement — what this capability area is, in plain terms. Rendered before Narrative\/the spec strip, replacing the old dense opening paragraph(s) that used to live at the top of Narrative.",
+            "instructions": "Restructure pass, 2026-07-27 (see NOTES.md, \"solution page intro restructure\" entry). Condensed 1-2 sentence opening statement — what this capability area is, in plain terms. Rendered before Narrative/the spec strip, replacing the old dense opening paragraph(s) that used to live at the top of Narrative.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -423,6 +480,23 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_d4e5f6a7b8c9",
+            "label": "Stats & Features",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_a1b2c3d4e5f7",
@@ -470,7 +544,7 @@
             "name": "spec_strip_items",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Icon+label tiles rendered under the stat callout — the extracted sensor\/hardware\/integration list that used to be dressed up as a sentence inside Narrative. Icon key must match one defined in inc\/solution-spec-icons.php; use “generic” if nothing in that set clearly represents the item (flagged in NOTES.md).",
+            "instructions": "Icon+label tiles rendered under the stat callout — the extracted sensor/hardware/integration list that used to be dressed up as a sentence inside Narrative. Icon key must match one defined in inc/solution-spec-icons.php; use “generic” if nothing in that set clearly represents the item (flagged in NOTES.md).",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -491,7 +565,7 @@
                     "name": "icon",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "See inc\/solution-spec-icons.php for valid keys.",
+                    "instructions": "See inc/solution-spec-icons.php for valid keys.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -572,6 +646,23 @@
                     "parent_repeater": "field_1a6592ea4352"
                 }
             ]
+        },
+        {
+            "key": "field_e5f6a7b8c9d0",
+            "label": "Capabilities",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_7c1e9a5d2b48",
@@ -731,7 +822,7 @@
                     "name": "has_disclaimer",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "PROJECT.md §4 sensory-intelligence content rule — only tick when Stat cites illustrative industry research, never for ITOI's own confirmed figures (e.g. the 99.87%\/sub-100ms facial-recognition numbers, which are real, not illustrative).",
+                    "instructions": "PROJECT.md §4 sensory-intelligence content rule — only tick when Stat cites illustrative industry research, never for ITOI's own confirmed figures (e.g. the 99.87%/sub-100ms facial-recognition numbers, which are real, not illustrative).",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -747,6 +838,23 @@
                     "parent_repeater": "field_7c1e9a5d2b48"
                 }
             ]
+        },
+        {
+            "key": "field_f6a7b8c9d0e1",
+            "label": "Specs & Integrations",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_4df7ef6e8195",
@@ -858,6 +966,23 @@
             ]
         },
         {
+            "key": "field_a7b8c9d0e1f2",
+            "label": "FAQs",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_b0882755bd97",
             "label": "FAQs",
             "name": "faqs",
@@ -921,6 +1046,23 @@
                     "parent_repeater": "field_b0882755bd97"
                 }
             ]
+        },
+        {
+            "key": "field_b8c9d0e1f2a3",
+            "label": "Relationships",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_c11292f8bae0",
@@ -1026,10 +1168,10 @@
     "instruction_placement": "label",
     "hide_on_screen": [],
     "active": true,
-    "description": "PROJECT.md §4 CPT `solution` (7 entries, slugs locked). Do not remove TODO(...) markers unless substituting the real asset\/value.",
+    "description": "PROJECT.md §4 CPT `solution` (7 entries, slugs locked). Do not remove TODO(...) markers unless substituting the real asset/value. Reorganized into 8 topic tabs 2026-08-24 (was a 26-field flat list) — explicit instruction, for admin discoverability.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1785479019
+    "modified": 1787542199
 }
