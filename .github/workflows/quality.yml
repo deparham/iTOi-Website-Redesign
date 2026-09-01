@@ -1,0 +1,94 @@
+name: Quality checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: wp-content/themes/itoi
+
+jobs:
+  theme-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: wp-content/themes/itoi/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build CSS
+        run: npm run build
+
+      - name: Check compiled CSS is up to date
+        run: git diff --exit-code -- assets/css/style.css
+
+      - name: Build JS
+        run: npm run build:js
+
+      - name: Check minified JS is up to date
+        run: git diff --exit-code -- assets/js/*.min.js
+
+      - name: Lint JavaScript
+        run: npm run lint:js
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Run PHP_CodeSniffer
+        run: vendor/bin/phpcs
+
+      - name: PHP lint (syntax only, every tracked .php file)
+        run: |
+          git ls-files '*.php' | xargs -n1 -P4 php -l
+
+  # Accessibility checks need a reachable staging URL, supplied via the
+  # A11Y_BASE_URL repository secret (Settings > Secrets and variables >
+  # Actions). No such target exists yet — A11Y_BASE_URL is either unset or
+  # points at a private LAN address (http://192.168.22.80, per wp-config.php)
+  # that GitHub's cloud runners can't reach at all, so this job cannot pass
+  # today regardless of what the secret's value is. continue-on-error keeps
+  # it running and reporting on every PR (so its output is visible and the
+  # moment a real target exists, someone will notice it start passing/
+  # failing meaningfully) without blocking merges on a check that has no
+  # way to succeed yet. Remove continue-on-error once a real, reachable
+  # staging/production URL is set as A11Y_BASE_URL.
+  accessibility:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: wp-content/themes/itoi/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run axe-core against staging (scripts/a11y-check.js)
+        env:
+          A11Y_BASE_URL: ${{ secrets.A11Y_BASE_URL }}
+        run: npm run test:a11y
